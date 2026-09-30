@@ -1,0 +1,229 @@
+{
+  "date": "2026-09-30",
+  "source_archive07_sha256": "114dc0e8f1e2d4b142f956e3fecb79fbbdc05ac26e18fd8f697ea19c21bb8d4b",
+  "copied_sources": [
+    {
+      "source": "web_video_demo/app.py",
+      "target": "web_video_demo/app.py",
+      "source_sha256": "3027d022162b00d64290149333392b37db8f0d771ca4894c1818737903cb463e"
+    },
+    {
+      "source": "web_video_demo/engine.py",
+      "target": "web_video_demo/engine.py",
+      "source_sha256": "864a0fe785295e5fd011310a8ea673dc8c39755af4b9492f40b8645a4cde7dcb"
+    },
+    {
+      "source": "web_video_demo/features.py",
+      "target": "web_video_demo/features.py",
+      "source_sha256": "07ac97def14d4d26e9a4cdf280b9b3e32658509fde8ce86d97e71b163593c6e1"
+    },
+    {
+      "source": "web_video_demo/motion.py",
+      "target": "web_video_demo/motion.py",
+      "source_sha256": "66ecee8e1d7d26590b1f8bedf11b7db19f1eb2a4126d87ee344471a6d1a7ea8b"
+    },
+    {
+      "source": "web_video_demo/batch_evaluation.py",
+      "target": "web_video_demo/batch_evaluation.py",
+      "source_sha256": "9b6d1cb1b939da7ac1cbddf6b5f0dad6f2c26d618e7da201f00ed5ad2be4ceff"
+    },
+    {
+      "source": "web_video_demo/prepare.py",
+      "target": "web_video_demo/prepare.py",
+      "source_sha256": "de89962a7fc97c245c28a20b61f9d5ede0a442a42cc8e694ff3b3ef1b76b4adc"
+    },
+    {
+      "source": "web_video_demo/start.cmd",
+      "target": "web_video_demo/start.cmd",
+      "source_sha256": "78fc0b8742d8602aa27a96c4c82b3ac4b7a308dafc8e7509bcefc734e4945372"
+    },
+    {
+      "source": "web_video_demo/start.ps1",
+      "target": "web_video_demo/start.ps1",
+      "source_sha256": "c4c788e62031855c4decbf70e93a32a7cbbdfab6dcda354d293a22e34322a9ec"
+    },
+    {
+      "source": "web_video_demo/requirements.txt",
+      "target": "web_video_demo/requirements.txt",
+      "source_sha256": "18bf49a3770631e90096dd4d69f8f806b782923893b5686972d81bee586ef1a2"
+    },
+    {
+      "source": "web_video_demo/README.md",
+      "target": "web_video_demo/README.md",
+      "source_sha256": "895324fc49f0f56186a73964922b24f20bcf23577f04af6c60898581e535dc75"
+    },
+    {
+      "source": "web_video_demo/static/index.html",
+      "target": "web_video_demo/static/index.html",
+      "source_sha256": "a4a65ec14a05cfedf6f8c3ad5d404527579ea300f6aff0283de6fb5d4b2b59c8"
+    },
+    {
+      "source": "web_video_demo/static/app.js",
+      "target": "web_video_demo/static/app.js",
+      "source_sha256": "cce4178dad9f9d6edb443483ee2e1797921dfb609d226e0890864fc556cc9b15"
+    },
+    {
+      "source": "web_video_demo/static/style.css",
+      "target": "web_video_demo/static/style.css",
+      "source_sha256": "62fc462db989e466457d536ed9849afb9137dab636201471b5167df309c7a1b4"
+    },
+    {
+      "source": "web_video_demo/static/batch.html",
+      "target": "web_video_demo/static/batch.html",
+      "source_sha256": "56d09cfb0b818f5db59aa563db565e695c30ba31707f36209c120aa5dc73ae83"
+    },
+    {
+      "source": "web_video_demo/static/batch.js",
+      "target": "web_video_demo/static/batch.js",
+      "source_sha256": "eea11d03ab4376e5ea45e473801df1d60fda8e6b8db8726d958da4fbe3325952"
+    },
+    {
+      "source": "web_video_demo/static/batch.css",
+      "target": "web_video_demo/static/batch.css",
+      "source_sha256": "657a62c06e3c83ab0ba97e9aca81e85b8a66e2a964c0983f679d00312bc29796"
+    },
+    {
+      "source": "web_video_demo/static/evidence.js",
+      "target": "web_video_demo/static/evidence.js",
+      "source_sha256": "6b86f919ce55192903edc577850971fc236d7ae38ebc5b2837f7c49d017fd1e1"
+    },
+    {
+      "source": "web_video_demo/static/evidence.css",
+      "target": "web_video_demo/static/evidence.css",
+      "source_sha256": "dfafe5256a3a52bafa54a87ade551f415b048ec760144495d65135eed7a0db2a"
+    },
+    {
+      "source": "research07/features.py",
+      "target": "research07/features.py",
+      "source_sha256": "d3dd0f1fcbf2dea61a1ee5070c82e046cca4f1d75fdbccd6badd77321d7e5680"
+    },
+    {
+      "source": "research07/models.py",
+      "target": "research07/models.py",
+      "source_sha256": "3d763d8a84dc09f21fb5917e23f72731df9e92d08403920ec8cc55999962bd47"
+    },
+    {
+      "source": "research07/training.py",
+      "target": "research07/training.py",
+      "source_sha256": "0c60679632f1c25b48d69f82f935b0c5ab75cb6d1820f462a386b39d17f1f84c"
+    },
+    {
+      "source": "research07/validate_pipeline.py",
+      "target": "research07/validate_pipeline.py",
+      "source_sha256": "9807f4259781ec39bc403e0e12c44a7c22c5200f78a20afac2bad7bc1e1881f8"
+    },
+    {
+      "source": "Kaggle_kiem_tra_2026-09-25/01-gmdcsa24-data-preparation.ipynb",
+      "target": "notebooks/01-gmdcsa24-data-preparation.ipynb",
+      "source_sha256": "5b6945679a6fcf568e493991c91d975416d7d1bf075de03667aeb0d2839b8587",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "Kaggle_kiem_tra_2026-09-25/02-gmdcsa24-motion-svm.ipynb",
+      "target": "notebooks/02-gmdcsa24-motion-svm.ipynb",
+      "source_sha256": "f4b0711f0557a7e6e4503972c65b752c7460e240fcd7dfb056d4a18e734093f6",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "Kaggle_kiem_tra_2026-09-25/03-gmdcsa24-vanilla-stgcn.ipynb",
+      "target": "notebooks/03-gmdcsa24-vanilla-stgcn.ipynb",
+      "source_sha256": "c2cdae0a0b7aa93abc482c496d55cf0eb01aad851d7971b349f39700fe3ed39a",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "Kaggle_kiem_tra_2026-09-25/04-gmdcsa24-me-stgcn-ta.ipynb",
+      "target": "notebooks/04-gmdcsa24-me-stgcn-ta.ipynb",
+      "source_sha256": "921c5eb82fa8644ac6a0baaf7dea20e3ba246af14775bc3dd6b9688d45371376",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "04b-gmdcsa24-me-stgcn-ta-sensitivity.ipynb",
+      "target": "notebooks/04b-gmdcsa24-me-stgcn-ta-sensitivity.ipynb",
+      "source_sha256": "3f7c84f2eeaa9856e4b8d8348f0c2769bb13b53ea1a45d04ca8464a141744cdb",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "05-gmdcsa24-final-deployment.ipynb",
+      "target": "notebooks/05-gmdcsa24-final-deployment.ipynb",
+      "source_sha256": "3bb511e37820cf1e711b39043b3b8e6ca9fbbecfbeea7201d6a9aba96eeed183",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "06-gmdcsa24-corrected-loso-final.ipynb",
+      "target": "notebooks/06-gmdcsa24-corrected-loso-final.ipynb",
+      "source_sha256": "4cfbabe1f30206f01ca2d718764dd08f4ce8ea7722e201871f89fb460bf96aab",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "output/jupyter-notebook/07-gmdcsa24-controlled-ablation.ipynb",
+      "target": "notebooks/07-gmdcsa24-controlled-ablation.ipynb",
+      "source_sha256": "8c605b3489dd391a982c720fbacc1b8f30e446e8c878a83f444acf7aec32e156",
+      "transformation": "status note, cleared outputs/execution counts and nonessential metadata; code cells unchanged"
+    },
+    {
+      "source": "output/research07/BAO_CAO_KIEM_TRA_KAGGLE_07.md",
+      "target": "docs/report07.md",
+      "source_sha256": "90c3c894875dc10337a86dd519d432497b5839616b6cd2c881704712a7d42d80"
+    },
+    {
+      "source": "output/research07/old_model_audit/oof_diagnostics_160.csv",
+      "target": "results/model_06/oof_diagnostics_160.csv",
+      "source_sha256": "0950a56324fca331925e0eb2ed56537dbc059c9a768c592131f551f10b4d6211"
+    },
+    {
+      "source": "output/research07/old_model_audit/false_positives_20_reviewed.csv",
+      "target": "results/model_06/false_positives_20_reviewed.csv",
+      "source_sha256": "e49eb7761c5314afee4aba75d1e31f61ffab1d8c829f3393d422b55cc5ad7ea7"
+    },
+    {
+      "source": "output/research07/benchmark/benchmark.json",
+      "target": "results/benchmark/benchmark.json",
+      "source_sha256": "938515e3059ef684faebf0188c5eafec68a8d4d12b4594a19ef0ee06b4675468"
+    },
+    {
+      "source": "output/research07/benchmark/timings.csv",
+      "target": "results/benchmark/timings.csv",
+      "source_sha256": "ab73f3a69c171156661c5b9cef830343de53bceef81577076c4723e5f71286d8"
+    },
+    {
+      "source": "web_video_demo/evaluation_urfd_2026-09-30/batch_report.csv",
+      "target": "results/external_evaluation/batch_report.csv",
+      "source_sha256": "4e33b66899451d2620ba69375104d1b3c75207c7f938e03e3795d159e5515011"
+    },
+    {
+      "source": "web_video_demo/evaluation_urfd_2026-09-30/batch_report.json",
+      "target": "results/external_evaluation/batch_report.json",
+      "source_sha256": "684c37b13d229d22f265ebdaa513a4e57d95e6bff04c5256a9c4f7b784b58c7b"
+    },
+    {
+      "source": "web_video_demo/evaluation_urfd_2026-09-30/annotations.json",
+      "target": "results/external_evaluation/annotations.json",
+      "source_sha256": "e9f4d6b5531b33dacf88944f1bf789de8219346b4ce5ece7745985b568aee730"
+    },
+    {
+      "source": "Nhom_2_cap_nhat_ky_thuat_2026-09-30.docx",
+      "target": "docs/de_cuong.docx",
+      "source_sha256": "835cd324eacb6fc065d14a08dfd636e905fa220348668a5faefb98df8a4fa1b2"
+    },
+    {
+      "source": "output/research07/docx_qa/Nhom_2_cap_nhat_ky_thuat_2026-09-30.pdf",
+      "target": "docs/de_cuong.pdf",
+      "source_sha256": "a374ab81eb6feac805b8544609be1e9bbe9ca84a4485dff7f98242ea76ef7cad"
+    },
+    {
+      "source": "web_video_demo/evaluation_urfd_2026-09-30/preview_annotated_batch.png",
+      "target": "docs/images/batch-demo.png",
+      "source_sha256": "9cc9f4eca38a2d706ffb5b4170d00cfb8c200385d01779f49553f89318a20708"
+    }
+  ],
+  "excluded": [
+    "videos",
+    "private input tensors",
+    "invoices",
+    "credentials",
+    "QA render folders",
+    "virtual environments",
+    "smoke results",
+    "outer fold checkpoint weights"
+  ]
+}

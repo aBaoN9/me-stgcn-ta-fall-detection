@@ -1,0 +1,7 @@
+{
+  "complete": true,
+  "mode": "full",
+  "scientific_result": true,
+  "outer_runs": 64,
+  "warning": "Smoke results are software checks only. Repeated seeds do not increase independent sample count. Prior outer results have already informed development."
+}

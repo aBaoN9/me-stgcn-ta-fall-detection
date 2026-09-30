@@ -1,0 +1,18 @@
+{
+  "pose": {
+    "path": "/kaggle/input/datasets/<owner>/gmdcsa24-inputs-v2/gmdcsa24_pose_32.npz",
+    "sha256": "598638f33066c4b6487dbaa1ccbfcc98a96143f8deae94354278f635324633b4"
+  },
+  "features": {
+    "path": "/kaggle/input/datasets/<owner>/gmdcsa24-inputs-v2/gmdcsa24_features_32.npz",
+    "sha256": "4a255c925adbcfb8364eb413dd492c72d2a0cfcdd5074082f470b0aa836e2848"
+  },
+  "manifest": {
+    "path": "/kaggle/input/datasets/<owner>/gmdcsa24-inputs-v2/gmdcsa24_pose_manifest.csv",
+    "sha256": "5c41ac710d580a648d6768c5d7ceb2a5b95767f23069519ed5b98737e59417f2"
+  },
+  "folds": {
+    "path": "/kaggle/input/datasets/<owner>/gmdcsa24-inputs-v2/gmdcsa24_cross_subject_folds.csv",
+    "sha256": "774f0ac28b8342e9c8080af075fcda8227ac6a036124514f6c09f0a375b4fbba"
+  }
+}

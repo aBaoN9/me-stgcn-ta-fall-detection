@@ -1,0 +1,63 @@
+{
+  "system": "Windows-10-10.0.26200-SP0",
+  "processor": "AMD64 Family 23 Model 104 Stepping 1, AuthenticAMD",
+  "python": "3.11.9",
+  "onnxruntime": "1.30.0",
+  "mediapipe": "1.0.1",
+  "numpy": "2.4.6",
+  "providers": [
+    "CPUExecutionProvider"
+  ],
+  "model_bundle_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+  "model_startup_seconds": 0.06173669989220798,
+  "warmup_full_clips": 1,
+  "clips": [
+    {
+      "video": "S1_ADL_04",
+      "repeats": 3,
+      "total_seconds_median": 5.74238309985958,
+      "decode_seconds_median": 0.41628430038690567,
+      "pose_seconds_median": 4.467149900039658,
+      "resample_seconds_median": 0.0016413999255746603,
+      "feature_seconds_median": 0.0003559000324457884,
+      "onnx_seconds_median": 0.003752300050109625,
+      "processing_fps_median": 29.60443374183047,
+      "realtime_factor_median": 0.9884810734270189,
+      "total_seconds_p95": 5.86571901012212
+    },
+    {
+      "video": "URFD_adl-01-cam0_RGB.mp4",
+      "repeats": 3,
+      "total_seconds_median": 3.8045772998593748,
+      "decode_seconds_median": 0.058174701407551765,
+      "pose_seconds_median": 3.3664356004446745,
+      "resample_seconds_median": 0.0013884000945836306,
+      "feature_seconds_median": 0.00035830005072057247,
+      "onnx_seconds_median": 0.003419300075620413,
+      "processing_fps_median": 39.42619328710822,
+      "realtime_factor_median": 0.7609154599718749,
+      "total_seconds_p95": 4.053948399983346
+    },
+    {
+      "video": "URFD_fall-01-cam0_RGB.mp4",
+      "repeats": 3,
+      "total_seconds_median": 3.9767356999218464,
+      "decode_seconds_median": 0.05922349984757602,
+      "pose_seconds_median": 3.5589683016296476,
+      "resample_seconds_median": 0.0015692999586462975,
+      "feature_seconds_median": 0.0003869000356644392,
+      "onnx_seconds_median": 0.003697100095450878,
+      "processing_fps_median": 40.23400398551617,
+      "realtime_factor_median": 0.7456379437353462,
+      "total_seconds_p95": 4.5617351600434635
+    }
+  ],
+  "onnx_only": {
+    "warmups": 10,
+    "repeats": 100,
+    "batch_size": 1,
+    "p50_ms": 5.829199915751815,
+    "p95_ms": 6.856690032873303
+  },
+  "scope": "Whole-clip CPU pipeline, same app engine; excludes upload/network/browser rendering; three repeats per clip are preliminary. Other local processes may affect timing. No realtime guarantee."
+}

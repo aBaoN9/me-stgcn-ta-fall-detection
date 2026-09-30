@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PoseLab · Kiểm thử video</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/evidence.css">
+  <script src="/evidence.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="PoseLab trang chủ"><span class="brandmark"><i></i><i></i><i></i><i></i></span>PoseLab<span class="brandtag">RESEARCH</span></a>
+    <nav aria-label="Điều hướng"><a href="#workspace" class="active">Thử video</a><a href="/batch.html">Đánh giá hàng loạt</a><a href="#model-info">Thông tin model</a></nav>
+    <span class="local-status"><span class="dot"></span>Chạy tại máy của bạn</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">GMDCSA24 <span>/</span> PHÒNG THỬ NGHIỆM</p><h1>Kiểm thử phát hiện té ngã<span>.</span></h1><p class="subtitle">Xem chuyển động, kiểm tra pose và đọc kết quả từ model 06.</p></div>
+      <div class="model-pill"><span class="dot"></span>ME-STGCN-TA <span class="version">v06</span></div>
+    </section>
+    <div class="notice"><span class="notice-icon">i</span><p><strong>Dành cho nghiên cứu.</strong> Có phân tích toàn clip và thử cửa sổ trượt. Chưa kiểm định cảnh báo realtime; không phải thiết bị y tế.</p></div>
+    <section class="workspace" id="workspace" aria-label="Không gian kiểm thử">
+      <div class="video-panel panel">
+        <div class="panel-heading"><div class="heading-title"><span class="number">01</span><h2>Video đầu vào</h2></div><span class="muted small">Một người · Một clip</span></div>
+        <div class="video-body">
+          <div class="analysis-options">
+            <label>Chế độ xử lý<select id="analysis-mode"><option value="timeline">Theo thời gian · thử nghiệm</option><option value="clip">Chỉ phân loại toàn clip</option></select></label>
+            <label>Cửa sổ gần nhất<select id="window-seconds"><option value="2">2 giây</option><option value="3" selected>3 giây</option><option value="4">4 giây</option><option value="6">6 giây</option></select></label>
+          </div>
+          <p class="method-note" id="window-note">Mỗi 0,5 giây đánh giá một cửa sổ. Hai lần liên tiếp vượt ngưỡng mới cảnh báo; hai lần dưới ngưỡng mới ngừng cảnh báo. Mất pose → không kết luận, không phải đã an toàn. Chính sách thử nghiệm chưa được kiểm định.</p>
+          <div id="dropzone" class="dropzone">
+            <div class="upload-illustration"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="9" width="26" height="30" rx="6" stroke="currentColor" stroke-width="2"/><path d="m33 20 8-5v18l-8-5M15 25h10M20 20v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Thả video của bạn vào đây</h3><p>Hoặc chọn một file để bắt đầu phân tích.</p>
+            <label for="file-input" class="button primary file-label">Chọn video <span aria-hidden="true">↗</span></label>
+            <input id="file-input" type="file" accept=".mp4,.webm,.mov,.avi" class="visually-hidden">
+            <span class="small muted formats">MP4, WebM, MOV, AVI · tối đa 200 MB / 120 giây</span>
+            <button id="example" class="text-button" type="button" disabled>Dùng video mẫu S1_ADL_04 <span aria-hidden="true">→</span></button>
+            <span class="small muted">Video mẫu thuộc tập train, chỉ để kiểm tra kỹ thuật.</span>
+          </div>
+          <div id="preview" hidden>
+            <div class="player"><video id="video" controls playsinline preload="metadata"></video><canvas id="skeleton" aria-label="Khung xương phát hiện trực tiếp"></canvas><span class="player-badge">POSE VIEW</span></div>
+            <div class="file-row"><div><p id="filename" class="filename"></p><span id="filesize" class="small muted"></span></div><label class="overlay-option"><input id="overlay-toggle" type="checkbox" checked disabled> Hiện khung xương</label></div>
+            <p id="codec-warning" class="inline-warning" hidden>Trình duyệt không phát được codec này. Bạn vẫn có thể phân tích hoặc đổi sang MP4 H.264 để xem khung xương.</p>
+            <div id="playback-status" class="playback-status" hidden><span id="playback-time">0,00 s</span><strong id="playback-state">Đang tích lũy cửa sổ</strong><span id="playback-score">Chưa có quyết định</span></div>
+          </div>
+          <div id="error" class="error-box" role="alert" hidden></div>
+          <div id="progress-area" class="progress-area" hidden aria-live="polite"><div><span id="progress-message">Đang nhận video…</span><span id="progress-percent">0%</span></div><progress id="progress" max="100" value="0"></progress></div>
+          <div class="actions"><button id="analyze" class="button primary" type="button" disabled><svg width="17" height="17" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 9 6-9 6V4Z" fill="currentColor"/></svg>Phân tích video</button><button id="reset" class="button secondary" type="button" disabled>Xóa phiên / Chọn lại</button></div>
+          <div class="privacy-line"><svg viewBox="0 0 16 16" width="15" height="15" fill="none" aria-hidden="true"><path d="M8 1 2 3v4c0 4 6 7 6 7s6-3 6-7V3L8 1Z" stroke="currentColor"/><path d="m5 7 2 2 4-4" stroke="currentColor"/></svg>Video xử lý trên máy, không gửi đến dịch vụ cloud.</div>
+        </div>
+      </div>
+      <aside class="result-panel panel" aria-label="Kết quả phân tích">
+        <div class="panel-heading"><div class="heading-title"><span class="number">02</span><h2>Toàn clip · tham chiếu</h2></div><span id="result-status" class="status-tag">CHƯA CHẠY</span></div>
+        <div class="result-body" aria-live="polite">
+          <div id="verdict" class="verdict neutral"><span id="verdict-icon" class="verdict-icon">—</span><h3 id="verdict-title">Chờ video của bạn</h3><p id="verdict-description">Kết quả sẽ xuất hiện sau khi xử lý toàn bộ clip.</p></div>
+          <div class="score-heading"><span>Điểm Fall</span><strong id="score-value">—<small> / 1</small></strong></div>
+          <div class="score-track"><div id="score-fill"></div><span id="threshold-marker"></span></div>
+          <div class="score-labels"><span>0 · ADL</span><span id="threshold-label">Ngưỡng —</span><span>1 · Fall</span></div>
+          <p class="score-note">Dùng cả clip, không phải quyết định tại vị trí đang phát. Điểm model chưa được hiệu chuẩn thành xác suất.</p>
+          <div class="metrics"><div><span>Phát hiện pose</span><strong id="detection">—</strong></div><div><span>Frame mẫu trực tiếp</span><strong id="sampled">— <small>/ 32</small></strong></div><div><span>Thời lượng clip</span><strong id="duration">—</strong></div><div><span>Thời gian xử lý</span><strong id="elapsed">—</strong></div></div>
+          <div class="frame-quality"><div class="quality-title"><span>32 thời điểm lấy mẫu</span><span class="small muted">● Trực tiếp &nbsp; ○ Nội suy</span></div><div id="frame-strip" class="frame-strip" aria-label="Chưa có dữ liệu frame"></div></div>
+          <div id="warnings" class="warnings" hidden></div>
+          <div id="downloads" class="downloads" hidden><a id="download-json" class="button secondary" download>Tải JSON ↓</a><a id="download-csv" class="button secondary" download>Tải CSV ↓</a></div>
+        </div>
+      </aside>
+    </section>
+    <section id="evidence-panel" class="panel evidence-panel" hidden aria-label="Phân tích chuyển động và quyết định">
+      <div class="panel-heading"><div class="heading-title"><span class="number">03</span><h2>Dựa vào đâu để đọc kết quả?</h2></div><span class="status-tag">ME-STGCN-TA</span></div>
+      <div class="evidence-body">
+        <div class="evidence-disclaimer"><strong>Tín hiệu đầu vào, không phải lời giải thích nhân quả.</strong> Biểu đồ cho thấy chuyển động model đã nhận. Không thể kết luận “ngã vì vận tốc cao” hoặc gán mức đóng góp cho từng đặc trưng chỉ từ các số đo này. Chưa có SHAP, phân tích loại bỏ đặc trưng hay giải thích trọng số attention.</div>
+        <div id="timeline-section" hidden>
+          <div class="section-heading"><div><p class="eyebrow">DIỄN BIẾN THEO THỜI GIAN</p><h3>Điểm Fall &amp; thời điểm cảnh báo</h3></div><a id="download-timeline" class="button secondary" download>Tải CSV cửa sổ ↓</a></div>
+          <p id="timeline-summary" class="method-note"></p>
+          <div id="score-chart" class="chart-box" aria-label="Biểu đồ điểm Fall theo thời gian"></div>
+          <label class="seek-label" for="timeline-seek">Xem lại tại <output id="seek-time">0,00 s</output></label>
+          <input id="timeline-seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="Vị trí xem lại video">
+          <p class="chart-legend">Đường liền: điểm Fall · Nét đứt: ngưỡng · Khoảng trống: không đủ pose. Biểu đồ là bản tổng kết sau xử lý; mỗi dự đoán chỉ dùng dữ liệu đến mốc của nó.</p>
+          <div id="alert-events" class="alert-events"></div>
+          <div class="reference-row"><label for="fall-onset">Mốc bắt đầu ngã do bạn xác nhận (giây, tùy chọn)<input id="fall-onset" type="number" min="0" step="0.01" placeholder="Ví dụ: 3.20"></label><p id="delay-result">Chưa có mốc ngã thật: không tính độ trễ, bỏ sót hay báo nhầm tự động.</p></div>
+          <details class="window-log"><summary>Xem bảng từng cửa sổ và số đo</summary><div class="table-scroll"><table><thead><tr><th>Mốc quyết định</th><th>Khoảng đã xem</th><th>Fall</th><th>Trạng thái</th><th>Pose trực tiếp</th></tr></thead><tbody id="window-rows"></tbody></table></div></details>
+        </div>
+        <div class="section-heading"><div><p class="eyebrow">QUAN SÁT CHUYỂN ĐỘNG</p><h3 id="evidence-heading">Các đặc trưng model thực sự nhận</h3></div><label class="evidence-scope">Phạm vi<select id="evidence-scope"><option value="cursor">Cửa sổ tại vị trí phát</option><option value="clip">Toàn clip · tham chiếu</option></select></label></div>
+        <p id="decision-reason" class="decision-reason"></p>
+        <p id="evidence-quality" class="method-note"></p>
+        <div class="motion-cards"><article><span>Vận tốc khớp TB · đỉnh</span><strong id="motion-speed">—</strong><small>đơn vị thân / giây, không phải m/s</small></article><article><span>Độ nghiêng thân · |góc| lớn nhất</span><strong id="motion-angle">—</strong><small>0° hướng lên ảnh · ±90° nằm ngang ảnh</small></article><article><span>Dịch chuyển hông Y · cuối đoạn</span><strong id="motion-hip">—</strong><small>% chiều cao ảnh · dương là xuống</small></article></div>
+        <div class="motion-charts"><div><h4>Vận tốc khớp tương đối</h4><div id="speed-chart" class="chart-box"></div></div><div><h4>Góc thân trong mặt phẳng ảnh</h4><div id="angle-chart" class="chart-box"></div></div><div><h4>Dịch chuyển hông theo chiều dọc</h4><div id="hip-chart" class="chart-box"></div></div></div>
+        <p class="chart-legend">Model nhận vận tốc từng khớp; biểu đồ chỉ lấy trung bình độ lớn của 33 khớp cho dễ xem. Chấm cam: mẫu nội suy/bù trong đoạn. Đầu đoạn có vận tốc bằng 0 theo công thức huấn luyện. Góc dùng tọa độ x/chiều rộng, y/chiều cao ảnh, không phải góc 3D. Các biểu đồ không có “ngưỡng té ngã” riêng.</p>
+        <details class="feature-guide"><summary>8 kênh đầu vào gồm gì? Có gia tốc không?</summary><div class="guide-grid"><p><strong>1–2 · Vị trí X/Y tương đối</strong><br>33 khớp, lấy tâm hông làm gốc, chia theo chiều dài thân trung vị.</p><p><strong>3 · Visibility</strong><br>Độ nhìn thấy của khớp do MediaPipe ước lượng; không phải xác suất ngã.</p><p><strong>4–5 · Vận tốc X/Y</strong><br>Chênh vị trí tương đối giữa hai mẫu, chia cho thời lượng đoạn / 31. Chịu ảnh hưởng góc quay và nhiễu pose.</p><p><strong>6 · Góc thân</strong><br>Hướng từ hông đến vai: atan2(Δx, −Δy) / π. Biểu đồ đổi sang độ cho dễ đọc.</p><p><strong>7–8 · Dịch chuyển hông X/Y</strong><br>Vị trí hông so với đầu đoạn, theo tọa độ ảnh chuẩn hóa; không đo bằng mét.</p><p><strong>Không có kênh gia tốc ở bản triển khai này</strong><br>Model học phối hợp 8 kênh theo khớp và thời gian. Không dùng quy tắc “góc lớn + tốc độ cao = ngã”.</p></div></details>
+      </div>
+    </section>
+    <section class="pipeline panel" id="model-info">
+      <div class="pipeline-title"><p class="eyebrow">BÊN TRONG PHÉP THỬ</p><h2>Từ video đến kết quả</h2></div>
+      <div class="pipeline-step"><span class="step-icon">01</span><div><h3>MediaPipe Pose</h3><p>Đọc tuần tự · 33 khớp</p></div></div>
+      <span class="flow-arrow" aria-hidden="true">→</span>
+      <div class="pipeline-step"><span class="step-icon">02</span><div><h3>Chuỗi chuyển động</h3><p>32 thời điểm · 8 kênh</p></div></div>
+      <span class="flow-arrow" aria-hidden="true">→</span>
+      <div class="pipeline-step"><span class="step-icon">03</span><div><h3>ME-STGCN-TA</h3><p>Model 06 · ONNX / CPU</p></div></div>
+    </section>
+    <footer><span><strong>PoseLab</strong> · Computer Vision / GMDCSA24</span><span>ME-STGCN-TA · Cửa sổ trượt thử nghiệm · Chưa nối webcam</span></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "review_date": "2026-09-30",
+  "annotation_author": "AI assistant visual review of decoded RGB frames",
+  "status": "provisional_not_human_verified",
+  "purpose": "development",
+  "definition": "First visible sustained transition from standing/walking/sitting support into the downward falling movement, not floor impact or model alert time.",
+  "limitations": "Approximate visual labels on low-resolution acted clips. Prior model outputs were already known: this is not blinded annotation. Intervals are visual ambiguity brackets, not statistical confidence intervals. Labels must be independently reviewed before formal claims.",
+  "frame_indexing": "zero-based, timestamp = frame index / 30 fps",
+  "annotations": [
+    {"filename": "URFD_adl-01-cam0_RGB.mp4", "label": "adl", "onset_seconds": null, "basis": "Existing source ADL label; overview shows walking then crouching without falling."},
+    {"filename": "URFD_adl-02-cam0_RGB.mp4", "label": "adl", "onset_seconds": null, "basis": "Existing source ADL label from the previous dataset audit."},
+    {"filename": "URFD_adl-03-cam0_RGB.mp4", "label": "adl", "onset_seconds": null, "basis": "Existing source ADL label from the previous dataset audit."},
+    {"filename": "URFD_fall-01-cam0_RGB.mp4", "label": "fall", "onset_seconds": 3.0, "onset_frame": 90, "ambiguity_seconds": [2.9, 3.1], "basis": "Near 2.9-3.1 s, walking changes into sustained knee flexion and downward torso motion; hand support/floor descent follows.", "evidence": "fall-01-detail.jpg"},
+    {"filename": "URFD_fall-02-cam0_RGB.mp4", "label": "fall", "onset_seconds": 1.5, "onset_frame": 45, "ambiguity_seconds": [1.4, 1.7], "basis": "Near 1.4-1.7 s, the seated torso moves forward and down from the chair, continuing into the descent toward the floor.", "evidence": "fall-02-detail.jpg"},
+    {"filename": "URFD_fall-03-cam0_RGB.mp4", "label": "fall", "onset_seconds": 5.1, "onset_frame": 153, "ambiguity_seconds": [5.0, 5.2], "basis": "Near 5.0-5.2 s, turning/walking changes into sustained lateral lean and downward motion, followed by knee flexion and floor contact.", "evidence": "fall-03-detail.jpg"}
+  ]
+}

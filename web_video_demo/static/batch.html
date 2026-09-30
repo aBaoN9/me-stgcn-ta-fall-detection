@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PoseLab · Đánh giá hàng loạt</title>
+  <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/evidence.css"><link rel="stylesheet" href="/batch.css">
+  <script src="/batch.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="PoseLab trang chủ"><span class="brandmark"><i></i><i></i><i></i><i></i></span>PoseLab<span class="brandtag">RESEARCH</span></a><nav aria-label="Điều hướng"><a href="/">Thử một video</a><a href="/batch.html" class="active">Đánh giá hàng loạt</a></nav><span class="local-status"><span class="dot"></span>Chỉ xử lý trên máy</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">ME-STGCN-TA <span>/</span> KIỂM TRA CÓ NHÃN</p><h1>Đánh giá nhiều video<span>.</span></h1><p class="subtitle">Cùng cấu hình. Giữ cả kết quả sai. Tách riêng dữ liệu chưa đủ để kết luận.</p></div><a class="button secondary" href="/">← Thử một video</a></section>
+    <div class="notice"><span class="notice-icon">i</span><p><strong>Đánh giá cảnh báo theo thời gian, không phải nhãn toàn clip.</strong> Model và ngưỡng giữ nguyên. Các video đã dùng để điều chỉnh chỉ là tập phát triển, không gọi là test độc lập.</p></div>
+    <div id="batch-error" class="error-box" role="alert" hidden></div>
+    <section id="batch-editor" class="panel">
+      <div class="panel-heading"><div class="heading-title"><span class="number">01</span><h2>Chọn video và nhập nhãn thật</h2></div><span class="status-tag">TỐI ĐA 20 VIDEO</span></div>
+      <div class="batch-body">
+        <div class="batch-settings">
+          <label>Cửa sổ chung<select id="batch-window"><option value="2">2 giây</option><option value="3" selected>3 giây</option><option value="4">4 giây</option><option value="6">6 giây</option></select></label>
+          <label>Mục đích bộ video<select id="batch-purpose"><option value="development">Phân tích lỗi / tập phát triển</option><option value="held_out">Tập giữ lại chưa dùng điều chỉnh</option></select></label>
+          <label>Ghi chú nguồn dữ liệu<input id="batch-note" maxlength="500" placeholder="Ví dụ: URFD, các clip đã xem"></label>
+        </div>
+        <p id="fixed-config" class="method-note">Đang đọc cấu hình model…</p>
+        <div class="choose-row"><label class="button primary file-label" for="batch-files">Chọn nhiều video ↗</label><input id="batch-files" class="visually-hidden" type="file" multiple accept=".mp4,.webm,.mov,.avi"><span id="selection-count">Chưa chọn video</span></div>
+        <p class="method-note">Tối đa 200 MB/video, 600 MB/lượt; 120 giây/video. Không tự đoán nhãn từ tên file. Với FALL: một sự kiện ngã/video; xem video và tự xác nhận mốc ngã. Để trống nếu chưa biết — hệ thống sẽ không tự điền.</p>
+        <div class="batch-table-wrap" id="queue-wrap" hidden><table class="batch-table"><thead><tr><th>Video</th><th>Nhãn thật</th><th>Mốc bắt đầu ngã (s)</th><th>Xem trước</th></tr></thead><tbody id="batch-queue"></tbody></table></div>
+        <div class="actions"><button id="batch-run" class="button primary" disabled>Chạy đánh giá hàng loạt</button><a href="/batch.html" class="button secondary">Chọn bộ video khác</a></div>
+        <p class="method-note">Nhãn và cấu hình được khóa khi bắt đầu. Xử lý lần lượt để không chạy chồng model. Bản upload được xóa sau xử lý; báo cáo có nhãn được lưu ngoài OneDrive tại thư mục PoseLab trong LocalAppData.</p>
+      </div>
+    </section>
+    <section id="batch-results" class="panel batch-section" hidden aria-label="Kết quả đánh giá hàng loạt">
+      <div class="panel-heading"><div class="heading-title"><span class="number">02</span><h2>Kết quả đối chiếu</h2></div><span id="batch-status" class="status-tag">ĐANG CHẠY</span></div>
+      <div class="batch-body">
+        <p id="run-description" class="method-note"></p>
+        <div class="batch-progress" aria-live="polite"><span id="batch-progress-text">Đang gửi video…</span><progress id="batch-progress" max="100" value="0"></progress></div>
+        <div class="actions"><button id="batch-cancel" class="button secondary" hidden>Dừng sau video hiện tại</button><button id="batch-retry" class="button secondary" hidden>Kết nối lại tiến độ</button><a id="batch-json" class="button secondary" download hidden>Tải JSON ↓</a><a id="batch-csv" class="button secondary" download hidden>Tải CSV ↓</a><a href="/batch.html" class="button secondary">Tạo lượt mới</a></div>
+        <div class="evaluation-cards"><article><span>Đủ điều kiện chấm</span><strong id="metric-coverage">—</strong><small id="excluded-count">Hiển thị rõ số bị loại</small></article><article><span>Phát hiện sự kiện · TP</span><strong id="metric-TP">—</strong><small>Có cảnh báo mới từ mốc ngã</small></article><article><span>Báo nhầm · FP</span><strong id="metric-FP">—</strong><small>Có cảnh báo trên clip ADL</small></article><article><span>Bỏ sót theo quy tắc · FN</span><strong id="metric-FN">—</strong><small>Không có cảnh báo mới từ mốc ngã</small></article><article><span>Không báo trên ADL · TN</span><strong id="metric-TN">—</strong><small>Không phải chứng nhận an toàn</small></article></div>
+        <p id="subset-metrics" class="method-note"></p>
+        <p id="coverage-warning" class="evaluation-warning"></p>
+        <div class="batch-table-wrap"><table class="batch-table results-table"><thead><tr><th>Video / nhãn thật</th><th>Trạng thái</th><th>Cảnh báo quan sát</th><th>Mốc &amp; độ trễ</th><th>Pose / cửa sổ</th><th>Đối chiếu</th></tr></thead><tbody id="batch-result-rows"></tbody></table></div>
+        <details class="window-log"><summary>Quy tắc chấm và các trường hợp bị loại</summary><div class="protocol-copy"><p><strong>Phạm vi:</strong> chấm cảnh báo cửa sổ trượt. Nhãn toàn clip chỉ là tham chiếu trong báo cáo, không dùng thay thế cảnh báo.</p><p><strong>Đủ điều kiện:</strong> có cửa sổ và tất cả cửa sổ đã đánh giá đều đủ pose. FALL còn cần mốc ngã hợp lệ và ít nhất một quyết định tại/sau mốc. Thiếu bất kỳ điều kiện nào → tách riêng, không tính thành TN hoặc FN.</p><p><strong>Ghép một sự kiện:</strong> với FALL, lấy đợt cảnh báo MỚI đầu tiên bắt đầu từ mốc ngã đến hết clip. Cảnh báo bắt đầu trước mốc không được tính là phát hiện đúng. Không áp thời hạn đáp ứng tối đa; “TP” không có nghĩa cảnh báo đủ sớm.</p><p><strong>Độ trễ:</strong> chênh mốc trong video, không phải thời gian CPU. Độ trễ trung bình chỉ trên TP, không bao gồm bỏ sót. Nếu mẫu số bằng 0, chỉ số là “—”, không tự điền 0% hay 100%.</p><p><strong>Giới hạn:</strong> có giai đoạn tích lũy đầu clip và đoạn cuối sau mốc quyết định cuối chưa được đánh giá liên tục. Lựa chọn cửa sổ, xác nhận hai lần và ngưỡng chất lượng chưa validation. Các tỷ lệ chỉ mô tả phần dữ liệu đủ điều kiện trong lượt này.</p></div></details>
+      </div>
+    </section>
+    <section class="panel batch-section"><div class="panel-heading"><div class="heading-title"><span class="number">03</span><h2>Các lượt đã lưu trên máy</h2></div></div><div class="batch-body"><p class="method-note">Giữ tối đa 10 lượt gần nhất trong danh sách này; file báo cáo vẫn được giữ sau khi khởi động lại web. Không lưu video trong báo cáo.</p><div id="batch-history" class="batch-history">Đang đọc…</div></div></section>
+    <footer><span><strong>PoseLab</strong> · ME-STGCN-TA</span><span>Giữ cả lỗi · Không chỉnh ngưỡng để làm đẹp bộ thử</span></footer>
+  </main>
+  <dialog id="annotation-dialog"><div class="dialog-header"><h2 id="annotation-title">Xem trước để ghi nhãn</h2><button id="annotation-close" class="button secondary">Đóng</button></div><video id="annotation-video" controls playsinline preload="metadata"></video><p id="annotation-codec" class="error-box" hidden>Không phát được codec này. Đổi video sang MP4 H.264 để xem và xác nhận mốc; không đoán mốc ngã.</p><div class="actions"><button id="use-onset" class="button primary" disabled>Lấy vị trí đang phát làm mốc ngã</button><span id="annotation-time">0,00 s</span></div><p class="method-note">Đây là nhãn do bạn xác nhận, không phải thời điểm model tự dự đoán. Chỉ hỗ trợ một sự kiện ngã trên mỗi clip.</p></dialog>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ME-STGCN-TA · Kết quả nghiên cứu 07</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; background: #eef3f8; color: #172b46; }
+    body { margin: 0; }
+    main { max-width: 1120px; margin: auto; padding: 32px 20px 60px; }
+    a { color: #1161a0; }
+    header, section { padding: 24px; margin-bottom: 20px; background: white; border: 1px solid #d9e3ef; border-radius: 18px; }
+    h1 { font-size: clamp(26px, 4vw, 40px); margin: 14px 0; }
+    h2 { font-size: 22px; }
+    p, li { line-height: 1.7; }
+    .eyebrow { color: #127465; font-weight: 700; }
+    .notice { border-left: 4px solid #c98116; background: #fff5e5; padding: 16px 20px; border-radius: 8px; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+    th, td { text-align: left; padding: 13px 10px; border-bottom: 1px solid #e0e7f0; }
+    th { background: #f1f5fa; }
+    .highlight { background: #eaf6f3; }
+    img { display: block; width: 100%; height: auto; border-radius: 10px; }
+    figcaption, .muted { font-size: 14px; color: #475a73; line-height: 1.6; }
+    figure { margin: 20px 0; }
+    code { background: #f1f5fa; padding: 2px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <a href="/">← Phân tích video</a> · <a href="/batch.html">Đánh giá hàng loạt</a>
+    <p class="eyebrow">NGHIÊN CỨU 07 · FULL RUN ĐÃ HOÀN TẤT · 30/09/2026</p>
+    <h1>ME-STGCN-TA: thêm thành phần nào, đổi lại điều gì?</h1>
+    <p>160 video, 4 người, đánh giá nested leave-one-subject-out; 3 seed (42, 142, 242), tối đa 50 epoch với early stopping. Có 64 lượt outer training, 192 dòng đánh giá fold và 7.680 dự đoán gồm các mô hình/chính sách. Đây <strong>không phải 7.680 video khác nhau</strong>.</p>
+    <p class="notice"><strong>Web vẫn dùng checkpoint final 06.</strong> Trang này trình bày thí nghiệm 07; chưa thay weights, ngưỡng hoặc preprocessing của web. Điểm tốt trên tập nhỏ không chứng minh an toàn y tế, khái quát mọi người hoặc khả năng cảnh báo realtime.</p>
+  </header>
+  <section>
+    <h2>Đối chứng cùng cách chia và seed</h2>
+    <p>Chính sách <code>fixed</code>, ngưỡng 0,5: không chọn lại ngưỡng bằng outer test. Accuracy là trung bình ± độ lệch chuẩn mẫu của 3 seed; Recall và Specificity là trung bình 3 seed. Cột FN/FP theo thứ tự seed 42 / 142 / 242.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Biến thể</th><th>Accuracy (%)</th><th>Recall Fall (%)</th><th>Specificity (%)</th><th>FN</th><th>FP</th></tr></thead>
+        <tbody>
+          <tr><td>A0 · skeleton</td><td>84,58 ± 4,73</td><td>85,65</td><td>83,54</td><td>3 / 17 / 14</td><td>13 / 13 / 14</td></tr>
+          <tr><td>A1 · thêm motion</td><td>89,38 ± 1,08</td><td>91,14</td><td>87,65</td><td>9 / 5 / 7</td><td>6 / 13 / 11</td></tr>
+          <tr><td>A2 · thêm attention</td><td>87,71 ± 0,72</td><td>93,25</td><td>82,30</td><td>5 / 5 / 6</td><td>14 / 14 / 15</td></tr>
+          <tr><td>A3 · motion + attention</td><td>89,58 ± 3,44</td><td>91,98</td><td>87,24</td><td>3 / 8 / 8</td><td>8 / 9 / 14</td></tr>
+          <tr class="highlight"><td>A3 · tăng trọng số Fall</td><td>89,58 ± 0,36</td><td>96,62</td><td>82,72</td><td>3 / 3 / 2</td><td>13 / 14 / 15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure><img src="readme-assets/ablation.png" alt="Biểu đồ accuracy, recall và specificity của từng biến thể, có độ lệch chuẩn giữa seed"><figcaption>Biểu đồ dựng từ pooled_by_seed.csv, không phải kết quả minh họa giả định.</figcaption></figure>
+    <p><a href="readme-assets/pooled_by_seed.csv" download>Tải bảng số liệu gộp theo seed (CSV)</a></p>
+  </section>
+  <section>
+    <h2>Ưu tiên ít bỏ sót — nhưng không bỏ qua báo nhầm</h2>
+    <figure><img src="readme-assets/tradeoff.png" alt="Đánh đổi giữa recall Fall và tỷ lệ báo nhầm, với biến động giữa các seed"></figure>
+    <ul>
+      <li>Tăng trọng số Fall cho Recall trung bình 96,62%, <strong>không phải Accuracy 95%</strong>; vẫn bỏ sót 2–3 clip Fall mỗi seed và báo nhầm 13–15 clip ADL.</li>
+      <li><code>S4_FALL_05</code> bị bỏ sót ở cả 3 seed của A3 cost. Ưu tiên xem lại video, chất lượng pose và nhãn trước khi tăng epoch.</li>
+      <li>Temporal attention không cải thiện mọi metric ở mọi seed. Không chọn seed đẹp nhất hoặc sửa ngưỡng theo outer test để báo cáo thành tích.</li>
+      <li>Người trong test được tách khỏi người trong train/validation. Tuy vậy chỉ có 4 người: cần dữ liệu độc lập về đối tượng, camera và bối cảnh.</li>
+    </ul>
+  </section>
+  <section>
+    <h2>Chưa thể kết luận gì?</h2>
+    <p>Kết quả 06 là dự đoán outer-fold (Accuracy 87,5%; Recall 79/79; Specificity 61/81), không phải kiểm định độc lập checkpoint final được train trên toàn bộ 160 video. Không gộp bảng 06 và 07 thành một phép so sánh kiểm soát.</p>
+    <p>Mô hình được học theo toàn clip. Cửa sổ trượt trên web là thử nghiệm; cần nhãn sự kiện theo thời gian, dữ liệu ADL dài và đánh giá độ trễ/báo nhầm theo giờ trước khi gọi là cảnh báo realtime đáng tin cậy.</p>
+    <p class="muted">Nguồn đầy đủ trong repo: <code>results/notebook_07/</code>, notebook 07, báo cáo phương pháp và <code>docs/next-training.md</code>. Không có model 08 tự chạy hoặc thay model web ngầm.</p>
+  </section>
+</main>
+</body>
+</html>

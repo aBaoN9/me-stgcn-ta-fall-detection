@@ -1,0 +1,604 @@
+{
+  "id": "7172ee20cc694ac2892b2d2fa9e653fb",
+  "status": "done",
+  "created_at": "2026-09-30T11:06:47.885313+00:00",
+  "purpose": "development",
+  "note": "URFD 6 clip đã xem — mốc do AI ước lượng từ ảnh, CHƯA được người dùng xác nhận; không phải test độc lập. FALL-01=3.0s [2.9–3.1]; FALL-02=1.5s [1.4–1.7]; FALL-03=5.1s [5.0–5.2]. Khoảng là mức mơ hồ thị giác, không phải CI. Giữ nguyên model/ngưỡng.",
+  "cancel_requested": false,
+  "rows": [
+    {
+      "index": 0,
+      "filename": "URFD_adl-01-cam0_RGB.mp4",
+      "label": "adl",
+      "onset_seconds": null,
+      "status": "done",
+      "progress": 100,
+      "outcome": "FP",
+      "message": "Tổng hợp đặc trưng và kết quả",
+      "duration": 5.0,
+      "whole_clip_label": "adl",
+      "whole_clip_score": 0.3592570126056671,
+      "pose_rate": 0.82,
+      "window_count": 4,
+      "valid_windows": 4,
+      "has_alert": true,
+      "alert_count": 1,
+      "first_alert_seconds": 4.0,
+      "matched_alert_seconds": null,
+      "delay_seconds": null,
+      "early_alerts": 0,
+      "onset_during_warmup": false,
+      "last_decision_seconds": 4.5,
+      "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+      "warnings": [
+        "Cửa sổ trượt là thử nghiệm: model/ngưỡng được xây cho toàn clip, chưa được kiểm định cho cảnh báo theo thời gian.",
+        "Mốc thời gian tính theo FPS danh định; dùng video FPS cố định. Vận tốc là tương đối, không phải m/s."
+      ],
+      "events": [
+        {
+          "candidate_at": 3.5,
+          "alert_at": 4.0,
+          "ended_at": null,
+          "end_reason": null
+        }
+      ],
+      "threshold": 0.42500000000000004,
+      "timeline_records": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 3.0,
+          "score": 0.16292709112167358,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 0.7032967032967034,
+          "sampled_detected": 22,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 3.5,
+          "score": 0.4252986013889313,
+          "state": "suspected",
+          "label": "fall",
+          "detection_rate": 0.8681318681318682,
+          "sampled_detected": 28,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 4.0,
+          "score": 0.5188596248626709,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 4.5,
+          "score": 0.45614755153656006,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        }
+      ],
+      "reason": "Có cảnh báo trên video không ngã.",
+      "eligible": true
+    },
+    {
+      "index": 1,
+      "filename": "URFD_adl-02-cam0_RGB.mp4",
+      "label": "adl",
+      "onset_seconds": null,
+      "status": "done",
+      "progress": 100,
+      "outcome": "TN",
+      "message": "Tổng hợp đặc trưng và kết quả",
+      "duration": 6.0,
+      "whole_clip_label": "adl",
+      "whole_clip_score": 0.22890661656856537,
+      "pose_rate": 0.75,
+      "window_count": 6,
+      "valid_windows": 6,
+      "has_alert": false,
+      "alert_count": 0,
+      "first_alert_seconds": null,
+      "matched_alert_seconds": null,
+      "delay_seconds": null,
+      "early_alerts": 0,
+      "onset_during_warmup": false,
+      "last_decision_seconds": 5.5,
+      "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+      "warnings": [
+        "Pose bị mất ở nhiều frame; nội suy có thể làm thay đổi chuyển động.",
+        "Cửa sổ trượt là thử nghiệm: model/ngưỡng được xây cho toàn clip, chưa được kiểm định cho cảnh báo theo thời gian.",
+        "Mốc thời gian tính theo FPS danh định; dùng video FPS cố định. Vận tốc là tương đối, không phải m/s."
+      ],
+      "events": [],
+      "threshold": 0.42500000000000004,
+      "timeline_records": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 3.0,
+          "score": 0.0692969560623169,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 0.5054945054945055,
+          "sampled_detected": 16,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 3.5,
+          "score": 0.08451145887374878,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 0.6703296703296703,
+          "sampled_detected": 21,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 4.0,
+          "score": 0.0809105709195137,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 0.8351648351648352,
+          "sampled_detected": 27,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 4.5,
+          "score": 0.11969216912984848,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 5.0,
+          "score": 0.22921741008758545,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.5,
+          "end_seconds": 5.5,
+          "score": 0.3089752197265625,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        }
+      ],
+      "reason": "Không có cảnh báo trong các cửa sổ đã đánh giá; không phải chứng nhận an toàn.",
+      "eligible": true
+    },
+    {
+      "index": 2,
+      "filename": "URFD_adl-03-cam0_RGB.mp4",
+      "label": "adl",
+      "onset_seconds": null,
+      "status": "done",
+      "progress": 100,
+      "outcome": "TN",
+      "message": "Tổng hợp đặc trưng và kết quả",
+      "duration": 6.0,
+      "whole_clip_label": "adl",
+      "whole_clip_score": 0.08727051317691803,
+      "pose_rate": 0.95,
+      "window_count": 6,
+      "valid_windows": 6,
+      "has_alert": false,
+      "alert_count": 0,
+      "first_alert_seconds": null,
+      "matched_alert_seconds": null,
+      "delay_seconds": null,
+      "early_alerts": 0,
+      "onset_during_warmup": false,
+      "last_decision_seconds": 5.5,
+      "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+      "warnings": [
+        "Cửa sổ trượt là thử nghiệm: model/ngưỡng được xây cho toàn clip, chưa được kiểm định cho cảnh báo theo thời gian.",
+        "Mốc thời gian tính theo FPS danh định; dùng video FPS cố định. Vận tốc là tương đối, không phải m/s."
+      ],
+      "events": [],
+      "threshold": 0.42500000000000004,
+      "timeline_records": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 3.0,
+          "score": 0.11842779815196991,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 0.9010989010989011,
+          "sampled_detected": 29,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 3.5,
+          "score": 0.16472290456295013,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 4.0,
+          "score": 0.12072466313838959,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 4.5,
+          "score": 0.10113421827554703,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 5.0,
+          "score": 0.14202120900154114,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.5,
+          "end_seconds": 5.5,
+          "score": 0.19979886710643768,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        }
+      ],
+      "reason": "Không có cảnh báo trong các cửa sổ đã đánh giá; không phải chứng nhận an toàn.",
+      "eligible": true
+    },
+    {
+      "index": 3,
+      "filename": "URFD_fall-01-cam0_RGB.mp4",
+      "label": "fall",
+      "onset_seconds": 3.0,
+      "status": "done",
+      "progress": 100,
+      "outcome": "TP",
+      "message": "Tổng hợp đặc trưng và kết quả",
+      "duration": 5.333333333333333,
+      "whole_clip_label": "fall",
+      "whole_clip_score": 0.9942983984947205,
+      "pose_rate": 0.99375,
+      "window_count": 5,
+      "valid_windows": 5,
+      "has_alert": true,
+      "alert_count": 1,
+      "first_alert_seconds": 4.0,
+      "matched_alert_seconds": 4.0,
+      "delay_seconds": 1.0,
+      "early_alerts": 0,
+      "onset_during_warmup": false,
+      "last_decision_seconds": 5.0,
+      "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+      "warnings": [
+        "Cửa sổ trượt là thử nghiệm: model/ngưỡng được xây cho toàn clip, chưa được kiểm định cho cảnh báo theo thời gian.",
+        "Mốc thời gian tính theo FPS danh định; dùng video FPS cố định. Vận tốc là tương đối, không phải m/s."
+      ],
+      "events": [
+        {
+          "candidate_at": 3.5,
+          "alert_at": 4.0,
+          "ended_at": null,
+          "end_reason": null
+        }
+      ],
+      "threshold": 0.42500000000000004,
+      "timeline_records": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 3.0,
+          "score": 0.1456252485513687,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 3.5,
+          "score": 0.9803465604782104,
+          "state": "suspected",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 4.0,
+          "score": 0.9967834949493408,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 4.5,
+          "score": 0.9986169338226318,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 0.989010989010989,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 5.0,
+          "score": 0.998415470123291,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 0.989010989010989,
+          "sampled_detected": 31,
+          "quality_reason": null
+        }
+      ],
+      "reason": "Có đợt cảnh báo mới tại/sau mốc ngã.",
+      "eligible": true
+    },
+    {
+      "index": 4,
+      "filename": "URFD_fall-02-cam0_RGB.mp4",
+      "label": "fall",
+      "onset_seconds": 1.5,
+      "status": "done",
+      "progress": 100,
+      "outcome": "TP",
+      "message": "Tổng hợp đặc trưng và kết quả",
+      "duration": 3.6666666666666665,
+      "whole_clip_label": "fall",
+      "whole_clip_score": 0.9483615756034851,
+      "pose_rate": 1.0,
+      "window_count": 2,
+      "valid_windows": 2,
+      "has_alert": true,
+      "alert_count": 1,
+      "first_alert_seconds": 3.5,
+      "matched_alert_seconds": 3.5,
+      "delay_seconds": 2.0,
+      "early_alerts": 0,
+      "onset_during_warmup": true,
+      "last_decision_seconds": 3.5,
+      "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+      "warnings": [
+        "Cửa sổ trượt là thử nghiệm: model/ngưỡng được xây cho toàn clip, chưa được kiểm định cho cảnh báo theo thời gian.",
+        "Mốc thời gian tính theo FPS danh định; dùng video FPS cố định. Vận tốc là tương đối, không phải m/s."
+      ],
+      "events": [
+        {
+          "candidate_at": 3.0,
+          "alert_at": 3.5,
+          "ended_at": null,
+          "end_reason": null
+        }
+      ],
+      "threshold": 0.42500000000000004,
+      "timeline_records": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 3.0,
+          "score": 0.8949627876281738,
+          "state": "suspected",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 3.5,
+          "score": 0.9455494284629822,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        }
+      ],
+      "reason": "Có đợt cảnh báo mới tại/sau mốc ngã.",
+      "eligible": true
+    },
+    {
+      "index": 5,
+      "filename": "URFD_fall-03-cam0_RGB.mp4",
+      "label": "fall",
+      "onset_seconds": 5.1,
+      "status": "done",
+      "progress": 100,
+      "outcome": "TP",
+      "message": "Tổng hợp đặc trưng và kết quả",
+      "duration": 7.166666666666667,
+      "whole_clip_label": "fall",
+      "whole_clip_score": 0.8145151138305664,
+      "pose_rate": 1.0,
+      "window_count": 9,
+      "valid_windows": 9,
+      "has_alert": true,
+      "alert_count": 1,
+      "first_alert_seconds": 7.0,
+      "matched_alert_seconds": 7.0,
+      "delay_seconds": 1.9000000000000004,
+      "early_alerts": 0,
+      "onset_during_warmup": false,
+      "last_decision_seconds": 7.0,
+      "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+      "warnings": [
+        "Cửa sổ trượt là thử nghiệm: model/ngưỡng được xây cho toàn clip, chưa được kiểm định cho cảnh báo theo thời gian.",
+        "Mốc thời gian tính theo FPS danh định; dùng video FPS cố định. Vận tốc là tương đối, không phải m/s."
+      ],
+      "events": [
+        {
+          "candidate_at": 6.5,
+          "alert_at": 7.0,
+          "ended_at": null,
+          "end_reason": null
+        }
+      ],
+      "threshold": 0.42500000000000004,
+      "timeline_records": [
+        {
+          "start_seconds": 0.0,
+          "end_seconds": 3.0,
+          "score": 0.09224750101566315,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 0.5,
+          "end_seconds": 3.5,
+          "score": 0.08251787722110748,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.0,
+          "end_seconds": 4.0,
+          "score": 0.09536340087652206,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 1.5,
+          "end_seconds": 4.5,
+          "score": 0.09445323050022125,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.0,
+          "end_seconds": 5.0,
+          "score": 0.15149489045143127,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 2.5,
+          "end_seconds": 5.5,
+          "score": 0.183023139834404,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 3.0,
+          "end_seconds": 6.0,
+          "score": 0.3801592290401459,
+          "state": "below",
+          "label": "adl",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 3.5,
+          "end_seconds": 6.5,
+          "score": 0.5575754046440125,
+          "state": "suspected",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        },
+        {
+          "start_seconds": 4.0,
+          "end_seconds": 7.0,
+          "score": 0.6314740180969238,
+          "state": "alert",
+          "label": "fall",
+          "detection_rate": 1.0,
+          "sampled_detected": 32,
+          "quality_reason": null
+        }
+      ],
+      "reason": "Có đợt cảnh báo mới tại/sau mốc ngã.",
+      "eligible": true
+    }
+  ],
+  "protocol": "One labeled fall event per FALL clip. Only clips with every evaluated window valid enter the confusion matrix. FALL also requires a human onset and a decision at/after onset. Match the first NEW alert starting at/after onset until EOF; earlier alerts do not count as detection. No timeliness deadline is applied. Warmup and the tail after the last decision are not continuously observed. Metrics describe this subset, not deployment safety.",
+  "config": {
+    "model": "ME-STGCN-TA",
+    "window_seconds": 3.0,
+    "step_seconds": 0.5,
+    "confirm_windows": 2,
+    "threshold": 0.42500000000000004,
+    "model_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c"
+  },
+  "finished_at": "2026-09-30T11:07:16.321514+00:00",
+  "summary": {
+    "total": 6,
+    "finished": 6,
+    "eligible": 6,
+    "excluded_or_pending": 0,
+    "outcomes": {
+      "FP": 1,
+      "TN": 2,
+      "TP": 3
+    },
+    "confusion": {
+      "TP": 3,
+      "FP": 1,
+      "FN": 0,
+      "TN": 2
+    },
+    "coverage": 1.0,
+    "accuracy": 0.8333333333333334,
+    "sensitivity": 1.0,
+    "specificity": 0.6666666666666666,
+    "precision": 0.75,
+    "mean_detected_delay_seconds": 1.6333333333333335,
+    "observed_adl_alert_clips": 1,
+    "note": "Rates only cover eligible clips. Mean delay covers TP clips only; it excludes misses. Missing denominators return null, not zero."
+  }
+}

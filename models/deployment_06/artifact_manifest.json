@@ -1,0 +1,15 @@
+{
+  "source_notebook": "06",
+  "original_bundle_sha256": "3b045ce825ba10be8345be4a770a9edc8b3eb6a0b3b21852582151531e2a745c",
+  "files_sha256": {
+    "mediapipe_adjacency_33.npy": "9efd7f70443f5410bcb1351ea7113ff69a7d11c822da1e76261ed64c6d3ffdb1",
+    "me_stgcn_ta_corrected_all_subjects.onnx": "965cd21409439f877965b3d560106b9b0773815b4ad3817e21f1995622e3d6a3",
+    "me_stgcn_ta_corrected_all_subjects.pt": "2970f8fbea86d32b9bbf1b1362c80d213cf71928150c9150e83a683d87d72310",
+    "model_config.json": "b435b4bf7713206880982d7bc36e715e93c430c3fd44160fea4b4b0836a809ef",
+    "sample_input.npy": "9d4624811415a5c60b4c2878bdc8e2220d7d194e7efa11a1a8c310521766cb3d",
+    "training_history.csv": "c07f19a281e64663a2b21f738cfbf3828bf9fb628744abceae054076963ea719"
+  },
+  "runtime_signature": "SHA-256 of the ONNX file; older reports use SHA-256 of the original complete bundle",
+  "threshold": 0.42500000000000004,
+  "warning": "Final model trained on all 160 videos. Fold metrics are not an independent evaluation of this final checkpoint."
+}

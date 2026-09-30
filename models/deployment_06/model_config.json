@@ -1,0 +1,80 @@
+{
+  "model_name": "ME-STGCN-TA corrected torso angle, final all subjects",
+  "model_file": "me_stgcn_ta_corrected_all_subjects.onnx",
+  "pytorch_file": "me_stgcn_ta_corrected_all_subjects.pt",
+  "input_name": "pose_features",
+  "output_name": "fall_probability",
+  "input_layout": "NCTV",
+  "input_shape": [
+    null,
+    8,
+    32,
+    33
+  ],
+  "dtype": "float32",
+  "channel_names": [
+    "relative_x",
+    "relative_y",
+    "visibility",
+    "joint_velocity_x",
+    "joint_velocity_y",
+    "torso_angle",
+    "hip_displacement_x",
+    "hip_displacement_y"
+  ],
+  "sequence_length": 32,
+  "num_joints": 33,
+  "decision_threshold": 0.42500000000000004,
+  "decision_threshold_note": "Median inner-selected outer-fold thresholds; final model has no independent test.",
+  "torso_angle_global_index": 9,
+  "label_mapping": {
+    "0": "ADL",
+    "1": "FALL"
+  },
+  "feature_definition": {
+    "relative_xy": "hip-centered and divided by per-video torso scale",
+    "visibility": "MediaPipe visibility",
+    "joint_velocity_xy": "difference of normalized joint coordinates divided by duration_seconds / 31; first frame zero",
+    "torso_angle": "global_features index 9, repeated over 33 joints",
+    "hip_displacement_xy": "raw normalized-image hip position minus first-frame hip position, repeated over 33 joints"
+  },
+  "training": {
+    "samples": 160,
+    "subjects": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "epochs": 4,
+    "fall_multiplier": 2.25,
+    "seed": 50042
+  },
+  "evaluation_reference": {
+    "protocol": "Nested LOSO; corrected torso_angle index 9",
+    "samples": 160,
+    "subjects": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "target_sensitivity": 0.95,
+    "pooled_metrics": {
+      "accuracy": 0.875,
+      "balanced_accuracy": 0.8765432098765432,
+      "precision": 0.797979797979798,
+      "sensitivity": 1.0,
+      "specificity": 0.7530864197530864,
+      "f1": 0.8876404494382022,
+      "f2": 0.9518072289156626,
+      "false_alarm_rate": 0.24691358024691357,
+      "tn": 61,
+      "fp": 20,
+      "fn": 0,
+      "tp": 79
+    },
+    "note": "Outer-test predictions evaluate fold models, not the final all-subject model."
+  },
+  "realtime_warning": "Training clips were resampled as complete clips to 32 frames. A fixed realtime window length must be validated before claiming realtime performance."
+}
