@@ -114,7 +114,7 @@ Các outer-test cũ đã được xem khi phát triển. So sánh 06 với 07 kh
 
 ## 🗂️ Tài liệu và kiểm tra
 
-📄 [Báo cáo Word về bộ dữ liệu và kiểm tra chất lượng đầu vào — bản 2](docs/bao_cao_dataset_2.docx): phần bổ sung mục 3.2 đã duyệt ngày 01/10/2026, bao gồm kiểm tra định tính chín video; giữ nguyên đề cương đã duyệt.
+📄 [Báo cáo Word về bộ dữ liệu, huấn luyện và kết quả — bản 4](docs/bao_cao_dataset_4.docx): giữ nguyên mục 3.2 đã duyệt, bổ sung cấu trúc ME-STGCN-TA, thiết lập train, kết quả lịch sử, đối chứng 07 qua ba seed, mô hình triển khai 06 và kiểm tra kỹ thuật chín ca. [Bản 2 đã duyệt](docs/bao_cao_dataset_2.docx) được giữ riêng; không có train mới trong lượt cập nhật này.
 
 ```text
 web_video_demo/          Web local, inference và giao diện
