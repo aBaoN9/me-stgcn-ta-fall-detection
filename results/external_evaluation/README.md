@@ -6,4 +6,4 @@ Theo các mốc tạm của lượt 30/09/2026: TP3, FP1, FN0, TN2; delay ba TP 
 
 ADL-01 đúng ở phân loại toàn clip nhưng báo nhầm ở cửa sổ 3 giây. Fall-02 xảy ra trong warmup; điều này minh họa vì sao model toàn clip không tự bảo đảm cảnh báo sớm. Không chỉnh ngưỡng để sửa riêng những clip đã xem.
 
-Không chứa video hoặc ảnh RGB của người tham gia. Chỉ giữ bảng báo cáo, nhãn tạm và ảnh giao diện trong `docs/images/batch-demo.png`. Hash model của báo cáo cũ là hash bundle 06, xem `models/deployment_06/artifact_manifest.json`.
+Không chứa video hoặc ảnh RGB của người tham gia. Chỉ giữ bảng báo cáo, nhãn tạm và ảnh giao diện trong `docs/images/batch-demo.png`. Hash model của báo cáo cũ là hash bundle 06, xem `models/deployment/artifact_manifest.json`.

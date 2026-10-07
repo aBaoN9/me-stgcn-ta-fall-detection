@@ -1,7 +1,7 @@
-# Quyền sử dụng và phạm vi phát hành
+# Điều kiện sử dụng
 
-Repo được đóng gói Private phục vụ đồ án và bàn giao. Chưa chọn giấy phép phát hành chung; không ngầm cấp quyền tái phân phối mã nguồn, trọng số, tài liệu, hình hoặc dữ liệu của bên thứ ba. Đề cương có thông tin nhóm học tập; kiểm tra lại trước khi chuyển Public.
+Dự án phục vụ nghiên cứu phát hiện té ngã từ video. Chưa chọn giấy phép phát hành chung; việc truy cập repo không tự cấp quyền tái phân phối mã nguồn, trọng số, tài liệu hoặc dữ liệu của bên thứ ba.
 
-MediaPipe, PyTorch, ONNX Runtime, FastAPI và các thư viện khác có giấy phép riêng. Pose Landmarker Full được tải từ nguồn MediaPipe chính thức bởi `prepare.py`, không được đóng gói trực tiếp trong Git. Dataset/video GMDCSA24 và URFD không được tái phân phối trong repo; phải xin quyền/tuân thủ nguồn để sử dụng.
+MediaPipe, PyTorch, ONNX Runtime, FastAPI và các thư viện có giấy phép riêng. Pose Landmarker được tải từ nguồn chính thức khi chuẩn bị ứng dụng, không đóng gói trong Git. Video GMDCSA-24, URFD và tensor đầu vào không được tái phân phối trong repo; người sử dụng cần tuân thủ điều kiện của nguồn dữ liệu.
 
-Biểu đồ README tạo từ CSV thật, sơ đồ hệ thống là minh họa kiến trúc. Hai ảnh giao diện là ảnh demo development, không phải bằng chứng hiệu quả lâm sàng. Không dùng nghiên cứu này như thiết bị y tế hay thay thế quan sát/chăm sóc con người.
+Sơ đồ là minh họa phương pháp; bảng và biểu đồ kết quả dựa trên các dự đoán đã lưu. Ảnh ứng dụng minh họa giao diện, không phải bằng chứng hiệu quả lâm sàng. Hệ thống chưa được kiểm chứng như thiết bị y tế hoặc công cụ thay thế việc chăm sóc và giám sát con người.

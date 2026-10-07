@@ -11,7 +11,7 @@ __pycache__/
 !.env.example
 *.log
 *.download
-web_video_demo/assets/*.task
+app/assets/*.task
 data/*
 !data/README.md
 *.zip
@@ -20,10 +20,13 @@ data/*
 *.mov
 *.webm
 *.pt
-!models/deployment_06/*.pt
+!models/deployment/*.pt
 *.onnx
-!models/deployment_06/*.onnx
+!models/deployment/*.onnx
 *.npz
-!results/notebook_07/attention/*.npz
+!results/component_ablation/attention/*.npz
 Thumbs.db
 .DS_Store
+app/DASHBOARD_QA.md
+app/start_dashboard.cmd
+app/start_dashboard.ps1

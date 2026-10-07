@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "mode": "full",
+  "full_training_protocol_completed": true,
+  "independent_blind_confirmation": false,
+  "outer_runs": 24,
+  "model_fits": 96,
+  "independent_videos": 160,
+  "subjects": 4,
+  "seeds": [
+    42,
+    142,
+    242
+  ],
+  "primary_policy": "fixed",
+  "trained_all_subject_deployment_model": false,
+  "production_changed": false,
+  "warning": "Smoke checks software only. Full is development comparison on previously inspected data. Seeds do not create new independent videos."
+}

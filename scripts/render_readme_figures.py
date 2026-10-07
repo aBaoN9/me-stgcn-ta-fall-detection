@@ -3,7 +3,6 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch
 import numpy as np
 import pandas as pd
 
@@ -20,36 +19,10 @@ def save(figure, name):
     plt.close(figure)
 
 
-def architecture():
-    figure, axis = plt.subplots(figsize=(14, 5.4))
-    axis.set_xlim(0, 14)
-    axis.set_ylim(0, 5.4)
-    axis.axis("off")
-    axis.text(0.2, 4.95, "ME-STGCN-TA  /  FROM VIDEO TO EVIDENCE", color="#177668", size=12, weight="bold")
-    axis.text(0.2, 4.2, "Skeleton in. Temporal decision out.", color="#162c34", size=26, weight="bold")
-    boxes = [
-        ("RGB video", "Frame timestamps\nOne person"),
-        ("MediaPipe Pose", "33 joints\nMissing-pose mask"),
-        ("8-channel features", "32 time samples\nPose + relative motion"),
-        ("4 ST-GCN blocks", "Joint graph + time\nTemporal attention"),
-        ("Fall / ADL", "Score + threshold\nQuality / uncertainty"),
-    ]
-    for index, (title, detail) in enumerate(boxes):
-        position = 0.2 + index * 2.75
-        fill = "#e1efeb" if index in [2, 3] else "#ffffff"
-        axis.add_patch(FancyBboxPatch((position, 1.65), 2.3, 1.72, boxstyle="round,pad=0.12", facecolor=fill, edgecolor="#cadad6", linewidth=1.2))
-        axis.text(position + 0.12, 2.88, f"0{index + 1}", size=12, weight="bold", color="#177668")
-        axis.text(position + 0.12, 2.5, title, size=12, weight="bold", color="#162c34")
-        axis.text(position + 0.12, 1.92, detail, size=10, color="#4e676e", linespacing=1.7)
-        if index < 4:
-            axis.annotate("", xy=(position + 2.63, 2.5), xytext=(position + 2.4, 2.5), arrowprops={"arrowstyle": "->", "color": "#177668", "lw": 1.8})
-    axis.text(0.2, 0.9, "Web: checkpoint 06    |    Notebook 07: controlled motion / attention / cost comparison", size=12, color="#162c34")
-    axis.text(0.2, 0.42, "Schematic, not measured data. Rolling-window alerts are experimental; no clinical or realtime guarantee.", size=10, color="#62787e")
-    save(figure, "architecture.png")
 
 
 def result_figures():
-    table = pd.read_csv(ROOT / "results/notebook_07/pooled_by_seed.csv")
+    table = pd.read_csv(ROOT / "results/component_ablation/pooled_by_seed.csv")
     fixed = table[table.policy == "fixed"]
     statistics = fixed.groupby("variant")[["accuracy", "sensitivity", "specificity"]].agg(["mean", "std"]).reindex(VARIANTS) * 100
     figure, axes = plt.subplots(1, 3, figsize=(16, 7), sharey=True)
@@ -97,6 +70,5 @@ def result_figures():
 if __name__ == "__main__":
     TARGET.mkdir(parents=True, exist_ok=True)
     plt.rcParams.update({"font.family": "DejaVu Sans", "axes.facecolor": "#f5f8f7", "text.color": "#162c34", "axes.labelcolor": "#4e676e", "xtick.color": "#4e676e", "ytick.color": "#162c34"})
-    architecture()
     result_figures()
-    print(f"Rendered 3 figures in {TARGET}")
+    print(f"Rendered 2 result figures in {TARGET}")
