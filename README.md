@@ -14,7 +14,13 @@
 
 </div>
 
-![Sơ đồ từ video đến kết quả](docs/images/architecture.png)
+## 🧩 Quy trình và kiến trúc
+
+[![Quy trình xử lý video, kiến trúc ME-STGCN-TA, huấn luyện và suy luận](docs/images/me-stgcn-ta-pipeline.png)](docs/images/me-stgcn-ta-pipeline.png)
+
+*MediaPipe đã huấn luyện sẵn trích xuất khung xương; chương trình nội suy/bù tọa độ thiếu và xây dựng đầu vào 8 kênh × 32 thời điểm × 33 khớp. ME-STGCN-TA học quan hệ không gian–thời gian, tổng hợp bằng temporal attention và phân loại FALL/ADL. Bấm vào hình để xem kích thước đầy đủ.*
+
+*Hình được tạo bằng AI; các ảnh người là minh họa, không phải mẫu gốc của bộ dữ liệu. Trong luồng huấn luyện, chỉ đặc trưng đi vào mạng; nhãn FALL/ADL dùng để tính hàm mất mát. Kết quả theo fold không phải phép kiểm chứng độc lập của mô hình cuối.*
 
 > **Trạng thái ngày 30/09/2026:** web dùng **model 06**, notebook **07 đã chạy full** để kiểm chứng motion, temporal attention và trọng số lớp Fall. Hai pipeline không được trộn. Đây là đồ án/demo nghiên cứu, **không phải hệ thống cấp cứu hoặc thiết bị y tế**.
 
