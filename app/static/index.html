@@ -33,7 +33,8 @@
             <div class="card-heading"><div><h2 id="video-heading">Video phân tích</h2></div><span class="pill neutral" id="video-state">Chưa có video</span></div>
             <div class="player-stage" id="player-stage">
               <div id="upload-empty" class="upload-empty"><div class="upload-mark"><svg class="icon"><use href="#i-video"/></svg></div><h3>Chưa có video</h3><p>Tải lên video có một người để bắt đầu.</p><button class="button primary" id="choose-video"><svg class="icon"><use href="#i-upload"/></svg>Chọn video</button><span class="upload-hint">MP4, MOV, AVI, WebM · 200 MB · tối đa 120 giây</span></div>
-              <video id="video" controls playsinline preload="metadata" hidden></video><canvas id="skeleton" aria-label="Khung xương phát hiện trực tiếp" hidden></canvas>
+              <video id="video" controls playsinline preload="metadata" hidden></video><canvas id="skeleton" aria-label="Khung xương và trạng thái quan sát" hidden></canvas>
+              <div id="pose-legend" class="pose-legend" hidden><span><i class="pose-key direct"></i>Tin cậy</span><span><i class="pose-key uncertain"></i>Ít tin cậy</span><span><i class="pose-key interpolated"></i>Bù frame</span></div>
               <div id="player-hud" class="player-hud" hidden><span class="hud-label">VỊ TRÍ PHÁT</span><strong id="hud-state">Chưa có phân tích</strong><span id="hud-score">—</span></div>
             </div>
             <input id="file-input" type="file" accept=".mp4,.mov,.avi,.webm" class="visually-hidden">

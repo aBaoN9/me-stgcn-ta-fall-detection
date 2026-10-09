@@ -58,6 +58,7 @@ function resetResult() {
   for (const id of ['detection', 'sampled', 'duration', 'elapsed']) byId(id).textContent = '—';
   byId('warnings').hidden = true;
   byId('downloads').hidden = true;
+  byId('pose-legend').hidden = true;
   byId('overlay-toggle').disabled = true;
   byId('progress-area').hidden = true;
   frameStrip();
@@ -123,6 +124,7 @@ function renderResult(data) {
     byId('warnings').append(paragraph);
   }
   byId('warnings').hidden = !data.warnings.length;
+  byId('pose-legend').hidden = false;
   byId('overlay-toggle').disabled = false;
   byId('downloads').hidden = false;
   for (const format of ['json', 'csv']) byId(`download-${format}`).href = `/api/jobs/${jobId}/download/${format}`;
@@ -143,28 +145,33 @@ function draw() {
   context.clearRect(0, 0, rectangle.width, rectangle.height);
   if (!result || !byId('overlay-toggle').checked || !configuration || !video.videoWidth) return;
   const index = Math.min(result.overlay.length - 1, Math.max(0, Math.floor(video.currentTime * result.fps)));
-  const landmarks = result.overlay[index];
+  const direct = result.overlay[index];
+  const landmarks = direct || result.overlay_filled?.[index];
   if (!landmarks) return;
+  const interpolatedFrame = !direct;
   const scale = Math.min(rectangle.width / video.videoWidth, rectangle.height / video.videoHeight);
   const width = video.videoWidth * scale;
   const height = video.videoHeight * scale;
   const left = (rectangle.width - width) / 2;
   const top = (rectangle.height - height) / 2;
   const point = (landmark) => [left + landmark[0] * width, top + landmark[1] * height];
-  context.strokeStyle = '#5ff5c1';
-  context.lineWidth = 2;
   context.shadowColor = '#092d22';
   context.shadowBlur = 3;
   for (const [source, target] of configuration.edges) {
-    if (landmarks[source][2] < 0.3 || landmarks[target][2] < 0.3) continue;
+    const uncertain = landmarks[source][2] < 0.3 || landmarks[target][2] < 0.3;
+    context.strokeStyle = interpolatedFrame ? '#ff9e55' : (uncertain ? '#ffd45f' : '#5ff5c1');
+    context.lineWidth = interpolatedFrame || uncertain ? 1.6 : 2;
+    context.globalAlpha = interpolatedFrame ? 0.72 : (uncertain ? 0.76 : 1);
+    context.setLineDash(interpolatedFrame ? [2, 4] : (uncertain ? [5, 4] : []));
     context.beginPath(); context.moveTo(...point(landmarks[source])); context.lineTo(...point(landmarks[target])); context.stroke();
   }
-  context.fillStyle = '#effff8';
   for (const landmark of landmarks) {
-    if (landmark[2] < 0.3) continue;
+    const uncertain = landmark[2] < 0.3;
+    context.fillStyle = interpolatedFrame ? '#ffb070' : (uncertain ? '#ffe08a' : '#effff8');
+    context.globalAlpha = interpolatedFrame ? 0.78 : (uncertain ? 0.82 : 1);
     context.beginPath(); context.arc(...point(landmark), 2.3, 0, Math.PI * 2); context.fill();
   }
-  context.shadowBlur = 0;
+  context.globalAlpha = 1; context.setLineDash([]); context.shadowBlur = 0;
 }
 
 byId('analyze').addEventListener('click', async () => {

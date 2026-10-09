@@ -98,6 +98,7 @@ function resetAnalysis() {
   if (element('analysis-dialog').open) element('analysis-dialog').close();
   element('progress-area').hidden = true;
   element('player-hud').hidden = true;
+  element('pose-legend').hidden = true;
   context.clearRect(0, 0, canvas.width, canvas.height);
   setSignal('waiting', null, null, null, 'chưa có phạm vi');
   renderRecentEvents();
@@ -218,22 +219,32 @@ function drawSkeleton() {
   context.clearRect(0, 0, rectangle.width, rectangle.height);
   if (!currentReport || !element('overlay-toggle').checked || !video.videoWidth) return;
   const index = Math.min(currentReport.overlay.length - 1, Math.floor(video.currentTime * currentReport.fps));
-  const landmarks = currentReport.overlay[index];
+  const direct = currentReport.overlay[index];
+  const landmarks = direct || currentReport.overlay_filled?.[index];
   if (!landmarks) return;
+  const interpolatedFrame = !direct;
   const fit = Math.min(rectangle.width / currentReport.width, rectangle.height / currentReport.height);
   const width = currentReport.width * fit;
   const height = currentReport.height * fit;
   const left = (rectangle.width - width) / 2;
   const top = (rectangle.height - height) / 2;
   const point = (landmark) => [left + landmark[0] * width, top + landmark[1] * height];
-  context.strokeStyle = '#83f7ce'; context.lineWidth = 2; context.shadowColor = '#0d2a23'; context.shadowBlur = 3;
+  context.shadowColor = '#0d2a23'; context.shadowBlur = 3;
   for (const [source, target] of configuration.edges) {
-    if (landmarks[source][2] < 0.3 || landmarks[target][2] < 0.3) continue;
+    const uncertain = landmarks[source][2] < 0.3 || landmarks[target][2] < 0.3;
+    context.strokeStyle = interpolatedFrame ? '#ff9e55' : (uncertain ? '#ffd45f' : '#83f7ce');
+    context.lineWidth = interpolatedFrame || uncertain ? 1.6 : 2;
+    context.globalAlpha = interpolatedFrame ? 0.72 : (uncertain ? 0.76 : 1);
+    context.setLineDash(interpolatedFrame ? [2, 4] : (uncertain ? [5, 4] : []));
     context.beginPath(); context.moveTo(...point(landmarks[source])); context.lineTo(...point(landmarks[target])); context.stroke();
   }
-  context.fillStyle = '#effff8';
-  for (const landmark of landmarks) { if (landmark[2] < 0.3) continue; context.beginPath(); context.arc(...point(landmark), 2.3, 0, Math.PI * 2); context.fill(); }
-  context.shadowBlur = 0;
+  for (const landmark of landmarks) {
+    const uncertain = landmark[2] < 0.3;
+    context.fillStyle = interpolatedFrame ? '#ffb070' : (uncertain ? '#ffe08a' : '#effff8');
+    context.globalAlpha = interpolatedFrame ? 0.78 : (uncertain ? 0.82 : 1);
+    context.beginPath(); context.arc(...point(landmark), 2.3, 0, Math.PI * 2); context.fill();
+  }
+  context.globalAlpha = 1; context.setLineDash([]); context.shadowBlur = 0;
 }
 
 function playbackUpdate() {
@@ -310,6 +321,7 @@ function renderReport(report) {
   currentReport = report;
   lastPlaybackState = ''; lastPlaybackRecord = null; lastEvidenceKey = '';
   element('analysis-results').hidden = false; element('show-analysis').disabled = false;
+  element('pose-legend').hidden = false;
   element('video-state').textContent = 'Đã phân tích'; element('video-state').className = 'pill good';
   element('video-meta').textContent = secondsText(report.duration) + ' · ' + textNumber(report.fps, 1) + ' FPS · ' + report.frame_count + ' frame';
 

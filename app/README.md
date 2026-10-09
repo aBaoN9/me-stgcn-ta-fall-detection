@@ -13,7 +13,7 @@ Giữ terminal mở và truy cập **http://127.0.0.1:8765**. Đổi cổng bằ
 - **Nhiều video:** nhập nhãn, đối chiếu mốc ngã và tải bảng kết quả JSON/CSV.
 - **Thông tin mô hình:** phân biệt mô hình triển khai với các thí nghiệm kiểm chứng.
 
-Chọn video một người, chọn phân tích cửa sổ trượt hoặc phân loại toàn clip, rồi bấm Phân tích. Phát video hoặc kéo thanh thời gian để đối chiếu khung xương và các số đo. Khung xương hiển thị từ phát hiện trực tiếp, không vẽ pose nội suy như thể đó là quan sát thật.
+Chọn video một người, chọn phân tích cửa sổ trượt hoặc phân loại toàn clip, rồi bấm Phân tích. Phát video hoặc kéo thanh thời gian để đối chiếu khung xương và các số đo. Màu xanh là khớp quan sát trực tiếp đủ tin cậy, vàng là ước lượng MediaPipe có visibility thấp, còn cam nét chấm là frame mất toàn bộ pose được bù theo thời gian. Dữ liệu bù luôn được đánh dấu, không trình bày như quan sát trực tiếp.
 
 ## Mô hình và đầu vào
 

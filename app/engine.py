@@ -8,7 +8,7 @@ import mediapipe as mp
 import numpy as np
 import onnxruntime as ort
 
-from features import CHANNELS
+from features import CHANNELS, fill_missing_pose_frames
 from motion import RollingAnalysis, evaluate_sequence
 from prepare import POSE_MODEL
 
@@ -108,6 +108,9 @@ class Engine:
             warnings.append("Pose bị mất ở nhiều frame; nội suy có thể làm thay đổi chuyển động.")
         progress(98, "Tổng hợp đặc trưng và kết quả")
         summary = evaluate_sequence(raw, detected, fps, threshold, self.predict)
+        filled = fill_missing_pose_frames(raw, detected)
+        overlay_filled = ([frame[:, [0, 1, 3]].round(5).tolist() for frame in filled]
+                          if filled is not None else [None] * len(raw))
         if summary["label"] == "insufficient":
             warnings.append("Chưa đủ dữ liệu pose để kết luận. Đây không phải kết quả ADL.")
         if rolling:
@@ -121,7 +124,7 @@ class Engine:
             "frame_count": len(raw), "width": width, "height": height,
             "timeline": rolling.report() if rolling else None,
             "elapsed_seconds": round(time.monotonic() - started, 2),
-            "warnings": warnings, "overlay": overlay,
+            "warnings": warnings, "overlay": overlay, "overlay_filled": overlay_filled,
             "model_sha256": self.signature, "mediapipe_version": mp.__version__,
             "quality_policy": "Heuristic: >=50% detected and >=16/32 sampled frames; not clinically validated.",
         }

@@ -44,15 +44,24 @@ def make_features(poses, duration):
     return features, scale, bool(len(valid_lengths))
 
 
-def sample_poses(raw, detected):
+def fill_missing_pose_frames(raw, detected):
     raw = np.asarray(raw, dtype=np.float32)
     detected = np.asarray(detected, dtype=bool)
     if len(raw) < 2 or not detected.any():
-        return None, np.zeros(32, dtype=bool)
+        return None
     valid = np.flatnonzero(detected)
     filled = raw.copy()
     for joint in range(33):
         for feature in range(4):
             filled[:, joint, feature] = np.interp(np.arange(len(raw)), valid, raw[valid, joint, feature])
+    return filled
+
+
+def sample_poses(raw, detected):
+    raw = np.asarray(raw, dtype=np.float32)
+    detected = np.asarray(detected, dtype=bool)
+    filled = fill_missing_pose_frames(raw, detected)
+    if filled is None:
+        return None, np.zeros(32, dtype=bool)
     selected = np.linspace(0, len(raw) - 1, 32).round().astype(int)
     return filled[selected], detected[selected]

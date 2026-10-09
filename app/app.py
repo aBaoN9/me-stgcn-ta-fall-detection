@@ -98,7 +98,8 @@ def history_video(identifier: str):
 
 @app.get("/api/history/{identifier}/download")
 def history_download(identifier: str):
-    report = {key: value for key, value in history_result(identifier).items() if key != "overlay"}
+    report = {key: value for key, value in history_result(identifier).items()
+              if key not in {"overlay", "overlay_filled"}}
     return Response(json.dumps(report, ensure_ascii=False, indent=2), media_type="application/json",
                     headers={"Content-Disposition": f'attachment; filename="poselab-{identifier[:8]}.json"'})
 
@@ -240,7 +241,8 @@ def job_video(identifier: str):
 
 @app.get("/api/jobs/{identifier}/download/{format}")
 def download(identifier: str, format: str, onset: float | None = None):
-    report = {key: value for key, value in result(identifier).items() if key != "overlay"}
+    report = {key: value for key, value in result(identifier).items()
+              if key not in {"overlay", "overlay_filled"}}
     if onset is not None:
         if not math.isfinite(onset) or not 0 <= onset < report["duration"]:
             raise HTTPException(400, "Mốc ngã phải nằm trong thời lượng video.")
