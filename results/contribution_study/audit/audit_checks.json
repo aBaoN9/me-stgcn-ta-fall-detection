@@ -1,0 +1,152 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "check": "component: unique (variant,seed,policy,sample_index)",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "check": "component: each group has 160 IDs / 79 Fall / 81 ADL",
+      "status": "PASS",
+      "detail": "48 groups, 0 bad"
+    },
+    {
+      "check": "component: label/subject/video_id constant per sample",
+      "status": "PASS",
+      "detail": "across all groups"
+    },
+    {
+      "check": "component: prediction == (score >= threshold)",
+      "status": "PASS",
+      "detail": "0 mismatches"
+    },
+    {
+      "check": "component: neural score in [0,1]",
+      "status": "PASS",
+      "detail": "7200 rows"
+    },
+    {
+      "check": "component: policies share the same score",
+      "status": "PASS",
+      "detail": "per (variant,seed,sample)"
+    },
+    {
+      "check": "component: fixed policy threshold == 0.5",
+      "status": "PASS",
+      "detail": "2400 rows"
+    },
+    {
+      "check": "component: pooled_by_seed.csv recomputed",
+      "rows": 48,
+      "unmatched_rows": 0,
+      "max_abs_diff": 1.1102230246251565e-16,
+      "status": "PASS"
+    },
+    {
+      "check": "component: fold_metrics.csv confusion counts recomputed",
+      "rows": 192,
+      "unmatched_rows": 0,
+      "max_abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "check": "component: errors.csv == misclassified rows",
+      "status": "PASS",
+      "detail": "965 recomputed vs 965 stored"
+    },
+    {
+      "check": "component: seed_mean_std.csv (ddof=1) recomputed",
+      "max_abs_diff": 1.214306433183765e-16,
+      "status": "PASS"
+    },
+    {
+      "check": "timing: unique (variant,seed,policy,sample_index)",
+      "status": "PASS",
+      "detail": "0 duplicates"
+    },
+    {
+      "check": "timing: each group has 160 IDs / 79 Fall / 81 ADL",
+      "status": "PASS",
+      "detail": "18 groups, 0 bad"
+    },
+    {
+      "check": "timing: label/subject/video_id constant per sample",
+      "status": "PASS",
+      "detail": "across all groups"
+    },
+    {
+      "check": "timing: prediction == (score >= threshold)",
+      "status": "PASS",
+      "detail": "0 mismatches"
+    },
+    {
+      "check": "timing: neural score in [0,1]",
+      "status": "PASS",
+      "detail": "2880 rows"
+    },
+    {
+      "check": "timing: policies share the same score",
+      "status": "PASS",
+      "detail": "per (variant,seed,sample)"
+    },
+    {
+      "check": "timing: fixed policy threshold == 0.5",
+      "status": "PASS",
+      "detail": "960 rows"
+    },
+    {
+      "check": "timing: pooled_by_seed.csv recomputed",
+      "rows": 18,
+      "unmatched_rows": 0,
+      "max_abs_diff": 1.1102230246251565e-16,
+      "status": "PASS"
+    },
+    {
+      "check": "timing: fold_metrics.csv confusion counts recomputed",
+      "rows": 72,
+      "unmatched_rows": 0,
+      "max_abs_diff": 0.0,
+      "status": "PASS"
+    },
+    {
+      "check": "timing: errors.csv == misclassified rows",
+      "status": "PASS",
+      "detail": "367 recomputed vs 367 stored"
+    },
+    {
+      "check": "timing: seed_mean_std.csv (ddof=1) recomputed",
+      "max_abs_diff": 3.552713678800501e-15,
+      "status": "PASS"
+    },
+    {
+      "check": "info: T0_legacy_dt vs 07 A3_cost_225 (fixed)",
+      "status": "INFO",
+      "detail": "max |score diff| = 0; prediction disagreements = 0/480"
+    }
+  ],
+  "tolerance": 1e-09,
+  "code_sha256": "b46012da20495f28758bebdd188fdfe7da7034d56243e6736f587640ecb21192",
+  "inputs_sha256": {
+    "results/component_ablation/predictions.csv": "2d2290637188851c86e264ca1b29ec1e25e2128a8c25afae8a6addfa6d4bb8b8",
+    "results/component_ablation/pooled_by_seed.csv": "3106badcff7af7f90ae11f4302f4bccc60ac7d9beb6a87717e45b55e03f67a8e",
+    "results/component_ablation/seed_mean_std.csv": "f770ef2b661308d8005b4404587787730a51b2ceb9a2b924d780e53cc2b2845d",
+    "results/component_ablation/fold_metrics.csv": "2d65006bea718c0d2a75e886b541d794b16d21019d9a83cb5601a9be4b665990",
+    "results/component_ablation/errors.csv": "b33fe9b64ed90eeeb0c68b761e347697664a53b4857daffb8f2b8e976f6f9814",
+    "results/timing_ablation/predictions.csv": "43cbc6cc0f517f96590ddc8b77ed244a9a2a7b0b0a29c9195ba12e82ea78d286",
+    "results/timing_ablation/pooled_by_seed.csv": "b2c0356331021b4ac532bd970015aca543d6d36f27fb2aec2577cc7582e18c6a",
+    "results/timing_ablation/seed_mean_std.csv": "b70714be3e6bb24dd262632944f00e54d736e124b747e07b3765ae0c0ef75fb7",
+    "results/timing_ablation/fold_metrics.csv": "a0ec2309e16de16dc09054c7193687a1ad04bee7b3c87ebd97ba600ec825e268",
+    "results/timing_ablation/errors.csv": "5895341bea863c91e4946ad3d39f7556258291dc514137d2bcedcdfd66027d29"
+  },
+  "environment": {
+    "python": "3.12.10",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "notes": [
+    "Seeds are repeated runs on the same 160 clips, not independent samples.",
+    "std uses ddof=1 across 3 seeds; no p-values are computed."
+  ]
+}
