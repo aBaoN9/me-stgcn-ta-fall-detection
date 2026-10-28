@@ -10,6 +10,22 @@ Dự án phân loại **té ngã (Fall)** và **hoạt động thường ngày (
 
 [Báo cáo Word](docs/bao-cao.docx) · [Phương pháp](docs/methodology.md) · [Notebooks](docs/notebook-guide.md) · [Chạy ứng dụng](app/README.md) · [Hướng nghiên cứu tiếp](docs/training-roadmap.md)
 
+## Thành viên và AI bắt đầu ở đây
+
+Đọc [AGENTS.md](AGENTS.md) -> [bàn giao](docs/handoff.md) -> [nhiệm vụ](docs/tasks/README.md) -> [giao thức nghiên cứu](docs/research-protocol.md) trước khi sửa. **AI chưa biết người đang làm phải hỏi tên**, không đoán từ tài khoản Git.
+
+| Thành viên | Nhánh | Công việc học thuật tiếp theo | Báo cáo |
+|---|---|---|---|
+| Tùng | `dinhtung` | [So sánh local ST-GCN-style/CTR-GCN cùng dữ liệu và recipe](docs/tasks/dinhtung.md) | [Tiến độ Tùng](docs/reports/dinhtung.md) |
+| Đức | `vinhduc` | [Kiểm chứng đóng góp, quality-aware pooling và đánh đổi](docs/tasks/vinhduc.md) | [Tiến độ Đức](docs/reports/vinhduc.md) |
+| Người điều phối | `main` | Duyệt thiết kế, review PR/tích hợp; không tự thay model theo số đẹp | Đọc báo cáo trên nhánh/PR |
+
+Nhiệm vụ mới hiện **TODO/NOT_RUN**, chưa là cải tiến đã chứng minh. Trọng tâm: đối chứng công bằng, ablation, bằng chứng kỹ thuật; không giao lại 07/08 như việc chưa làm. Không push trực tiếp main. Báo cáo chỉ vào main sau merge; có thể đọc trước qua PR/`git show`, xem [quy trình Git và input](docs/handoff.md).
+
+Câu khởi động có thể gửi AI sau clone:
+
+> Đọc AGENTS.md và docs/handoff.md. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Đọc nhiệm vụ đúng người, kiểm tra nhánh, tóm tắt việc cần làm và tiêu chí hoàn tất. Không bịa kết quả/thay model triển khai; cập nhật báo cáo mỗi phiên.
+
 ## 🧠 Phương pháp
 
 ![Quy trình xử lý và kiến trúc ME-STGCN-TA](docs/images/me-stgcn-ta-pipeline.png)
@@ -102,6 +118,9 @@ notebooks/history/           Giai đoạn đề xuất và xuất mô hình ban 
 training/component_ablation/ Mã kiểm chứng thành phần
 results/                     Dự đoán, bảng kết quả và cấu hình thực nghiệm
 docs/                        Một báo cáo Word, đề cương và ảnh minh họa
+docs/tasks/                  Nhiệm vụ Tùng/Đức và phạm vi sửa code
+docs/reports/                Tiến độ và bằng chứng bàn giao từng người
+AGENTS.md                    Quy tắc cho AI khi nhận việc
 scripts/                     Kiểm tra repo và tạo biểu đồ
 data/README.md               Hướng dẫn dữ liệu đầu vào
 ```

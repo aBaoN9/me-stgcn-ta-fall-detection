@@ -1,5 +1,11 @@
 # Hướng train và cải tiến tiếp — chưa thực hiện
 
+## Bổ sung phân công ngày 28/10/2026
+
+Yêu cầu học thuật mới: đối chứng backbone tham chiếu trên chính dữ liệu nhóm và kiểm chứng đóng góp kỹ thuật. Xem [protocol](research-protocol.md), [Tùng](tasks/dinhtung.md), [Đức](tasks/vinhduc.md), [bàn giao](handoff.md).
+
+Tùng benchmark local ST-GCN-style/CTR-GCN; Đức audit bằng chứng cũ và thử quality-aware pooling với đối chứng chỉ khác một yếu tố. Hướng này **chưa chạy**, không khẳng định tốt hơn. Khuyến nghị bên dưới giữ làm bối cảnh/hướng mở rộng, không thay tiêu chí nhiệm vụ mới. Không cần chờ dataset ngoài mới làm đối chứng phát triển, nhưng không gọi dữ liệu cũ là test độc lập mới.
+
 ## Quyết định hiện tại
 
 Giữ nguyên web/model 06 và lưu notebook 07 như bằng chứng kiểm chứng. Không train thêm trong lượt đóng gói GitHub, không chọn model/seed thắng outer-test để tự thay deployment. A3_cost_225 fixed là **ứng viên để nghiên cứu**, chưa phải model an toàn đã xác nhận: 96,62% sensitivity vẫn tương ứng 3/3/2 ca bỏ sót theo seed.
@@ -18,7 +24,7 @@ Không cố tình yêu cầu người cao tuổi hoặc người không được
 
 ## Một lượt train tiếp nên được chốt ra sao?
 
-1. Giữ **ME-STGCN-TA** một luồng và pipeline được chọn cố định. Giữ cả A1 để biết attention có thật sự cần hay không; không đổi sang CNN–LSTM/Transformer chỉ để chạy lại.
+1. Giữ **ME-STGCN-TA** một luồng làm đối chứng, giữ A1 để biết attention có cần không. Theo phân công mới được thêm backbone tham chiếu trong thí nghiệm riêng với input/recipe khóa; không đổi chỉ để có tên model mới, không thay deployment.
 2. Ghi trước tiêu chí: ưu tiên giảm FN nhưng báo cáo cả FP. Dùng sensitivity/specificity và FN/FP theo từng subject; khi đánh giá stream, thêm số báo nhầm/giờ, độ trễ sự kiện, warmup và tỷ lệ không đủ pose. Chưa có căn cứ đặt 95% accuracy làm lời hứa.
 3. Trên tập phát triển có thể thử multiplier Fall **1,0 / 1,5 / 2,25** như một grid đề xuất, không phải cấu hình chắc chắn tốt hơn. Chọn multiplier/ngưỡng bằng validation theo subject. Không đặt ngưỡng bằng score của `S4_FALL_05` hoặc một clip outer-test đã xem.
 4. Khởi đầu giữ tối đa **50 epoch**, early stopping và ba seed như đối chứng. Kiểm tra train/validation loss trước khi tăng epoch. Nếu train tốt nhưng người mới kém, tăng epoch có thể tăng overfit. Nếu gradient hoặc loss chưa ổn định, mới xét learning rate/regularization có kiểm soát.
