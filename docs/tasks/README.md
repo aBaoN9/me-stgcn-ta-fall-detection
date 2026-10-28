@@ -17,12 +17,19 @@ Ngày giao: 28/10/2026. Trạng thái ban đầu `TODO`, **chưa có thí nghi�
 
 Không đặt deadline giả; nhóm thống nhất theo lịch/tài nguyên. Không mở hướng tùy tiện để thay tiêu chí bắt buộc.
 
+## Web nếu còn thời gian và trao đổi nhóm
+
+- [WEB-01/WEB-02](web-app.md) là phần phụ `OPTIONAL_NOT_STARTED`: Đức làm lại UI trên backend hiện tại; Tùng review/QA độc lập. Không thay việc nghiên cứu hoặc tự đổi model.
+- Mọi câu hỏi/đề nghị với nhóm gửi qua [file Markdown cá nhân](../discussions/README.md), cập nhật cùng file và commit/push mỗi lần hỏi. Người điều phối trả lời trong [answers.md](../discussions/answers.md) trên main; không xem im lặng là duyệt.
+
 ## Ranh giới tránh đụng nhau
 
 - Tùng: `training/backbone_benchmark/`, `results/backbone_benchmark/`, `docs/research/backbone-benchmark.md`, báo cáo Tùng.
 - Đức: `training/contribution_study/`, `results/contribution_study/`, `docs/research/contribution-study.md`, báo cáo Đức.
 - Đọc/import `training/component_ablation/`, không sửa nguồn/kết quả cũ. Notebook mới nếu cần nằm trong training riêng, không vào `notebooks/` đang khóa inventory.
-- AGENTS, README gốc, protocol chung, app, model/Word do người điều phối giữ. Sửa ngoài phạm vi: ghi file/lý do trong báo cáo, chờ duyệt.
+- Ngoại lệ web có thời gian: Đức được ghi `app/static/**`, `app/README.md`, `docs/research/web-app-redesign.md`; Tùng ghi `docs/research/web-app-qa.md`, không cùng sửa UI.
+- Mỗi người được ghi file `docs/discussions/` đúng tên mình. `answers.md` chỉ người điều phối sửa trên main.
+- AGENTS, README gốc, protocol chung, backend app, model/Word do người điều phối giữ. Sửa ngoài phạm vi: gửi câu hỏi Markdown có file/lý do, push và chờ duyệt.
 
 ## Phối hợp
 

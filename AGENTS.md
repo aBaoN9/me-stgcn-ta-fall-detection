@@ -8,6 +8,7 @@ Repo này là nghiên cứu Fall/ADL, không chỉ demo web. Đọc trước khi
 - Tùng: nhánh `dinhtung`, [nhiệm vụ](docs/tasks/dinhtung.md), [báo cáo](docs/reports/dinhtung.md).
 - Đức: nhánh `vinhduc`, [nhiệm vụ](docs/tasks/vinhduc.md), [báo cáo](docs/reports/vinhduc.md).
 - Người điều phối: `main`, [bảng việc](docs/tasks/README.md). Người khác cần người điều phối giao việc, không tự nhận phần của hai bạn.
+- Câu hỏi danh tính có thể hỏi ngay trong chat. Sau khi biết người, các câu hỏi cho nhóm/người điều phối phải ghi vào [kênh Markdown](docs/discussions/README.md), không chỉ nhắn trong chat rồi coi nhóm đã nhận.
 - Vai trò đã rõ thì không hỏi lại mỗi lượt. Sau khi đọc, tóm tắt hiện trạng, nhiệm vụ, phạm vi sửa, tiêu chí xong và bước đầu tiên.
 - Thứ tự đọc: [README](README.md), [bàn giao](docs/handoff.md), [bảng việc](docs/tasks/README.md), nhiệm vụ cá nhân, [protocol](docs/research-protocol.md), [phương pháp](docs/methodology.md), [ablation](docs/component-ablation.md), [timing](docs/timing-ablation.md), rồi code/kết quả liên quan. Không bắt người dùng đọc hết thay AI.
 
@@ -23,8 +24,22 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 - Thành viên phải ở đúng nhánh trước khi sửa; chưa chuyển an toàn được thì dừng sửa. Người điều phối được sửa main để bàn giao/tích hợp.
 - Chỉ ghi vùng trong nhiệm vụ; nguồn cũ được đọc/import, không sửa loop train chung để tiện riêng mình.
 - Thành viên không push trực tiếp main, force-push, tự merge hoặc thay model/threshold triển khai. Người điều phối duyệt tích hợp; publish main chỉ khi chủ repo yêu cầu.
-- Không tự commit/push khi người dùng chưa yêu cầu. Khi được yêu cầu, cập nhật báo cáo, kiểm diff; không đưa token, video/tensor riêng, môi trường hoặc checkpoint lớn vào Git.
+- Không tự commit/push code khi người dùng chưa yêu cầu. **Ngoại lệ được chủ repo cho phép sẵn:** mỗi lần hỏi nhóm, cập nhật/ghi đè file trao đổi cá nhân hiện tại, tạo commit thường và push nhánh được giao, không phải hỏi lại quyền cho lần gửi Markdown đó. Chỉ stage file trao đổi; kiểm cả commit chưa push để không gửi kèm code ngoài yêu cầu. Không force-push, không commit hộ thay đổi khác. Không đưa token, video/tensor riêng, môi trường hoặc checkpoint lớn vào Git.
 - Mở PR về main; báo cáo trên nhánh được đọc qua PR/fetch, không tự xuất hiện trên main.
+
+## Trao đổi nhóm qua Markdown
+
+- Tùng dùng `docs/discussions/dinhtung.md` trên `dinhtung`; Đức dùng `docs/discussions/vinhduc.md` trên `vinhduc`. Đọc [quy trình](docs/discussions/README.md) và giữ toàn bộ câu chưa giải quyết trong bản hiện tại, không xóa mất câu khác khi ghi đè.
+- Câu hỏi phải có ID, thời gian UTC+7, ngữ cảnh/file/log, đã thử gì, lựa chọn đề xuất và quyết định cần nhóm trả lời. Không ghi mật khẩu, token, dữ liệu riêng hoặc log có bí mật.
+- Mỗi lần gửi/cập nhật câu hỏi: commit/push bình thường và kiểm push thành công. Không có quyền/mạng/auth thì báo lỗi, không nói đã gửi; không vượt cơ chế phê duyệt của công cụ.
+- Người điều phối trả lời trong `docs/discussions/answers.md` trên main, dẫn đúng ID. Đầu mỗi phiên và trước việc đang chờ duyệt, fetch và đọc file trả lời; không tự xem im lặng là đồng ý.
+- Chưa trả lời thì đánh dấu `WAITING_FOR_MAIN`, tiếp tục việc độc lập. Thiếu phê duyệt M0/phạm vi/đổi model thì dừng đúng phần đó, không dừng mọi việc và không tự đoán quyết định.
+
+## Web app nếu còn thời gian
+
+- Nghiên cứu vẫn ưu tiên. [WEB-01/WEB-02](docs/tasks/web-app.md) là phụ, không dùng làm lý do thiếu benchmark/ablation.
+- Đức phụ trách làm lại UI trong `app/static/**` và hướng dẫn `app/README.md`; Tùng review/QA trong tài liệu riêng. Không cùng sửa frontend ở hai nhánh.
+- Giữ API, inference, tiền xử lý, model/threshold và ý nghĩa metric; thay backend/thêm dependency/framework cần hỏi qua Markdown và chờ duyệt. Không tuyên bố đã làm web khi chỉ mới viết kế hoạch.
 
 ## Liêm chính nghiên cứu
 

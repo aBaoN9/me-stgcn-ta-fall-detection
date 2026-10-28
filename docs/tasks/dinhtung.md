@@ -12,8 +12,10 @@ Chỉ được ghi:
 - `results/backbone_benchmark/**`: mỗi run một thư mục, chỉ bằng chứng gọn đưa Git.
 - `docs/research/backbone-benchmark.md`: thiết kế, related work, bảng kết quả/kết luận.
 - `docs/reports/dinhtung.md`: tiến độ/bàn giao cá nhân.
+- `docs/discussions/dinhtung.md`: câu hỏi nhóm; cập nhật cùng file và commit/push mỗi lần hỏi theo [quy trình](../discussions/README.md).
+- Nếu còn thời gian: `docs/research/web-app-qa.md` cho [WEB-02](web-app.md), chỉ review/QA, không cùng sửa UI với Đức.
 
-Không sửa phần Đức, app/deployment, notebook/kết quả cũ, checker, README gốc/protocol chung. Đọc/import code cũ được; cần thay ngoài phạm vi thì đề nghị trong báo cáo.
+Không sửa phần Đức, app/deployment, notebook/kết quả cũ, checker, README gốc/protocol chung. Đọc/import code cũ được; cần thay ngoài phạm vi thì hỏi qua Markdown, push và chờ duyệt. Đọc `origin/main:docs/discussions/answers.md` mỗi đầu phiên và trước phần đang chờ.
 
 ## TUNG-01 - Thiết kế, nộp M0
 

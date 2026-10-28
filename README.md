@@ -22,9 +22,11 @@ Dự án phân loại **té ngã (Fall)** và **hoạt động thường ngày (
 
 Nhiệm vụ mới hiện **TODO/NOT_RUN**, chưa là cải tiến đã chứng minh. Trọng tâm: đối chứng công bằng, ablation, bằng chứng kỹ thuật; không giao lại 07/08 như việc chưa làm. Không push trực tiếp main. Báo cáo chỉ vào main sau merge; có thể đọc trước qua PR/`git show`, xem [quy trình Git và input](docs/handoff.md).
 
+**Nếu còn thời gian:** [làm lại web app](docs/tasks/web-app.md), Đức phụ trách UI, Tùng review/QA; giữ backend/model và không thay việc nghiên cứu. **Hỏi nhóm qua Markdown:** cập nhật cùng [file trao đổi cá nhân](docs/discussions/README.md), commit/push lên nhánh mình mỗi lần hỏi; người điều phối kiểm và trả lời trong [answers.md](docs/discussions/answers.md) trên main. Ghi đè nội dung file bằng commit mới, không force-push.
+
 Câu khởi động có thể gửi AI sau clone:
 
-> Đọc AGENTS.md và docs/handoff.md. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Đọc nhiệm vụ đúng người, kiểm tra nhánh, tóm tắt việc cần làm và tiêu chí hoàn tất. Không bịa kết quả/thay model triển khai; cập nhật báo cáo mỗi phiên.
+> Đọc AGENTS.md và docs/handoff.md. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Đọc nhiệm vụ đúng người, kiểm tra nhánh và tiêu chí hoàn tất. Không bịa kết quả/thay model; cập nhật báo cáo mỗi phiên. Câu hỏi nhóm phải ghi vào file trao đổi Markdown cá nhân rồi commit/push, đọc answers.md trên main để nhận trả lời. Nếu còn thời gian thì làm phần web được giao.
 
 ## 🧠 Phương pháp
 
@@ -120,6 +122,7 @@ results/                     Dự đoán, bảng kết quả và cấu hình th�
 docs/                        Một báo cáo Word, đề cương và ảnh minh họa
 docs/tasks/                  Nhiệm vụ Tùng/Đức và phạm vi sửa code
 docs/reports/                Tiến độ và bằng chứng bàn giao từng người
+docs/discussions/            Hỏi-đáp nhóm qua Markdown trên từng nhánh
 AGENTS.md                    Quy tắc cho AI khi nhận việc
 scripts/                     Kiểm tra repo và tạo biểu đồ
 data/README.md               Hướng dẫn dữ liệu đầu vào

@@ -17,8 +17,8 @@ Ngày lập: 28/10/2026. Người điều phối giữ `main`; Tùng làm `dinht
 
 Không ưu tiên trang trí web hoặc chỉ tăng epoch. Cần trả lời: **trên cùng dữ liệu/giao thức, backbone khác đạt gì; thành phần đề xuất giúp gì, mất gì, đáng đổi chi phí không?**
 
-- Tùng: đối chứng backbone skeleton tham chiếu nâng cao, thích nghi đúng graph/input và cùng recipe.
-- Đức: tái tính đóng góp đã có, thử quality-aware pooling có ablation, đo chi phí; tổng hợp khi có kết quả Tùng.
+- Tùng: đối chứng backbone skeleton tham chiếu nâng cao, thích nghi đúng graph/input và cùng recipe; nếu còn thời gian review/QA web.
+- Đức: tái tính đóng góp đã có, thử quality-aware pooling có ablation, đo chi phí; tổng hợp khi có kết quả Tùng; nếu còn thời gian làm lại UI web theo [WEB-01](tasks/web-app.md).
 - Không tốt hơn vẫn phải báo trung thực. Đóng góp đồ án cần bằng chứng, không mặc định là phát minh mới của ngành.
 
 Đọc [bảng việc](tasks/README.md), nhiệm vụ cá nhân và [giao thức](research-protocol.md).
@@ -60,17 +60,21 @@ Không chạy cả ba lệnh switch máy móc. Không mang thay đổi chưa com
 
 ## Main đọc báo cáo bằng cách nào?
 
-Thành viên cập nhật file riêng, commit/push khi người dùng yêu cầu, mở PR về main. Người điều phối đọc qua PR hoặc fetch, không cần merge:
+Thành viên cập nhật báo cáo riêng, commit/push code/báo cáo khi người dùng yêu cầu, mở PR về main. Ngoại lệ đã được chủ repo cho phép sẵn: **mỗi lần hỏi nhóm phải cập nhật file trao đổi cá nhân và commit/push**, xem [quy trình Markdown](discussions/README.md). Người điều phối đọc qua PR hoặc fetch, không cần merge:
 
 ```bash
 git fetch origin
 git show origin/dinhtung:docs/reports/dinhtung.md
 git show origin/vinhduc:docs/reports/vinhduc.md
+git show origin/dinhtung:docs/discussions/dinhtung.md
+git show origin/vinhduc:docs/discussions/vinhduc.md
 git diff origin/main...origin/dinhtung
 git diff origin/main...origin/vinhduc
 ```
 
 Chỉ dùng khi remote đã push. Không chép báo cáo về main rồi coi code đã tích hợp. Bảng việc main là snapshot do người điều phối cập nhật sau review, không đồng bộ tự động.
+
+Người điều phối trả lời theo ID tại `docs/discussions/answers.md` trên main. Thành viên fetch/đọc `origin/main:docs/discussions/answers.md` đầu mỗi phiên và trước phần chờ duyệt; chưa trả lời thì tiếp tục việc độc lập, không tự xem là chấp thuận. Ghi đè là commit mới cập nhật cùng file, không xóa lịch sử hoặc force-push. Chủ repo kiểm thủ công, không có monitor tự động.
 
 ## Checklist trước khi mời clone
 

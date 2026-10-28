@@ -8,7 +8,7 @@ Tùng benchmark local ST-GCN-style/CTR-GCN; Đức audit bằng chứng cũ và 
 
 ## Quyết định hiện tại
 
-Giữ nguyên web/model 06 và lưu notebook 07 như bằng chứng kiểm chứng. Không train thêm trong lượt đóng gói GitHub, không chọn model/seed thắng outer-test để tự thay deployment. A3_cost_225 fixed là **ứng viên để nghiên cứu**, chưa phải model an toàn đã xác nhận: 96,62% sensitivity vẫn tương ứng 3/3/2 ca bỏ sót theo seed.
+Giữ nguyên model 06 và lưu notebook 07 như bằng chứng kiểm chứng. Web được phép làm lại frontend nếu còn thời gian theo [nhiệm vụ phụ](tasks/web-app.md), không đổi inference/model/threshold. Không train thêm trong lượt đóng gói GitHub, không chọn model/seed thắng outer-test để tự thay deployment. A3_cost_225 fixed là **ứng viên để nghiên cứu**, chưa phải model an toàn đã xác nhận: 96,62% sensitivity vẫn tương ứng 3/3/2 ca bỏ sót theo seed.
 
 ## Ưu tiên theo thứ tự
 

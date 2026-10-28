@@ -12,8 +12,10 @@ Chỉ được ghi:
 - `results/contribution_study/**`: audit/bảng/ảnh và run mới tách thư mục.
 - `docs/research/contribution-study.md`: thiết kế/bản thảo Markdown để main đưa Word.
 - `docs/reports/vinhduc.md`: tiến độ/bàn giao cá nhân.
+- `docs/discussions/vinhduc.md`: câu hỏi nhóm; cập nhật cùng file và commit/push mỗi lần hỏi theo [quy trình](../discussions/README.md).
+- Nếu còn thời gian: `app/static/**`, `app/README.md`, `docs/research/web-app-redesign.md` cho [WEB-01](web-app.md), không tự đổi backend/model/API.
 
-Không sửa phần Tùng, app/deployment, nguồn/kết quả cũ, checker, README/protocol/Word. Phần chung đề nghị người điều phối sửa.
+Ngoài ngoại lệ frontend WEB-01, không sửa phần Tùng, backend app/deployment, nguồn/kết quả cũ, checker, README gốc/protocol/Word. Phần chung hỏi qua Markdown, push và chờ người điều phối duyệt. Đọc `origin/main:docs/discussions/answers.md` mỗi đầu phiên và trước phần đang chờ.
 
 ## DUC-01 - Audit, làm ngay không chờ Tùng
 
