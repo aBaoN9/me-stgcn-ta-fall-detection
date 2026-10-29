@@ -6,7 +6,9 @@
 |---|---|---|---|
 | Tùng | [dinhtung.md](dinhtung.md) | `dinhtung` | Người điều phối |
 | Đức | [vinhduc.md](vinhduc.md) | `vinhduc` | Người điều phối |
-| Người điều phối | [answers.md](answers.md) | `main` | Trả lời theo ID câu hỏi |
+| Gia Bảo (người điều phối) | [answers.md](answers.md) | `main` | Trả lời theo ID câu hỏi |
+
+Gia Bảo phát triển code trên `giabao`, nhưng quyết định chính thức cho nhóm vẫn ở `answers.md` trên main. Không tạo bản trả lời riêng trên giabao hoặc yêu cầu thành viên đọc giabao thay main. Muốn publish quyết định mới khi đang làm ở giabao, chỉ chuyển nhánh khi worktree an toàn; không mang theo code thử nghiệm vào main.
 
 Mỗi người chỉ sửa file gửi của mình. Không tạo một file câu hỏi chung để hai nhánh ghi đè lẫn nhau. File trả lời do người điều phối giữ; nếu cần hỏi bạn còn lại thì ghi người nhận trong câu hỏi để nhóm cùng đọc.
 

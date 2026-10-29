@@ -1,6 +1,8 @@
 # Bàn giao dự án cho nhóm
 
-Ngày lập: 28/10/2026. Người điều phối giữ `main`; Tùng làm `dinhtung`, Đức làm `vinhduc`. Đây là điểm bắt đầu cho cả thành viên và AI.
+Ngày lập: 28/10/2026. Cập nhật phân nhánh: 29/10/2026. Gia Bảo là người điều phối, phát triển kỹ thuật trên `giabao`; Tùng làm `dinhtung`, Đức làm `vinhduc`. `main` giữ bản chuẩn đã duyệt và quyết định chung. Đây là điểm bắt đầu cho cả thành viên và AI.
+
+Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main để thử code, không chuyển kênh trả lời nhóm khỏi main. Việc review nhánh khác không đòi hỏi merge; chỉ tích hợp code sau kiểm tra và khi chủ repo yêu cầu.
 
 ## Đã có gì, không cần làm lại?
 
@@ -42,7 +44,7 @@ git switch dinhtung
 git switch --track origin/dinhtung
 ```
 
-Đức thay `dinhtung` bằng `vinhduc`. Nếu chưa có cả local lẫn remote, chỉ tạo sau khi xác nhận `origin/main` đã chứa bộ bàn giao:
+Đức thay `dinhtung` bằng `vinhduc`; Gia Bảo thay bằng `giabao` và đọc nhiệm vụ điều phối tương ứng. Nếu chưa có cả local lẫn remote, chỉ tạo nhánh được giao sau khi xác nhận `origin/main` đã chứa bộ bàn giao:
 
 ```bash
 git switch -c dinhtung origin/main
@@ -79,7 +81,7 @@ Người điều phối trả lời theo ID tại `docs/discussions/answers.md` 
 ## Checklist trước khi mời clone
 
 - Người điều phối review, commit và push bộ bàn giao lên main khi đồng ý publish.
-- Tạo/publish hai nhánh từ main đã có hướng dẫn, hoặc merge main vào nhánh tạo sớm trước khi thành viên làm.
+- Tạo/publish các nhánh giabao/dinhtung/vinhduc từ main đã có hướng dẫn, hoặc merge main vào nhánh tạo sớm khi an toàn; không ghi đè nhánh đã có bài làm.
 - Cấp nguồn bốn input/kiểm quyền; xác nhận GPU/Kaggle và duyệt cấu hình đầu tiên.
 - Bật bảo vệ main/yêu cầu PR review nếu có quyền. `AGENTS.md` không thay branch protection; lượt viết tài liệu không cấu hình bảo vệ remote.
 - Bộ bàn giao mới trong working tree local thì chưa đến máy thành viên.

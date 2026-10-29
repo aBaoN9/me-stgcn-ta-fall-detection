@@ -6,7 +6,9 @@ Ngày giao: 28/10/2026. Trạng thái ban đầu `TODO`, **chưa có thí nghi�
 |---|---|---|---|---|---|
 | Tùng | `dinhtung` | Benchmark backbone skeleton trên GMDCSA-24 | TODO | [TUNG-01 đến TUNG-04](dinhtung.md) | [Tùng](../reports/dinhtung.md) |
 | Đức | `vinhduc` | Kiểm chứng đóng góp, quality-aware pooling, trade-off | TODO | [DUC-01 đến DUC-04](vinhduc.md) | [Đức](../reports/vinhduc.md) |
-| Người điều phối | `main` | Duyệt protocol, cấp input, review PR, tích hợp và cập nhật Word | Theo mốc | [Checklist](../handoff.md) | Đọc hai PR/báo cáo |
+| Gia Bảo (người điều phối) | `giabao` | Phát triển kỹ thuật, review, chuẩn bị tích hợp và cập nhật Word | Theo yêu cầu | [Vai trò Gia Bảo](giabao.md) | [Gia Bảo](../reports/giabao.md) |
+
+`main` giữ bản chuẩn đã duyệt và tài liệu điều phối chung. Quyết định theo ID vẫn ở [answers.md](../discussions/answers.md) trên main, không chuyển sang giabao. Nhánh giabao không tự chứa code mới của Tùng/Đức và không thay thế main.
 
 ## Mốc bàn giao
 
@@ -24,6 +26,7 @@ Không đặt deadline giả; nhóm thống nhất theo lịch/tài nguyên. Kh�
 
 ## Ranh giới tránh đụng nhau
 
+- Gia Bảo: sửa code/thử nghiệm và chuẩn bị tích hợp trên giabao theo yêu cầu cụ thể; cập nhật báo cáo riêng. Không tự lấy việc đang giao Tùng/Đức hoặc push nhánh của hai bạn. Tài liệu quy tắc/bàn giao/quyết định chung do Gia Bảo giữ trên main.
 - Tùng: `training/backbone_benchmark/`, `results/backbone_benchmark/`, `docs/research/backbone-benchmark.md`, báo cáo Tùng.
 - Đức: `training/contribution_study/`, `results/contribution_study/`, `docs/research/contribution-study.md`, báo cáo Đức.
 - Đọc/import `training/component_ablation/`, không sửa nguồn/kết quả cũ. Notebook mới nếu cần nằm trong training riêng, không vào `notebooks/` đang khóa inventory.

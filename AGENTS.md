@@ -4,10 +4,10 @@ Repo này là nghiên cứu Fall/ADL, không chỉ demo web. Đọc trước khi
 
 ## Xác định người và đọc đúng nhiệm vụ
 
-- Chưa xác định người trong cuộc trò chuyện: **hỏi "Bạn là Tùng, Đức hay người điều phối dự án?" trước khi sửa/chạy train**. Không đoán từ tài khoản Git/máy/nhánh.
+- Chưa xác định người trong cuộc trò chuyện: **hỏi "Bạn là Gia Bảo (người điều phối), Tùng hay Đức?" trước khi sửa/chạy train**. Không đoán từ tài khoản Git/máy/nhánh.
 - Tùng: nhánh `dinhtung`, [nhiệm vụ](docs/tasks/dinhtung.md), [báo cáo](docs/reports/dinhtung.md).
 - Đức: nhánh `vinhduc`, [nhiệm vụ](docs/tasks/vinhduc.md), [báo cáo](docs/reports/vinhduc.md).
-- Người điều phối: `main`, [bảng việc](docs/tasks/README.md). Người khác cần người điều phối giao việc, không tự nhận phần của hai bạn.
+- Gia Bảo là chủ repo/người điều phối: phát triển kỹ thuật trên `giabao`, [nhiệm vụ](docs/tasks/giabao.md), [báo cáo](docs/reports/giabao.md). `main` giữ bản chuẩn đã duyệt và quyết định chung trong `docs/discussions/answers.md`; không phải nhánh thử nghiệm cá nhân. Người khác cần người điều phối giao việc, không tự nhận phần của hai bạn.
 - Câu hỏi danh tính có thể hỏi ngay trong chat. Sau khi biết người, các câu hỏi cho nhóm/người điều phối phải ghi vào [kênh Markdown](docs/discussions/README.md), không chỉ nhắn trong chat rồi coi nhóm đã nhận.
 - Vai trò đã rõ thì không hỏi lại mỗi lượt. Sau khi đọc, tóm tắt hiện trạng, nhiệm vụ, phạm vi sửa, tiêu chí xong và bước đầu tiên.
 - Thứ tự đọc: [README](README.md), [bàn giao](docs/handoff.md), [bảng việc](docs/tasks/README.md), nhiệm vụ cá nhân, [protocol](docs/research-protocol.md), [phương pháp](docs/methodology.md), [ablation](docs/component-ablation.md), [timing](docs/timing-ablation.md), rồi code/kết quả liên quan. Không bắt người dùng đọc hết thay AI.
@@ -21,7 +21,8 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 ## Git và ranh giới
 
 - Trước khi làm: `git status --short`, `git branch --show-current`, `git remote -v`. Thay đổi không rõ nguồn gốc: hỏi trước; không reset/clean/stash/ghi đè hộ người khác.
-- Thành viên phải ở đúng nhánh trước khi sửa; chưa chuyển an toàn được thì dừng sửa. Người điều phối được sửa main để bàn giao/tích hợp.
+- Thành viên phải ở đúng nhánh trước khi sửa; chưa chuyển an toàn được thì dừng sửa. Gia Bảo sửa code/thử nghiệm trên `giabao`, chỉ tích hợp vào main sau review/kiểm tra và yêu cầu của chủ repo. Tài liệu bàn giao/quy tắc/quyết định điều phối được cập nhật trực tiếp trên main; publish vẫn cần yêu cầu của chủ repo.
+- AI làm cùng Gia Bảo được đọc/fetch nhánh Tùng/Đức để review, không cần merge vào giabao chỉ để xem. Không tự sửa hoặc push hai nhánh cá nhân đó; giabao không tự đồng nghĩa code đã được duyệt vào main.
 - Chỉ ghi vùng trong nhiệm vụ; nguồn cũ được đọc/import, không sửa loop train chung để tiện riêng mình.
 - Thành viên không push trực tiếp main, force-push, tự merge hoặc thay model/threshold triển khai. Người điều phối duyệt tích hợp; publish main chỉ khi chủ repo yêu cầu.
 - Không tự commit/push code khi người dùng chưa yêu cầu. **Ngoại lệ được chủ repo cho phép sẵn:** mỗi lần hỏi nhóm, cập nhật/ghi đè file trao đổi cá nhân hiện tại, tạo commit thường và push nhánh được giao, không phải hỏi lại quyền cho lần gửi Markdown đó. Chỉ stage file trao đổi; kiểm cả commit chưa push để không gửi kèm code ngoài yêu cầu. Không force-push, không commit hộ thay đổi khác. Không đưa token, video/tensor riêng, môi trường hoặc checkpoint lớn vào Git.

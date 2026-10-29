@@ -18,7 +18,9 @@ Dự án phân loại **té ngã (Fall)** và **hoạt động thường ngày (
 |---|---|---|---|
 | Tùng | `dinhtung` | [So sánh local ST-GCN-style/CTR-GCN cùng dữ liệu và recipe](docs/tasks/dinhtung.md) | [Tiến độ Tùng](docs/reports/dinhtung.md) |
 | Đức | `vinhduc` | [Kiểm chứng đóng góp, quality-aware pooling và đánh đổi](docs/tasks/vinhduc.md) | [Tiến độ Đức](docs/reports/vinhduc.md) |
-| Người điều phối | `main` | Duyệt thiết kế, review PR/tích hợp; không tự thay model theo số đẹp | Đọc báo cáo trên nhánh/PR |
+| Gia Bảo (người điều phối) | `giabao` | [Phát triển kỹ thuật, chuẩn bị tích hợp và điều phối](docs/tasks/giabao.md) | [Tiến độ Gia Bảo](docs/reports/giabao.md) |
+
+`main` là bản chuẩn đã duyệt của nhóm, không phải nhánh thử nghiệm của Gia Bảo. Gia Bảo sửa code trên `giabao`, review/kiểm tra rồi mới tích hợp khi được yêu cầu; quy tắc và quyết định chung vẫn publish trên `main` để Tùng/Đức cùng đọc.
 
 Nhiệm vụ mới hiện **TODO/NOT_RUN**, chưa là cải tiến đã chứng minh. Trọng tâm: đối chứng công bằng, ablation, bằng chứng kỹ thuật; không giao lại 07/08 như việc chưa làm. Không push trực tiếp main. Báo cáo chỉ vào main sau merge; có thể đọc trước qua PR/`git show`, xem [quy trình Git và input](docs/handoff.md).
 
