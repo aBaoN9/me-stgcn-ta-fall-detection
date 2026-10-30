@@ -4,12 +4,28 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 29/10/2026, review nhánh Đức tại `1cbb778`.
-- `DUC-20261028-001`: `CHANGES_REQUESTED`. Giữ hướng quality-aware pooling; sửa kiểm dữ liệu/nghiệm thu và nộp lại trước full.
+- Cập nhật: 30/10/2026, Gia Bảo xác nhận phân công hai hướng và dừng PoseLab, mã `GB-20261030-001`.
+- Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
+- `DUC-20261028-001`: giữ `CHANGES_REQUESTED` về lỗi kiểm dữ liệu/nghiệm thu nếu dùng tiếp mã đã review; yêu cầu cố định hướng/công thức Q0/Q1 đã được thay bởi quyết định mới.
 - Chưa cấp phê duyệt full train, nguồn dữ liệu mới, dịch vụ GPU trả phí hoặc thay model/backend triển khai.
 - Quy trình chung: [kênh trao đổi](README.md).
 
-## DUC-20261028-001 - Review và yêu cầu sửa cho Đức
+## GB-20261030-001 - Phân công hai hướng và dừng PoseLab
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; xác nhận trực tiếp trong chat ngày 30/10/2026, múi giờ UTC+7.
+- Quyết định: `APPROVED` cho phạm vi phân công mới và dừng app; **không phải phê duyệt cấu hình hoặc full train**.
+- **Tùng / dinhtung:** giữ dataset, dùng mô hình hay phương pháp khác để xử lý và so sánh với ME-STGCN-TA. Tùng tự lựa chọn và giải thích thay đổi, không bắt buộc CTR-GCN hoặc ma trận B0-B3.
+- **Đức / vinhduc:** thay đổi có kiểm soát mô hình hiện tại, giữ ME-STGCN-TA làm mốc; so bản gốc với thay đổi được giải thích. Không giao sẵn quality-aware/công thức Q0-Q1 và không đổi hẳn mô hình như nhiệm vụ Tùng. Giữ kiến trúc trong hướng chính, sửa kiến trúc cần xin mở rộng phạm vi.
+- **Chốt nhận diện mốc cho Đức:** `A3_motion_attention` / `fixed` của notebook 07 và mã `training/component_ablation/` tại `c8f654bf0f1943ffcfe375911c8b3e0015beadc5`; `channels=8`, `attention=True`, `fall_multiplier=1.0`, feature v2. Nguồn/cấu hình/kết quả lịch sử và cách chạy lại bản gốc cùng bản thay đổi ghi trong [nhiệm vụ Đức](../tasks/vinhduc.md). Không dùng checkpoint final 06, A3_cost_225, T0/T1 hoặc Q1 thay mốc. Đây là chốt đối chứng, không áp sẵn cách cải tiến hoặc phê duyệt full train.
+- Cùng dữ liệu/nhãn/split theo subject, quy tắc chọn cấu hình/ngưỡng, seed, ngân sách tương đương và cách tính kết quả theo [protocol](../research-protocol.md). Nộp M0 ngắn về phần giữ nguyên/thay đổi, lý do, cặp so và ngân sách trước full; không chọn bằng outer-test.
+- Hủy `WEB-01` và `WEB-02`, không còn việc PoseLab khi rảnh hoặc chờ GPU. Chặn launcher và khởi động ASGI; giữ mã/model/bằng chứng để truy vết, không xóa lịch sử cục bộ hoặc kết quả.
+- Thay phạm vi giao ngày 28/10/2026 và phần ép hướng quality-aware/công thức trong `DUC-20261028-001` ngày 29/10. Giữ phát hiện lỗi phần mềm/kiểm dữ liệu và nghĩa vụ sửa nếu mã còn dùng; không tự nâng trạng thái bài làm đã review.
+- Không yêu cầu bỏ bài làm cũ: thành viên chỉ rõ phần tái sử dụng, phần cần sửa và phương án tiếp theo. Không bắt hai bạn tạo số tốt hơn; báo cả kết quả âm và đánh đổi.
+- Gia Bảo đã yêu cầu bổ sung mốc rõ ràng cho Đức rồi publish lên main trong chat ngày 30/10/2026. Tích hợp sau kiểm tra và xác nhận remote/PR trước khi nói đã gửi; hai bạn fetch/đọc main và nhận cập nhật an toàn, không reset bài làm hoặc ghi đè nhánh cá nhân. Quyết định này không cho phép AI đẩy thay nhánh Tùng/Đức.
+
+## DUC-20261028-001 - Review cũ, phạm vi đã cập nhật
+
+**Đọc GB-20261030-001 trước.** Nội dung sau giữ làm lịch sử review; phần chỉ định quality-aware/Q0-Q1 không còn bắt buộc. Các lỗi kỹ thuật và yêu cầu trung thực bằng chứng vẫn áp dụng nếu tiếp tục dùng mã đó.
 
 - ID câu hỏi / người hỏi: `DUC-20261028-001` / Đức, nhánh `vinhduc`.
 - Thời gian / vai trò: 2026-10-29 19:18 UTC+7 / AI điều phối theo yêu cầu chủ repo.

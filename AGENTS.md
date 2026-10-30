@@ -1,6 +1,16 @@
 # Quy tắc làm việc cho AI và thành viên
 
-Repo này là nghiên cứu Fall/ADL, không chỉ demo web. Đọc trước khi sửa; áp dụng toàn repo.
+Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp dụng toàn repo.
+
+## Phân công hiện hành - Gia Bảo quyết định ngày 30/10/2026
+
+- Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán và so sánh với ME-STGCN-TA. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.
+- Đức: lấy ME-STGCN-TA hiện tại làm mốc, tự đề xuất thay đổi có kiểm soát và so sánh với bản gốc. Không thay bằng mô hình khác như nhiệm vụ Tùng, không bắt buộc quality-aware pooling.
+- Mốc Đức đã chốt: `A3_motion_attention` / policy `fixed` của notebook 07 và `training/component_ablation/`, tám kênh, attention bật, Fall multiplier 1.0; xem [nhận diện mốc](docs/tasks/vinhduc.md). Không lấy checkpoint final 06, A3_cost_225, T0/T1 hoặc Q1 thay mốc; chạy lại cặp gốc/thay đổi để đánh giá như nhau.
+- Giao câu hỏi nghiên cứu và tiêu chí đối chiếu, không áp sẵn mô hình, công thức, siêu tham số hoặc ma trận thí nghiệm. Thành viên giải thích phần giữ nguyên/thay đổi, lý do và giới hạn; nộp phương án M0 để thống nhất trước full train.
+- Hai hướng giữ cùng dataset, nhãn, split theo subject và giao thức đánh giá trong [protocol](docs/research-protocol.md). Cùng quy tắc chọn cấu hình/ngưỡng, seed, ngân sách tương đương và cách tính chỉ số; không dùng outer-test để chọn phương án.
+- PoseLab đã dừng theo yêu cầu chủ repo. Hủy WEB-01/WEB-02, không tự làm UI/QA web hoặc bật lại app. Giữ nguồn cũ, model và kết quả để truy vết, không coi việc dừng app là xóa bằng chứng.
+- Quyết định GB-20261030-001 trong [answers](docs/discussions/answers.md) thay phạm vi giao việc cũ, không tự cấp phê duyệt full train. Phát hiện kiểm tra dữ liệu/nghiệm thu cũ còn giá trị; CTR-GCN/B0-B3/quality-aware/Q0-Q1 không còn là lời giải bắt buộc.
 
 ## Xác định người và đọc đúng nhiệm vụ
 
@@ -36,11 +46,11 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 - Người điều phối trả lời trong `docs/discussions/answers.md` trên main, dẫn đúng ID. Đầu mỗi phiên và trước việc đang chờ duyệt, fetch và đọc file trả lời; không tự xem im lặng là đồng ý.
 - Chưa trả lời thì đánh dấu `WAITING_FOR_MAIN`, tiếp tục việc độc lập. Thiếu phê duyệt M0/phạm vi/đổi model thì dừng đúng phần đó, không dừng mọi việc và không tự đoán quyết định.
 
-## Web app nếu còn thời gian
+## PoseLab đã dừng
 
-- Nghiên cứu vẫn ưu tiên. [WEB-01/WEB-02](docs/tasks/web-app.md) là phụ, không dùng làm lý do thiếu benchmark/ablation.
-- Đức phụ trách làm lại UI trong `app/static/**` và hướng dẫn `app/README.md`; Tùng review/QA trong tài liệu riêng. Không cùng sửa frontend ở hai nhánh.
-- Giữ API, inference, tiền xử lý, model/threshold và ý nghĩa metric; thay backend/thêm dependency/framework cần hỏi qua Markdown và chờ duyệt. Không tuyên bố đã làm web khi chỉ mới viết kế hoạch.
+- [WEB-01/WEB-02](docs/tasks/web-app.md) có trạng thái `CANCELLED`, không phải việc phụ khi chờ GPU. Ngoại lệ cho Đức sửa frontend và Tùng QA web đã bị thu hồi.
+- `app/` chỉ giữ làm nguồn lịch sử; launcher và khởi động ASGI bị chặn. Không tự cài thư viện/tải model để chạy app, thay model/threshold hoặc xóa dữ liệu lịch sử.
+- Chỉ Gia Bảo được quyết định mở lại; không tự bật lại vì tài liệu hoặc nhánh cũ còn hướng dẫn chạy.
 
 ## Liêm chính nghiên cứu
 
