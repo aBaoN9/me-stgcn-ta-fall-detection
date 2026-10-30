@@ -22,6 +22,7 @@ from event_store import EventStore
 from video_preview import create_browser_preview
 
 
+POSELAB_ENABLED = False
 LOCAL_STORAGE = Path.home() / "AppData" / "Local" if os.name == "nt" else Path.home() / ".local" / "share"
 DEFAULT_RUNTIME = Path(os.getenv("LOCALAPPDATA", str(LOCAL_STORAGE))) / "PoseLab" / "runtime"
 RUNTIME = Path(os.getenv("POSELAB_RUNTIME_DIR", str(DEFAULT_RUNTIME)))
@@ -40,6 +41,8 @@ batch_manager = BatchManager(lambda: engine, executor, lock, RUNTIME,
 @asynccontextmanager
 async def lifespan(application):
     global engine
+    if not POSELAB_ENABLED:
+        raise RuntimeError("PoseLab is disabled by Gia Bao's decision on 2026-10-30. See docs/tasks/web-app.md.")
     engine = Engine()
     yield
     executor.shutdown(wait=True, cancel_futures=True)
@@ -55,6 +58,8 @@ app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost
 
 @app.middleware("http")
 async def guard(request: Request, call_next):
+    if not POSELAB_ENABLED:
+        return JSONResponse({"detail": "PoseLab is disabled by the project owner."}, status_code=503)
     if request.method in {"POST", "DELETE"} and request.headers.get("x-poselab") != "local":
         return JSONResponse({"detail": "Yêu cầu phải xuất phát từ giao diện PoseLab."}, status_code=403)
     response = await call_next(request)

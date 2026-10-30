@@ -30,6 +30,8 @@ git diff origin/main...origin/vinhduc
 - Không cần merge hai nhánh vào giabao chỉ để xem code/câu hỏi. Ghi rõ commit đã review, phát hiện, kiểm tra, phần chấp nhận và phần yêu cầu sửa.
 - Quyết định chính thức trả lời đúng ID trong `docs/discussions/answers.md` trên main, publish khi chủ repo yêu cầu và kiểm remote sau push. File local chưa phải thông báo đã gửi.
 - Không tự push/sửa nhánh dinhtung/vinhduc hoặc làm thay phần đã giao. Nếu cần đổi phân công/phạm vi, ghi rõ quyết định chung trước khi triển khai.
+- Phân công hiện hành ngày 30/10/2026: Tùng giữ dataset và tự đề xuất mô hình/phương pháp khác; Đức thay đổi có kiểm soát ME-STGCN-TA. Giao tiêu chí đánh giá chung, không áp sẵn mô hình/công thức. Duyệt M0 và mốc so sánh trước full; giữ bài làm và phát hiện lỗi đã có nếu tiếp tục dùng mã.
+- PoseLab/WEB-01/WEB-02 đã hủy; không còn ngoại lệ UI/QA web. Giữ model, nguồn và bằng chứng cũ; không bật lại app nếu chưa có yêu cầu mới của Gia Bảo.
 
 ## Phát triển và tích hợp
 

@@ -1,6 +1,6 @@
 # Bàn giao dự án cho nhóm
 
-Ngày lập: 28/10/2026. Cập nhật phân nhánh: 29/10/2026. Gia Bảo là người điều phối, phát triển kỹ thuật trên `giabao`; Tùng làm `dinhtung`, Đức làm `vinhduc`. `main` giữ bản chuẩn đã duyệt và quyết định chung. Đây là điểm bắt đầu cho cả thành viên và AI.
+Ngày lập: 28/10/2026. Cập nhật phân công: 30/10/2026 theo Gia Bảo. Gia Bảo là người điều phối, phát triển kỹ thuật trên `giabao`; Tùng làm `dinhtung`, Đức làm `vinhduc`. `main` giữ bản chuẩn đã duyệt và quyết định chung. Đây là điểm bắt đầu cho cả thành viên và AI.
 
 Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main để thử code, không chuyển kênh trả lời nhóm khỏi main. Việc review nhánh khác không đòi hỏi merge; chỉ tích hợp code sau kiểm tra và khi chủ repo yêu cầu.
 
@@ -9,7 +9,7 @@ Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main đ
 | Phần | Hiện trạng |
 |---|---|
 | Dữ liệu | 160 video, 79 Fall/81 ADL, 4 người; MediaPipe 33 khớp, 32 mốc. Video/tensor không trong repo; xem [data](../data/README.md). |
-| Demo | PoseLab trong `app/`, ONNX/config trong `models/deployment/`; chạy `app/start.cmd`. Chưa phải camera realtime đã kiểm định/thiết bị y tế. |
+| Demo cũ | PoseLab đã dừng ngày 30/10/2026; launcher/ASGI bị chặn, WEB-01/WEB-02 hủy. Nguồn `app/` và ONNX/config giữ để truy vết, không phải nhiệm vụ phát triển web. |
 | Model triển khai | Notebook 06: corrected angle, nested LOSO, final all-subject train. Không tự thay bằng ứng viên mới. |
 | Baseline/ablation | Notebook 07 và `training/component_ablation/`: SVM v2, A0/A1/A2/A3, cost 2,25; seed 42/142/242. [Phân tích](component-ablation.md) đã có cả ưu điểm và lỗi. |
 | Timing | Notebook 08: T0/T1 đã chạy; T1 chưa cải thiện ổn định. Không giao lại như chưa làm. |
@@ -17,10 +17,12 @@ Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main đ
 
 ## Khoảng trống học thuật
 
-Không ưu tiên trang trí web hoặc chỉ tăng epoch. Cần trả lời: **trên cùng dữ liệu/giao thức, backbone khác đạt gì; thành phần đề xuất giúp gì, mất gì, đáng đổi chi phí không?**
+Tập trung nghiên cứu, không làm PoseLab. Cần trả lời: **trên cùng dataset và cách đánh giá, mô hình/phương pháp khác đạt gì; thay đổi có kiểm soát mô hình hiện tại giúp gì và đánh đổi gì?**
 
-- Tùng: đối chứng backbone skeleton tham chiếu nâng cao, thích nghi đúng graph/input và cùng recipe; nếu còn thời gian review/QA web.
-- Đức: tái tính đóng góp đã có, thử quality-aware pooling có ablation, đo chi phí; tổng hợp khi có kết quả Tùng; nếu còn thời gian làm lại UI web theo [WEB-01](tasks/web-app.md).
+- Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán, so với ME-STGCN-TA theo giao thức chung. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.
+- Đức: giữ mô hình ME-STGCN-TA làm mốc, tự đề xuất thay đổi có kiểm soát và so với bản gốc. Không bắt buộc quality-aware hoặc công thức cũ; không đổi hẳn mô hình như phần Tùng.
+- Mốc chính xác của Đức là `A3_motion_attention` / `fixed` trong notebook 07 và `training/component_ablation/`, không phải checkpoint final 06 hoặc A3_cost_225; xem [nguồn/cấu hình mốc](tasks/vinhduc.md). Chạy lại bản gốc cùng bản thay đổi, không lấy số cũ coi là run đối chứng mới.
+- Hai bạn giải thích phần giữ nguyên/thay đổi và lý do, nộp M0 trước full; không được giao sẵn lời giải. Giữ bài làm và lỗi đã review nếu tiếp tục dùng mã, xem GB-20261030-001 trong answers.
 - Không tốt hơn vẫn phải báo trung thực. Đóng góp đồ án cần bằng chứng, không mặc định là phát minh mới của ngành.
 
 Đọc [bảng việc](tasks/README.md), nhiệm vụ cá nhân và [giao thức](research-protocol.md).
@@ -54,11 +56,11 @@ Không chạy cả ba lệnh switch máy móc. Không mang thay đổi chưa com
 
 ## Dữ liệu, môi trường và kiểm tra
 
-- App không cần dataset. Train cần bốn tệp ở [data/README](../data/README.md); hỏi nguồn được cấp quyền, không giả định máy clone đã có.
+- Train cần dữ liệu được cấp quyền ở [data/README](../data/README.md); hỏi nguồn input phù hợp phương án M0, không giả định máy clone đã có. Không cần chạy PoseLab để nghiên cứu.
 - Tạo môi trường Python riêng; xem [train](../training/component_ablation/README.md) và [Kaggle](notebook-guide.md). Không chạy lại 01 nếu đã có bốn input đúng hash.
 - `python scripts/check_repository.py`: kiểm toàn vẹn repo/bằng chứng cũ, không chứng minh code mới đúng.
 - `python -m training.component_ablation.validate_pipeline --input-root data/local`: cần input/dependencies; không phải full train.
-- Lệnh code mới do tác giả bổ sung vào README vùng nhiệm vụ. Hiện chưa có runner benchmark/quality-aware, không đoán lệnh hoặc coi tài liệu là code đã chạy.
+- Lệnh code mới do tác giả bổ sung vào README vùng nhiệm vụ; đối chiếu commit/nhánh để biết đã có gì, không đoán lệnh hoặc coi tài liệu là code đã chạy.
 
 ## Main đọc báo cáo bằng cách nào?
 

@@ -1,3 +1,3 @@
 @echo off
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0start.ps1"
-pause
+echo PoseLab is disabled by Gia Bao's decision on 2026-10-30. See docs/tasks/web-app.md.
+exit /b 1

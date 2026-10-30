@@ -1,14 +1,13 @@
 # 🛡️ ME-STGCN-TA — Phát hiện té ngã từ khung xương
 
-Dự án phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. Ứng dụng **PoseLab** cho phép xem video, khung xương, điểm Fall, dữ liệu chuyển động và lịch sử cảnh báo.
+Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. **PoseLab đã dừng theo quyết định của Gia Bảo ngày 30/10/2026**; repo tập trung so sánh phương pháp và kiểm chứng thay đổi có kiểm soát.
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-training-EE4C2C?logo=pytorch&logoColor=white)
 ![Kaggle](https://img.shields.io/badge/Kaggle-notebooks-20BEFF?logo=kaggle&logoColor=white)
 ![ONNX](https://img.shields.io/badge/ONNX-inference-005CED?logo=onnx&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-local%20app-009688?logo=fastapi&logoColor=white)
 
-[Báo cáo Word](docs/bao-cao.docx) · [Phương pháp](docs/methodology.md) · [Notebooks](docs/notebook-guide.md) · [Chạy ứng dụng](app/README.md) · [Hướng nghiên cứu tiếp](docs/training-roadmap.md)
+[Báo cáo Word](docs/bao-cao.docx) · [Phương pháp](docs/methodology.md) · [Notebooks](docs/notebook-guide.md) · [Phân công nghiên cứu](docs/tasks/README.md) · [Hướng nghiên cứu tiếp](docs/training-roadmap.md)
 
 ## Thành viên và AI bắt đầu ở đây
 
@@ -16,19 +15,21 @@ Dự án phân loại **té ngã (Fall)** và **hoạt động thường ngày (
 
 | Thành viên | Nhánh | Công việc học thuật tiếp theo | Báo cáo |
 |---|---|---|---|
-| Tùng | `dinhtung` | [So sánh local ST-GCN-style/CTR-GCN cùng dữ liệu và recipe](docs/tasks/dinhtung.md) | [Tiến độ Tùng](docs/reports/dinhtung.md) |
-| Đức | `vinhduc` | [Kiểm chứng đóng góp, quality-aware pooling và đánh đổi](docs/tasks/vinhduc.md) | [Tiến độ Đức](docs/reports/vinhduc.md) |
+| Tùng | `dinhtung` | [Giữ dataset, dùng mô hình hoặc phương pháp khác và so với ME-STGCN-TA](docs/tasks/dinhtung.md) | [Tiến độ Tùng](docs/reports/dinhtung.md) |
+| Đức | `vinhduc` | [Thay đổi có kiểm soát ME-STGCN-TA hiện tại và so với bản gốc](docs/tasks/vinhduc.md) | [Tiến độ Đức](docs/reports/vinhduc.md) |
 | Gia Bảo (người điều phối) | `giabao` | [Phát triển kỹ thuật, chuẩn bị tích hợp và điều phối](docs/tasks/giabao.md) | [Tiến độ Gia Bảo](docs/reports/giabao.md) |
 
 `main` là bản chuẩn đã duyệt của nhóm, không phải nhánh thử nghiệm của Gia Bảo. Gia Bảo sửa code trên `giabao`, review/kiểm tra rồi mới tích hợp khi được yêu cầu; quy tắc và quyết định chung vẫn publish trên `main` để Tùng/Đức cùng đọc.
 
-Nhiệm vụ mới hiện **TODO/NOT_RUN**, chưa là cải tiến đã chứng minh. Trọng tâm: đối chứng công bằng, ablation, bằng chứng kỹ thuật; không giao lại 07/08 như việc chưa làm. Không push trực tiếp main. Báo cáo chỉ vào main sau merge; có thể đọc trước qua PR/`git show`, xem [quy trình Git và input](docs/handoff.md).
+Phân công ngày **30/10/2026** thay việc chỉ định sẵn CTR-GCN/quality-aware: hai bạn tự đề xuất phương án, giải thích giữ nguyên/thay đổi gì và vì sao, thống nhất M0 trước full. Giữ cùng dataset và giao thức đánh giá, không coi là cải tiến đã chứng minh hoặc giao lại 07/08 như chưa làm. Giữ bài làm/review đã có; tiến độ xem báo cáo cá nhân. Không push trực tiếp main; xem [quy trình Git và input](docs/handoff.md).
 
-**Nếu còn thời gian:** [làm lại web app](docs/tasks/web-app.md), Đức phụ trách UI, Tùng review/QA; giữ backend/model và không thay việc nghiên cứu. **Hỏi nhóm qua Markdown:** cập nhật cùng [file trao đổi cá nhân](docs/discussions/README.md), commit/push lên nhánh mình mỗi lần hỏi; người điều phối kiểm và trả lời trong [answers.md](docs/discussions/answers.md) trên main. Ghi đè nội dung file bằng commit mới, không force-push.
+**Mốc của Đức:** `A3_motion_attention` / policy `fixed` của notebook 07, tám kênh, attention bật, Fall multiplier 1.0; không phải model demo 06 hoặc A3_cost_225. [Nhiệm vụ Đức](docs/tasks/vinhduc.md) chỉ rõ mã, recipe và cách đối chiếu bản gốc.
+
+**PoseLab và WEB-01/WEB-02 đã hủy**, không còn việc UI/QA khi rảnh hoặc chờ GPU. **Hỏi nhóm qua Markdown:** cập nhật cùng [file trao đổi cá nhân](docs/discussions/README.md), commit/push lên nhánh mình mỗi lần hỏi; người điều phối kiểm và trả lời trong [answers.md](docs/discussions/answers.md) trên main. Ghi đè nội dung file bằng commit mới, không force-push.
 
 Câu khởi động có thể gửi AI sau clone:
 
-> Đọc AGENTS.md và docs/handoff.md. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Đọc nhiệm vụ đúng người, kiểm tra nhánh và tiêu chí hoàn tất. Không bịa kết quả/thay model; cập nhật báo cáo mỗi phiên. Câu hỏi nhóm phải ghi vào file trao đổi Markdown cá nhân rồi commit/push, đọc answers.md trên main để nhận trả lời. Nếu còn thời gian thì làm phần web được giao.
+> Đọc AGENTS.md, docs/handoff.md và quyết định GB-20261030-001 trong answers.md. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát mô hình hiện tại. Tự đề xuất và giải thích, không áp sẵn cách làm; giữ cùng giao thức đánh giá. PoseLab đã dừng, không làm web. Kiểm tra nhánh/phạm vi, cập nhật báo cáo mỗi phiên; hỏi nhóm qua file trao đổi Markdown cá nhân và đọc trả lời trên main. Không bịa kết quả hoặc tự thay model gốc.
 
 ## 🧠 Phương pháp
 
@@ -38,27 +39,9 @@ Video → MediaPipe Pose → xử lý thiếu tư thế → lấy 32 mốc gần
 
 Tám kênh gồm tọa độ tương đối x/y, visibility, vận tốc khớp x/y, góc thân và dịch chuyển tâm hông x/y. Đây là biểu diễn đầu vào; mạng tiếp tục học các biểu diễn bên trong. Vận tốc dùng tọa độ chuẩn hóa, không có đơn vị m/s.
 
-## 🖥️ Chạy PoseLab
+## Trạng thái demo cũ
 
-**Windows, Python 3.11:**
-
-```powershell
-.\app\start.cmd
-```
-
-
-Mở **http://127.0.0.1:8765**. Lần đầu cần Internet để cài thư viện và tải Pose Landmarker. Mô hình ONNX và cấu hình đã nằm trong [models/deployment](models/deployment/); không cần dữ liệu huấn luyện để chạy ứng dụng.
-
-Nếu cổng đã được sử dụng:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\app\start.ps1 -Port 8766
-```
-
-
-Ứng dụng hỗ trợ phân tích một video, cửa sổ trượt, dữ liệu chuyển động, lịch sử sự kiện và đánh giá nhiều video. Video được xử lý trên máy. Telegram chưa được tích hợp; cửa sổ trượt trên file chưa phải kiểm chứng giám sát camera trực tiếp.
-
-![Minh họa điểm Fall theo thời gian](docs/images/timeline-demo.png)
+PoseLab **đã tắt**, không còn hướng dẫn khởi chạy hoặc nhiệm vụ phát triển web. Launcher và khởi động ASGI bị chặn. Nguồn `app/`, [model/checkpoint cũ](models/deployment/) và kết quả được giữ để truy vết nghiên cứu, không xóa dữ liệu lịch sử. Xem [quyết định dừng](docs/tasks/web-app.md).
 
 ## 📓 Notebooks
 
@@ -78,7 +61,7 @@ powershell -ExecutionPolicy Bypass -File .\app\start.ps1 -Port 8766
 - [04b · Điều chỉnh ưu tiên độ nhạy](notebooks/history/04b-sensitivity-tuning.ipynb).
 - [05 · Huấn luyện và xuất mô hình ban đầu](notebooks/history/05-initial-model-export.ipynb).
 
-Các bản này lưu lịch sử phương pháp, không phải các bước bắt buộc trước 06–08. Mô hình của bản 05 không phải mô hình ứng dụng đang sử dụng.
+Các bản này lưu lịch sử phương pháp, không phải các bước bắt buộc trước 06–08. Mô hình bản 05 khác checkpoint 06 được lưu trong `models/deployment/`; PoseLab hiện đã dừng.
 
 </details>
 
@@ -115,8 +98,8 @@ Thí nghiệm dùng **160 video, 79 Fall, 81 ADL và bốn chủ thể**. Với 
 ## 🗂️ Cấu trúc repo
 
 ```text
-app/                         Ứng dụng phân tích video và cảnh báo
-models/deployment/           Mô hình dùng trong ứng dụng
+app/                         Nguồn demo PoseLab cũ, đã tắt
+models/deployment/           Checkpoint và cấu hình cũ được bảo toàn
 notebooks/                   Các bước chuẩn bị, baseline và kiểm chứng
 notebooks/history/           Giai đoạn đề xuất và xuất mô hình ban đầu
 training/component_ablation/ Mã kiểm chứng thành phần
