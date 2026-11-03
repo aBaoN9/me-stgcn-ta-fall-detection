@@ -41,6 +41,8 @@
       "rows": 48,
       "unmatched_rows": 0,
       "max_abs_diff": 1.1102230246251565e-16,
+      "nan_or_inf_mismatches": 0,
+      "both_nan_cells": 0,
       "status": "PASS"
     },
     {
@@ -48,6 +50,8 @@
       "rows": 192,
       "unmatched_rows": 0,
       "max_abs_diff": 0.0,
+      "nan_or_inf_mismatches": 0,
+      "both_nan_cells": 0,
       "status": "PASS"
     },
     {
@@ -57,7 +61,11 @@
     },
     {
       "check": "component: seed_mean_std.csv (ddof=1) recomputed",
+      "rows": 15,
+      "unmatched_rows": 0,
       "max_abs_diff": 1.214306433183765e-16,
+      "nan_or_inf_mismatches": 0,
+      "both_nan_cells": 0,
       "status": "PASS"
     },
     {
@@ -100,6 +108,8 @@
       "rows": 18,
       "unmatched_rows": 0,
       "max_abs_diff": 1.1102230246251565e-16,
+      "nan_or_inf_mismatches": 0,
+      "both_nan_cells": 0,
       "status": "PASS"
     },
     {
@@ -107,6 +117,8 @@
       "rows": 72,
       "unmatched_rows": 0,
       "max_abs_diff": 0.0,
+      "nan_or_inf_mismatches": 0,
+      "both_nan_cells": 0,
       "status": "PASS"
     },
     {
@@ -116,7 +128,11 @@
     },
     {
       "check": "timing: seed_mean_std.csv (ddof=1) recomputed",
+      "rows": 6,
+      "unmatched_rows": 0,
       "max_abs_diff": 3.552713678800501e-15,
+      "nan_or_inf_mismatches": 0,
+      "both_nan_cells": 0,
       "status": "PASS"
     },
     {
@@ -126,7 +142,7 @@
     }
   ],
   "tolerance": 1e-09,
-  "code_sha256": "b46012da20495f28758bebdd188fdfe7da7034d56243e6736f587640ecb21192",
+  "code_sha256": "6147ac68a163140354603d3b79b91b4e43dd2f23e1ed97334a6a7c470d93143a",
   "inputs_sha256": {
     "results/component_ablation/predictions.csv": "2d2290637188851c86e264ca1b29ec1e25e2128a8c25afae8a6addfa6d4bb8b8",
     "results/component_ablation/pooled_by_seed.csv": "3106badcff7af7f90ae11f4302f4bccc60ac7d9beb6a87717e45b55e03f67a8e",
@@ -141,8 +157,8 @@
   },
   "environment": {
     "python": "3.12.10",
-    "pandas": "3.0.5",
-    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "numpy": "2.2.6",
     "platform": "Windows-11-10.0.26200-SP0"
   },
   "notes": [

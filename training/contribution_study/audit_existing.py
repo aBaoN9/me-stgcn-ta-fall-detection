@@ -54,12 +54,33 @@ def grouped_metrics(frame, keys):
     return pd.DataFrame(rows)
 
 
+def differences(left, right):
+    """Cell-wise comparison without silently dropping NaN (DUC-REV-04).
+
+    Convention: NaN only matches NaN (metric undefined because its denominator is 0 in both tables).
+    NaN against a finite value, or any infinity, is a mismatch. Returns (max finite |diff|, mismatches, both-NaN).
+    """
+    left, right = np.asarray(left, float), np.asarray(right, float)
+    left_nan, right_nan = np.isnan(left), np.isnan(right)
+    mismatched = (left_nan != right_nan) | np.isinf(left) | np.isinf(right)
+    finite = np.isfinite(left) & np.isfinite(right)
+    worst = float(np.abs(left[finite] - right[finite]).max()) if finite.any() else 0.0
+    return worst, int(mismatched.sum()), int((left_nan & right_nan).sum())
+
+
 def compare(recomputed, stored, keys, columns, name, checks):
+    duplicates = int(recomputed.duplicated(keys).sum() + stored.duplicated(keys).sum())
+    absent = [c for c in columns if c not in recomputed or c not in stored]
+    if duplicates or absent:
+        checks.append({"check": name, "status": "FAIL", "duplicate_keys": duplicates, "missing_columns": absent})
+        return
     merged = recomputed.merge(stored, on=keys, suffixes=("", "_stored"), how="outer", indicator=True)
     missing = int((merged["_merge"] != "both").sum())
-    worst = max(float(np.nanmax(np.abs(merged[c].astype(float) - merged[f"{c}_stored"].astype(float)))) for c in columns)
+    results = [differences(merged[c], merged[f"{c}_stored"]) for c in columns]
+    worst, mismatched, both_nan = max(r[0] for r in results), sum(r[1] for r in results), sum(r[2] for r in results)
     checks.append({"check": name, "rows": len(merged), "unmatched_rows": missing, "max_abs_diff": worst,
-                   "status": "PASS" if missing == 0 and worst <= TOLERANCE else "FAIL"})
+                   "nan_or_inf_mismatches": mismatched, "both_nan_cells": both_nan,
+                   "status": "PASS" if missing == 0 and mismatched == 0 and worst <= TOLERANCE else "FAIL"})
 
 
 def integrity(frame, name, checks):
@@ -90,9 +111,9 @@ def seed_summary(pooled):
         .rename(columns={"<lambda_0>": "std"}, level=1)
 
 
-def paired(predictions, policy):
+def paired(predictions, policy, pairs=PAIRS):
     by_seed, by_subject, flips = [], [], []
-    for factor, base, treat, source in PAIRS:
+    for factor, base, treat, source in pairs:
         frame = predictions[source]
         frame = frame[frame.policy == policy]
         a = frame[frame.variant == base].set_index(["seed", "sample_index"])
@@ -140,11 +161,52 @@ def clip_errors(predictions, policy):
     return table.join(scores, on="video_id").reset_index().sort_values(["total_errors", "video_id"], ascending=[False, True])
 
 
+def audit_run(run, baseline, treatment, output):
+    """Audit a finished runner output (e.g. Q0 -> Q1) with the same checks and paired deltas as 07/08."""
+    predictions = pd.read_csv(run / "predictions.csv")
+    checks = []
+    integrity(predictions, "run", checks)
+    pooled = grouped_metrics(predictions, KEY)
+    compare(pooled, pd.read_csv(run / "pooled_by_seed.csv"), KEY, RATES + COUNTS, "run: pooled_by_seed.csv recomputed", checks)
+    fold = grouped_metrics(predictions, KEY + ["subject"])
+    compare(fold, pd.read_csv(run / "fold_metrics.csv"), KEY + ["subject"], RATES + COUNTS,
+            "run: fold_metrics.csv recomputed", checks)
+    flat = seed_summary(pooled)
+    flat.columns = [f"{m}_{s}" for m, s in flat.columns]
+    flat = flat.reset_index()
+    compare(flat, pd.read_csv(run / "seed_mean_std.csv"), ["variant", "policy"],
+            [f"{m}_{s}" for m in RATES + ["fn", "fp"] for s in ["mean", "std"]], "run: seed_mean_std.csv recomputed", checks)
+    for policy in ["fixed", "balanced", "sensitivity"]:
+        by_seed, summary, by_subject, flips = paired({"run": predictions}, policy, [("change", baseline, treatment, "run")])
+        suffix = "" if policy == "fixed" else f"_{policy}"
+        by_seed.to_csv(output / f"paired_delta_by_seed{suffix}.csv", index=False)
+        summary.to_csv(output / f"paired_delta_summary{suffix}.csv", index=False)
+        if policy == "fixed":
+            by_subject.to_csv(output / "paired_delta_by_subject.csv", index=False)
+            flips.to_csv(output / "paired_clip_flips.csv", index=False)
+    return checks, [run / n for n in ["predictions.csv", "pooled_by_seed.csv", "fold_metrics.csv", "seed_mean_std.csv"]]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "results/contribution_study/audit")
+    parser.add_argument("--run", type=Path, help="audit a finished runner output instead of 07/08")
+    parser.add_argument("--baseline", default="Q0_A3_attention")
+    parser.add_argument("--treatment", default="Q1_A3_quality_prior")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
+    if args.run:
+        checks, inputs = audit_run(args.run, args.baseline, args.treatment, args.output)
+        status = "PASS" if all(c["status"] == "PASS" for c in checks) else "FAIL"
+        report = {"status": status, "checks": checks, "tolerance": TOLERANCE, "run": str(args.run),
+                  "pair": [args.baseline, args.treatment], "code_sha256": sha256(__file__),
+                  "inputs_sha256": {str(p): sha256(p) for p in inputs},
+                  "notes": ["Seeds are repeated runs on the same 160 clips, not independent samples."]}
+        (args.output / "audit_checks.json").write_text(json.dumps(report, indent=2, default=float), encoding="utf-8")
+        for c in checks:
+            print(f"[{c['status']}] {c['check']}")
+        print("OVERALL", status)
+        return 0 if status == "PASS" else 1
     comp, timing = ROOT / "results/component_ablation", ROOT / "results/timing_ablation"
     predictions = {"component": pd.read_csv(comp / "predictions.csv"), "timing": pd.read_csv(timing / "predictions.csv")}
     checks = []
@@ -164,23 +226,22 @@ def main():
         same = len(errors) == len(stored_errors) and errors[KEY + ["sample_index"]].equals(stored_errors[KEY + ["sample_index"]])
         checks.append({"check": f"{source}: errors.csv == misclassified rows", "status": "PASS" if same else "FAIL",
                        "detail": f"{len(errors)} recomputed vs {len(stored_errors)} stored"})
-        summary = seed_summary(pooled)
+        flat = seed_summary(pooled)
+        flat.columns = [f"{m}_{s}" for m, s in flat.columns]
+        flat = flat.reset_index()
         if source == "component":
-            stored = pd.read_csv(folder / "seed_mean_std.csv").set_index(["variant", "policy"])
-            stored = stored[stored.index.get_level_values(0) != "SVM_v2"]
-            worst = max(float(np.nanmax(np.abs(summary[(m, s)].reindex(stored.index) - stored[f"{m}_{s}"])))
-                        for m in RATES for s in ["mean", "std"])
+            stored = pd.read_csv(folder / "seed_mean_std.csv")
+            stored = stored[stored.variant != "SVM_v2"]
+            stored_metrics = RATES
         else:
             stored = pd.read_csv(folder / "seed_mean_std.csv", header=[0, 1], index_col=[0, 1])
-            stored.index = stored.index.set_names(["variant", "policy"])
-            worst = max(float(np.nanmax(np.abs(summary[(m, s)].reindex(stored.index) - stored[(m, s)])))
-                        for m in RATES + ["fn", "fp"] for s in ["mean", "std"])
-        checks.append({"check": f"{source}: seed_mean_std.csv (ddof=1) recomputed", "max_abs_diff": worst,
-                       "status": "PASS" if worst <= TOLERANCE else "FAIL"})
+            stored.columns = [f"{m}_{s}" for m, s in stored.columns]
+            stored = stored.rename_axis(["variant", "policy"]).reset_index()
+            stored_metrics = RATES + ["fn", "fp"]
+        compare(flat, stored, ["variant", "policy"], [f"{m}_{s}" for m in stored_metrics for s in ["mean", "std"]],
+                f"{source}: seed_mean_std.csv (ddof=1) recomputed", checks)
         pooled.to_csv(args.output / f"{source}_pooled_by_seed_recomputed.csv", index=False)
-        flat = summary.copy()
-        flat.columns = [f"{m}_{s}" for m, s in flat.columns]
-        flat.reset_index().to_csv(args.output / f"{source}_seed_mean_std_recomputed.csv", index=False)
+        flat.to_csv(args.output / f"{source}_seed_mean_std_recomputed.csv", index=False)
 
     # 08 T0 reuses the A3_cost_225 recipe; report whether the scores are identical rather than assume it.
     a = predictions["component"].query("variant == 'A3_cost_225' and policy == 'fixed'").set_index(["seed", "sample_index"]).sort_index()

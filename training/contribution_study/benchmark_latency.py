@@ -17,8 +17,16 @@ from training.contribution_study.quality_pooling import QualityAwareSkeletonMode
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def make_sync(device):
+    """Wait for queued kernels on the measured CUDA device (cuda, cuda:0, ...); no-op elsewhere (DUC-REV-03)."""
+    device = torch.device(device)
+    if device.type == "cuda":
+        return lambda: torch.cuda.synchronize(device)
+    return lambda: None
+
+
 def measure(model, values, warmup, repeats, device):
-    sync = torch.cuda.synchronize if device == "cuda" else (lambda: None)
+    sync = make_sync(device)
     with torch.no_grad():
         for _ in range(warmup):
             model(values)
@@ -41,6 +49,7 @@ def main():
     parser.add_argument("--rounds", type=int, default=5, help="alternate Q0/Q1 rounds to reduce drift bias")
     parser.add_argument("--output", type=Path, default=ROOT / "results/contribution_study/latency/model_only_pytorch_cpu.json")
     args = parser.parse_args()
+    args.device = torch.device(args.device)
     torch.set_num_threads(args.threads)
     torch.manual_seed(0)
     values = torch.rand(1, 8, 32, 33, device=args.device)
@@ -51,7 +60,7 @@ def main():
     for round_index in range(args.rounds):
         for name in (list(models) if round_index % 2 == 0 else list(models)[::-1]):
             samples[name].extend(measure(models[name], values, args.warmup, args.repeats, args.device))
-    report = {"backend": f"PyTorch {torch.__version__} eager", "device": args.device, "threads": args.threads,
+    report = {"backend": f"PyTorch {torch.__version__} eager", "device": str(args.device), "threads": args.threads,
               "cpu": platform.processor(), "platform": platform.platform(), "python": platform.python_version(),
               "input_shape": list(values.shape), "precision": "float32", "batch": 1,
               "warmup_per_round": args.warmup, "repeats_per_round": args.repeats, "rounds": args.rounds,

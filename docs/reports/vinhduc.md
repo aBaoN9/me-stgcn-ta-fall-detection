@@ -5,10 +5,19 @@ Người thực hiện: Đức. Nhánh: `vinhduc`. [Nhiệm vụ](../tasks/vinhd
 ## Snapshot
 
 - Trạng thái: `IN_PROGRESS`.
-- Cập nhật: 2026-10-28 19:01 UTC+7. DUC-01 audit xong; DUC-02 M0 đã gửi; code DUC-03 qua kiểm phần mềm, chưa chạy thật.
-- Commit code / run ID / PR: code/báo cáo chưa commit (chờ Đức yêu cầu); chỉ file trao đổi được push / chưa có run thật / chưa mở PR.
-- M0 duyệt bởi / ngày / config: đã gửi `DUC-20261028-001`, `WAITING_FOR_MAIN`; ε = 0,1.
-- Mốc: DUC-01 `READY_FOR_REVIEW` (failure mode chưa xác minh bằng video); DUC-02 `WAITING_FOR_MAIN`; DUC-03 `BLOCKED` (chờ M0, bốn input, GPU); DUC-04 `WAITING_FOR_TUNG`. WEB-01 `OPTIONAL_NOT_STARTED`.
+- Cập nhật: 2026-11-03 13:09 UTC+7. Đã nhận phân công GB-20261030-001. Đã sửa DUC-REV-01..05, test hồi quy PASS 44/44. M0 giữ quality-aware và gửi xin mở rộng phạm vi kiến trúc.
+- Commit code / run ID / PR:
+  - `1cbb778` là code DUC-01..03 cũ (đã review).
+  - Merge `origin/main` vào `vinhduc` cục bộ: `31af3cb`, chưa push.
+  - Bản sửa DUC-REV chưa commit, chờ Đức yêu cầu.
+  - Chưa có run thật, chưa mở PR.
+- M0 duyệt bởi / ngày / config: chưa duyệt. Gửi `DUC-20261103-001` (`WAITING_FOR_MAIN`); review `DUC-20261028-001` vẫn `CHANGES_REQUESTED` đến khi main xem lại; ε = 0,1.
+- Mốc:
+  - DUC-01 `READY_FOR_REVIEW` (failure mode chưa xác minh bằng video).
+  - DUC-02 `WAITING_FOR_MAIN`.
+  - DUC-03 `BLOCKED`: chờ M0, bốn input, GPU.
+  - DUC-04 `WAITING_FOR_TUNG` cho phần đối chiếu.
+  - WEB-01 `CANCELLED` theo GB-20261030-001, không làm.
 
 Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. DUC-04 có thể `WAITING_FOR_TUNG` riêng, không dùng để bỏ DUC-01 đến DUC-03. Chỉ người điều phối xác nhận DONE sau review. Nhật ký nối thêm, không xóa lỗi cũ.
 
@@ -65,6 +74,37 @@ Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. DUC
   - M0 chưa duyệt.
 - Việc main cần quyết định: xem `DUC-20261028-001`.
 - Bước tiếp: khi có input thì chạy `validate_pipeline`, smoke thật và báo phân bố q trước full. Sau duyệt, chạy full Kaggle rồi audit cặp Q0→Q1.
+
+### 2026-11-03 - Nhận phân công mới, sửa DUC-REV-01..05
+
+- Đã làm / lý do:
+  - Fetch và đọc `origin/main:docs/discussions/answers.md` tại `f6a23a5`: có GB-20261030-001 (phân công mới, hủy WEB-01) và review `DUC-20261028-001` `CHANGES_REQUESTED`.
+  - Merge `origin/main` vào `vinhduc` (không xung đột, không reset/rebase).
+  - WEB-01 đã hủy nên không làm UI, dù yêu cầu phiên ban đầu có nhắc `web-app.md`.
+  - Đức chọn giữ hướng quality-aware. Đã sửa đủ các lỗi review bắt buộc vì code vẫn dùng tiếp.
+- File / commit thay đổi:
+  - `training/contribution_study/{runner,audit_existing,benchmark_latency}.py`, mới `check_review_fixes.py`, README training.
+  - `results/contribution_study/audit/audit_checks.json`: sinh lại, CSV không đổi.
+  - `docs/research/contribution-study.md`, báo cáo này, `docs/discussions/vinhduc.md`.
+  - Code chưa commit.
+- Từng DUC-REV:
+  - REV-01: `verify_inputs` dừng trước fit nếu thiếu/thừa input hoặc sai hash so với `results/component_ablation/locked_protocol.json`. Synthetic chỉ chạy smoke, `scientific_result=false`. Test: bộ chuẩn qua; đổi hash hoặc thiếu từng input trong bốn input đều bị chặn, output không được tạo.
+  - REV-02: `validate_fold` kiểm complete, chữ ký run, inner subject, fits, đủ ba policy, ID/index/subject/label khớp nguồn, score/threshold hữu hạn, prediction khớp threshold, metric tái tính, artifact `.pt`/attention/history. Resume chỉ bỏ qua fold hợp lệ, fold hỏng chạy lại. `summarize_run` kiểm đúng tập variant×seed×outer và nhóm OOF, xóa `completion.json` cũ trước khi kiểm. Ca review tái hiện nay bị chặn; thêm 15 mutation âm, 1 dương và 1 resume.
+  - REV-03: `make_sync` chuẩn hóa `torch.device`, đồng bộ `cuda` và `cuda:0` đúng thiết bị (mock). Số CPU cũ không đo lại; GPU latency `NOT_RUN`.
+  - REV-04: `compare` không còn `nanmax`; NaN chỉ khớp NaN, còn NaN với số hữu hạn, inf, khóa trùng, thiếu hàng/cột đều FAIL. Seed summary dùng cùng hàm. Ca 0,9/0,8 so NaN/0,8 nay FAIL. Audit 07/08 nguyên trạng vẫn PASS 22/22 + 1 INFO, 0 ô NaN.
+  - REV-05: thêm `audit_existing --run <run> --baseline --treatment` cho cặp Q0→Q1, chạy thử trên smoke giả PASS. Báo cáo, README và tài liệu đã cập nhật.
+- Lệnh kiểm tra và PASS/FAIL/NOT_RUN:
+  - `.venv/Scripts/python -m training.contribution_study.check_review_fixes` PASS 44/44.
+  - `.venv/Scripts/python -m training.contribution_study.check_quality_pooling` PASS 13/13.
+  - `python -m training.contribution_study.audit_existing` PASS.
+  - `python scripts/check_repository.py` PASS.
+  - Smoke thật / full / latency GPU: `NOT_RUN`.
+- Code hash (SHA-256, 12 ký tự): `runner.py` 5c089a8b0b62, `audit_existing.py` 6147ac68a163, `benchmark_latency.py` 185fc55bb11e, `check_review_fixes.py` 98bac7b0bbda, `quality_pooling.py` 3f3e1cecf8c8, `check_quality_pooling.py` c27b43cbc115.
+- Environment: `.venv` Python 3.12.10, torch 2.10.0+cpu, numpy 2.2.6, pandas 2.3.3, scikit-learn 1.7.2. Audit dùng Python hệ thống 3.12.10. Windows 11, CPU, không GPU. Fixture/smoke giả seed 3/7/11, nằm ngoài Git (`.runtime/`), không phải kết quả.
+- Mốc: `training/component_ablation/` giống hệt `c8f654b` (`git diff` rỗng). Q0 = A3_motion_attention fixed.
+- Kết quả tốt/âm/FN-FP: chưa có run thật.
+- Blocker / main cần quyết định: duyệt M0 mở rộng phạm vi `DUC-20261103-001`; review lại bản sửa `DUC-20261028-001`; cấp bốn input đúng hash và GPU (vẫn chờ từ 28/10).
+- Bước tiếp: khi Đức yêu cầu thì commit code và mở PR; có input thì chạy smoke thật và báo phân bố q trước full.
 
 ## Bàn giao review
 

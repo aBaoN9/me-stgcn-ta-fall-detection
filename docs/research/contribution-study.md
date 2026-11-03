@@ -92,7 +92,18 @@ Mô tả failure mode, **chưa xác minh bằng video**: máy này không có vi
 
 ## DUC-02 - Đề xuất M0: quality-aware temporal pooling
 
-Trạng thái: **đề xuất chờ người điều phối duyệt**, chưa có kết quả, chưa xác nhận tính mới. Câu hỏi duyệt: `DUC-20261028-001` trong [file trao đổi](../discussions/vinhduc.md).
+Trạng thái: **đề xuất chờ Gia Bảo duyệt**, chưa có kết quả, chưa xác nhận tính mới. Câu hỏi duyệt: `DUC-20261103-001` (M0 theo phân công mới) và `DUC-20261028-001` (bản sửa sau review) trong [file trao đổi](../discussions/vinhduc.md).
+
+### M0 theo phân công GB-20261030-001 (03/11/2026)
+
+Sau GB-20261030-001, quality-aware pooling không còn bắt buộc. Đức **tự chọn giữ hướng này** vì code/kiểm tra đã có và lỗi review đã sửa. Hướng này không phải thay mô hình như nhiệm vụ Tùng.
+
+- **Mốc:** `A3_motion_attention` / policy `fixed` của notebook 07, `SkeletonModel(channels=8, attention=True, dropout=0.3)`, feature v2, multiplier 1,0, nguồn `training/component_ablation/` tại `c8f654b` (mã hiện tại giống hệt commit này, đã kiểm `git diff`). Q0 là chính mốc này, chạy lại trong runner mới. Đã kiểm Q0 cho logits/attention bằng hệt `SkeletonModel` cùng seed. Số lịch sử 89,58 ± 3,44% chỉ để đối chiếu tái lập, không ghép vào bảng mới.
+- **Giữ nguyên:** dữ liệu/nhãn/split, bốn input đúng hash, tám kênh v2, augmentation, loss class-balanced, multiplier 1,0, optimizer/recipe 07, nested LOSO 4 outer × 3 inner, seed 42/142/242, policy fixed 0,5, cách chọn epoch/ngưỡng chỉ bằng inner.
+- **Thay đổi duy nhất:** temporal attention pooling thêm prior `log(0,1 + q')` không tham số (công thức bên dưới).
+- **Phân loại phạm vi:** prior sửa forward của khối temporal attention. Vì vậy Đức **xin duyệt như mở rộng phạm vi kiến trúc**, không gọi là giữ nguyên kiến trúc. Không có tham số mới; tắt prior thì trở lại đúng mốc.
+- **Cặp so / ngân sách:** Q0 vs Q1, 2 × 3 seed × 4 outer = 24 outer / 96 fits, không search ε hoặc siêu tham số. Mỗi biến thể có ngân sách bằng nhau.
+- **Tiêu chí:** metric chính accuracy pooled policy fixed, kèm sensitivity/specificity/FN/FP theo seed và subject, delta từng seed. Không cần Q1 thắng; kết quả âm hoặc trùng Q0 vẫn được báo.
 
 ### Giả thuyết
 
@@ -130,7 +141,14 @@ Ký hiệu từ code hiện có (`training/component_ablation/models.py`, `featu
 ### Code và kiểm tra phần mềm (M1, không cần dữ liệu thật)
 
 - `training/contribution_study/quality_pooling.py`: `QualityAwareSkeletonModel` kế thừa `SkeletonModel`, không sửa code cũ.
-- `training/contribution_study/runner.py`: nested LOSO Q0/Q1 cùng recipe 07 (import helper 07, sao chép `fit_model` chỉ để thay factory model). Xuất đủ hợp đồng artifact của protocol, trừ `paired_*`; audit DUC-01 tái sử dụng được cho cặp Q0/Q1.
+- `training/contribution_study/runner.py`: nested LOSO Q0/Q1 cùng recipe 07 (import helper 07, sao chép `fit_model` chỉ để thay factory model). Xuất đủ hợp đồng artifact của protocol, trừ `paired_*`. Cặp Q0→Q1 được audit bằng `audit_existing --run <run>` (xem DUC-03).
+- Bản sửa sau review `DUC-20261028-001` (03/11/2026):
+  - Runner dừng trước mọi fit nếu bốn input khác SHA-256 trong `results/component_ablation/locked_protocol.json`, hoặc thiếu/thừa input (DUC-REV-01).
+  - Dữ liệu tổng hợp có đường riêng, chỉ dùng được ở smoke và luôn ra `scientific_result=false`.
+  - Mỗi fold được kiểm đủ trước khi resume hoặc tổng hợp (DUC-REV-02): complete, chữ ký run, inner subject, số fits, đủ ba policy, ID/index/subject/label khớp dữ liệu nguồn, score/threshold hữu hạn, prediction khớp threshold, metric tái tính, và artifact checkpoint/attention/history đọc được. Fold hỏng được chạy lại; `completion.json` chỉ ghi khi mọi kiểm tra qua.
+  - Latency đồng bộ đúng thiết bị `cuda`/`cuda:N` (DUC-REV-03).
+  - Audit không còn bỏ qua NaN (DUC-REV-04). NaN chỉ khớp NaN (metric không xác định vì mẫu số 0); NaN với số hữu hạn, inf, khóa trùng hoặc thiếu hàng/cột đều FAIL.
+- `python -m training.contribution_study.check_review_fixes`: test hồi quy dương/âm cho DUC-REV-01..04. **PASS 44/44** (03/11/2026, torch 2.10.0+cpu), gồm đúng ca review tái hiện (8 báo cáo complete=false, fits=0, chỉ fixed, metrics rỗng nay bị chặn). Fixture/smoke giả, không phải kết quả.
 - `python -m training.contribution_study.check_quality_pooling`: tensor tổng hợp, smoke runner trên dữ liệu giả. **PASS 13/13** (28/10/2026, torch 2.10.0+cpu):
   - Q0 (prior tắt) **bằng hệt** `SkeletonModel` cùng seed: cùng khởi tạo, logits và attention. Số tham số bằng nhau.
   - Attention có shape 16 sau stride, tổng 1. Ánh xạ q có tâm `2t'`. `w_Q1 = w_Q0·(ε+q')/Σ`.
@@ -152,7 +170,10 @@ Kỳ vọng full: 2 variant × 3 seed × 4 outer = 24 outer, 96 fits. Q0 chạy 
 ```bash
 python -m training.contribution_study.runner --input-root <kaggle-input> --mode full --output results/contribution_study/runs/q0_q1_full_<YYYYMMDD>
 python -m training.contribution_study.runner --input-root data/local --mode smoke --output .runtime/contribution_study/smoke_real   # smoke thật, không phải kết quả
+python -m training.contribution_study.audit_existing --run results/contribution_study/runs/q0_q1_full_<YYYYMMDD> --output results/contribution_study/runs/q0_q1_full_<YYYYMMDD>/audit
 ```
+
+Lệnh audit cuối tái tính pooled/fold/seed summary từ `predictions.csv` của run và xuất delta Q0→Q1 theo seed/subject cùng các clip đổi kết quả. Đã chạy thử trên output smoke giả: PASS, nhưng đó chỉ là kiểm phần mềm.
 
 Cost 2,25 cho Q1 và robustness mất pose tổng hợp: chưa đề xuất, chỉ làm sau duyệt riêng.
 
