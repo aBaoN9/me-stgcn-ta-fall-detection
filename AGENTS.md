@@ -4,7 +4,7 @@ Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp d�
 
 **Thông báo mới 16/11/2026:** Tùng và Đức đọc `GB-20261116-001` trong [answers](docs/discussions/answers.md), xác nhận đã nhận và làm tiếp phần việc được phép ngay phiên tiếp theo. Đây là nhắc thực hiện, không phải duyệt M0 hoặc full train; các yêu cầu review/dữ liệu/GPU của Đức vẫn cần phía điều phối giải quyết.
 
-**Hạn nộp đã chốt:** thứ Tư, **25/11/2026 (UTC+7)**, cho đề xuất và báo cáo tiến độ của cả Tùng/Đức theo thông báo trên. Không hiểu đây là hạn bắt buộc có full train khi chưa được duyệt hoặc chưa đủ dữ liệu/GPU; phải nộp phần đã làm và blocker đúng hạn.
+**Hạn nộp đã chốt:** thứ Tư, **25/11/2026 (UTC+7)**. Gia Bảo yêu cầu sản phẩm của cả Tùng/Đức gồm **model đã train và kết quả đánh giá**, đưa lên GitHub kèm mã/lệnh tái lập và báo cáo; không chỉ nộp đề xuất hoặc lời mô tả. Xem checklist bàn giao trong `GB-20261116-001`. Chưa được duyệt/thiếu input/GPU thì báo sớm và nộp phần đã làm đúng hạn với blocker; chưa có model/kết quả thật không được đánh dấu hoàn tất. Yêu cầu sản phẩm không tự cấp phép full train.
 
 ## Phân công hiện hành - Gia Bảo quyết định ngày 30/10/2026
 

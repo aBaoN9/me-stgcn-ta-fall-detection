@@ -15,6 +15,7 @@ Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh ki
 
 ## 16/11/2026 - Nhắc Tùng và Đức thực hiện nhiệm vụ
 
+- Gia Bảo bổ sung sản phẩm bàn giao: MODEL ĐÃ TRAIN + KẾT QUẢ ĐÁNH GIÁ phải có trên GitHub trước hạn 25/11/2026, không chỉ M0/tiến độ. Đồng bộ AGENTS, bảng việc và thông báo; thêm checklist model/load/OOF/metric/hash, vị trí riêng và quyền nộp trên nhánh cá nhân, Release asset cho artifact lớn. Không upload artifact thay thành viên, không duyệt full hay thay model triển khai; thiếu sản phẩm vẫn chưa hoàn tất và blocker phải báo sớm. Kiểm tra diff/checker trước publish; đối chiếu remote để xác nhận phát hành.
 - Cập nhật tiếp theo theo yêu cầu Gia Bảo: chốt hạn đề xuất và báo cáo tiến độ cho cả hai là thứ Tư 25/11/2026 (UTC+7), không phải 18/11. Đồng bộ answers, AGENTS và bảng việc; bỏ câu chưa đặt deadline trong hướng dẫn hiện hành. Không duyệt M0/full hoặc thay yêu cầu input/GPU/review; phần chưa chạy vẫn phải báo đúng hạn với `NOT_RUN`/blocker. Kiểm tra diff và checker trước phát hành; xác nhận commit/push bằng Git/remote.
 - Theo yêu cầu Gia Bảo, chuẩn bị thông báo `GB-20261116-001` trên main và thêm điểm đọc trong AGENTS/bảng việc; không sửa code, model, kết quả hoặc nhánh thành viên.
 - Đã fetch: Tùng `1ab8164` (28/10), Đức `da5b552` (03/11). Ghi nhận Đức đã nộp bản sửa/đề xuất nhưng kiểm tra mới chỉ do Đức báo cáo; không nhận là đã độc lập nghiệm thu hoặc đã full train.

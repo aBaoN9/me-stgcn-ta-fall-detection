@@ -2,7 +2,7 @@
 
 **Thông báo 16/11/2026:** Gia Bảo yêu cầu Tùng và Đức đọc `GB-20261116-001` trong [answers](../discussions/answers.md), xác nhận đã nhận và triển khai phần việc được phép ngay phiên tiếp theo. Đây không phải duyệt M0 hoặc full train.
 
-**Hạn nộp đề xuất và báo cáo tiến độ: thứ Tư, 25/11/2026 (UTC+7), cho cả hai bạn.** Tùng nộp M0 và tiến độ; Đức cập nhật phương án/bản sửa đã nộp, bằng chứng và blocker. Thiếu phê duyệt/input/GPU vẫn phải báo phần đã làm đúng hạn, không tự chạy full hoặc bịa kết quả.
+**Hạn nộp sản phẩm: thứ Tư, 25/11/2026 (UTC+7), cho cả hai bạn. Sản phẩm gồm MODEL ĐÃ TRAIN + KẾT QUẢ ĐÁNH GIÁ, đưa lên GitHub**, kèm mã/lệnh tái lập và báo cáo. Không chỉ nộp M0 hoặc tiến độ. Tùng nộp mô hình/phương pháp khác; Đức nộp cặp mốc gốc/thay đổi có kiểm soát. Checklist artifact trong `GB-20261116-001` ở answers. Thiếu phê duyệt/input/GPU phải báo sớm và nộp phần đã làm đúng hạn; chưa có đủ model/kết quả thật là chưa hoàn tất, không tự chạy full hoặc bịa kết quả.
 
 Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm vi giao ngày 28/10. Đây là hướng công việc, không áp sẵn lời giải. Trạng thái phương án mới `M0_REQUIRED`; tiến độ/code đã có giữ trong báo cáo cá nhân, không xóa hoặc nhận là đã nghiệm thu. Người điều phối publish bản chung trên main sau kiểm tra; file local chưa đến máy thành viên.
 
@@ -18,10 +18,10 @@ Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm 
 
 1. **M0 - Chốt trước full train:** xác nhận tên/nhánh/input; nộp thiết kế/protocol, khác biệt so với code/paper. Người điều phối duyệt trước full run.
 2. **M1 - Có thể chạy lại:** code vùng riêng, lệnh chạy, check shape/split/mask/metric, smoke. Smoke không là kết quả học thuật.
-3. **M2 - Bằng chứng:** full nested LOSO ba seed, raw OOF, config/hash/log, tổng hợp/lỗi. Thiếu GPU/input thì `BLOCKED`, không bịa bảng.
+3. **M2 - Bằng chứng:** model/checkpoint đã train và kết quả full nested LOSO ba seed, raw OOF, config/hash/log, tổng hợp/lỗi; upload GitHub theo checklist trong answers. Thiếu GPU/input thì `BLOCKED`, không bịa bảng hoặc đánh dấu sản phẩm hoàn tất.
 4. **M3 - Review:** PR kèm báo cáo/tiêu chí xong; người điều phối quyết định merge. Không tự nâng model web theo bảng test.
 
-Hai bạn tự đề xuất cách làm và giải thích thay đổi; không bắt buộc CTR-GCN/B0-B3 hoặc quality-aware/Q0-Q1. Giữ dataset, nhãn, split, seed và nguyên tắc đánh giá chung; cấu hình cụ thể chốt ở M0. Hạn nộp đề xuất và báo cáo tiến độ là 25/11/2026 theo cập nhật của Gia Bảo ngày 16/11/2026; không yêu cầu kết quả phải cải thiện.
+Hai bạn tự đề xuất cách làm và giải thích thay đổi; không bắt buộc CTR-GCN/B0-B3 hoặc quality-aware/Q0-Q1. Giữ dataset, nhãn, split, seed và nguyên tắc đánh giá chung; cấu hình cụ thể chốt ở M0. Hạn nộp sản phẩm model và kết quả là 25/11/2026 theo cập nhật của Gia Bảo ngày 16/11/2026; vẫn cần M0 được duyệt trước full, không yêu cầu kết quả phải cải thiện.
 
 **Mốc Đức không còn mơ hồ:** `A3_motion_attention` / `fixed` của notebook 07, tám kênh, temporal attention, Fall multiplier 1.0; nguồn/recipe và yêu cầu chạy lại cặp đối chứng trong [nhiệm vụ Đức](vinhduc.md). Không dùng checkpoint demo 06, A3_cost_225 hoặc T0/T1 thay mốc.
 

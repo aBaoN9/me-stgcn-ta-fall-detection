@@ -14,7 +14,7 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 - Người ra thông báo: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026, UTC+7.
 - Cập nhật hạn theo yêu cầu tiếp theo của Gia Bảo ngày 16/11/2026: **chậm nhất thứ Tư, 25/11/2026 (UTC+7)**. "Thứ Tư tuần sau" tính từ thứ Hai 16/11 là 25/11, không phải 18/11.
-- Hạn này áp dụng cho **đề xuất và báo cáo tiến độ của cả hai**: Tùng nộp M0 cùng phần đã làm; Đức cập nhật phương án/bản sửa đã nộp, bằng chứng và các blocker cần giải quyết. Không phải phê duyệt hoặc yêu cầu hoàn tất full train bất chấp dữ liệu/GPU/review; phần chưa chạy ghi `NOT_RUN` kèm lý do và kế hoạch tiếp theo.
+- Gia Bảo bổ sung trong chat ngày 16/11/2026: hạn này áp dụng cho **sản phẩm MODEL ĐÃ TRAIN + KẾT QUẢ ĐÁNH GIÁ của cả hai, phải upload lên GitHub**, kèm mã/lệnh tái lập và báo cáo; không chỉ đề xuất hoặc báo cáo tiến độ. Tùng nộp mô hình/phương pháp khác; Đức nộp cặp mốc gốc và thay đổi có kiểm soát. Thiếu phê duyệt/input/GPU phải báo sớm để điều phối giải quyết, nộp phần đã làm đúng hạn và ghi phần chưa chạy `NOT_RUN`; chưa đủ sản phẩm là chưa hoàn tất. Yêu cầu này không bỏ điều kiện M0/review/smoke hoặc tự phê duyệt full train.
 - Yêu cầu: cả hai chủ động bắt đầu hoặc tiếp tục phần nghiên cứu được giao và nộp tiến độ, không chỉ đọc phân công rồi chờ. Không áp sẵn cách giải hay yêu cầu kết quả phải tốt hơn.
 - Trạng thái: `ACTION_REQUIRED` cho xác nhận, cập nhật và phần việc được phép; **không phải duyệt M0, mở rộng kiến trúc hoặc full train**.
 
@@ -37,10 +37,19 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 3. Quality-aware pooling vẫn là đề xuất xin mở rộng phạm vi kiến trúc, chưa được duyệt. Trong lúc chờ, tiếp tục review/test phần mềm, chuẩn bị môi trường/notebook và kiểm kê input theo quyền hiện có; không bỏ hash guard, không dùng dữ liệu giả làm smoke thật, không tự mua GPU.
 4. Chỉ chạy bước tương ứng khi đủ phê duyệt và input/môi trường phù hợp. Full vẫn cần review bản sửa, smoke thật và duyệt riêng. Khi được chạy, chạy lại bản gốc cùng bản thay đổi trong điều kiện so sánh như nhau; không dùng số lịch sử làm đối chứng mới.
 
-### Xác nhận và nộp tiến độ
+### Sản phẩm bắt buộc và cách upload GitHub
 
-- Cả hai xác nhận ngay phiên làm việc tiếp theo trong `docs/discussions/dinhtung.md` hoặc `docs/discussions/vinhduc.md`, dẫn `GB-20261116-001` và hạn **25/11/2026 (UTC+7)**; nộp đề xuất và báo cáo tiến độ chậm nhất ngày này, ghi việc đã làm, bằng chứng, bước tiếp theo và hỗ trợ cần thiết. Không chờ hết hạn mới xác nhận; gặp blocker phải báo sớm, không im lặng chờ hoặc bịa kết quả.
-- Commit/push xác nhận hoặc câu hỏi trên đúng nhánh theo quyền đã có; không xóa câu hỏi chưa giải quyết. Code/báo cáo nộp theo quy trình và quyền commit/push hiện hành, không push hộ nhau hoặc tự merge main.
+1. **Model thật:** trọng số/checkpoint hoặc artifact mô hình đã fit phù hợp phương pháp, có mã dựng/load và lệnh inference/evaluate chạy lại được. Ghi rõ run, seed, fold, cấu hình, phiên bản feature và dữ liệu đã dùng để train; nộp checkpoint dùng tạo kết quả hoặc liên kết artifact tương ứng, không lấy model cũ đổi tên thành model mới. Không bắt buộc ONNX, giao diện hoặc một lần train all-subject mới ngoài phương án đã duyệt.
+2. **Kết quả thật:** bảng Accuracy, Precision, Recall, Specificity, F1, FN/FP và confusion matrix; kết quả từng fold/seed và tổng hợp mean/std theo protocol, kèm raw OOF/dự đoán, config, hash input/code/model, log/history và trạng thái hoàn tất. Tùng đối chiếu ME-STGCN-TA theo cùng đánh giá; Đức có kết quả cho cả mốc chạy lại và bản thay đổi. Không chọn checkpoint/seed đẹp bằng outer-test, không lấy smoke hoặc số lịch sử làm kết quả mới.
+3. **Vị trí:** Tùng để model theo run trong `results/backbone_benchmark/<run>/models/` và kết quả trong cùng run; Đức dùng `results/contribution_study/<run>/models/` và kết quả tương ứng. Mã/lệnh chạy ở vùng training cá nhân; báo cáo cá nhân dẫn commit, artifact và cách tái lập. Không ghi đè `models/deployment/` hoặc bằng chứng kết quả gốc.
+4. **Đưa lên GitHub:** Gia Bảo yêu cầu và cho phép commit/push sản phẩm trong phạm vi nhiệm vụ lên đúng nhánh `dinhtung`/`vinhduc`, mở PR để review; không tự merge main hoặc gửi kèm thay đổi ngoài nhiệm vụ. Artifact nhỏ phù hợp Git thì commit trực tiếp. `.pt`/`.onnx`/`.npz` đang bị ignore: chỉ stage đích danh artifact đã kiểm trong thư mục model riêng bằng `git add -f -- <file>` nếu cần; không bỏ ignore toàn cục, không force-add cả thư mục dự án.
+5. **Artifact lớn:** upload dưới dạng GitHub Release asset trên repo này và ghi đường dẫn tải, SHA-256, dung lượng, run/seed/fold trong manifest được commit trên nhánh cá nhân. Không nhét checkpoint lớn vào lịch sử Git, không tự bật dịch vụ trả phí hoặc chỉ để model ở Kaggle/máy riêng mà không có bản GitHub truy cập được. Không upload video/tensor riêng, token hoặc môi trường. Thiếu quyền upload thì báo ngay, không nói đã gửi.
+6. **Nghiệm thu:** kiểm lại remote/PR và khả năng tải, đối chiếu hash, thử load model và tái tính metric từ raw predictions. Ghi PASS/FAIL/NOT_RUN. Chỉ báo đủ sản phẩm khi người review lấy được model và kết quả tương ứng; chỉ có notebook, ảnh chụp bảng điểm hoặc báo cáo chữ là chưa đủ. Model học toàn dữ liệu nếu có phải ghi rõ không có test độc lập, không gán metric outer-fold cho chính checkpoint đó.
+
+### Xác nhận và bàn giao
+
+- Cả hai xác nhận ngay phiên làm việc tiếp theo trong `docs/discussions/dinhtung.md` hoặc `docs/discussions/vinhduc.md`, dẫn `GB-20261116-001` và hạn **25/11/2026 (UTC+7)**; bàn giao model và kết quả chậm nhất ngày này theo checklist trên, kèm báo cáo, bằng chứng, bước tiếp theo và hỗ trợ cần thiết. Không chờ hết hạn mới xác nhận; gặp blocker phải báo sớm, không im lặng chờ hoặc bịa kết quả.
+- Commit/push xác nhận, câu hỏi và sản phẩm theo quyền/phạm vi nêu trên; không xóa câu hỏi chưa giải quyết, không push hộ nhau hoặc tự merge main.
 - Giữ cùng dataset/nhãn/split theo subject, quy tắc đánh giá/chọn cấu hình/ngưỡng, seed 42/142/242 và ngân sách so sánh đã thống nhất. Không chọn theo outer-test hoặc seed đẹp; kết quả âm vẫn hợp lệ.
 - Thiếu input/GPU/phê duyệt: ghi `NOT_RUN` và blocker cụ thể cho phần chưa chạy, tiếp tục việc độc lập. Đức không cần chờ Tùng để chuẩn bị cặp đối chứng.
 - PoseLab vẫn dừng, WEB-01/WEB-02 vẫn `CANCELLED`; không làm web/UI/QA thay nghiên cứu.
