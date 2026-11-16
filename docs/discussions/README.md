@@ -17,7 +17,7 @@ Mỗi người chỉ sửa file gửi của mình. Không tạo một file câu 
 1. Xác định danh tính/nhánh, kiểm worktree và đọc câu trả lời mới từ main. Câu xác định danh tính được hỏi trong chat; trao đổi với nhóm thì phải ghi file.
 2. Cập nhật **cùng file Markdown cá nhân**, không tạo file mới mỗi lần hỏi. Giữ các câu còn mở; câu đã giải quyết có thể bỏ khỏi snapshot sau khi có ID câu trả lời/commit đối chiếu. Lịch sử nằm trong Git.
 3. Mỗi câu có ID ổn định, ví dụ `TUNG-20261028-001` hoặc `DUC-20261028-001`; ngày/giờ UTC+7, người nhận, ngữ cảnh, file/lệnh/log đã khử bí mật, điều đã thử, đề xuất và quyết định cần xác nhận. Không đổi ID khi sửa cùng câu.
-4. Stage đúng file, tạo commit thường và push nhánh cá nhân. Đây là quyền gửi trao đổi chủ repo đã cho sẵn, không cần xin lại mỗi lần. Không stage code/báo cáo khác nếu chưa được yêu cầu; kiểm outgoing commits để không push kèm code ngoài phạm vi.
+4. Stage đúng file, tạo commit thường và push nhánh cá nhân. Đây là quyền gửi trao đổi chủ repo đã cho sẵn, không cần xin lại mỗi lần. Đức có quyền sẵn theo `GB-20261116-002` để stage/commit/push code, test, M0, báo cáo và model/kết quả đúng vùng nhiệm vụ, upload artifact và mở PR; không xin lại từng lần. Ngoài quyền đã cấp, không stage code/báo cáo khác nếu chưa được yêu cầu; kiểm outgoing commits để không push kèm code ngoài phạm vi.
 5. Kiểm push thành công rồi báo trong chat ngắn gọn ID/nhánh. Nếu lỗi auth/quyền/network, ghi rõ chưa gửi được; không giả vờ nhóm đã nhận.
 
 Ví dụ cho Tùng, chỉ chạy sau khi kiểm nhánh/diff và các commit chưa push:
@@ -54,6 +54,6 @@ Cập nhật trạng thái câu hỏi sau khi đã đọc; muốn nhận hướn
 ## Trạng thái và an toàn
 
 - `OPEN`: câu mới; `WAITING_FOR_MAIN`: đã gửi, chờ quyết định; `ANSWERED`: đã có phản hồi nhưng có thể còn việc; `RESOLVED`: đã xử lý xong; `BLOCKED`: vướng cụ thể.
-- Chưa có trả lời không phải được duyệt. Tiếp tục việc độc lập; không chạy full train chưa duyệt, đổi model hoặc sửa ngoài phạm vi.
+- Chưa có trả lời không mở rộng quyền ngoài phạm vi. Đức đã được cấp quyền theo `GB-20261116-002`: không dùng `WAITING_FOR_MAIN` để chờ M0/thành phần kiến trúc/review lại trước chạy; tự khóa M0, kiểm test/smoke thật PASS rồi full. Chỉ chờ khi vướng tài nguyên hoặc yêu cầu ngoài phạm vi; Tùng vẫn cần duyệt trước full. Không tự đổi dataset/giao thức chung/deployment hoặc sửa ngoài vùng nhiệm vụ.
 - Không có thông báo/check tự động được cài. Chủ repo sẽ kiểm thủ công; không hứa thời gian phản hồi hay spam polling.
 - Giữ báo cáo công việc trong `docs/reports/`; kênh này là hỏi-đáp/quyết định, không thay báo cáo/bằng chứng thực nghiệm.

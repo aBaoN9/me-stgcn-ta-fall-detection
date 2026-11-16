@@ -1,6 +1,6 @@
 # Giao thức nghiên cứu tiếp và yêu cầu học thuật
 
-Phạm vi cập nhật theo Gia Bảo ngày 30/10/2026. Đây là khung so sánh, không giao sẵn mô hình hoặc công thức. Cấu hình cụ thể cần thống nhất M0 trước full train; tiến độ đã có theo báo cáo và review riêng. Không sửa hồi tố protocol để hợp thức hóa số đẹp.
+Phạm vi cập nhật ngày 16/11/2026 theo `GB-20261116-002`: đây là khung so sánh, không giao sẵn mô hình/công thức. Đức tự ghi và khóa M0/cấu hình, tự kiểm tra rồi chạy full khi đạt điều kiện, không chờ duyệt; Tùng giữ quy trình M0 hiện hành. Không sửa hồi tố protocol để hợp thức hóa số đẹp. Review sản phẩm và merge main vẫn do người điều phối.
 
 ## 1. Hiểu yêu cầu của giảng viên và backbone
 
@@ -20,13 +20,13 @@ Diễn giải có khả năng phù hợp, **không phải lời trích nguyên v
 
 Không bắt buộc CTR-GCN, quality-aware pooling, công thức hay ma trận B/Q cũ. Hai bạn tự nghiên cứu và trình lý do, phần giữ nguyên/thay đổi, tính khả thi và nguồn/quyền sử dụng trước khi chạy full. Không cam kết đề xuất thắng mọi metric; giảm FN nhưng tăng FP hoặc nhẹ hơn nhưng accuracy thấp hơn đều là trade-off cần lượng hóa.
 
-Tùng có thể so phương pháp hoàn chỉnh, khác cả biểu diễn/cách học, nhưng phải công bố khác biệt; chỉ gọi so sánh riêng kiến trúc khi các yếu tố khác được kiểm soát. Đức giữ kiến trúc hiện tại trong hướng chính; mở rộng sửa kiến trúc cần duyệt riêng và không được gọi là giữ nguyên. Đổi chính sách ngưỡng không phải đổi kiến trúc. Với Đức, mỗi cặp chỉ thay yếu tố/nhóm yếu tố được chốt, không gộp rồi gán tác dụng riêng.
+Tùng có thể so phương pháp hoàn chỉnh, khác cả biểu diễn/cách học, nhưng phải công bố khác biệt; chỉ gọi so sánh riêng kiến trúc khi các yếu tố khác được kiểm soát. Đức được tự sửa thành phần kiến trúc của A3 như pooling/attention hoặc xử lý/huấn luyện/quyết định; ghi rõ kiến trúc đã thay đổi, không đổi hẳn mô hình/backbone như Tùng và không cần duyệt riêng trong phạm vi này. Mỗi cặp chỉ thay yếu tố/nhóm yếu tố có lý do, khóa trước; không gộp rồi gán tác dụng riêng. Đổi ngưỡng không phải đổi kiến trúc.
 
 ## 3. Khóa dữ liệu và protocol
 
-- **Mốc gốc đã chỉ định cho Đức:** `A3_motion_attention` / `fixed` của notebook 07, `SkeletonModel(channels=8, attention=True, dropout=0.3)`, Fall multiplier 1.0, feature v2. Nguồn/recipe và phân biệt với checkpoint 06, A3_cost_225, timing/Q1 ghi trong [nhiệm vụ Đức](tasks/vinhduc.md). Tái lập cặp gốc/thay đổi theo mốc này; nếu muốn đổi mốc/recipe cần duyệt track riêng, không tự ghép số lịch sử với run mới. Hai bên thống nhất cùng mốc khi tổng hợp so sánh liên nhánh.
+- **Mốc gốc đã chỉ định cho Đức:** `A3_motion_attention` / `fixed` của notebook 07, `SkeletonModel(channels=8, attention=True, dropout=0.3)`, Fall multiplier 1.0, feature v2. Nguồn/recipe và phân biệt với checkpoint 06, A3_cost_225, timing/Q1 ghi trong [nhiệm vụ Đức](tasks/vinhduc.md). Tái lập cặp gốc/thay đổi theo mốc này; nếu muốn đổi mốc hoặc recipe của bản đối chứng cần duyệt track riêng; thay đổi recipe của ứng viên trong yếu tố nghiên cứu đã ghi/khóa không cần xin duyệt riêng theo `GB-20261116-002`, không tự ghép số lịch sử với run mới. Hai bên thống nhất cùng mốc khi tổng hợp so sánh liên nhánh.
 - Cùng 160 ID/nhãn/subject, bốn input theo [data](../data/README.md); SHA-256 đối chiếu `results/component_ablation/locked_protocol.json`. Khác hash/căn chỉnh -> dừng hỏi, không tự đổi dataset.
-- M0 xác nhận tái lập mốc đã chỉ định cho Đức, phiên bản dữ liệu và cặp so sánh; nguồn pose/feature v2 của 07 là tài nguyên tham chiếu hiện có. Nếu phương pháp cần đầu vào/biểu diễn khác, giải thích và xin duyệt, giữ nguyên video/nhãn/split và truy vết nguồn. Không âm thầm trộn pipeline 06/07/08 hoặc suy kết quả khác đầu vào là tác dụng riêng kiến trúc.
+- M0 ghi tái lập mốc Đức, phiên bản dữ liệu, cặp so, ngân sách và lý do; Đức tự ghi/khóa, không chờ duyệt. Được nghiên cứu xử lý/biểu diễn từ cùng nguồn trong vùng riêng nếu khóa trước và so có kiểm soát, giữ nguyên video/nhãn/split và truy vết hash. Tùng theo quy trình M0 hiện hành. Không âm thầm trộn pipeline 06/07/08 hoặc suy kết quả khác đầu vào là tác dụng riêng kiến trúc; đổi nguồn dữ liệu/mốc/giao thức chung vẫn ngoài phạm vi.
 - **Nested LOSO:** 4 outer subject; ba người còn lại chia 3 inner theo người để chọn epoch/cấu hình/ngưỡng; refit ba người outer-train rồi đánh giá người outer-test. Scaler/class weight/thống kê học chỉ fit trên train đúng split.
 - Seed 42/142/242, cùng split/ID và seed list. Primary policy `fixed`, neural threshold 0,5; balanced/sensitivity là phụ và chỉ chọn bằng inner. SVM cũ dùng decision margin fixed 0, không phải xác suất 0,5.
 - Không ép mọi phương pháp dùng cùng optimizer hay siêu tham số bất chấp tính phù hợp. Chốt nguyên tắc chọn, ngân sách tinh chỉnh tương đương, điều kiện dừng và cấu hình trước khi chạy; chỉ inner chọn. Những yếu tố không nghiên cứu trong cặp của Đức phải giữ nguyên. Giá trị trong recipe 07 là tham chiếu để tái lập mốc cũ, không phải lời giải áp sẵn cho phương án mới.
