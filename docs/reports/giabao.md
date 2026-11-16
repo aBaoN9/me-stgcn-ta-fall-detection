@@ -15,6 +15,7 @@ Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh ki
 
 ## 16/11/2026 - Nhắc Tùng và Đức thực hiện nhiệm vụ
 
+- Cập nhật tiếp theo theo yêu cầu Gia Bảo: chốt hạn đề xuất và báo cáo tiến độ cho cả hai là thứ Tư 25/11/2026 (UTC+7), không phải 18/11. Đồng bộ answers, AGENTS và bảng việc; bỏ câu chưa đặt deadline trong hướng dẫn hiện hành. Không duyệt M0/full hoặc thay yêu cầu input/GPU/review; phần chưa chạy vẫn phải báo đúng hạn với `NOT_RUN`/blocker. Kiểm tra diff và checker trước phát hành; xác nhận commit/push bằng Git/remote.
 - Theo yêu cầu Gia Bảo, chuẩn bị thông báo `GB-20261116-001` trên main và thêm điểm đọc trong AGENTS/bảng việc; không sửa code, model, kết quả hoặc nhánh thành viên.
 - Đã fetch: Tùng `1ab8164` (28/10), Đức `da5b552` (03/11). Ghi nhận Đức đã nộp bản sửa/đề xuất nhưng kiểm tra mới chỉ do Đức báo cáo; không nhận là đã độc lập nghiệm thu hoặc đã full train.
 - Nhắc Tùng nộp M0, Đức tiếp tục bài đã nộp/cập nhật bằng chứng và blocker; cả hai xác nhận thông báo trên file trao đổi cá nhân ở phiên tiếp theo. Không tự duyệt M0/kiến trúc/full hay bỏ yêu cầu input/GPU/review. PoseLab tiếp tục dừng.

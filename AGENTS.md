@@ -4,6 +4,8 @@ Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp d�
 
 **Thông báo mới 16/11/2026:** Tùng và Đức đọc `GB-20261116-001` trong [answers](docs/discussions/answers.md), xác nhận đã nhận và làm tiếp phần việc được phép ngay phiên tiếp theo. Đây là nhắc thực hiện, không phải duyệt M0 hoặc full train; các yêu cầu review/dữ liệu/GPU của Đức vẫn cần phía điều phối giải quyết.
 
+**Hạn nộp đã chốt:** thứ Tư, **25/11/2026 (UTC+7)**, cho đề xuất và báo cáo tiến độ của cả Tùng/Đức theo thông báo trên. Không hiểu đây là hạn bắt buộc có full train khi chưa được duyệt hoặc chưa đủ dữ liệu/GPU; phải nộp phần đã làm và blocker đúng hạn.
+
 ## Phân công hiện hành - Gia Bảo quyết định ngày 30/10/2026
 
 - Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán và so sánh với ME-STGCN-TA. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.

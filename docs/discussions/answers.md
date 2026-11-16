@@ -13,6 +13,8 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 ## GB-20261116-001 - Nhắc Tùng và Đức thực hiện nhiệm vụ
 
 - Người ra thông báo: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026, UTC+7.
+- Cập nhật hạn theo yêu cầu tiếp theo của Gia Bảo ngày 16/11/2026: **chậm nhất thứ Tư, 25/11/2026 (UTC+7)**. "Thứ Tư tuần sau" tính từ thứ Hai 16/11 là 25/11, không phải 18/11.
+- Hạn này áp dụng cho **đề xuất và báo cáo tiến độ của cả hai**: Tùng nộp M0 cùng phần đã làm; Đức cập nhật phương án/bản sửa đã nộp, bằng chứng và các blocker cần giải quyết. Không phải phê duyệt hoặc yêu cầu hoàn tất full train bất chấp dữ liệu/GPU/review; phần chưa chạy ghi `NOT_RUN` kèm lý do và kế hoạch tiếp theo.
 - Yêu cầu: cả hai chủ động bắt đầu hoặc tiếp tục phần nghiên cứu được giao và nộp tiến độ, không chỉ đọc phân công rồi chờ. Không áp sẵn cách giải hay yêu cầu kết quả phải tốt hơn.
 - Trạng thái: `ACTION_REQUIRED` cho xác nhận, cập nhật và phần việc được phép; **không phải duyệt M0, mở rộng kiến trúc hoặc full train**.
 
@@ -37,7 +39,7 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ### Xác nhận và nộp tiến độ
 
-- Cả hai xác nhận ngay phiên làm việc tiếp theo trong `docs/discussions/dinhtung.md` hoặc `docs/discussions/vinhduc.md`, dẫn `GB-20261116-001`, ghi việc đã làm, bước tiếp theo, dự kiến mốc nộp do mình đề xuất và hỗ trợ cần thiết. Không đặt deadline mới.
+- Cả hai xác nhận ngay phiên làm việc tiếp theo trong `docs/discussions/dinhtung.md` hoặc `docs/discussions/vinhduc.md`, dẫn `GB-20261116-001` và hạn **25/11/2026 (UTC+7)**; nộp đề xuất và báo cáo tiến độ chậm nhất ngày này, ghi việc đã làm, bằng chứng, bước tiếp theo và hỗ trợ cần thiết. Không chờ hết hạn mới xác nhận; gặp blocker phải báo sớm, không im lặng chờ hoặc bịa kết quả.
 - Commit/push xác nhận hoặc câu hỏi trên đúng nhánh theo quyền đã có; không xóa câu hỏi chưa giải quyết. Code/báo cáo nộp theo quy trình và quyền commit/push hiện hành, không push hộ nhau hoặc tự merge main.
 - Giữ cùng dataset/nhãn/split theo subject, quy tắc đánh giá/chọn cấu hình/ngưỡng, seed 42/142/242 và ngân sách so sánh đã thống nhất. Không chọn theo outer-test hoặc seed đẹp; kết quả âm vẫn hợp lệ.
 - Thiếu input/GPU/phê duyệt: ghi `NOT_RUN` và blocker cụ thể cho phần chưa chạy, tiếp tục việc độc lập. Đức không cần chờ Tùng để chuẩn bị cặp đối chứng.

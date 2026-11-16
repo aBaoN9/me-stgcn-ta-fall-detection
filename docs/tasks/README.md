@@ -2,6 +2,8 @@
 
 **Thông báo 16/11/2026:** Gia Bảo yêu cầu Tùng và Đức đọc `GB-20261116-001` trong [answers](../discussions/answers.md), xác nhận đã nhận và triển khai phần việc được phép ngay phiên tiếp theo. Đây không phải duyệt M0 hoặc full train.
 
+**Hạn nộp đề xuất và báo cáo tiến độ: thứ Tư, 25/11/2026 (UTC+7), cho cả hai bạn.** Tùng nộp M0 và tiến độ; Đức cập nhật phương án/bản sửa đã nộp, bằng chứng và blocker. Thiếu phê duyệt/input/GPU vẫn phải báo phần đã làm đúng hạn, không tự chạy full hoặc bịa kết quả.
+
 Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm vi giao ngày 28/10. Đây là hướng công việc, không áp sẵn lời giải. Trạng thái phương án mới `M0_REQUIRED`; tiến độ/code đã có giữ trong báo cáo cá nhân, không xóa hoặc nhận là đã nghiệm thu. Người điều phối publish bản chung trên main sau kiểm tra; file local chưa đến máy thành viên.
 
 | Người | Nhánh | Phần chính | Trạng thái | Nhiệm vụ | Báo cáo |
@@ -19,7 +21,7 @@ Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm 
 3. **M2 - Bằng chứng:** full nested LOSO ba seed, raw OOF, config/hash/log, tổng hợp/lỗi. Thiếu GPU/input thì `BLOCKED`, không bịa bảng.
 4. **M3 - Review:** PR kèm báo cáo/tiêu chí xong; người điều phối quyết định merge. Không tự nâng model web theo bảng test.
 
-Hai bạn tự đề xuất cách làm và giải thích thay đổi; không bắt buộc CTR-GCN/B0-B3 hoặc quality-aware/Q0-Q1. Giữ dataset, nhãn, split, seed và nguyên tắc đánh giá chung; cấu hình cụ thể chốt ở M0. Không đặt deadline hoặc yêu cầu kết quả phải cải thiện.
+Hai bạn tự đề xuất cách làm và giải thích thay đổi; không bắt buộc CTR-GCN/B0-B3 hoặc quality-aware/Q0-Q1. Giữ dataset, nhãn, split, seed và nguyên tắc đánh giá chung; cấu hình cụ thể chốt ở M0. Hạn nộp đề xuất và báo cáo tiến độ là 25/11/2026 theo cập nhật của Gia Bảo ngày 16/11/2026; không yêu cầu kết quả phải cải thiện.
 
 **Mốc Đức không còn mơ hồ:** `A3_motion_attention` / `fixed` của notebook 07, tám kênh, temporal attention, Fall multiplier 1.0; nguồn/recipe và yêu cầu chạy lại cặp đối chứng trong [nhiệm vụ Đức](vinhduc.md). Không dùng checkpoint demo 06, A3_cost_225 hoặc T0/T1 thay mốc.
 
