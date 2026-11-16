@@ -4,11 +4,54 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 30/10/2026, Gia Bảo xác nhận phân công hai hướng và dừng PoseLab, mã `GB-20261030-001`.
+- Cập nhật: 16/11/2026, Gia Bảo nhắc triển khai và nộp tiến độ theo `GB-20261116-001`. Phân công và việc dừng PoseLab theo `GB-20261030-001` vẫn giữ nguyên.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
 - `DUC-20261028-001`: giữ `CHANGES_REQUESTED` về lỗi kiểm dữ liệu/nghiệm thu nếu dùng tiếp mã đã review; yêu cầu cố định hướng/công thức Q0/Q1 đã được thay bởi quyết định mới.
 - Chưa cấp phê duyệt full train, nguồn dữ liệu mới, dịch vụ GPU trả phí hoặc thay model/backend triển khai.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261116-001 - Nhắc Tùng và Đức thực hiện nhiệm vụ
+
+- Người ra thông báo: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026, UTC+7.
+- Yêu cầu: cả hai chủ động bắt đầu hoặc tiếp tục phần nghiên cứu được giao và nộp tiến độ, không chỉ đọc phân công rồi chờ. Không áp sẵn cách giải hay yêu cầu kết quả phải tốt hơn.
+- Trạng thái: `ACTION_REQUIRED` cho xác nhận, cập nhật và phần việc được phép; **không phải duyệt M0, mở rộng kiến trúc hoặc full train**.
+
+### Hiện trạng đã kiểm tra
+
+- Fetch ngày 16/11: `origin/dinhtung` ở `1ab8164` (28/10), chưa thấy M0/code/kết quả mới được nộp cho hướng hiện hành. Chỉ kết luận về phần đã gửi lên repo, không suy đoán việc làm riêng.
+- `origin/vinhduc` ở `da5b552` (03/11): ghi nhận đề xuất quality-aware pooling và bản sửa DUC-REV-01..05; không yêu cầu Đức làm lại từ đầu. Các kiểm tra PASS là do Đức báo cáo, chưa được người điều phối độc lập kiểm lại; smoke thật/full vẫn `NOT_RUN`, chưa có kết quả train mới.
+- `DUC-20261103-001` và `DUC-20261028-001` vẫn chờ phía điều phối duyệt phạm vi/M0, review bản sửa, nguồn bốn input đúng hash và GPU. Không quy các phụ thuộc này thành lỗi chậm thực hiện của Đức.
+
+### Tùng - mô hình hoặc phương pháp khác
+
+1. Fetch và đọc hướng dẫn mới từ `origin/main`; thực hiện trên `dinhtung`, không thực nghiệm trên main.
+2. Ngay phiên tiếp theo, xác nhận đã nhận và bắt đầu/nộp M0: tự chọn mô hình hoặc phương pháp khác trên cùng GMDCSA24, giải thích lý do, phần giữ nguyên/thay đổi, cách so với ME-STGCN-TA, ngân sách và hỗ trợ cần thiết. Không bắt buộc CTR-GCN hay chỉ đổi backbone.
+3. Cập nhật `docs/reports/dinhtung.md`: việc đã làm, bằng chứng, bước tiếp theo, blocker. Chờ duyệt thì tiếp tục đọc baseline, thiết kế, chuẩn bị mã/kiểm tra trong phạm vi; không tự chạy full.
+
+### Đức - thay đổi có kiểm soát mô hình hiện tại
+
+1. Tiếp tục trên `vinhduc`, lấy đúng `A3_motion_attention` / policy `fixed` của notebook 07 và `training/component_ablation/` làm mốc: tám kênh, attention bật, Fall multiplier 1.0, ngưỡng 0.5. Không dùng checkpoint final 06, A3_cost_225, T0/T1 hoặc Q1 thay mốc.
+2. Cập nhật `docs/reports/vinhduc.md` cho khớp commit đã push, dẫn bản sửa, lệnh/bằng chứng kiểm tra và trạng thái thật; giữ các câu hỏi đang mở theo đúng ID. Nêu rõ phần làm được ngay và phần cần Gia Bảo cung cấp/quyết định.
+3. Quality-aware pooling vẫn là đề xuất xin mở rộng phạm vi kiến trúc, chưa được duyệt. Trong lúc chờ, tiếp tục review/test phần mềm, chuẩn bị môi trường/notebook và kiểm kê input theo quyền hiện có; không bỏ hash guard, không dùng dữ liệu giả làm smoke thật, không tự mua GPU.
+4. Chỉ chạy bước tương ứng khi đủ phê duyệt và input/môi trường phù hợp. Full vẫn cần review bản sửa, smoke thật và duyệt riêng. Khi được chạy, chạy lại bản gốc cùng bản thay đổi trong điều kiện so sánh như nhau; không dùng số lịch sử làm đối chứng mới.
+
+### Xác nhận và nộp tiến độ
+
+- Cả hai xác nhận ngay phiên làm việc tiếp theo trong `docs/discussions/dinhtung.md` hoặc `docs/discussions/vinhduc.md`, dẫn `GB-20261116-001`, ghi việc đã làm, bước tiếp theo, dự kiến mốc nộp do mình đề xuất và hỗ trợ cần thiết. Không đặt deadline mới.
+- Commit/push xác nhận hoặc câu hỏi trên đúng nhánh theo quyền đã có; không xóa câu hỏi chưa giải quyết. Code/báo cáo nộp theo quy trình và quyền commit/push hiện hành, không push hộ nhau hoặc tự merge main.
+- Giữ cùng dataset/nhãn/split theo subject, quy tắc đánh giá/chọn cấu hình/ngưỡng, seed 42/142/242 và ngân sách so sánh đã thống nhất. Không chọn theo outer-test hoặc seed đẹp; kết quả âm vẫn hợp lệ.
+- Thiếu input/GPU/phê duyệt: ghi `NOT_RUN` và blocker cụ thể cho phần chưa chạy, tiếp tục việc độc lập. Đức không cần chờ Tùng để chuẩn bị cặp đối chứng.
+- PoseLab vẫn dừng, WEB-01/WEB-02 vẫn `CANCELLED`; không làm web/UI/QA thay nghiên cứu.
+- Đăng trên main không đồng nghĩa hai bạn đã đọc; chỉ ghi nhận đã nhận khi có xác nhận trên nhánh cá nhân.
+
+Đọc thông báo mà không cần merge code:
+
+```bash
+git fetch origin
+git show origin/main:docs/discussions/answers.md
+git show origin/main:docs/tasks/dinhtung.md
+git show origin/main:docs/tasks/vinhduc.md
+```
 
 ## GB-20261030-001 - Phân công hai hướng và dừng PoseLab
 

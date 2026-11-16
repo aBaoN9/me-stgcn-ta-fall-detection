@@ -4,7 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
-- Cập nhật: 30/10/2026, đổi phân công theo yêu cầu trực tiếp của Gia Bảo và dừng PoseLab; chưa chạy thí nghiệm mới.
+- Cập nhật: 16/11/2026, kiểm tra tiến độ remote và ra thông báo nhắc Tùng/Đức thực hiện nhiệm vụ; chưa chạy thí nghiệm mới.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá và duyệt M0 trước full.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
 - Trạng thái tạo/publish nhánh phải đối chiếu Git/remote, không dùng nội dung báo cáo này làm bằng chứng push thành công.
@@ -12,6 +12,13 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 16/11/2026 - Nhắc Tùng và Đức thực hiện nhiệm vụ
+
+- Theo yêu cầu Gia Bảo, chuẩn bị thông báo `GB-20261116-001` trên main và thêm điểm đọc trong AGENTS/bảng việc; không sửa code, model, kết quả hoặc nhánh thành viên.
+- Đã fetch: Tùng `1ab8164` (28/10), Đức `da5b552` (03/11). Ghi nhận Đức đã nộp bản sửa/đề xuất nhưng kiểm tra mới chỉ do Đức báo cáo; không nhận là đã độc lập nghiệm thu hoặc đã full train.
+- Nhắc Tùng nộp M0, Đức tiếp tục bài đã nộp/cập nhật bằng chứng và blocker; cả hai xác nhận thông báo trên file trao đổi cá nhân ở phiên tiếp theo. Không tự duyệt M0/kiến trúc/full hay bỏ yêu cầu input/GPU/review. PoseLab tiếp tục dừng.
+- `python scripts/check_repository.py` và `git diff --check`: PASS cho thông báo; full train và review lại code Đức: `NOT_RUN`. Phát hành qua commit thông báo trên main; đối chiếu Git/remote để xác nhận push, không suy ra hai bạn đã đọc từ việc publish.
 
 ## 30/10/2026 - Phân công hai hướng và dừng PoseLab
 

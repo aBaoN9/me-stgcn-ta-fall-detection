@@ -1,5 +1,7 @@
 # Bảng giao việc nghiên cứu
 
+**Thông báo 16/11/2026:** Gia Bảo yêu cầu Tùng và Đức đọc `GB-20261116-001` trong [answers](../discussions/answers.md), xác nhận đã nhận và triển khai phần việc được phép ngay phiên tiếp theo. Đây không phải duyệt M0 hoặc full train.
+
 Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm vi giao ngày 28/10. Đây là hướng công việc, không áp sẵn lời giải. Trạng thái phương án mới `M0_REQUIRED`; tiến độ/code đã có giữ trong báo cáo cá nhân, không xóa hoặc nhận là đã nghiệm thu. Người điều phối publish bản chung trên main sau kiểm tra; file local chưa đến máy thành viên.
 
 | Người | Nhánh | Phần chính | Trạng thái | Nhiệm vụ | Báo cáo |
