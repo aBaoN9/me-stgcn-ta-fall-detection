@@ -32,6 +32,7 @@ VARIANTS = {
 CODE_FILES = ["training/contribution_study/runner.py", "training/contribution_study/quality_pooling.py",
               "training/component_ablation/training.py", "training/component_ablation/models.py",
               "training/component_ablation/features.py"]
+MODEL_DIR = "models"  # GB-20261116-001: checkpoints live in <run>/models/
 RATES = ["accuracy", "balanced_accuracy", "sensitivity", "specificity", "precision", "f1", "f2", "false_alarm_rate"]
 
 
@@ -43,10 +44,15 @@ def make_config(mode="full", epsilon=EPSILON):
     return config
 
 
+def code_bytes(name):
+    """File content with LF line endings: a Windows checkout (CRLF) and Kaggle/Linux (LF) hash the same code."""
+    return (ROOT / name).read_bytes().replace(b"\r\n", b"\n")
+
+
 def code_hash():
     digest = hashlib.sha256()
     for name in CODE_FILES:
-        digest.update(name.encode() + b"\0" + (ROOT / name).read_bytes())
+        digest.update(name.encode() + b"\0" + code_bytes(name))
     return digest.hexdigest()
 
 
@@ -142,7 +148,7 @@ def validate_fold(data, config, output, variant_name, seed, outer, signature_sha
             if not np.array_equal(archive["indices"], test_indices) or not np.isfinite(archive["attention"]).all() \
                     or archive["attention"].shape[0] != len(test_indices):
                 problems.append("attention artifact misaligned or non-finite")
-        checkpoint = torch.load(output / f"{name}.pt", map_location="cpu", weights_only=True)
+        checkpoint = torch.load(output / MODEL_DIR / f"{name}.pt", map_location="cpu", weights_only=True)
         if checkpoint.get("test_indices") != test_indices.tolist() or checkpoint.get("variant") != VARIANTS[variant_name]:
             problems.append("checkpoint metadata does not match the fold")
         for suffix in ["inner_history", "refit_history"]:
@@ -255,8 +261,11 @@ def run_neural(data, config, output, device, signature_sha):
                             "variant": variant_name, "seed": seed, "policy": policy})
                 checkpoint = {"model_state_dict": {key: value.cpu() for key, value in model.state_dict().items()},
                               "variant": variant, "feature_version": FEATURE_VERSION, "train_indices": train_indices.tolist(),
-                              "test_indices": test_indices.tolist(), "config": config, "epochs": epochs}
-                torch.save(checkpoint, output / f"{name}.pt")
+                              "test_indices": test_indices.tolist(), "config": config, "epochs": epochs,
+                              "seed": seed, "refit_seed": seed + outer * 1000 + 999, "outer_subject": outer,
+                              "variant_name": variant_name, "signature_sha256": signature_sha}
+                (output / MODEL_DIR).mkdir(exist_ok=True)
+                torch.save(checkpoint, output / MODEL_DIR / f"{name}.pt")
                 np.savez_compressed(output / f"{name}_attention.npz", indices=test_indices, attention=attention)
                 pd.DataFrame(histories).to_csv(output / f"{name}_inner_history.csv", index=False)
                 pd.DataFrame(refit_history).to_csv(output / f"{name}_refit_history.csv", index=False)

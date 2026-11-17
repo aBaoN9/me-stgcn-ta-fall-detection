@@ -1,6 +1,6 @@
 # Kiểm chứng đóng góp - bản thảo của Đức
 
-Nhánh `vinhduc`. Bản Markdown để người điều phối đưa vào Word sau review; chưa phải kết luận chốt. [Nhiệm vụ](../tasks/vinhduc.md) · [Báo cáo](../reports/vinhduc.md).
+Nhánh `vinhduc`. Bản Markdown để người điều phối đưa vào Word sau review; chưa phải kết luận chốt. Cập nhật 17/11/2026. [Nhiệm vụ](../tasks/vinhduc.md) · [Báo cáo](../reports/vinhduc.md).
 
 ## DUC-01 - Tái tính từ OOF đã lưu
 
@@ -92,7 +92,7 @@ Mô tả failure mode, **chưa xác minh bằng video**: máy này không có vi
 
 ## DUC-02 - Đề xuất M0: quality-aware temporal pooling
 
-Trạng thái: **đề xuất chờ Gia Bảo duyệt**, chưa có kết quả, chưa xác nhận tính mới. Câu hỏi duyệt: `DUC-20261103-001` (M0 theo phân công mới) và `DUC-20261028-001` (bản sửa sau review) trong [file trao đổi](../discussions/vinhduc.md).
+Trạng thái: **`M0_DOCUMENTED`, khóa ngày 17/11/2026** theo quyền tự chủ `GB-20261116-002` (không còn chờ duyệt). Bản khóa máy đọc được: [`results/contribution_study/m0_locked.json`](../../results/contribution_study/m0_locked.json), gồm config full, code hash `6ba0420b4b2a…`, hash từng file code và bốn hash input của 07. Notebook Kaggle dừng nếu code/config khác bản khóa. Khóa trước mọi kết quả outer-test của Q0/Q1 (chưa có run thật nào). Chưa có kết quả, chưa xác nhận tính mới; khóa M0 không có nghĩa code/kết quả đã được nghiệm thu.
 
 ### M0 theo phân công GB-20261030-001 (03/11/2026)
 
@@ -101,7 +101,8 @@ Sau GB-20261030-001, quality-aware pooling không còn bắt buộc. Đức **t�
 - **Mốc:** `A3_motion_attention` / policy `fixed` của notebook 07, `SkeletonModel(channels=8, attention=True, dropout=0.3)`, feature v2, multiplier 1,0, nguồn `training/component_ablation/` tại `c8f654b` (mã hiện tại giống hệt commit này, đã kiểm `git diff`). Q0 là chính mốc này, chạy lại trong runner mới. Đã kiểm Q0 cho logits/attention bằng hệt `SkeletonModel` cùng seed. Số lịch sử 89,58 ± 3,44% chỉ để đối chiếu tái lập, không ghép vào bảng mới.
 - **Giữ nguyên:** dữ liệu/nhãn/split, bốn input đúng hash, tám kênh v2, augmentation, loss class-balanced, multiplier 1,0, optimizer/recipe 07, nested LOSO 4 outer × 3 inner, seed 42/142/242, policy fixed 0,5, cách chọn epoch/ngưỡng chỉ bằng inner.
 - **Thay đổi duy nhất:** temporal attention pooling thêm prior `log(0,1 + q')` không tham số (công thức bên dưới).
-- **Phân loại phạm vi:** prior sửa forward của khối temporal attention. Vì vậy Đức **xin duyệt như mở rộng phạm vi kiến trúc**, không gọi là giữ nguyên kiến trúc. Không có tham số mới; tắt prior thì trở lại đúng mốc.
+- **Phân loại phạm vi:** prior sửa forward của khối temporal attention, tức là **có đổi kiến trúc** (thành phần pooling), không gọi là giữ nguyên kiến trúc. `GB-20261116-002` cho phép loại thay đổi này. Không có tham số mới; tắt prior thì trở lại đúng mốc.
+- **Parity Q0 với 07 (kiểm 17/11):** `fit_model`/`run_neural` của runner khác `training/component_ablation/training.py` đúng hai chỗ: factory model (`build_model`) và guard dừng khi loss không hữu hạn. Seed inner `seed + 1000·outer + 10·inner`, seed refit `seed + 1000·outer + 999`, epoch refit = median epoch inner, chọn ngưỡng bằng inner, loader outer không augment đều giống hệt.
 - **Cặp so / ngân sách:** Q0 vs Q1, 2 × 3 seed × 4 outer = 24 outer / 96 fits, không search ε hoặc siêu tham số. Mỗi biến thể có ngân sách bằng nhau.
 - **Tiêu chí:** metric chính accuracy pooled policy fixed, kèm sensitivity/specificity/FN/FP theo seed và subject, delta từng seed. Không cần Q1 thắng; kết quả âm hoặc trùng Q0 vẫn được báo.
 
@@ -162,21 +163,29 @@ Ký hiệu từ code hiện có (`training/component_ablation/models.py`, `featu
 
 | Mã | Cấu hình | Trạng thái |
 |---|---|---|
-| Q0_A3_attention | 8 kênh, attention gốc, multiplier 1,0, recipe 07 | `NOT_RUN`: chờ M0 + bốn input + GPU |
+| Q0_A3_attention | 8 kênh, attention gốc, multiplier 1,0, recipe 07 | `NOT_RUN`: M0 đã khóa; thiếu bốn input + GPU |
 | Q1_A3_quality_prior | Q0 + prior `log(0,1 + q')` | `NOT_RUN`: như trên |
 
-Kỳ vọng full: 2 variant × 3 seed × 4 outer = 24 outer, 96 fits. Q0 chạy lại trong runner mới, không lấy số A3 cũ làm đối chứng. Lệnh sau khi duyệt (Kaggle GPU, thư mục mới):
+Chuẩn bị cho bàn giao 25/11 (`GB-20261116-001`), làm 17/11, chưa chạy dữ liệu thật:
+
+- Runner lưu checkpoint từng outer fold vào `<run>/models/<variant>_seed<seed>_subject<outer>.pt`, kèm metadata seed/refit seed/outer/variant/chữ ký run.
+- `evaluate_models.py --run <run> --input-root <input>` nạp lại từng checkpoint, chấm lại subject outer, so score với `predictions.csv` (sai số 1e-4 cho GPU→CPU), tái tính confusion matrix fold và pooled fixed. Ghi `models/manifest.json` (SHA-256, dung lượng, seed, fold) và `model_reload_check.json`. Mỗi checkpoint chỉ có metric outer của đúng subject đó, không phải model học toàn bộ dữ liệu.
+- `quality_report.py`: mô tả phân bố q/q' và frame mất pose trên input thật trước full. Chỉ mô tả input, không đổi ε.
+- `kaggle_q0_q1.ipynb`: chạy theo thứ tự guard hash → validate → phân bố q → test phần mềm → smoke thật → full → audit → reload, rồi nén output để tải về.
+
+Kỳ vọng full: 2 variant × 3 seed × 4 outer = 24 outer, 96 fits. Q0 chạy lại trong runner mới, không lấy số A3 cũ làm đối chứng. Lệnh khi có input + GPU (Kaggle GPU, thư mục mới; hoặc dùng `training/contribution_study/kaggle_q0_q1.ipynb`):
 
 ```bash
 python -m training.contribution_study.runner --input-root <kaggle-input> --mode full --output results/contribution_study/runs/q0_q1_full_<YYYYMMDD>
 python -m training.contribution_study.runner --input-root data/local --mode smoke --output .runtime/contribution_study/smoke_real   # smoke thật, không phải kết quả
 python -m training.contribution_study.audit_existing --run results/contribution_study/runs/q0_q1_full_<YYYYMMDD> --output results/contribution_study/runs/q0_q1_full_<YYYYMMDD>/audit
+python -m training.contribution_study.evaluate_models --run results/contribution_study/runs/q0_q1_full_<YYYYMMDD> --input-root <input>
 ```
 
 Lệnh audit cuối tái tính pooled/fold/seed summary từ `predictions.csv` của run và xuất delta Q0→Q1 theo seed/subject cùng các clip đổi kết quả. Đã chạy thử trên output smoke giả: PASS, nhưng đó chỉ là kiểm phần mềm.
 
-Cost 2,25 cho Q1 và robustness mất pose tổng hợp: chưa đề xuất, chỉ làm sau duyệt riêng.
+Cost 2,25 cho Q1 và robustness mất pose tổng hợp: ngoài M0 đã khóa, không chạy trong đợt này. Muốn thêm phải ghi M0 mới trước khi xem kết quả outer của nó.
 
 ## DUC-04
 
-`WAITING_FOR_TUNG`.
+Phân tích Q0/Q1: `NOT_RUN`, chờ run full. Đối chiếu với Tùng là phần phụ, không chặn phần kiểm chứng của Đức.

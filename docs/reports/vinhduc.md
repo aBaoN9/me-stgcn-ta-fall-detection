@@ -5,19 +5,19 @@ Người thực hiện: Đức. Nhánh: `vinhduc`. [Nhiệm vụ](../tasks/vinhd
 ## Snapshot
 
 - Trạng thái: `IN_PROGRESS`.
-- Cập nhật: 2026-11-03 13:09 UTC+7. Đã nhận phân công GB-20261030-001. Đã sửa DUC-REV-01..05, test hồi quy PASS 44/44. M0 giữ quality-aware và gửi xin mở rộng phạm vi kiến trúc.
+- Cập nhật: 2026-11-17 06:30 UTC+7. Đã nhận `GB-20261116-001` (hạn 25/11/2026: model + kết quả trên GitHub) và `GB-20261116-002` (tự chủ M0/smoke/full). M0 tự khóa `M0_DOCUMENTED`. Code/test/notebook Kaggle sẵn sàng. Smoke thật/full `NOT_RUN` vì thiếu bốn input và GPU (`DUC-20261117-001`).
 - Commit code / run ID / PR:
-  - `1cbb778` là code DUC-01..03 cũ (đã review).
-  - Merge `origin/main` vào `vinhduc` cục bộ: `31af3cb`, chưa push.
-  - Bản sửa DUC-REV chưa commit, chờ Đức yêu cầu.
-  - Chưa có run thật, chưa mở PR.
-- M0 duyệt bởi / ngày / config: chưa duyệt. Gửi `DUC-20261103-001` (`WAITING_FOR_MAIN`); review `DUC-20261028-001` vẫn `CHANGES_REQUESTED` đến khi main xem lại; ε = 0,1.
+  - `1cbb778`: code DUC-01..03.
+  - `2368345`: bản sửa DUC-REV-01..05.
+  - Phiên 17/11: merge `origin/main` (`8ab7b29`), M0 lock, checkpoint `models/`, reload, quality report, notebook Kaggle. Commit trong lần push này trên `vinhduc`.
+  - Chưa có run thật. PR về main mở sau khi có model + kết quả, hoặc tại hạn với phần đã làm.
+- M0: `M0_DOCUMENTED` ngày 17/11/2026 theo `GB-20261116-002`, file `results/contribution_study/m0_locked.json`, code hash `6ba0420b4b2a…`, ε = 0,1, 24 outer / 96 fits.
 - Mốc:
   - DUC-01 `READY_FOR_REVIEW` (failure mode chưa xác minh bằng video).
-  - DUC-02 `WAITING_FOR_MAIN`.
-  - DUC-03 `BLOCKED`: chờ M0, bốn input, GPU.
-  - DUC-04 `WAITING_FOR_TUNG` cho phần đối chiếu.
-  - WEB-01 `CANCELLED` theo GB-20261030-001, không làm.
+  - DUC-02 `M0_DOCUMENTED`.
+  - DUC-03 `BLOCKED`: thiếu bốn input đúng hash + GPU.
+  - DUC-04 `TODO`, chờ kết quả DUC-03.
+  - WEB-01 `CANCELLED`.
 
 Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. DUC-04 có thể `WAITING_FOR_TUNG` riêng, không dùng để bỏ DUC-01 đến DUC-03. Chỉ người điều phối xác nhận DONE sau review. Nhật ký nối thêm, không xóa lỗi cũ.
 
@@ -105,6 +105,41 @@ Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. DUC
 - Kết quả tốt/âm/FN-FP: chưa có run thật.
 - Blocker / main cần quyết định: duyệt M0 mở rộng phạm vi `DUC-20261103-001`; review lại bản sửa `DUC-20261028-001`; cấp bốn input đúng hash và GPU (vẫn chờ từ 28/10).
 - Bước tiếp: khi Đức yêu cầu thì commit code và mở PR; có input thì chạy smoke thật và báo phân bố q trước full.
+
+### 2026-11-17 - Nhận quyền tự chủ, khóa M0, chuẩn bị sản phẩm model/kết quả
+
+- Đã làm / lý do:
+  - Fetch, đọc `origin/main:docs/discussions/answers.md` tại `8ab7b29`: `GB-20261116-001`, `GB-20261116-002`. Merge `origin/main` vào `vinhduc`, không xung đột, không reset/rebase.
+  - Kiểm lại parity Q0 với 07: `fit_model`/`run_neural` chỉ khác factory model và guard loss không hữu hạn. Seed inner/refit, epoch median, chọn ngưỡng inner, loader outer giống hệt.
+  - Khóa M0 (`results/contribution_study/m0_locked.json`): mốc, thay đổi, phần giữ nguyên, ngân sách, metric chính, quy tắc báo cáo, giới hạn, config full, code hash, hash từng file, bốn hash input. Khóa trước mọi kết quả outer của Q0/Q1.
+  - Theo checklist `GB-20261116-001`:
+    - Runner lưu checkpoint vào `<run>/models/`, kèm seed/refit seed/outer/variant/chữ ký run.
+    - Thêm `evaluate_models.py`: nạp lại từng checkpoint, chấm lại outer, đối chiếu score/metric, ghi `models/manifest.json` (SHA-256) và `model_reload_check.json`.
+  - Sửa lỗi `runner.code_hash()`: hash byte thô nên checkout Windows (CRLF) và Kaggle (LF) cho hash khác nhau. Lỗi này làm hỏng kiểm khóa M0 và kiểm nạp lại model chạy từ Kaggle. Nay chuẩn hóa CRLF→LF trước khi hash; hash khóa tính lại là `6ba0420b4b2a…`.
+  - Thêm `quality_report.py`: phân bố q/frame mất pose trên input thật trước full, review 29/10 đã yêu cầu.
+  - Thêm `kaggle_q0_q1.ipynb`: chạy từ đầu đến cuối trên Kaggle GPU, dừng nếu code/config khác M0 hoặc sai hash input.
+  - Tìm lại bốn input trên C:/D: (không có), kiểm GPU (không có), Kaggle API (chưa cấu hình), `gh` CLI (không có). Gửi `DUC-20261117-001`.
+- File thay đổi:
+  - `training/contribution_study/{runner,check_review_fixes}.py`.
+  - Mới: `evaluate_models.py`, `quality_report.py`, `kaggle_q0_q1.ipynb`.
+  - README training, `results/contribution_study/m0_locked.json`, `docs/research/contribution-study.md`, báo cáo này, `docs/discussions/vinhduc.md`.
+- Lệnh kiểm tra và PASS/FAIL/NOT_RUN:
+  - `.venv/Scripts/python -m training.contribution_study.check_review_fixes` PASS 50/50. Gồm 44 test cũ và 6 test reload: run hợp lệ PASS; trọng số bị nhiễu, metadata sai fold, thiếu checkpoint, score lệch, pooled bị sửa đều FAIL. Lần đầu test trọng số nhiễu báo sai do lỗi trong chính test (cộng đều hai logit nên softmax không đổi); đã sửa test để chỉ nhiễu logit Fall.
+  - `.venv/Scripts/python -m training.contribution_study.check_quality_pooling` PASS 13/13.
+  - `python -m training.contribution_study.audit_existing --output .runtime/...` PASS (07/08 nguyên trạng).
+  - `python scripts/check_repository.py` PASS.
+  - `quality_report` chạy thử trên dữ liệu giả để kiểm phần mềm (160 clip, không NaN), không phải kết quả.
+  - Smoke thật / full / reload trên run thật / latency GPU: `NOT_RUN`.
+- Environment: `.venv` Python 3.12.10, torch 2.10.0+cpu, numpy 2.2.6, pandas 2.3.3, scikit-learn 1.7.2. Windows 11, CPU, không GPU. Fixture seed 3/7/11, ở `.runtime/` ngoài Git.
+- Kết quả tốt/âm/FN-FP: chưa có run thật.
+- Blocker / main cần quyết định (`DUC-20261117-001`):
+  1. Cấp quyền truy cập bốn input đúng hash (ví dụ share Kaggle Dataset).
+  2. Có cho full trên CPU không, nếu tới 22/11 vẫn không có GPU.
+  3. Commit trực tiếp khoảng 41 MB checkpoint hay dùng Release asset.
+- Bước tiếp:
+  - Có input thì chạy notebook Kaggle (đặt `COMMIT` = commit đã push).
+  - Tải zip về `results/contribution_study/runs/<run>/`, kiểm lại `evaluate_models` trên máy.
+  - Commit model + kết quả, viết phân tích DUC-04, mở PR trước 25/11.
 
 ## Bàn giao review
 

@@ -4,51 +4,39 @@ Nhánh gửi: `vinhduc`. Người nhận mặc định: người điều phối 
 
 ## Snapshot hiện tại
 
-- Cập nhật: 2026-11-03 13:09 UTC+7.
-- Trạng thái: 2 câu `WAITING_FOR_MAIN` (`DUC-20261103-001`, `DUC-20261028-001`).
-- Đã đọc `origin/main:docs/discussions/answers.md` tại `f6a23a5`: GB-20261030-001 (phân công mới, WEB-01 hủy), `DUC-20261028-001` `CHANGES_REQUESTED`.
+- Cập nhật: 2026-11-17 06:30 UTC+7.
+- Đã đọc `origin/main:docs/discussions/answers.md` tại `8ab7b29`: `GB-20261116-002` (Đức tự chủ M0/smoke/full), `GB-20261116-001` (hạn 25/11/2026: model đã train + kết quả trên GitHub). Đã merge `origin/main` vào `vinhduc` (không xung đột).
+- **Xác nhận đã nhận `GB-20261116-001` và `GB-20261116-002`, hạn thứ Tư 25/11/2026 (UTC+7).** Đức đã tự ghi/khóa M0 (`M0_DOCUMENTED`) và chuẩn bị đủ đường chạy; quyền tự chạy không đồng nghĩa code/kết quả đã nghiệm thu.
+- Trạng thái câu hỏi: `DUC-20261117-001` `WAITING_FOR_MAIN` (blocker dữ liệu/GPU, **ảnh hưởng hạn 25/11**). `DUC-20261028-001` còn mở phần input/GPU, chuyển theo dõi sang `DUC-20261117-001`. `DUC-20261103-001` đã được trả lời bởi `GB-20261116-002`.
 - Giữ mọi câu chưa giải quyết khi cập nhật file; không đổi ID câu đang mở.
 
-## DUC-20261103-001 - M0 theo phân công mới: giữ quality-aware pooling, xin mở rộng phạm vi kiến trúc
+## DUC-20261117-001 - Cần nguồn bốn input đúng hash để chạy full trước hạn 25/11
 
-- Thời gian: 2026-11-03 13:09 UTC+7.
-- Người nhận / trạng thái: Gia Bảo / `WAITING_FOR_MAIN`.
-- Nhiệm vụ liên quan: DUC-02 (M0), DUC-03. Thiết kế: `docs/research/contribution-study.md`, mục "M0 theo phân công GB-20261030-001", trên `vinhduc`.
+- Thời gian: 2026-11-17 06:30 UTC+7.
+- Người nhận / trạng thái: Gia Bảo / `WAITING_FOR_MAIN`. **Khẩn**: còn 8 ngày tới hạn `GB-20261116-001`.
+- Nhiệm vụ liên quan: DUC-03 (full Q0/Q1), sản phẩm model + kết quả.
 - Ngữ cảnh:
-  - GB-20261030-001 cho Đức tự chọn thay đổi trên mốc `A3_motion_attention` / `fixed` (07, `training/component_ablation/` tại `c8f654b`).
-  - Đức chọn giữ quality-aware pooling: `w = softmax(a + log(0,1 + q'))`, q từ visibility đã mask/augment, ε = 0,1 cố định, avg-pool kernel 3 / stride 2 / padding 1 bỏ padding. Công thức giữ nguyên như review 29/10, không thêm tham số.
-  - Prior sửa forward của temporal attention, nên Đức **không gọi là giữ nguyên kiến trúc** và xin duyệt như mở rộng phạm vi.
-- Giữ nguyên: dữ liệu/nhãn/split, bốn input đúng hash, feature v2 tám kênh, augmentation, loss class-balanced, multiplier 1,0, recipe 07, nested LOSO 4×3, seed 42/142/242, policy fixed 0,5, chọn epoch/ngưỡng chỉ bằng inner.
-- Cặp so / ngân sách: Q0 = mốc A3 chạy lại trong runner mới (parity với `SkeletonModel` đã kiểm) vs Q1 = Q0 + prior. 24 outer / 96 fits, không search.
-- Đã thử: mã `training/component_ablation/` hiện tại giống hệt `c8f654b`. Kiểm phần mềm PASS (xem `DUC-20261028-001`).
+  - M0 đã khóa: `results/contribution_study/m0_locked.json`, code hash `6ba0420b4b2a…`, 24 outer / 96 fits, không search.
+  - Đã chuẩn bị notebook `training/contribution_study/kaggle_q0_q1.ipynb`. Notebook clone repo public, kiểm code/config khớp M0, guard bốn hash input của 07, rồi chạy validate → phân bố q → test → smoke thật → full → audit → nạp lại checkpoint → zip.
+  - Checkpoint lưu ở `<run>/models/`. Ước tính 24 file, khoảng 1,7 MB mỗi file (422.871 tham số float32), tổng khoảng 41 MB. Theo checklist "artifact nhỏ phù hợp Git thì commit trực tiếp", Đức định `git add -f` đích danh từng file `.pt` trong `results/contribution_study/<run>/models/` kèm `manifest.json` (SHA-256). Máy Đức không có `gh` CLI nên chưa tạo được Release asset.
+- Đã thử: tìm `gmdcsa24_*` trên ổ C: và D: của máy Đức, không thấy. Máy không có GPU NVIDIA và không có cấu hình Kaggle API. Không tự tải lại video Zenodo để dựng lại input, vì MediaPipe khác phiên bản sẽ ra hash khác, guard sẽ chặn và không còn là cùng dữ liệu với mốc 07.
 - Cần nhóm quyết định:
-  1. `APPROVED` / `CHANGES_REQUESTED` cho M0 này như một mở rộng phạm vi kiến trúc có kiểm soát.
-  2. Nếu không chấp nhận sửa pooling, chỉ hướng cho phương án thay thế không đụng kiến trúc (xử lý/huấn luyện/quyết định) để Đức soạn M0 mới.
-- Đề xuất: duyệt M0, nhưng full vẫn chỉ sau review bản sửa và smoke thật như điều kiện 29/10.
-- Ảnh hưởng nếu chờ: DUC-03 `NOT_RUN`; Đức chỉ làm việc độc lập (review/test, notebook Kaggle chuẩn bị). Không làm web.
-- Trả lời đã đọc (ID/commit main) / việc sau trả lời: chưa có.
-
-## DUC-20261028-001 - Nộp lại bản sửa DUC-REV-01..05; còn chờ bốn input và GPU
-
-- Thời gian gửi đầu: 2026-10-28 19:01 UTC+7. Cập nhật: 2026-11-03 13:09 UTC+7.
-- Người nhận / trạng thái: người điều phối / `WAITING_FOR_MAIN` (review lại bản sửa). Trả lời đã đọc: `CHANGES_REQUESTED` ngày 29/10 trên `origin/main` (`f6a23a5`).
-- Phần ép hướng/công thức Q0/Q1 đã được thay bởi GB-20261030-001. Đức vẫn sửa vì tiếp tục dùng code này (xem `DUC-20261103-001`).
-- Đã sửa:
-  - REV-01: `runner.verify_inputs` dừng trước mọi fit nếu thiếu/thừa input hoặc sai hash so với `results/component_ablation/locked_protocol.json`. Synthetic chỉ được chạy smoke, `scientific_result=false`.
-  - REV-02: `validate_fold` dùng cho cả resume và tổng hợp. Kiểm complete, chữ ký run, inner/fits, ba policy, ID/index/subject/label khớp nguồn, score/threshold hữu hạn, prediction khớp threshold, metric tái tính, artifact. Fold hỏng được chạy lại; `completion.json` chỉ ghi khi qua hết.
-  - REV-03: `benchmark_latency.make_sync` đồng bộ đúng `cuda`/`cuda:N`.
-  - REV-04: `audit_existing.compare` không bỏ NaN; NaN chỉ khớp NaN, khóa trùng/thiếu hàng/inf đều FAIL.
-  - REV-05: thêm `audit_existing --run <run>` cho Q0→Q1; báo cáo/README cập nhật.
-- Kiểm tra (03/11, `.venv` torch 2.10.0+cpu, CPU):
-  - `check_review_fixes` PASS 44/44, gồm ca review tái hiện (8 báo cáo complete=false/fits=0/chỉ fixed/metrics rỗng) nay bị chặn, và resume chạy lại fold mất checkpoint.
-  - `check_quality_pooling` PASS 13/13.
-  - Audit 07/08 nguyên trạng PASS.
-  - `scripts/check_repository.py` PASS.
-  - Smoke thật / full / latency GPU `NOT_RUN`.
-- Commit chứa bản sửa: xem commit đi kèm lần push này trên `vinhduc`; chi tiết hash file trong `docs/reports/vinhduc.md`.
-- Còn blocker từ 28/10: bốn input (`gmdcsa24_pose_32.npz`, `gmdcsa24_features_32.npz`, `gmdcsa24_pose_manifest.csv`, `gmdcsa24_cross_subject_folds.csv`) đúng hash chưa có trên máy Đức; máy không GPU NVIDIA.
-- Cần nhóm quyết định:
-  1. Review lại bản sửa DUC-REV-01..05.
-  2. Cấp nguồn bốn input có quyền sử dụng.
-  3. Xác nhận GPU (Kaggle của nhóm/Đức) cho smoke thật rồi full sau khi duyệt.
+  1. **Cấp quyền truy cập bốn input đúng hash** của notebook 01/07. Ví dụ: share Kaggle Dataset (private) cho tài khoản Kaggle của Đức, hoặc link tải có quyền. Đức chạy trên GPU Kaggle miễn phí, không tiêu tiền.
+  2. Nếu tới 22/11 vẫn không có GPU: có cho chạy full trên CPU không? Hiện `allow_cpu_full=false` theo 07; chạy CPU là đổi thiết bị so với mốc nên Đức không tự bật. Nếu cho phép, cả Q0 và Q1 cùng chạy trên CPU và báo cáo ghi rõ thiết bị.
+  3. Xác nhận commit trực tiếp khoảng 41 MB checkpoint vào `vinhduc`, hay người điều phối tạo Release asset.
+- Đề xuất: (1) share Kaggle Dataset trong hôm nay hoặc ngày mai. Đức chạy smoke thật ngay, full trong vòng 1 ngày, push model + kết quả trước 25/11.
+- Ảnh hưởng nếu chờ: smoke thật/full/model `NOT_RUN`. Nếu không có input trước hạn, Đức nộp đúng hạn phần code/test/M0 và ghi rõ phần thiếu là `NOT_RUN`, không tạo số giả.
 - Không có token, dữ liệu riêng hoặc log bí mật trong nội dung này.
+
+## DUC-20261103-001 - M0 theo phân công mới: quality-aware pooling, mở rộng phạm vi kiến trúc
+
+- Thời gian: 2026-11-03 13:09 UTC+7. Cập nhật: 2026-11-17 06:30 UTC+7.
+- Trạng thái: **đã được trả lời** bởi `GB-20261116-002` (được tự thay đổi thành phần kiến trúc, gồm quality-aware pooling; không chờ duyệt M0).
+- Việc sau trả lời: M0 tự khóa ngày 17/11, `M0_DOCUMENTED` trong `results/contribution_study/m0_locked.json` và `docs/research/contribution-study.md`. Công thức giữ nguyên: `w = softmax(a + log(0,1 + q'))`, ε = 0,1, Q0 vs Q1, 24 outer / 96 fits. Không phải nghiệm thu code/kết quả.
+
+## DUC-20261028-001 - Bản sửa DUC-REV-01..05; còn chờ bốn input và GPU
+
+- Thời gian gửi đầu: 2026-10-28 19:01 UTC+7. Cập nhật: 2026-11-17 06:30 UTC+7.
+- Trả lời đã đọc: `CHANGES_REQUESTED` (29/10), rồi `GB-20261116-002` bỏ điều kiện review lại trước full. Danh sách DUC-REV vẫn giữ, chưa được kiểm độc lập.
+- Trạng thái: phần review lại không còn là cổng chặn. **Phần input/GPU còn mở**, theo dõi tiếp ở `DUC-20261117-001`. Không gắn `RESOLVED`.
+- Bản sửa DUC-REV-01..05 (03/11) vẫn PASS khi kiểm lại 17/11, sau merge main và sau khi thêm kiểm tra nạp lại model: `check_review_fixes` PASS 50/50 (44 cũ + 6 reload), `check_quality_pooling` PASS 13/13, audit 07/08 PASS, `scripts/check_repository.py` PASS. Chi tiết trong `docs/reports/vinhduc.md`.

@@ -1,0 +1,148 @@
+{
+  "status": "M0_DOCUMENTED",
+  "locked_at": "2026-11-17 (UTC+7)",
+  "author": "Duc (vinhduc)",
+  "authority": "GB-20261116-002: Duc self-documents and locks M0; no approval gate. Not an acceptance of code or results.",
+  "baseline": {
+    "identity": "A3_motion_attention / policy fixed, notebook 07, training/component_ablation at c8f654bf0f1943ffcfe375911c8b3e0015beadc5",
+    "rerun_as": "Q0_A3_attention",
+    "historical_reference_only": "accuracy 89.58 +/- 3.44 % (seed_mean_std.csv); not used as the new control"
+  },
+  "change": {
+    "name": "Q1_A3_quality_prior",
+    "kind": "architecture component (temporal attention pooling forward)",
+    "formula": "w = softmax_t(a_t + log(epsilon + q'_t)), q_t = mean_v clip(x[:,2,t,v],0,1) from raw input, q' = avg_pool1d(k=3,s=2,p=1,count_include_pad=False)",
+    "epsilon": 0.1,
+    "new_parameters": 0,
+    "off_switch": "quality_prior=False reproduces SkeletonModel exactly (check_quality_pooling)"
+  },
+  "kept": [
+    "GMDCSA-24 160 clips / labels / subject split",
+    "four inputs with 07 SHA-256",
+    "feature v2 8 channels and augmentation",
+    "class-balanced CE, Fall multiplier 1.0",
+    "AdamW recipe of 07",
+    "nested LOSO 4 outer x 3 inner, epoch by inner CE, refit outer-train",
+    "seeds 42/142/242",
+    "primary policy fixed 0.5; balanced/sensitivity thresholds chosen on inner only"
+  ],
+  "variants": {
+    "Q0_A3_attention": {
+      "channels": 8,
+      "attention": true,
+      "fall_multiplier": 1.0,
+      "quality_prior": false
+    },
+    "Q1_A3_quality_prior": {
+      "channels": 8,
+      "attention": true,
+      "fall_multiplier": 1.0,
+      "quality_prior": true
+    }
+  },
+  "budget": {
+    "outer_runs": 24,
+    "fits": 96,
+    "search": "none (no epsilon or hyperparameter search)"
+  },
+  "primary_metric": "pooled accuracy, policy fixed, mean +/- sd over 3 seeds; paired delta Q1-Q0 per seed",
+  "secondary": [
+    "sensitivity",
+    "specificity",
+    "precision",
+    "F1",
+    "FN",
+    "FP",
+    "per-subject deltas",
+    "clips that flip",
+    "balanced/sensitivity policies as sensitivity analysis"
+  ],
+  "decision_rule": "Report the paired delta and seed counts as is; no p-value over 3 seeds on the same 160 clips. A negative or null result is valid. Nothing is re-tuned after outer-test results.",
+  "limitations": [
+    "outer folds were seen during development of 06/07/08",
+    "4 subjects, seeds repeat the same clips",
+    "q is a MediaPipe visibility proxy, not calibrated confidence"
+  ],
+  "config": {
+    "mode": "full",
+    "feature_version": "v2-mask-visibility-raw-pose-augmentation",
+    "seeds": [
+      42,
+      142,
+      242
+    ],
+    "variants": [
+      "Q0_A3_attention",
+      "Q1_A3_quality_prior"
+    ],
+    "max_epochs": 50,
+    "patience": 10,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.3,
+    "scheduler": null,
+    "target_sensitivity": 0.95,
+    "minimum_specificity": 0.75,
+    "threshold_grid": [
+      0.05,
+      0.075,
+      0.1,
+      0.125,
+      0.15,
+      0.175,
+      0.2,
+      0.22499999999999998,
+      0.25,
+      0.27499999999999997,
+      0.3,
+      0.32499999999999996,
+      0.35,
+      0.37499999999999994,
+      0.39999999999999997,
+      0.42499999999999993,
+      0.44999999999999996,
+      0.475,
+      0.49999999999999994,
+      0.525,
+      0.5499999999999999,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.7999999999999999,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.9249999999999999,
+      0.95
+    ],
+    "allow_cpu_full": false,
+    "epoch_selection": "minimum unweighted inner-validation cross entropy",
+    "protocol": "4 outer subjects; 3 inner subjects; refit outer train; no final all-subject retrain; only pooling differs between Q0 and Q1",
+    "quality_epsilon": 0.1,
+    "quality_channel": 2,
+    "quality_definition": "mean_v clip(visibility_v2,0,1); centred avg-pool to attention steps"
+  },
+  "code_hash": "6ba0420b4b2af4f5b2aacfaa5e93321ace7a028c9a8f0b65ed146946157cb5e7",
+  "code_files": {
+    "training/contribution_study/runner.py": "faebd2a34a00f03cac52d6c9947d70dcb29e890d814b5b23ba624988b73472de",
+    "training/contribution_study/quality_pooling.py": "3f3e1cecf8c80c935f4634da249c9dbf141eca029639eb1197062d80e5b3b6d9",
+    "training/component_ablation/training.py": "1a9fb95e0a29a2575c7e75aa541378f0e8918094a8cfe556faca144b2dc2d05f",
+    "training/component_ablation/models.py": "a43c0ea2a85caa2aaf890dc81ac7cf5f67d2237eeba5614fd00492b89285583f",
+    "training/component_ablation/features.py": "d3dd0f1fcbf2dea61a1ee5070c82e046cca4f1d75fdbccd6badd77321d7e5680"
+  },
+  "inputs": {
+    "pose": "598638f33066c4b6487dbaa1ccbfcc98a96143f8deae94354278f635324633b4",
+    "features": "4a255c925adbcfb8364eb413dd492c72d2a0cfcdd5074082f470b0aa836e2848",
+    "manifest": "5c41ac710d580a648d6768c5d7ceb2a5b95767f23069519ed5b98737e59417f2",
+    "folds": "774f0ac28b8342e9c8080af075fcda8227ac6a036124514f6c09f0a375b4fbba"
+  },
+  "code_hash_note": "runner.code_hash(): sha256 over name + NUL + file bytes with CRLF normalised to LF"
+}

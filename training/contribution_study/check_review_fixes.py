@@ -14,7 +14,7 @@ import torch
 from training.contribution_study import benchmark_latency
 from training.contribution_study.audit_existing import compare
 from training.contribution_study.check_quality_pooling import synthetic_data
-from training.contribution_study.runner import (LOCKED_INPUTS, make_config, run_experiment, run_neural, signature_hash,
+from training.contribution_study.runner import (LOCKED_INPUTS, MODEL_DIR, make_config, run_experiment, run_neural, signature_hash,
                                                 summarize_run, verify_inputs)
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -111,6 +111,7 @@ def check_completion(checks):
         return blocked
 
     first = lambda folder, suffix: fold_paths(folder)[0].with_name(fold_paths(folder)[0].stem + suffix)
+    checkpoint = lambda folder: folder / MODEL_DIR / (fold_paths(folder)[0].stem + ".pt")
     mutations = {
         "reviewer_repro_all_reports": lambda f: edit_reports(f, reviewer_repro, first_only=False),
         "complete_false": lambda f: edit_reports(f, set_field("complete", False)),
@@ -125,7 +126,7 @@ def check_completion(checks):
         "tampered_fold_metric": lambda f: edit_reports(f, tamper_metric),
         "missing_report": lambda f: fold_paths(f)[0].unlink(),
         "unexpected_report": lambda f: shutil.copy(fold_paths(f)[0], f / "Q9_extra_seed1_subject1.json"),
-        "missing_checkpoint": lambda f: first(f, ".pt").unlink(),
+        "missing_checkpoint": lambda f: checkpoint(f).unlink(),
         "corrupt_attention": lambda f: first(f, "_attention.npz").write_bytes(b"broken"),
         "missing_history": lambda f: first(f, "_refit_history.csv").unlink(),
     }
@@ -137,11 +138,11 @@ def check_completion(checks):
     shutil.rmtree(folder, ignore_errors=True)
     shutil.copytree(base, folder)
     broken = fold_paths(folder)[0]
-    broken.with_name(broken.stem + ".pt").unlink()
+    checkpoint(folder).unlink()
     run_neural(data, config, folder, "cpu", signature)
     summarize_run(data, config, folder, signature, "synthetic")
     rerun = json.loads((folder / "completion.json").read_text(encoding="utf-8"))
-    checks["rev02_resume_reruns_broken_fold"] = rerun["complete"] is True and broken.with_name(broken.stem + ".pt").exists()
+    checks["rev02_resume_reruns_broken_fold"] = rerun["complete"] is True and checkpoint(folder).exists()
     shutil.rmtree(folder, ignore_errors=True)
 
 
@@ -186,6 +187,54 @@ def check_audit_compare(checks):
     checks["rev04_value_diff_fails"] = status(stored.assign(accuracy=[0.9, 0.7]), stored)["status"] == "FAIL"
 
 
+def check_model_reload(checks):
+    """GB-20261116-001 deliverable: every checkpoint reloads and reproduces the stored OOF scores and metrics."""
+    from training.contribution_study.evaluate_models import evaluate_run
+    data = synthetic_data(np.random.default_rng(11))
+    base = OUTPUT / "smoke"  # valid synthetic run produced by check_completion
+    report = evaluate_run(data, base)
+    manifest = json.loads((base / MODEL_DIR / "manifest.json").read_text(encoding="utf-8"))
+    checks["reload_valid_run_passes"] = report["status"] == "PASS" and len(manifest["models"]) == 8         and manifest["scientific_result"] is False
+
+    def mutated(name, mutate):
+        folder = OUTPUT / f"reload_{name}"
+        shutil.rmtree(folder, ignore_errors=True)
+        shutil.copytree(base, folder)
+        mutate(folder)
+        failed = evaluate_run(data, folder)["status"] == "FAIL"
+        shutil.rmtree(folder, ignore_errors=True)
+        return failed
+
+    def perturb_weights(folder):
+        path = sorted((folder / MODEL_DIR).glob("*.pt"))[0]
+        checkpoint = torch.load(path, map_location="cpu", weights_only=True)
+        for key, value in checkpoint["model_state_dict"].items():
+            if key.startswith("classifier") and value.dtype.is_floating_point:
+                value[-1] += 0.5  # Fall logit only; shifting both logits equally would leave softmax unchanged
+        torch.save(checkpoint, path)
+
+    def swap_metadata(folder):
+        path = sorted((folder / MODEL_DIR).glob("*.pt"))[0]
+        checkpoint = torch.load(path, map_location="cpu", weights_only=True)
+        checkpoint["outer_subject"] = checkpoint["outer_subject"] % 4 + 1
+        torch.save(checkpoint, path)
+
+    def shift_scores(folder):
+        frame = pd.read_csv(folder / "predictions.csv")
+        frame.loc[frame.index[:3], "score"] = (frame.loc[frame.index[:3], "score"] + 0.01).clip(0, 1)
+        frame.to_csv(folder / "predictions.csv", index=False)
+
+    def tamper_pooled(folder):
+        frame = pd.read_csv(folder / "pooled_by_seed.csv")
+        frame.loc[frame["policy"] == "fixed", "accuracy"] += 0.05
+        frame.to_csv(folder / "pooled_by_seed.csv", index=False)
+
+    for name, mutate in {"perturbed_weights": perturb_weights, "wrong_checkpoint_metadata": swap_metadata,
+                         "missing_checkpoint": lambda f: sorted((f / MODEL_DIR).glob("*.pt"))[0].unlink(),
+                         "shifted_scores": shift_scores, "tampered_pooled": tamper_pooled}.items():
+        checks[f"reload_blocked_{name}"] = mutated(name, mutate)
+
+
 def main():
     torch.set_num_threads(2)
     OUTPUT.mkdir(parents=True, exist_ok=True)
@@ -194,6 +243,7 @@ def main():
     check_latency_sync(checks)
     check_input_guard(checks)
     check_completion(checks)
+    check_model_reload(checks)
     checks = {key: bool(value) for key, value in checks.items()}
     status = "PASS" if all(checks.values()) else "FAIL"
     report = {"status": status, "checks": checks, "torch": torch.__version__,
