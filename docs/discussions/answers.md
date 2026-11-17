@@ -4,11 +4,96 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 30/10/2026, Gia Bảo xác nhận phân công hai hướng và dừng PoseLab, mã `GB-20261030-001`.
+- Cập nhật: 16/11/2026, Gia Bảo cấp quyền tự chủ cho Đức theo `GB-20261116-002`; hạn và sản phẩm của `GB-20261116-001`, phân công và việc dừng PoseLab vẫn giữ.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
-- `DUC-20261028-001`: giữ `CHANGES_REQUESTED` về lỗi kiểm dữ liệu/nghiệm thu nếu dùng tiếp mã đã review; yêu cầu cố định hướng/công thức Q0/Q1 đã được thay bởi quyết định mới.
-- Chưa cấp phê duyệt full train, nguồn dữ liệu mới, dịch vụ GPU trả phí hoặc thay model/backend triển khai.
+- Đức không chờ duyệt M0/phạm vi thành phần kiến trúc/review lại trước full; tự ghi phương án, sửa lỗi và kiểm tra đạt theo `GB-20261116-002`. Quyền chạy không phải nghiệm thu code/kết quả.
+- Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Tùng vẫn cần duyệt trước full.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261116-002 - Đức tự chủ triển khai và chạy thí nghiệm
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026 (UTC+7): sửa quy định để không chờ duyệt làm kéo dài quá trình.
+- Quyết định: `APPROVED` cho quyền tự thực hiện của Đức, không phải xác nhận code/kết quả đã nghiệm thu. Thay các điều kiện chờ duyệt M0, thành phần kiến trúc và review lại trước smoke/full dành cho Đức trong `GB-20261030-001`, `GB-20261116-001` và review ngày 29/10/2026. Quy trình của Tùng không đổi.
+
+### Phạm vi được tự quyết
+
+1. Giữ đúng mốc `A3_motion_attention` / `fixed` của notebook 07, mã `training/component_ablation/` tại `c8f654bf0f1943ffcfe375911c8b3e0015beadc5`: tám kênh, attention bật, dropout 0.3, Fall multiplier 1.0, feature `v2-mask-visibility-raw-pose-augmentation`, ngưỡng 0.5. Chạy lại bản gốc cùng bản thay đổi; không đổi mốc thành cost225/06/T0/T1/Q1 hoặc lấy số cũ làm đối chứng mới.
+2. Tự chọn, giải thích và triển khai thay đổi có kiểm soát về xử lý, huấn luyện, chính sách quyết định hoặc thành phần kiến trúc như pooling/attention. Không thay hẳn mô hình/backbone sang hướng của Tùng; không bắt buộc quality-aware hoặc công thức cụ thể.
+3. Ghi M0 với giả thuyết, phần giữ nguyên/thay đổi, cặp so sánh, tiêu chí, cấu hình/grid và ngân sách; khóa trước outer-test, ghi `M0_DOCUMENTED`. Đây là đăng ký phương án, không phải đơn xin duyệt; không chờ trả lời hoặc `APPROVED` từng bước.
+4. Tự triển khai, sửa lỗi, chạy test, validation, smoke thật rồi full khi đủ điều kiện bên dưới. Không cần Gia Bảo review lại bản sửa trước chạy; test thất bại phải sửa/chạy lại, không bỏ guard để vượt điều kiện.
+5. Được commit/push mã, test, phương án, báo cáo, model và kết quả thuộc vùng nhiệm vụ lên `vinhduc`, upload artifact theo checklist `GB-20261116-001` và mở PR, không xin lại từng lần. Kiểm outgoing commits, chỉ stage file đúng phạm vi; không force-push, sửa nhánh khác hoặc tự merge main.
+
+### Điều kiện kỹ thuật và nghiệm thu
+
+- Bốn input có quyền sử dụng, đúng hash/căn chỉnh; giữ dataset/nhãn/subject split, seed 42/142/242 và nguyên tắc nested LOSO chung. Không tuning bằng outer-test, chọn seed đẹp hoặc đổi dữ liệu để có số tốt hơn.
+- Test hồi quy/parity, dữ liệu/split/metric và smoke trên dữ liệu thật phải PASS, có log/bằng chứng. Các lỗi DUC-REV còn liên quan vẫn phải xử lý/test; fixture không thay chạy thật. Có môi trường/tài nguyên được phép mới chạy; thiếu input/GPU thì báo sớm, ghi `NOT_RUN` và làm tiếp việc độc lập.
+- Báo cáo partial/full trung thực, lưu config/hash/code/run/seed/fold, raw OOF và model dùng tạo kết quả. Hạn **thứ Tư 25/11/2026 (UTC+7)** vẫn yêu cầu **MODEL ĐÃ TRAIN + KẾT QUẢ ĐÁNH GIÁ trên GitHub**, không chỉ M0/tiến độ; không yêu cầu kết quả phải tốt hơn.
+- Người điều phối review/kiểm chứng để nghiệm thu, tổng hợp và quyết định merge main sau bàn giao. Quyền tự chạy không nghĩa là bản sửa đã kiểm độc lập hoặc được gắn `DONE`/`complete=true` khi thiếu bằng chứng.
+- Vẫn hỏi khi muốn đổi dataset/mốc/giao thức chung hoặc làm ngoài phạm vi; không tự mua GPU/dịch vụ, public dữ liệu riêng tư/token, sửa helper/checker chung, model triển khai, bật PoseLab hoặc sửa phần Tùng.
+
+### Trả lời các câu hỏi Đức đang chờ
+
+- `DUC-20261103-001`: phần xin thay đổi thành phần kiến trúc đã được cho phép, gồm thử quality-aware pooling nếu Đức chọn. Không cần chờ duyệt phạm vi/M0 riêng; tự khóa phương án và kiểm tra theo quy định mới.
+- `DUC-20261028-001`: bỏ điều kiện phải được người điều phối review lại/duyệt riêng trước full. Danh sách lỗi DUC-REV và nghĩa vụ sửa/test vẫn giữ khi dùng mã liên quan; chưa độc lập xác nhận bản sửa ngày 03/11 đã PASS. Yêu cầu input/quyền/GPU chưa được quyết định này giải quyết.
+- Đức cập nhật cùng file trao đổi/báo cáo: xác nhận đã nhận quyền, tách blocker dữ liệu/GPU còn mở. Không đánh dấu toàn bộ câu hỏi `RESOLVED` hoặc tự sửa answers để nhận là đã nghiệm thu.
+
+## GB-20261116-001 - Nhắc Tùng và Đức thực hiện nhiệm vụ
+
+**Hiệu lực mới:** các điều kiện chờ phê duyệt riêng cho Đức trong thông báo này đã được thay bởi `GB-20261116-002`; hạn, sản phẩm và checklist nộp vẫn giữ. Tùng giữ quy trình hiện tại.
+
+- Người ra thông báo: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026, UTC+7.
+- Cập nhật hạn theo yêu cầu tiếp theo của Gia Bảo ngày 16/11/2026: **chậm nhất thứ Tư, 25/11/2026 (UTC+7)**. "Thứ Tư tuần sau" tính từ thứ Hai 16/11 là 25/11, không phải 18/11.
+- Gia Bảo bổ sung trong chat ngày 16/11/2026: hạn này áp dụng cho **sản phẩm MODEL ĐÃ TRAIN + KẾT QUẢ ĐÁNH GIÁ của cả hai, phải upload lên GitHub**, kèm mã/lệnh tái lập và báo cáo; không chỉ đề xuất hoặc báo cáo tiến độ. Tùng nộp mô hình/phương pháp khác; Đức nộp cặp mốc gốc và thay đổi có kiểm soát. Thiếu phê duyệt/input/GPU phải báo sớm để điều phối giải quyết, nộp phần đã làm đúng hạn và ghi phần chưa chạy `NOT_RUN`; chưa đủ sản phẩm là chưa hoàn tất. Tùng giữ điều kiện duyệt M0/full; Đức tự ghi/khóa M0, tự kiểm test/smoke rồi full theo `GB-20261116-002`, review nghiệm thu sau bàn giao.
+- Yêu cầu: cả hai chủ động bắt đầu hoặc tiếp tục phần nghiên cứu được giao và nộp tiến độ, không chỉ đọc phân công rồi chờ. Không áp sẵn cách giải hay yêu cầu kết quả phải tốt hơn.
+- Trạng thái: `ACTION_REQUIRED` cho xác nhận/cập nhật; quyền tự chạy của Đức theo `GB-20261116-002`, không mở rộng quyền của Tùng.
+
+### Hiện trạng đã kiểm tra
+
+- Fetch ngày 16/11: `origin/dinhtung` ở `1ab8164` (28/10), chưa thấy M0/code/kết quả mới được nộp cho hướng hiện hành. Chỉ kết luận về phần đã gửi lên repo, không suy đoán việc làm riêng.
+- `origin/vinhduc` ở `da5b552` (03/11): ghi nhận đề xuất quality-aware pooling và bản sửa DUC-REV-01..05; không yêu cầu Đức làm lại từ đầu. Các kiểm tra PASS là do Đức báo cáo, chưa được người điều phối độc lập kiểm lại; smoke thật/full vẫn `NOT_RUN`, chưa có kết quả train mới.
+- `DUC-20261103-001` và `DUC-20261028-001`: quyền tự thực hiện đã trả lời ở `GB-20261116-002`; không còn chờ duyệt phạm vi/M0/review lại để chạy. Nguồn bốn input đúng hash và GPU vẫn là phụ thuộc chưa giải quyết, không quy thành lỗi chậm thực hiện của Đức.
+
+### Tùng - mô hình hoặc phương pháp khác
+
+1. Fetch và đọc hướng dẫn mới từ `origin/main`; thực hiện trên `dinhtung`, không thực nghiệm trên main.
+2. Ngay phiên tiếp theo, xác nhận đã nhận và bắt đầu/nộp M0: tự chọn mô hình hoặc phương pháp khác trên cùng GMDCSA24, giải thích lý do, phần giữ nguyên/thay đổi, cách so với ME-STGCN-TA, ngân sách và hỗ trợ cần thiết. Không bắt buộc CTR-GCN hay chỉ đổi backbone.
+3. Cập nhật `docs/reports/dinhtung.md`: việc đã làm, bằng chứng, bước tiếp theo, blocker. Chờ duyệt thì tiếp tục đọc baseline, thiết kế, chuẩn bị mã/kiểm tra trong phạm vi; không tự chạy full.
+
+### Đức - thay đổi có kiểm soát mô hình hiện tại
+
+1. Tiếp tục trên `vinhduc`, lấy đúng `A3_motion_attention` / policy `fixed` của notebook 07 và `training/component_ablation/` làm mốc: tám kênh, attention bật, Fall multiplier 1.0, ngưỡng 0.5. Không dùng checkpoint final 06, A3_cost_225, T0/T1 hoặc Q1 thay mốc.
+2. Cập nhật `docs/reports/vinhduc.md` cho khớp commit đã push, dẫn bản sửa, lệnh/bằng chứng kiểm tra và trạng thái thật; giữ các câu hỏi đang mở theo đúng ID. Nêu rõ phần làm được ngay và phần cần Gia Bảo cung cấp/quyết định.
+3. Được tự chọn thay đổi thành phần kiến trúc, kể cả quality-aware pooling, theo `GB-20261116-002`; không chờ duyệt. Tự review/test, chuẩn bị môi trường/notebook và kiểm input; không bỏ hash guard, dùng dữ liệu giả làm smoke thật hoặc tự mua GPU.
+4. Khi đã ghi/khóa M0, đủ input/môi trường và test/smoke thật PASS, tự chạy full, không chờ review lại hoặc duyệt riêng. Chạy lại bản gốc cùng bản thay đổi trong điều kiện so sánh như nhau; không dùng số lịch sử làm đối chứng mới.
+
+### Sản phẩm bắt buộc và cách upload GitHub
+
+1. **Model thật:** trọng số/checkpoint hoặc artifact mô hình đã fit phù hợp phương pháp, có mã dựng/load và lệnh inference/evaluate chạy lại được. Ghi rõ run, seed, fold, cấu hình, phiên bản feature và dữ liệu đã dùng để train; nộp checkpoint dùng tạo kết quả hoặc liên kết artifact tương ứng, không lấy model cũ đổi tên thành model mới. Không bắt buộc ONNX, giao diện hoặc một lần train all-subject mới ngoài phương án đã duyệt.
+2. **Kết quả thật:** bảng Accuracy, Precision, Recall, Specificity, F1, FN/FP và confusion matrix; kết quả từng fold/seed và tổng hợp mean/std theo protocol, kèm raw OOF/dự đoán, config, hash input/code/model, log/history và trạng thái hoàn tất. Tùng đối chiếu ME-STGCN-TA theo cùng đánh giá; Đức có kết quả cho cả mốc chạy lại và bản thay đổi. Không chọn checkpoint/seed đẹp bằng outer-test, không lấy smoke hoặc số lịch sử làm kết quả mới.
+3. **Vị trí:** Tùng để model theo run trong `results/backbone_benchmark/<run>/models/` và kết quả trong cùng run; Đức dùng `results/contribution_study/<run>/models/` và kết quả tương ứng. Mã/lệnh chạy ở vùng training cá nhân; báo cáo cá nhân dẫn commit, artifact và cách tái lập. Không ghi đè `models/deployment/` hoặc bằng chứng kết quả gốc.
+4. **Đưa lên GitHub:** Gia Bảo yêu cầu và cho phép commit/push sản phẩm trong phạm vi nhiệm vụ lên đúng nhánh `dinhtung`/`vinhduc`, mở PR để review; không tự merge main hoặc gửi kèm thay đổi ngoài nhiệm vụ. Artifact nhỏ phù hợp Git thì commit trực tiếp. `.pt`/`.onnx`/`.npz` đang bị ignore: chỉ stage đích danh artifact đã kiểm trong thư mục model riêng bằng `git add -f -- <file>` nếu cần; không bỏ ignore toàn cục, không force-add cả thư mục dự án.
+5. **Artifact lớn:** upload dưới dạng GitHub Release asset trên repo này và ghi đường dẫn tải, SHA-256, dung lượng, run/seed/fold trong manifest được commit trên nhánh cá nhân. Không nhét checkpoint lớn vào lịch sử Git, không tự bật dịch vụ trả phí hoặc chỉ để model ở Kaggle/máy riêng mà không có bản GitHub truy cập được. Không upload video/tensor riêng, token hoặc môi trường. Thiếu quyền upload thì báo ngay, không nói đã gửi.
+6. **Nghiệm thu:** kiểm lại remote/PR và khả năng tải, đối chiếu hash, thử load model và tái tính metric từ raw predictions. Ghi PASS/FAIL/NOT_RUN. Chỉ báo đủ sản phẩm khi người review lấy được model và kết quả tương ứng; chỉ có notebook, ảnh chụp bảng điểm hoặc báo cáo chữ là chưa đủ. Model học toàn dữ liệu nếu có phải ghi rõ không có test độc lập, không gán metric outer-fold cho chính checkpoint đó.
+
+### Xác nhận và bàn giao
+
+- Cả hai xác nhận ngay phiên làm việc tiếp theo trong `docs/discussions/dinhtung.md` hoặc `docs/discussions/vinhduc.md`, dẫn `GB-20261116-001` và hạn **25/11/2026 (UTC+7)**; bàn giao model và kết quả chậm nhất ngày này theo checklist trên, kèm báo cáo, bằng chứng, bước tiếp theo và hỗ trợ cần thiết. Không chờ hết hạn mới xác nhận; gặp blocker phải báo sớm, không im lặng chờ hoặc bịa kết quả.
+- Commit/push xác nhận, câu hỏi và sản phẩm theo quyền/phạm vi nêu trên; không xóa câu hỏi chưa giải quyết, không push hộ nhau hoặc tự merge main.
+- Giữ cùng dataset/nhãn/split theo subject, quy tắc đánh giá/chọn cấu hình/ngưỡng, seed 42/142/242 và ngân sách so sánh đã thống nhất. Không chọn theo outer-test hoặc seed đẹp; kết quả âm vẫn hợp lệ.
+- Thiếu input/GPU/phê duyệt: ghi `NOT_RUN` và blocker cụ thể cho phần chưa chạy, tiếp tục việc độc lập. Đức không cần chờ Tùng để chuẩn bị cặp đối chứng.
+- PoseLab vẫn dừng, WEB-01/WEB-02 vẫn `CANCELLED`; không làm web/UI/QA thay nghiên cứu.
+- Đăng trên main không đồng nghĩa hai bạn đã đọc; chỉ ghi nhận đã nhận khi có xác nhận trên nhánh cá nhân.
+
+Đọc thông báo mà không cần merge code:
+
+```bash
+git fetch origin
+git show origin/main:docs/discussions/answers.md
+git show origin/main:docs/tasks/dinhtung.md
+git show origin/main:docs/tasks/vinhduc.md
+```
+
+**Lưu ý lịch sử:** phần chờ phê duyệt/M0/review lại trước chạy dành cho Đức trong các quyết định cũ dưới đây không còn hiệu lực theo `GB-20261116-002`. Phát hiện lỗi, yêu cầu bằng chứng và giới hạn dữ liệu/an toàn vẫn giữ.
 
 ## GB-20261030-001 - Phân công hai hướng và dừng PoseLab
 

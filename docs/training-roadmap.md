@@ -4,11 +4,11 @@
 
 Yêu cầu học thuật: so phương pháp khác trên chính dữ liệu nhóm và kiểm chứng thay đổi mô hình hiện tại. Xem [protocol](research-protocol.md), [Tùng](tasks/dinhtung.md), [Đức](tasks/vinhduc.md), [bàn giao](handoff.md).
 
-Theo quyết định của Gia Bảo ngày 30/10/2026: Tùng giữ dataset, tự đề xuất mô hình/phương pháp khác để so với ME-STGCN-TA; Đức thay đổi có kiểm soát mô hình hiện tại và so với bản gốc. Cùng giao thức đánh giá, không chỉ định sẵn CTR-GCN, quality-aware hay công thức. Hai bạn giải thích thay đổi và thống nhất M0 trước full; tiến độ thực tế xem báo cáo/commit. PoseLab và nhiệm vụ web đã dừng. Khuyến nghị bên dưới chỉ là bối cảnh, không thay phân công mới hoặc chứng minh cải thiện. Không cần chờ dataset ngoài mới làm so sánh phát triển, nhưng không gọi dữ liệu cũ là test độc lập mới.
+Theo quyết định của Gia Bảo ngày 30/10/2026: Tùng giữ dataset, tự đề xuất mô hình/phương pháp khác để so với ME-STGCN-TA; Đức thay đổi có kiểm soát mô hình hiện tại và so với bản gốc. Cùng giao thức đánh giá, không chỉ định sẵn CTR-GCN, quality-aware hay công thức. Hai bạn giải thích thay đổi và ghi M0 trước full; theo `GB-20261116-002`, Đức tự khóa M0, tự kiểm test/smoke thật rồi full, không chờ duyệt; Tùng giữ quy trình duyệt; tiến độ thực tế xem báo cáo/commit. PoseLab và nhiệm vụ web đã dừng. Khuyến nghị bên dưới chỉ là bối cảnh, không thay phân công mới hoặc chứng minh cải thiện. Không cần chờ dataset ngoài mới làm so sánh phát triển, nhưng không gọi dữ liệu cũ là test độc lập mới.
 
 ## Quyết định hiện tại
 
-Giữ nguyên model 06 và notebook 07 như bằng chứng. [PoseLab/WEB-01/WEB-02 đã dừng](tasks/web-app.md); không làm lại frontend, inference hoặc model/threshold ứng dụng. Lượt cập nhật phân công này không chạy thêm train hoặc chọn model/seed thắng outer-test để thay checkpoint. A3_cost_225 fixed là ứng viên nghiên cứu, chưa phải model an toàn đã xác nhận: 96,62% sensitivity vẫn tương ứng 3/3/2 ca bỏ sót theo seed. Các mục mở rộng phía sau không phải việc giao bắt buộc; phương án tiếp theo do thành viên đề xuất và Gia Bảo duyệt.
+Giữ nguyên model 06 và notebook 07 như bằng chứng. [PoseLab/WEB-01/WEB-02 đã dừng](tasks/web-app.md); không làm lại frontend, inference hoặc model/threshold ứng dụng. Lượt cập nhật phân công này không chạy thêm train hoặc chọn model/seed thắng outer-test để thay checkpoint. A3_cost_225 fixed là ứng viên nghiên cứu, chưa phải model an toàn đã xác nhận: 96,62% sensitivity vẫn tương ứng 3/3/2 ca bỏ sót theo seed. Các mục mở rộng phía sau không phải việc giao bắt buộc; Đức tự quyết phương án có kiểm soát trong phạm vi `GB-20261116-002`, Gia Bảo review nghiệm thu sau; phương án của Tùng/ngoài phạm vi vẫn cần duyệt.
 
 ## Ưu tiên theo thứ tự
 

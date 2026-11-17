@@ -11,6 +11,8 @@ Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động th�
 
 ## Thành viên và AI bắt đầu ở đây
 
+**Quy định hiện hành 16/11/2026 — `GB-20261116-002`:** Đức được tự chọn thay đổi có kiểm soát từ mốc A3, tự triển khai, kiểm tra, smoke và full train khi đủ điều kiện; không chờ Gia Bảo duyệt M0, thành phần kiến trúc hoặc review lại bản sửa trước chạy. M0 phải được ghi/khóa trước outer-test; dữ liệu, split, seed và đánh giá chung không đổi; test và smoke thật phải PASS. Đức được commit/push sản phẩm đúng phạm vi lên `vinhduc` và mở PR, không xin lại từng lần. Review cuối vẫn quyết định nghiệm thu/merge main. Tùng giữ quy trình phê duyệt hiện tại. Xem [quyết định chính thức](docs/discussions/answers.md).
+
 Đọc [AGENTS.md](AGENTS.md) -> [bàn giao](docs/handoff.md) -> [nhiệm vụ](docs/tasks/README.md) -> [giao thức nghiên cứu](docs/research-protocol.md) trước khi sửa. **AI chưa biết người đang làm phải hỏi tên**, không đoán từ tài khoản Git.
 
 | Thành viên | Nhánh | Công việc học thuật tiếp theo | Báo cáo |
@@ -21,7 +23,7 @@ Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động th�
 
 `main` là bản chuẩn đã duyệt của nhóm, không phải nhánh thử nghiệm của Gia Bảo. Gia Bảo sửa code trên `giabao`, review/kiểm tra rồi mới tích hợp khi được yêu cầu; quy tắc và quyết định chung vẫn publish trên `main` để Tùng/Đức cùng đọc.
 
-Phân công ngày **30/10/2026** thay việc chỉ định sẵn CTR-GCN/quality-aware: hai bạn tự đề xuất phương án, giải thích giữ nguyên/thay đổi gì và vì sao, thống nhất M0 trước full. Giữ cùng dataset và giao thức đánh giá, không coi là cải tiến đã chứng minh hoặc giao lại 07/08 như chưa làm. Giữ bài làm/review đã có; tiến độ xem báo cáo cá nhân. Không push trực tiếp main; xem [quy trình Git và input](docs/handoff.md).
+Phân công ngày **30/10/2026** thay việc chỉ định sẵn CTR-GCN/quality-aware: hai bạn tự đề xuất phương án, giải thích giữ nguyên/thay đổi gì và vì sao, Tùng thống nhất M0 trước full; Đức tự ghi/khóa M0 và tự kiểm đủ điều kiện theo `GB-20261116-002`. Giữ cùng dataset và giao thức đánh giá, không coi là cải tiến đã chứng minh hoặc giao lại 07/08 như chưa làm. Giữ bài làm/review đã có; tiến độ xem báo cáo cá nhân. Không push trực tiếp main; xem [quy trình Git và input](docs/handoff.md).
 
 **Mốc của Đức:** `A3_motion_attention` / policy `fixed` của notebook 07, tám kênh, attention bật, Fall multiplier 1.0; không phải model demo 06 hoặc A3_cost_225. [Nhiệm vụ Đức](docs/tasks/vinhduc.md) chỉ rõ mã, recipe và cách đối chiếu bản gốc.
 
@@ -29,7 +31,7 @@ Phân công ngày **30/10/2026** thay việc chỉ định sẵn CTR-GCN/quality
 
 Câu khởi động có thể gửi AI sau clone:
 
-> Đọc AGENTS.md, docs/handoff.md và quyết định GB-20261030-001 trong answers.md. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát mô hình hiện tại. Tự đề xuất và giải thích, không áp sẵn cách làm; giữ cùng giao thức đánh giá. PoseLab đã dừng, không làm web. Kiểm tra nhánh/phạm vi, cập nhật báo cáo mỗi phiên; hỏi nhóm qua file trao đổi Markdown cá nhân và đọc trả lời trên main. Không bịa kết quả hoặc tự thay model gốc.
+> Đọc AGENTS.md, docs/handoff.md và quyết định mới nhất GB-20261116-002 trong docs/discussions/answers.md. Đức tự ghi/khóa M0, triển khai, kiểm test/smoke thật rồi full và nộp model/kết quả trên nhánh mình; không chờ Gia Bảo duyệt từng bước. Tùng giữ quy trình hiện tại. Chưa biết tôi là ai thì hỏi tên trước khi sửa. Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát mô hình hiện tại. Tự đề xuất và giải thích, không áp sẵn cách làm; giữ cùng giao thức đánh giá. PoseLab đã dừng, không làm web. Kiểm tra nhánh/phạm vi, cập nhật báo cáo mỗi phiên; hỏi nhóm qua file trao đổi Markdown cá nhân và đọc trả lời trên main. Không bịa kết quả hoặc tự thay model gốc.
 
 ## 🧠 Phương pháp
 

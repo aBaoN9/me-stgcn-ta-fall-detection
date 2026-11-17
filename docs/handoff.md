@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Quy định hiện hành 16/11/2026 — `GB-20261116-002`:** Đức được tự chọn thay đổi có kiểm soát từ mốc A3, tự triển khai, kiểm tra, smoke và full train khi đủ điều kiện; không chờ Gia Bảo duyệt M0, thành phần kiến trúc hoặc review lại bản sửa trước chạy. M0 phải được ghi/khóa trước outer-test; dữ liệu, split, seed và đánh giá chung không đổi; test và smoke thật phải PASS. Đức được commit/push sản phẩm đúng phạm vi lên `vinhduc` và mở PR, không xin lại từng lần. Review cuối vẫn quyết định nghiệm thu/merge main. Tùng giữ quy trình phê duyệt hiện tại. Xem [quyết định chính thức](discussions/answers.md).
+
 Ngày lập: 28/10/2026. Cập nhật phân công: 30/10/2026 theo Gia Bảo. Gia Bảo là người điều phối, phát triển kỹ thuật trên `giabao`; Tùng làm `dinhtung`, Đức làm `vinhduc`. `main` giữ bản chuẩn đã duyệt và quyết định chung. Đây là điểm bắt đầu cho cả thành viên và AI.
 
 Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main để thử code, không chuyển kênh trả lời nhóm khỏi main. Việc review nhánh khác không đòi hỏi merge; chỉ tích hợp code sau kiểm tra và khi chủ repo yêu cầu.
@@ -22,7 +24,7 @@ Tập trung nghiên cứu, không làm PoseLab. Cần trả lời: **trên cùng
 - Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán, so với ME-STGCN-TA theo giao thức chung. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.
 - Đức: giữ mô hình ME-STGCN-TA làm mốc, tự đề xuất thay đổi có kiểm soát và so với bản gốc. Không bắt buộc quality-aware hoặc công thức cũ; không đổi hẳn mô hình như phần Tùng.
 - Mốc chính xác của Đức là `A3_motion_attention` / `fixed` trong notebook 07 và `training/component_ablation/`, không phải checkpoint final 06 hoặc A3_cost_225; xem [nguồn/cấu hình mốc](tasks/vinhduc.md). Chạy lại bản gốc cùng bản thay đổi, không lấy số cũ coi là run đối chứng mới.
-- Hai bạn giải thích phần giữ nguyên/thay đổi và lý do, nộp M0 trước full; không được giao sẵn lời giải. Giữ bài làm và lỗi đã review nếu tiếp tục dùng mã, xem GB-20261030-001 trong answers.
+- Hai bạn giải thích phần giữ nguyên/thay đổi và lý do, ghi M0 trước full; Tùng chờ duyệt, Đức tự khóa và kiểm test/smoke thật rồi chạy theo `GB-20261116-002`. Không giao sẵn lời giải. Giữ bài làm và lỗi đã review nếu dùng tiếp mã; Đức không chờ review lại bản sửa trước chạy.
 - Không tốt hơn vẫn phải báo trung thực. Đóng góp đồ án cần bằng chứng, không mặc định là phát minh mới của ngành.
 
 Đọc [bảng việc](tasks/README.md), nhiệm vụ cá nhân và [giao thức](research-protocol.md).
@@ -78,12 +80,12 @@ git diff origin/main...origin/vinhduc
 
 Chỉ dùng khi remote đã push. Không chép báo cáo về main rồi coi code đã tích hợp. Bảng việc main là snapshot do người điều phối cập nhật sau review, không đồng bộ tự động.
 
-Người điều phối trả lời theo ID tại `docs/discussions/answers.md` trên main. Thành viên fetch/đọc `origin/main:docs/discussions/answers.md` đầu mỗi phiên và trước phần chờ duyệt; chưa trả lời thì tiếp tục việc độc lập, không tự xem là chấp thuận. Ghi đè là commit mới cập nhật cùng file, không xóa lịch sử hoặc force-push. Chủ repo kiểm thủ công, không có monitor tự động.
+Người điều phối trả lời theo ID tại `docs/discussions/answers.md` trên main. Thành viên fetch/đọc `origin/main:docs/discussions/answers.md` đầu mỗi phiên và trước phần chờ duyệt; chưa trả lời thì tiếp tục việc độc lập, không tự xem là chấp thuận ngoài phạm vi. Đức không chờ trả lời cho phần đã được cấp quyền theo `GB-20261116-002`. Ghi đè là commit mới cập nhật cùng file, không xóa lịch sử hoặc force-push. Chủ repo kiểm thủ công, không có monitor tự động.
 
 ## Checklist trước khi mời clone
 
 - Người điều phối review, commit và push bộ bàn giao lên main khi đồng ý publish.
 - Tạo/publish các nhánh giabao/dinhtung/vinhduc từ main đã có hướng dẫn, hoặc merge main vào nhánh tạo sớm khi an toàn; không ghi đè nhánh đã có bài làm.
-- Cấp nguồn bốn input/kiểm quyền; xác nhận GPU/Kaggle và duyệt cấu hình đầu tiên.
+- Cấp nguồn bốn input/kiểm quyền; xác nhận GPU/Kaggle được phép dùng. Tùng cần duyệt cấu hình; Đức tự khóa cấu hình trong phạm vi đã cấp.
 - Bật bảo vệ main/yêu cầu PR review nếu có quyền. `AGENTS.md` không thay branch protection; lượt viết tài liệu không cấu hình bảo vệ remote.
 - Bộ bàn giao mới trong working tree local thì chưa đến máy thành viên.
