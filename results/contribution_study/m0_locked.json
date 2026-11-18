@@ -144,5 +144,27 @@
     "manifest": "5c41ac710d580a648d6768c5d7ceb2a5b95767f23069519ed5b98737e59417f2",
     "folds": "774f0ac28b8342e9c8080af075fcda8227ac6a036124514f6c09f0a375b4fbba"
   },
-  "code_hash_note": "runner.code_hash(): sha256 over name + NUL + file bytes with CRLF normalised to LF"
+  "code_hash_note": "runner.code_hash(): sha256 over name + NUL + file bytes with CRLF normalised to LF",
+  "addenda": [
+    {
+      "date": "2026-11-18 (UTC+7)",
+      "written_before_outer_results": true,
+      "changes_training": false,
+      "summary": "Fixes the DUC-04 analysis plan before any real Q0/Q1 outer result exists. Training code, config, inputs, variants and budget are unchanged; code_hash still applies.",
+      "analysis_code": {
+        "file": "training/contribution_study/analyze_q0_q1.py",
+        "sha256_lf": "6e8b60907a1d18b6d9726e1bf93ef8d3320997c61bcf09d0713e53f6fbdb9682"
+      },
+      "analysis": [
+        "Primary: pooled accuracy, policy fixed, per-seed paired delta Q1-Q0, mean +/- sd and seeds improved/worse (as in decision_rule).",
+        "All metrics incl. FN/FP and confusion matrices per variant x seed x policy.",
+        "Per-subject paired deltas (fold metrics).",
+        "Clip flips under policy fixed: fixed_by_q1 / broken_by_q1 counts per clip across seeds.",
+        "Mechanism: per clip corr(attention, q') and attention mass on steps with q' < 0.5, Q0 vs Q1. Accuracy gain without a shift in attention is reported as not explained by the hypothesis.",
+        "Known DUC-01 failure clips S4_FALL_05, S4_ADL_05, S4_ADL_06 reported for both variants."
+      ],
+      "q0_reproduction_sanity": "If Q0 fixed accuracy mean lies outside historical A3 fixed mean +/- 2 sd (89.58 +/- 2*3.44 %), investigate the environment before reporting. Environment check only: historical numbers are never the control and the check can never change Q1, epsilon or the config.",
+      "notebook": "RUN_NAME fixed to q0_q1_full so a resumed Kaggle session on another day continues the same run."
+    }
+  ]
 }

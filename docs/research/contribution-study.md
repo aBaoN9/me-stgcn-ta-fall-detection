@@ -171,15 +171,16 @@ Chuẩn bị cho bàn giao 25/11 (`GB-20261116-001`), làm 17/11, chưa chạy d
 - Runner lưu checkpoint từng outer fold vào `<run>/models/<variant>_seed<seed>_subject<outer>.pt`, kèm metadata seed/refit seed/outer/variant/chữ ký run.
 - `evaluate_models.py --run <run> --input-root <input>` nạp lại từng checkpoint, chấm lại subject outer, so score với `predictions.csv` (sai số 1e-4 cho GPU→CPU), tái tính confusion matrix fold và pooled fixed. Ghi `models/manifest.json` (SHA-256, dung lượng, seed, fold) và `model_reload_check.json`. Mỗi checkpoint chỉ có metric outer của đúng subject đó, không phải model học toàn bộ dữ liệu.
 - `quality_report.py`: mô tả phân bố q/q' và frame mất pose trên input thật trước full. Chỉ mô tả input, không đổi ε.
-- `kaggle_q0_q1.ipynb`: chạy theo thứ tự guard hash → validate → phân bố q → test phần mềm → smoke thật → full → audit → reload, rồi nén output để tải về.
+- `kaggle_q0_q1.ipynb`: chạy theo thứ tự guard hash → validate → phân bố q → test phần mềm → smoke thật → full → audit → reload → phân tích DUC-04, rồi nén output để tải về. Từ 18/11 `RUN_NAME` cố định `q0_q1_full` để phiên Kaggle bị ngắt, chạy lại khác ngày vẫn resume đúng run.
+- Ước tính thời gian 18/11 (CPU máy Đức, 16 luồng, dữ liệu synthetic, chỉ đo thời gian, không phải kết quả): 3,85 s/epoch trên 120 clip; trường hợp xấu nhất mọi fit chạy đủ 50 epoch ≈ 3,9 giờ cho cả 96 fits. Vì vậy CPU khả thi nếu được cho phép; M0 hiện vẫn `allow_cpu_full=false`.
 
 Kỳ vọng full: 2 variant × 3 seed × 4 outer = 24 outer, 96 fits. Q0 chạy lại trong runner mới, không lấy số A3 cũ làm đối chứng. Lệnh khi có input + GPU (Kaggle GPU, thư mục mới; hoặc dùng `training/contribution_study/kaggle_q0_q1.ipynb`):
 
 ```bash
-python -m training.contribution_study.runner --input-root <kaggle-input> --mode full --output results/contribution_study/runs/q0_q1_full_<YYYYMMDD>
+python -m training.contribution_study.runner --input-root <kaggle-input> --mode full --output results/contribution_study/runs/q0_q1_full
 python -m training.contribution_study.runner --input-root data/local --mode smoke --output .runtime/contribution_study/smoke_real   # smoke thật, không phải kết quả
-python -m training.contribution_study.audit_existing --run results/contribution_study/runs/q0_q1_full_<YYYYMMDD> --output results/contribution_study/runs/q0_q1_full_<YYYYMMDD>/audit
-python -m training.contribution_study.evaluate_models --run results/contribution_study/runs/q0_q1_full_<YYYYMMDD> --input-root <input>
+python -m training.contribution_study.audit_existing --run results/contribution_study/runs/q0_q1_full --output results/contribution_study/runs/q0_q1_full/audit
+python -m training.contribution_study.evaluate_models --run results/contribution_study/runs/q0_q1_full --input-root <input>
 ```
 
 Lệnh audit cuối tái tính pooled/fold/seed summary từ `predictions.csv` của run và xuất delta Q0→Q1 theo seed/subject cùng các clip đổi kết quả. Đã chạy thử trên output smoke giả: PASS, nhưng đó chỉ là kiểm phần mềm.
@@ -189,3 +190,19 @@ Cost 2,25 cho Q1 và robustness mất pose tổng hợp: ngoài M0 đã khóa, k
 ## DUC-04
 
 Phân tích Q0/Q1: `NOT_RUN`, chờ run full. Đối chiếu với Tùng là phần phụ, không chặn phần kiểm chứng của Đức.
+
+### Kế hoạch phân tích khóa 18/11/2026 (addendum M0, trước mọi kết quả outer thật)
+
+Ghi trong `results/contribution_study/m0_locked.json` → `addenda[0]`, kèm SHA-256 của `analyze_q0_q1.py`. Không đổi code train, config, input, biến thể hay ngân sách; `code_hash` M0 vẫn khớp.
+
+1. **Chính:** accuracy pooled, policy fixed; delta cặp Q1−Q0 từng seed, mean ± sd, số seed tăng/giảm. Không p-value (3 seed lặp cùng 160 clip).
+2. **Đầy đủ:** accuracy, balanced accuracy, sensitivity, specificity, precision, F1, FN, FP và confusion matrix theo variant × seed × policy; balanced/sensitivity chỉ là phân tích độ nhạy.
+3. **Theo subject:** delta từng subject từ fold metric. Bốn subject nên một subject có thể tạo toàn bộ hiệu ứng; phải báo.
+4. **Clip đổi kết quả:** số seed Q1 sửa/làm hỏng quyết định của Q0 trên từng clip.
+5. **Cơ chế:** tương quan attention–q' và khối lượng attention trên bước q' < 0,5, Q0 so với Q1. Nếu accuracy tăng mà attention không dịch khỏi bước chất lượng thấp, ghi là giả thuyết không giải thích được mức tăng.
+6. **Clip lỗi DUC-01:** `S4_FALL_05`, `S4_ADL_05`, `S4_ADL_06` cho cả hai biến thể.
+7. **Kiểm tái lập Q0:** nếu accuracy fixed của Q0 ngoài 89,58 ± 2×3,44% lịch sử thì kiểm môi trường trước khi báo cáo. Chỉ là kiểm môi trường; số lịch sử không phải đối chứng và không được đổi Q1/ε/config.
+
+Kiểm phần mềm `check_analysis` PASS 12/12 trên smoke giả: delta khớp pooled, đủ 320 dòng cơ chế, confusion cộng đủ 160, đếm clip đổi khớp predictions; attention lưu tái tạo từ checkpoint và q' của phân tích khớp đúng prior Q1 đã áp (sai số 1e-5); chặn run chưa xong, sai cặp, thiếu dòng ghép cặp, thiếu file attention, dữ liệu synthetic trên run khoa học. Đây không phải kết quả.
+
+Cách viết kết luận đã định trước: tăng nhất quán 3/3 seed và cơ chế khớp → "cải thiện nhỏ, nhất quán trong giới hạn này", không gọi là model tốt hơn nói chung; hỗn hợp/không đổi → kết quả âm hợp lệ; giảm → báo kèm đánh đổi FN/FP.

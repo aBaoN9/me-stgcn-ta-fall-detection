@@ -5,7 +5,7 @@ Người thực hiện: Đức. Nhánh: `vinhduc`. [Nhiệm vụ](../tasks/vinhd
 ## Snapshot
 
 - Trạng thái: `IN_PROGRESS`.
-- Cập nhật: 2026-11-17 06:30 UTC+7. Đã nhận `GB-20261116-001` (hạn 25/11/2026: model + kết quả trên GitHub) và `GB-20261116-002` (tự chủ M0/smoke/full). M0 tự khóa `M0_DOCUMENTED`. Code/test/notebook Kaggle sẵn sàng. Smoke thật/full `NOT_RUN` vì thiếu bốn input và GPU (`DUC-20261117-001`).
+- Cập nhật: 2026-11-18 UTC+7. Đã nhận `GB-20261116-001` (hạn 25/11/2026: model + kết quả trên GitHub) và `GB-20261116-002` (tự chủ M0/smoke/full). M0 tự khóa `M0_DOCUMENTED`, thêm addendum 18/11 khóa phân tích DUC-04 trước kết quả thật. Code/test/notebook Kaggle/phân tích sẵn sàng. Smoke thật/full `NOT_RUN` vì vẫn thiếu bốn input (`DUC-20261117-001`); GPU không còn là blocker cứng (ước tính CPU ≤ ~3,9 giờ, cần cho phép).
 - Commit code / run ID / PR:
   - `1cbb778`: code DUC-01..03.
   - `2368345`: bản sửa DUC-REV-01..05.
@@ -16,7 +16,7 @@ Người thực hiện: Đức. Nhánh: `vinhduc`. [Nhiệm vụ](../tasks/vinhd
   - DUC-01 `READY_FOR_REVIEW` (failure mode chưa xác minh bằng video).
   - DUC-02 `M0_DOCUMENTED`.
   - DUC-03 `BLOCKED`: thiếu bốn input đúng hash + GPU.
-  - DUC-04 `TODO`, chờ kết quả DUC-03.
+  - DUC-04 `IN_PROGRESS`: kế hoạch + code phân tích khóa và kiểm PASS 12/12 trên smoke giả; chạy thật `NOT_RUN`, chờ DUC-03.
   - WEB-01 `CANCELLED`.
 
 Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. DUC-04 có thể `WAITING_FOR_TUNG` riêng, không dùng để bỏ DUC-01 đến DUC-03. Chỉ người điều phối xác nhận DONE sau review. Nhật ký nối thêm, không xóa lỗi cũ.
@@ -140,6 +140,27 @@ Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. DUC
   - Có input thì chạy notebook Kaggle (đặt `COMMIT` = commit đã push).
   - Tải zip về `results/contribution_study/runs/<run>/`, kiểm lại `evaluate_models` trên máy.
   - Commit model + kết quả, viết phân tích DUC-04, mở PR trước 25/11.
+
+### 2026-11-18 - Khóa phân tích DUC-04, ước tính CPU, sửa resume notebook
+
+- Đã làm / lý do:
+  - Fetch `origin/main` tại `af9e7fb`: chưa có trả lời cho `DUC-20261117-001`. Tìm lại bốn input trên C:/D: (không có); không GPU, không Kaggle API/`gh`. Repo public (HTTP 200) nên notebook Kaggle clone được.
+  - Đo thời gian CPU trên dữ liệu synthetic (chỉ đo thời gian): 3,85 s/epoch với 120 clip, 16 luồng. Trường hợp xấu nhất 96 fits × 50 epoch ≈ 3,9 giờ. GPU không bắt buộc về thời gian; chạy CPU vẫn cần cho phép vì M0 `allow_cpu_full=false`.
+  - Viết `analyze_q0_q1.py` (DUC-04) trước mọi kết quả thật và khóa bằng addendum trong `m0_locked.json` (`addenda[0]`, SHA-256 file phân tích). Gồm delta cặp theo seed/subject, confusion, clip đổi kết quả, cơ chế attention–q', clip lỗi DUC-01 và kiểm tái lập Q0 chỉ để cảnh báo môi trường. Không đổi code train/config/input; `code_hash` M0 vẫn khớp.
+  - Viết `check_analysis.py`: 7 kiểm dương, 5 kiểm âm. Kiểm quan trọng: nạp lại checkpoint Q1 smoke, tái tạo attention đã lưu và chứng minh q' của phân tích đúng là prior model đã áp (sai số 1e-5).
+  - Notebook Kaggle: `RUN_NAME` cố định `q0_q1_full` (trước đây gắn ngày, phiên bị ngắt chạy lại khác ngày sẽ tạo run mới thay vì resume); thêm `check_analysis` vào bước test và `analyze_q0_q1` sau reload; pin `COMMIT` sang commit mới.
+- File: mới `training/contribution_study/{analyze_q0_q1,check_analysis}.py`; sửa `kaggle_q0_q1.ipynb`, README training, `results/contribution_study/m0_locked.json` (thêm addendum), `docs/research/contribution-study.md`, báo cáo này, `docs/discussions/vinhduc.md`.
+- Lệnh kiểm tra và PASS/FAIL/NOT_RUN:
+  - `.venv/Scripts/python -m training.contribution_study.check_quality_pooling` PASS.
+  - `.venv/Scripts/python -m training.contribution_study.check_review_fixes` PASS 50/50.
+  - `.venv/Scripts/python -m training.contribution_study.check_analysis` PASS 12/12.
+  - `code_hash()`/`make_config("full")` khớp `m0_locked.json`: PASS.
+  - `python scripts/check_repository.py` PASS.
+  - Smoke thật / full / phân tích thật: `NOT_RUN` (thiếu input).
+- Environment: `.venv` Python 3.12.10, torch 2.10.0+cpu, numpy 2.2.6, pandas 2.3.3, scikit-learn 1.7.2; Windows 11, CPU 16 luồng, không GPU. Synthetic seed 11 ở `.runtime/` ngoài Git, không phải kết quả.
+- Kết quả tốt/âm/FN-FP: chưa có run thật.
+- Blocker / main cần quyết định: `DUC-20261117-001` (cập nhật 18/11): bốn input; cho phép full CPU nếu không có GPU; checkpoint ~41 MB Đức sẽ commit trực tiếp theo checklist (file ~1,7 MB, dưới giới hạn GitHub).
+- Bước tiếp: có input → chạy notebook (Kaggle) hoặc lệnh README trên máy → tải run về `results/contribution_study/runs/q0_q1_full/`, chạy lại `evaluate_models` + `analyze_q0_q1` trên máy, commit model/kết quả, viết kết luận DUC-04, mở PR. Mốc tự đặt: chưa có input tới 22/11 thì chuẩn bị bàn giao `NOT_RUN` đúng hạn 25/11.
 
 ## Bàn giao review
 

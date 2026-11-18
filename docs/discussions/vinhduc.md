@@ -4,10 +4,11 @@ Nhánh gửi: `vinhduc`. Người nhận mặc định: người điều phối 
 
 ## Snapshot hiện tại
 
-- Cập nhật: 2026-11-17 06:30 UTC+7.
+- Cập nhật: 2026-11-18 UTC+7 (bổ sung `DUC-20261117-001`).
 - Đã đọc `origin/main:docs/discussions/answers.md` tại `8ab7b29`: `GB-20261116-002` (Đức tự chủ M0/smoke/full), `GB-20261116-001` (hạn 25/11/2026: model đã train + kết quả trên GitHub). Đã merge `origin/main` vào `vinhduc` (không xung đột).
 - **Xác nhận đã nhận `GB-20261116-001` và `GB-20261116-002`, hạn thứ Tư 25/11/2026 (UTC+7).** Đức đã tự ghi/khóa M0 (`M0_DOCUMENTED`) và chuẩn bị đủ đường chạy; quyền tự chạy không đồng nghĩa code/kết quả đã nghiệm thu.
-- Trạng thái câu hỏi: `DUC-20261117-001` `WAITING_FOR_MAIN` (blocker dữ liệu/GPU, **ảnh hưởng hạn 25/11**). `DUC-20261028-001` còn mở phần input/GPU, chuyển theo dõi sang `DUC-20261117-001`. `DUC-20261103-001` đã được trả lời bởi `GB-20261116-002`.
+- Đã fetch `origin/main` tại `af9e7fb` (18/11): chưa có trả lời cho `DUC-20261117-001`.
+- Trạng thái câu hỏi: `DUC-20261117-001` `WAITING_FOR_MAIN` (blocker dữ liệu, **ảnh hưởng hạn 25/11**). `DUC-20261028-001` còn mở phần input/GPU, chuyển theo dõi sang `DUC-20261117-001`. `DUC-20261103-001` đã được trả lời bởi `GB-20261116-002`.
 - Giữ mọi câu chưa giải quyết khi cập nhật file; không đổi ID câu đang mở.
 
 ## DUC-20261117-001 - Cần nguồn bốn input đúng hash để chạy full trước hạn 25/11
@@ -27,6 +28,13 @@ Nhánh gửi: `vinhduc`. Người nhận mặc định: người điều phối 
 - Đề xuất: (1) share Kaggle Dataset trong hôm nay hoặc ngày mai. Đức chạy smoke thật ngay, full trong vòng 1 ngày, push model + kết quả trước 25/11.
 - Ảnh hưởng nếu chờ: smoke thật/full/model `NOT_RUN`. Nếu không có input trước hạn, Đức nộp đúng hạn phần code/test/M0 và ghi rõ phần thiếu là `NOT_RUN`, không tạo số giả.
 - Không có token, dữ liệu riêng hoặc log bí mật trong nội dung này.
+
+### Bổ sung 2026-11-18 UTC+7
+
+- Vẫn thiếu bốn input; đây là blocker duy nhất còn chặn smoke thật/full. **Đề xuất hạn cấp input: 20/11** để còn thời gian full, kiểm và phân tích trước 25/11.
+- **GPU không còn là blocker cứng:** đo trên CPU máy Đức (16 luồng, dữ liệu synthetic, chỉ đo thời gian): 3,85 s/epoch trên 120 clip, xấu nhất ≈ 3,9 giờ cho 96 fits. Câu 2 đổi thành: **cho phép chạy full trên CPU (cả Q0 và Q1 cùng thiết bị, ghi rõ trong báo cáo) nếu input có trên máy mà không có GPU?** M0 vẫn `allow_cpu_full=false`, Đức không tự bật.
+- Câu 3 (checkpoint): Đức tự quyết theo checklist `GB-20261116-001` mục 4 ("artifact nhỏ phù hợp Git thì commit trực tiếp"): 24 file ~1,7 MB, tổng ~41 MB, `git add -f` đích danh từng file + `models/manifest.json` SHA-256. Người điều phối chỉ cần trả lời nếu muốn Release asset thay thế.
+- Đã chuẩn bị thêm trong lúc chờ (không cần input): phân tích DUC-04 khóa trước kết quả thật (addendum M0 18/11, `check_analysis` PASS 12/12), notebook Kaggle resume đúng run khi phiên bị ngắt. Chi tiết trong `docs/reports/vinhduc.md`.
 
 ## DUC-20261103-001 - M0 theo phân công mới: quality-aware pooling, mở rộng phạm vi kiến trúc
 
