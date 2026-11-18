@@ -2,19 +2,19 @@
 
 Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp dụng toàn repo.
 
-**Quy định mới 16/11/2026:** theo `GB-20261116-002` trong [answers](docs/discussions/answers.md), **Đức được tự chọn thay đổi có kiểm soát, triển khai, smoke và full train trong phạm vi nhiệm vụ, không chờ Gia Bảo duyệt M0/kiến trúc/từng lần chạy**. Ghi và khóa phương án trước outer-test; tự kiểm tra dữ liệu/test/smoke thật đạt trước full. Review là nghiệm thu sản phẩm sau, không phải cổng chờ trước thực hiện. Quyền này chỉ áp dụng Đức; Tùng giữ quy trình hiện hành.
+**Quy định mới 18/11/2026:** theo `GB-20261118-001` (Tùng) và `GB-20261116-002` (Đức) trong [answers](docs/discussions/answers.md), **cả hai được tự chọn phương án trong nhiệm vụ, triển khai, smoke và full train, không chờ Gia Bảo duyệt M0/kiến trúc/từng lần chạy**. Ghi và khóa phương án trước outer-test; tự kiểm tra dữ liệu/test/smoke thật đạt trước full. Review là nghiệm thu sản phẩm sau, không phải cổng chờ trước thực hiện. Tùng được bắt đầu TCN so với A3 từ M0 đã nộp, tự điều chỉnh hoặc dùng phương án dự phòng trước outer-test có ghi lý do; không xin lại từng bước.
 
-**Hạn nộp đã chốt:** thứ Tư, **25/11/2026 (UTC+7)**. Sản phẩm của cả hai là **model đã train và kết quả đánh giá** trên GitHub, kèm mã/lệnh tái lập và báo cáo theo `GB-20261116-001`. Đức không chờ phê duyệt trong phạm vi đã giao; thiếu input/GPU hoặc kiểm tra lỗi phải báo sớm, nộp phần đã làm và blocker đúng hạn. Chưa có sản phẩm thật không đánh dấu hoàn tất; không bịa số liệu hoặc thay model gốc.
+**Hạn nộp đã chốt:** thứ Tư, **25/11/2026 (UTC+7)**. Sản phẩm của cả hai là **model đã train và kết quả đánh giá** trên GitHub, kèm mã/lệnh tái lập và báo cáo theo `GB-20261116-001`. Cả hai không chờ phê duyệt trong phạm vi đã giao; thiếu input/GPU hoặc kiểm tra lỗi phải báo sớm, nộp phần đã làm và blocker đúng hạn. Chưa có sản phẩm thật không đánh dấu hoàn tất; không bịa số liệu hoặc thay model gốc.
 
-## Phân công hiện hành - cập nhật ngày 16/11/2026
+## Phân công hiện hành - cập nhật ngày 18/11/2026
 
 - Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán và so sánh với ME-STGCN-TA. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.
 - Đức: lấy ME-STGCN-TA hiện tại làm mốc, tự đề xuất thay đổi có kiểm soát và so sánh với bản gốc. Không thay bằng mô hình khác như nhiệm vụ Tùng, không bắt buộc quality-aware pooling.
 - Mốc Đức đã chốt: `A3_motion_attention` / policy `fixed` của notebook 07 và `training/component_ablation/`, tám kênh, attention bật, Fall multiplier 1.0; xem [nhận diện mốc](docs/tasks/vinhduc.md). Không lấy checkpoint final 06, A3_cost_225, T0/T1 hoặc Q1 thay mốc; chạy lại cặp gốc/thay đổi để đánh giá như nhau.
-- Giao câu hỏi nghiên cứu và tiêu chí đối chiếu, không áp sẵn mô hình/công thức/siêu tham số/ma trận. Đức tự ghi và khóa M0 trước outer-test, không cần duyệt; được sửa thành phần kiến trúc như pooling/attention nhưng phải công bố đúng, không thay hẳn mô hình như Tùng. Tùng vẫn nộp M0 để thống nhất trước full.
+- Giao câu hỏi nghiên cứu và tiêu chí đối chiếu, không áp sẵn mô hình/công thức/siêu tham số/ma trận. Cả hai tự ghi và khóa M0 trước outer-test, không cần duyệt. Đức được sửa thành phần kiến trúc như pooling/attention nhưng phải công bố đúng, không thay hẳn mô hình như Tùng. Tùng tự chọn mô hình/phương pháp khác, cấu hình và ngân sách so sánh công bằng trong giao thức chung.
 - Hai hướng giữ cùng dataset, nhãn, split theo subject và giao thức đánh giá trong [protocol](docs/research-protocol.md). Cùng quy tắc chọn cấu hình/ngưỡng, seed, ngân sách tương đương và cách tính chỉ số; không dùng outer-test để chọn phương án.
 - PoseLab đã dừng theo yêu cầu chủ repo. Hủy WEB-01/WEB-02, không tự làm UI/QA web hoặc bật lại app. Giữ nguồn cũ, model và kết quả để truy vết, không coi việc dừng app là xóa bằng chứng.
-- `GB-20261116-002` bỏ các cổng chờ phê duyệt cũ của Đức, kể cả yêu cầu duyệt lại bản sửa trước khi chạy. Lỗi dữ liệu/nghiệm thu vẫn phải tự sửa và có kiểm tra PASS; quyền chạy không có nghĩa bản sửa hoặc kết quả đã được nghiệm thu. `GB-20261030-001` vẫn giữ phân công và dừng PoseLab; không ép CTR-GCN/B0-B3/quality-aware/Q0-Q1.
+- `GB-20261118-001` bỏ các cổng chờ phê duyệt cũ của Tùng và trả lời `TUNG-20261117-001`; `GB-20261116-002` giữ quyền tự chủ của Đức, kể cả yêu cầu duyệt lại bản sửa trước khi chạy. Lỗi dữ liệu/nghiệm thu vẫn phải tự sửa và có kiểm tra PASS; quyền chạy không có nghĩa bản sửa hoặc kết quả đã được nghiệm thu. `GB-20261030-001` vẫn giữ phân công và dừng PoseLab; không ép CTR-GCN/B0-B3/quality-aware/Q0-Q1.
 
 ## Xác định người và đọc đúng nhiệm vụ
 
@@ -40,7 +40,7 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 - Chỉ ghi vùng trong nhiệm vụ; nguồn cũ được đọc/import, không sửa loop train chung để tiện riêng mình.
 - Thành viên không push trực tiếp main, force-push, tự merge hoặc thay model/threshold triển khai. Người điều phối duyệt tích hợp; publish main chỉ khi chủ repo yêu cầu.
 - Ngoài quyền nộp sản phẩm đã cấp ở mục kế tiếp, không tự commit/push code khi người dùng chưa yêu cầu. **Ngoại lệ trao đổi được chủ repo cho phép sẵn:** mỗi lần hỏi nhóm, cập nhật/ghi đè file trao đổi cá nhân hiện tại, tạo commit thường và push nhánh được giao, không phải hỏi lại quyền cho lần gửi Markdown đó. Chỉ stage file trao đổi; kiểm cả commit chưa push để không gửi kèm code ngoài yêu cầu. Không force-push, không commit hộ thay đổi khác. Không đưa token, video/tensor riêng, môi trường hoặc checkpoint lớn vào Git.
-- **Quyền nộp sản phẩm đã cấp:** Đức và AI của Đức được commit/push code, kiểm tra, M0, báo cáo và model/kết quả trong vùng nhiệm vụ lên `vinhduc`, upload artifact theo `GB-20261116-001` và mở PR, không hỏi lại Gia Bảo mỗi lần. Chỉ stage/outgoing đúng phạm vi; không vượt cơ chế phê duyệt công cụ, không push nhánh khác/main, tự merge, sửa nguồn/kết quả gốc hoặc model triển khai. Tùng giữ quyền nộp sản phẩm theo thông báo cũ, không tự được bỏ cổng M0.
+- **Quyền nộp sản phẩm đã cấp:** Tùng/Đức và AI tương ứng được commit/push code, kiểm tra, M0, báo cáo và model/kết quả trong vùng nhiệm vụ lên `dinhtung`/`vinhduc`, upload artifact theo `GB-20261116-001` và mở PR, không hỏi lại Gia Bảo mỗi lần. Chỉ stage/outgoing đúng phạm vi; không vượt cơ chế phê duyệt công cụ, không push nhánh khác/main, tự merge, sửa nguồn/kết quả gốc hoặc model triển khai.
 - Mở PR về main; báo cáo trên nhánh được đọc qua PR/fetch, không tự xuất hiện trên main.
 
 ## Trao đổi nhóm qua Markdown
@@ -49,7 +49,7 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 - Câu hỏi phải có ID, thời gian UTC+7, ngữ cảnh/file/log, đã thử gì, lựa chọn đề xuất và quyết định cần nhóm trả lời. Không ghi mật khẩu, token, dữ liệu riêng hoặc log có bí mật.
 - Mỗi lần gửi/cập nhật câu hỏi: commit/push bình thường và kiểm push thành công. Không có quyền/mạng/auth thì báo lỗi, không nói đã gửi; không vượt cơ chế phê duyệt của công cụ.
 - Người điều phối trả lời trong `docs/discussions/answers.md` trên main, dẫn đúng ID. Đầu mỗi phiên và trước việc đang chờ duyệt, fetch và đọc file trả lời; không tự xem im lặng là đồng ý.
-- Đức không đặt `WAITING_FOR_MAIN` cho M0/sửa thành phần kiến trúc/smoke/full/commit-push trong phạm vi đã cấp. Ghi `IN_PROGRESS`, `M0_DOCUMENTED` hoặc `BLOCKED` theo tình trạng thật; chỉ chờ khi ngoài phạm vi hoặc cần input/quyền truy cập/tài nguyên. Các câu hỏi còn lại vẫn theo quy trình, không suy im lặng là đồng ý.
+- Cả Tùng và Đức không đặt `WAITING_FOR_MAIN` cho M0/chọn phương án/sửa kiến trúc/smoke/full/commit-push trong phạm vi đã cấp. Ghi `IN_PROGRESS`, `M0_DOCUMENTED` hoặc `BLOCKED` theo tình trạng thật; chỉ chờ khi ngoài phạm vi hoặc cần input/quyền truy cập/tài nguyên. Các câu hỏi còn lại vẫn theo quy trình, không suy im lặng là đồng ý.
 
 ## PoseLab đã dừng
 
@@ -69,7 +69,7 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 
 ## Kiểm tra và bàn giao
 
-- Kiểm tra nhẹ trước; Đức tự chạy full khi phương án đã khóa, input/hash/split đúng, test và smoke thật PASS, đủ tài nguyên có quyền sử dụng; không cần duyệt thủ công. Tùng giữ điều kiện M0 hiện hành. Không bỏ kiểm tra, tự cài lại CUDA/PyTorch hệ thống, tiêu tiền dịch vụ hoặc tải dataset không rõ quyền.
+- Kiểm tra nhẹ trước; cả Tùng và Đức tự chạy full khi phương án đã khóa, input/hash/split đúng, test và smoke thật PASS, đủ tài nguyên có quyền sử dụng; không cần duyệt thủ công. Tự chọn Kaggle hoặc GPU local có quyền sử dụng trong hạn mức miễn phí/đã có, không cần xin chọn thiết bị; ghi thiết bị và đo cặp so cùng điều kiện. Không bỏ kiểm tra, tự cài lại CUDA/PyTorch hệ thống, tiêu tiền dịch vụ hoặc tải dataset không rõ quyền.
 - Chạy `python scripts/check_repository.py` trước bàn giao. Checker khóa 9 notebook cũ; notebook mới để trong training riêng, không sửa checker để bỏ lỗi.
 - Code mới cần check shape/mask/split leakage/OOF coverage/tái tính metric. Ghi lệnh, phiên bản, hash input-code-config, seed, thiết bị, PASS/FAIL/NOT_RUN.
 - Cập nhật báo cáo cá nhân mỗi phiên: đã làm, file/commit/run/PR, bằng chứng, kiểm tra, lỗi, còn thiếu, việc main cần quyết định.

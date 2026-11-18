@@ -4,14 +4,22 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
-- Cập nhật: 16/11/2026, cấp quyền tự chủ cho Đức theo `GB-20261116-002` để bỏ chờ duyệt trước chạy; chưa chạy thí nghiệm mới.
-- Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Đức tự ghi/khóa M0 và kiểm test/smoke thật rồi full; Tùng giữ duyệt M0 trước full.
+- Cập nhật: 18/11/2026, cấp quyền tự chủ cho Tùng theo `GB-20261118-001`, giữ quyền tự chủ của Đức theo `GB-20261116-002`; cả hai không chờ duyệt trước chạy. Chưa chạy thí nghiệm mới.
+- Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
 - Trạng thái tạo/publish nhánh phải đối chiếu Git/remote, không dùng nội dung báo cáo này làm bằng chứng push thành công.
 
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 18/11/2026 - Tùng tự chủ triển khai và train
+
+- Đã fetch/review `origin/dinhtung` tại `d65e59c` (17/11/2026): chỉ ba tài liệu M0/trao đổi/báo cáo, chưa code M1/smoke/train/kết quả mới. Không lấy bằng chứng 06/07/08 thành thành quả mới của Tùng.
+- Theo yêu cầu trực tiếp của Gia Bảo, ban hành `GB-20261118-001`, trả lời `TUNG-20261117-001`: cho phép bắt đầu TCN so với A3, tự chọn/điều chỉnh cấu hình, kiến trúc, dự phòng và thiết bị trong nhiệm vụ; không chờ duyệt M0/từng bước/full. Giữ quyền tự chủ của Đức.
+- Đồng bộ AGENTS, README, bàn giao, protocol, bảng việc/nhiệm vụ Tùng, quy trình trao đổi và roadmap để bỏ chỉ dẫn chờ cũ. Không sửa/push nhánh hoặc báo cáo Tùng, không tự nhận Tùng đã đọc hay đã train.
+- Kiểm `git diff --check` và `python scripts/check_repository.py`: PASS; model/hash, chín notebook, kết quả cũ và liên kết tài liệu giữ nguyên. Không chạy train hoặc bật PoseLab trong phiên điều phối này.
+- Hạn 25/11/2026 và sản phẩm model + kết quả thật trên GitHub giữ nguyên. Input/GPU/quyền truy cập còn thiếu là blocker thực tế cần báo, không phải lý do chờ phê duyệt kỹ thuật. Commit phát hành chứa nhật ký này; xác nhận publish bằng remote sau push, không suy thành người nhận đã đọc.
 
 ## 16/11/2026 - Bỏ cổng chờ duyệt cho Đức
 
