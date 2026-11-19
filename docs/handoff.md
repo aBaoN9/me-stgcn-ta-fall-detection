@@ -10,7 +10,7 @@ Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main đ
 
 | Phần | Hiện trạng |
 |---|---|
-| Dữ liệu | 160 video, 79 Fall/81 ADL, 4 người; MediaPipe 33 khớp, 32 mốc. Video/tensor không trong repo; xem [data](../data/README.md). |
+| Dữ liệu | 160 video, 79 Fall/81 ADL, 4 người; MediaPipe 33 khớp, 32 mốc. Bốn tensor/CSV chuẩn đã có trong `data/gmdcsa24/` từ 19/11/2026, đúng hash 07; video gốc không trong repo. Xem [data](../data/README.md). |
 | Demo cũ | PoseLab đã dừng ngày 30/10/2026; launcher/ASGI bị chặn, WEB-01/WEB-02 hủy. Nguồn `app/` và ONNX/config giữ để truy vết, không phải nhiệm vụ phát triển web. |
 | Model triển khai | Notebook 06: corrected angle, nested LOSO, final all-subject train. Không tự thay bằng ứng viên mới. |
 | Baseline/ablation | Notebook 07 và `training/component_ablation/`: SVM v2, A0/A1/A2/A3, cost 2,25; seed 42/142/242. [Phân tích](component-ablation.md) đã có cả ưu điểm và lỗi. |
@@ -58,10 +58,10 @@ Không chạy cả ba lệnh switch máy móc. Không mang thay đổi chưa com
 
 ## Dữ liệu, môi trường và kiểm tra
 
-- Train cần dữ liệu được cấp quyền ở [data/README](../data/README.md); hỏi nguồn input phù hợp phương án M0, không giả định máy clone đã có. Không cần chạy PoseLab để nghiên cứu.
+- Bốn input chuẩn đã được cấp tại `data/gmdcsa24/` theo `GB-20261119-001`; nhận main an toàn rồi dùng `--input-root data/gmdcsa24`, xem [data/README](../data/README.md). Không chờ xin gửi file riêng hoặc chạy lại 01. Nếu vẫn thiếu/sai hash trên máy mình, báo đường dẫn/lệnh/lỗi cụ thể; không cần chạy PoseLab để nghiên cứu.
 - Tạo môi trường Python riêng; xem [train](../training/component_ablation/README.md) và [Kaggle](notebook-guide.md). Không chạy lại 01 nếu đã có bốn input đúng hash.
 - `python scripts/check_repository.py`: kiểm toàn vẹn repo/bằng chứng cũ, không chứng minh code mới đúng.
-- `python -m training.component_ablation.validate_pipeline --input-root data/local`: cần input/dependencies; không phải full train.
+- `python -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24`: cần dependencies; không phải full train. `data/local/` vẫn dành cho dữ liệu cục bộ bị ignore, không cần copy input chuẩn sang đó.
 - Lệnh code mới do tác giả bổ sung vào README vùng nhiệm vụ; đối chiếu commit/nhánh để biết đã có gì, không đoán lệnh hoặc coi tài liệu là code đã chạy.
 
 ## Main đọc báo cáo bằng cách nào?

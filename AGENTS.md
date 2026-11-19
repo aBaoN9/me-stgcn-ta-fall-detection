@@ -43,6 +43,8 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 - **Quyền nộp sản phẩm đã cấp:** Tùng/Đức và AI tương ứng được commit/push code, kiểm tra, M0, báo cáo và model/kết quả trong vùng nhiệm vụ lên `dinhtung`/`vinhduc`, upload artifact theo `GB-20261116-001` và mở PR, không hỏi lại Gia Bảo mỗi lần. Chỉ stage/outgoing đúng phạm vi; không vượt cơ chế phê duyệt công cụ, không push nhánh khác/main, tự merge, sửa nguồn/kết quả gốc hoặc model triển khai.
 - Mở PR về main; báo cáo trên nhánh được đọc qua PR/fetch, không tự xuất hiện trên main.
 
+**Ngoại lệ dữ liệu được chủ repo yêu cầu publish ngày 19/11/2026 (`GB-20261119-001`):** bốn input chuẩn của notebook 01 và manifest metadata trong `data/gmdcsa24/` được chia sẻ trên main, đúng hash 07; dùng `--input-root data/gmdcsa24`, xem [hướng dẫn dữ liệu](data/README.md). Đây không phải quyền upload video/tensor riêng khác. Không tái tạo hoặc sửa nhãn/split/hash; giữ nguồn và điều kiện sử dụng.
+
 ## Trao đổi nhóm qua Markdown
 
 - Tùng dùng `docs/discussions/dinhtung.md` trên `dinhtung`; Đức dùng `docs/discussions/vinhduc.md` trên `vinhduc`. Đọc [quy trình](docs/discussions/README.md) và giữ toàn bộ câu chưa giải quyết trong bản hiện tại, không xóa mất câu khác khi ghi đè.

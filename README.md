@@ -67,7 +67,7 @@ Các bản này lưu lịch sử phương pháp, không phải các bước bắ
 
 </details>
 
-[Hướng dẫn Kaggle](docs/notebook-guide.md) ghi rõ input, GPU, cách chạy và lưu phiên bản. [data/README.md](data/README.md) mô tả bốn tệp đầu vào; video và tensor dữ liệu không được đóng gói trong repo.
+[Hướng dẫn Kaggle](docs/notebook-guide.md) ghi rõ input, GPU, cách chạy và lưu phiên bản. **Bốn input chuẩn đã có trên main từ 19/11/2026** trong [data/gmdcsa24/](data/gmdcsa24/); dùng `--input-root data/gmdcsa24`, xem [hướng dẫn/hash/nguồn](data/README.md). Không cần chờ gửi riêng hoặc chạy lại notebook 01. Video gốc và dữ liệu riêng khác không được đóng gói trong repo.
 
 ## 📊 Kết quả đã đo
 

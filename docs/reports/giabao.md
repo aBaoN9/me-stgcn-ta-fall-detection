@@ -4,7 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
-- Cập nhật: 18/11/2026, cấp quyền tự chủ cho Tùng theo `GB-20261118-001`, giữ quyền tự chủ của Đức theo `GB-20261116-002`; cả hai không chờ duyệt trước chạy. Chưa chạy thí nghiệm mới.
+- Cập nhật: 19/11/2026, theo yêu cầu Gia Bảo đưa bốn input chuẩn vào `data/gmdcsa24/` trên main (`GB-20261119-001`), hash đúng protocol 07 và validation PASS. Cả hai giữ quyền tự chủ; không chạy train mới trong phiên cấp dữ liệu.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
 - Trạng thái tạo/publish nhánh phải đối chiếu Git/remote, không dùng nội dung báo cáo này làm bằng chứng push thành công.
@@ -12,6 +12,14 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 19/11/2026 - Cấp đủ bốn input để thành viên triển khai/train
+
+- Gia Bảo chuyển tin Tùng thiếu bốn input và yêu cầu kiểm main/đưa lên. Main trước cập nhật chỉ có hướng dẫn, không có input hoặc Release. Không quy thiếu dữ liệu thành lỗi train của Tùng.
+- Tìm đủ export notebook 01 trong workspace, đối chiếu cả bốn SHA-256 với locked protocol 07: khớp hoàn toàn. Chép nguyên byte vào `data/gmdcsa24/` dưới tên NPZ/CSV chuẩn; không đổi nội dung/nhãn/split hoặc tạo bộ dữ liệu thay thế.
+- Tổng 15.100.639 byte; thêm manifest nguồn/hash/dung lượng, ngoại lệ ignore giới hạn đúng năm tệp và cập nhật hướng dẫn/NOTICE/AGENTS/bàn giao/answers. Kiểm metadata nguồn GMDCSA-24 v2.1 trên Zenodo: CC BY 4.0; giữ ghi công và thông báo dẫn xuất.
+- `python -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24`: PASS, 160 mẫu, parity sai lệch tối đa 1.1920928955078125e-07, 100 ca augmentation và shape năm biến thể gốc. Không phải smoke/train TCN; không xác nhận môi trường/GPU Tùng/Đức.
+- Kiểm tra repo, hash staged và bản tải lại từ GitHub phải đạt trước bàn giao; xác nhận publish bằng remote sau push. Không sửa nhánh/báo cáo cá nhân hai bạn hoặc nói đã nhận dữ liệu khi chưa có phản hồi.
 
 ## 18/11/2026 - Tùng tự chủ triển khai và train
 

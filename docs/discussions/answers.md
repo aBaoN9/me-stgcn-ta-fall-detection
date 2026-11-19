@@ -4,11 +4,22 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 18/11/2026, Gia Bảo cấp quyền tự chủ cho Tùng theo `GB-20261118-001`; Đức giữ quyền `GB-20261116-002`. Hạn và sản phẩm của `GB-20261116-001`, phân công và việc dừng PoseLab vẫn giữ.
+- Cập nhật: 19/11/2026, Gia Bảo yêu cầu đưa bốn input chuẩn lên main theo `GB-20261119-001`; Tùng/Đức giữ quyền tự chủ `GB-20261118-001`/`GB-20261116-002`. Hạn và sản phẩm của `GB-20261116-001`, phân công và việc dừng PoseLab vẫn giữ.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261119-001 - Cấp bốn input chuẩn trên main cho Tùng và Đức
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 19/11/2026 (UTC+7), sau tin Tùng cần bốn file để làm bài: kiểm main và đưa file lên. Đây là yêu cầu publish input cụ thể, không phải quyền public toàn bộ dữ liệu riêng.
+- Đã kiểm: trước cập nhật, main chỉ có `data/README.md`, không có bốn input và không có Release chứa chúng. Đã tìm đủ bản export notebook 01 hiện có; hai tensor mang đuôi `.zip`, hai CSV mang tên `pose_mnf.txt`/`cross.txt`. SHA-256 cả bốn khớp tuyệt đối protocol 07.
+- Phạm vi được publish: `data/gmdcsa24/gmdcsa24_pose_32.npz`, `gmdcsa24_features_32.npz`, `gmdcsa24_pose_manifest.csv`, `gmdcsa24_cross_subject_folds.csv`, kèm `input_manifest.json` ghi nguồn/hash/dung lượng. Chỉ chép byte-for-byte sang tên chuẩn, không regenerate/recompress/sửa CSV/nhãn/split. Bốn input tổng 15.100.639 byte; giữ nguyên hash chuẩn trong `results/component_ablation/locked_protocol.json`.
+- Nguồn GMDCSA-24: Ekram Alam, bản `v2.1`, DOI `10.5281/zenodo.13354453`; metadata nguồn ghi CC BY 4.0. Đây là tensor/CSV dẫn xuất từ notebook 01 của nhóm, không đóng gói video gốc. Xem [nguồn, hash và hướng dẫn](../../data/README.md).
+- Tùng/Đức fetch và nhận main an toàn trên nhánh mình rồi dùng **`--input-root data/gmdcsa24`**; trên Kaggle gắn đủ bốn file và truyền đường dẫn tương ứng. Không cần chờ gửi riêng/cấp lại cùng bộ input hoặc chạy lại 01. Loader đọc NPZ với `allow_pickle=False`; CSV giữ path Kaggle gốc chỉ để truy vết, không đòi video trên máy mới.
+- Kiểm tra: bốn hash, cấu trúc/ID/nhãn/subject/mask/duration, 160 mẫu/79 Fall/81 ADL và bốn fold không rò rỉ PASS; `python -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24` PASS, gồm parity feature, 100 ca augmentation và shape các biến thể gốc. Đây là validation trên máy điều phối, không phải smoke/full train TCN và không xác nhận GPU/môi trường máy thành viên.
+- Chỉ mở ignore đúng bốn input và metadata này. Video, `data/local/`, tensor riêng khác, token/môi trường vẫn không được publish. Không thay dữ liệu/giao thức/deployment hoặc nguồn/kết quả cũ.
+- Quyền tự triển khai/smoke/train/nộp sản phẩm đã cấp vẫn giữ, không có bước xin duyệt mới. Hai bạn xác nhận đường dẫn/hash đã nhận trong báo cáo/câu hỏi cá nhân; nếu còn blocker thì nêu lỗi/quyền/GPU cụ thể. Publish main không chứng minh thành viên đã tải hoặc đã train. Hạn 25/11/2026 giữ nguyên.
 
 ## GB-20261118-001 - Tùng tự chủ triển khai và train, không chờ duyệt
 

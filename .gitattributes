@@ -8,6 +8,8 @@
 .gitattributes text eol=lf
 *.json text eol=lf
 *.csv text eol=lf
+data/gmdcsa24/gmdcsa24_pose_manifest.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
+data/gmdcsa24/gmdcsa24_cross_subject_folds.csv -text whitespace=trailing-space,space-before-tab,cr-at-eol
 *.ipynb text eol=lf
 *.sh text eol=lf
 *.ps1 text eol=crlf
