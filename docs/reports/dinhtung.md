@@ -5,8 +5,8 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 ## Snapshot
 
 - 19/11/2026. Tùng đã nhận `GB-20261118-001` tại `origin/main` `af9e7fb`. `APPROVED_TO_PROCEED / AUTONOMOUS`; M0 `M0_DOCUMENTED`.
-- TUNG-02: đã triển khai và kiểm thử phần mềm. Smoke thật `BLOCKED` vì thiếu input. TUNG-03/M2 và TUNG-04 `NOT_RUN`.
-- Mã M1 và cập nhật tài liệu ở local trên `dinhtung`; chưa commit/push theo yêu cầu Tùng.
+- TUNG-02: dữ liệu, validation, kiểm thử phần mềm và smoke thật CPU PASS. Smoke Kaggle T4, TUNG-03/M2 và TUNG-04 `NOT_RUN`.
+- M1 được lưu trong commit `6b863fa` trên `dinhtung`. Nhận main `e16ee1a` qua commit nhập nhánh `4a96d4d`.
 
 ## Nhật ký mỗi phiên - mẫu để điền
 
@@ -61,6 +61,15 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 - `test_benchmark.py`: thêm ngắt khi đang lưu vòng thứ hai, tiếp tục chỉ chạy vòng thiếu, checkpoint hỏng, thiếu/sai seed hoặc vòng, khóa khác mã/cấu hình/thiết bị, smoke thiếu fit/dự đoán/sai metadata, thiếu evidence và evidence tổng hợp; đối chiếu A3 về epoch, lịch sử, điểm và ngưỡng. Lượt đầu có 3 lỗi do tuple chuyển thành danh sách trong JSON; đã sửa. Lượt cuối `python -B -m training.backbone_benchmark.test_benchmark`: PASS 10/10 trên CPU.
 - `python -B scripts/check_repository.py` và `git diff --check`: PASS. Mã A3 và bằng chứng cũ giữ nguyên. Đã fetch và xác nhận quyết định vẫn ở `af9e7fb`. Không commit/push.
 - Không thấy bốn tệp chuẩn trong dự án. Smoke thật `BLOCKED`; M2 `NOT_RUN`. Cần bộ dữ liệu có quyền đúng hash và chạy smoke thật trên môi trường GPU dự kiến dùng cho M2.
+
+### 2026-11-19 — Nhận dữ liệu chuẩn và kiểm M1 bằng dữ liệu thật
+
+- Đã nhận GB-20261119-001 và GB-20261119-002. Bốn tệp ở `data/gmdcsa24/` đến từ main. Công cụ `python scripts/training_inputs.py --input-root data/gmdcsa24` PASS 4/4 hash và dung lượng.
+- `python -B -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24` PASS với 160 mẫu, 79 Fall, 81 ADL và bốn người. Căn chỉnh input và tách người đạt. Sai số đối chiếu đặc trưng 1.1920928955078125e-07, kiểm 100 trường hợp tăng cường và kích thước năm biến thể gốc.
+- `python -B -m training.backbone_benchmark.test_benchmark` PASS 10/10. Checker repo và git diff --check PASS. Đối chiếu Git với main xác nhận mã/kết quả gốc và phần Đức giữ nguyên.
+- Smoke thật CPU PASS với Python 3.10.11, Torch 2.12.1+cpu, NumPy 2.2.6, pandas 2.3.3, scikit-learn 1.7.2; OMP/MKL đặt 4 luồng. Lệnh: `python -B -m training.backbone_benchmark.runner --input-root data/gmdcsa24 --output .runtime/tung-smoke-cpu-20261119 --mode smoke --device cpu`.
+- Bằng chứng local tại `.runtime/tung-smoke-cpu-20261119/`. Chữ ký `86876850d5898c7dd25e3bc975d0847eb71e51ba946702f3db49be22c55064d1`. Hai mô hình, seed 42, test S1, 6 inner + 2 refit, 192 dòng dự đoán. Hai checkpoint khớp SHA-256 trong manifest, reload/coverage PASS. Chạy lại với `--resume` PASS. `synthetic=false`, `scientific_result=false`. Không đưa checkpoint thử vào Git.
+- Kaggle T4 NOT_RUN. Phiên này không có kết nối tới phiên Kaggle của Tùng. Dùng hướng dẫn Kaggle trong README vùng M1 với `--input-root data/gmdcsa24` khi checkout nhánh đã đồng bộ. Lưu thư mục run ở nơi có thể khôi phục và kiểm smoke GPU trước M2. Full NOT_RUN.
 
 ## Bàn giao review
 

@@ -139,7 +139,7 @@ Hash SHA-256 (dấu vân tay nội dung) từ locked_protocol.json của 07:
 | `gmdcsa24_pose_manifest.csv` | `5c41ac710d580a648d6768c5d7ceb2a5b95767f23069519ed5b98737e59417f2` |
 | `gmdcsa24_cross_subject_folds.csv` | `774f0ac28b8342e9c8080af075fcda8227ac6a036124514f6c09f0a375b4fbba` |
 
-Trước fit phải đối chiếu đủ bốn hash và căn chỉnh ID/index/người/nhãn/mask, hữu hạn, thời lượng >0, đủ hai lớp. Thiếu/sai hash dừng trước train; không cập nhật bộ hash chuẩn theo file nhận được. Hiện **chưa có input để tính hash thực tế**.
+Trước fit phải đối chiếu đủ bốn hash và căn chỉnh ID/index/người/nhãn/mask, hữu hạn, thời lượng >0, đủ hai lớp. Thiếu/sai hash dừng trước train; không cập nhật bộ hash chuẩn theo file nhận được. Cập nhật 19/11/2026: đã nhận bốn input chuẩn qua GB-20261119-001 và kiểm SHA-256 trên máy Tùng. Xem báo cáo tiến độ về validation và smoke.
 
 ## 8. Thiết kế TCN dự kiến
 

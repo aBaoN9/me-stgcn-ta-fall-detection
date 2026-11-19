@@ -6,14 +6,14 @@ Nhánh gửi: `dinhtung`. Người nhận mặc định: người điều phối
 
 - Cập nhật 19/11/2026. Tùng đã nhận quyết định `GB-20261118-001` trên `origin/main` tại `af9e7fb`.
 - `TUNG-20261117-001`: `ANSWERED`. Gia Bảo cấp quyền `APPROVED_TO_PROCEED / AUTONOMOUS`. M0: `M0_DOCUMENTED`.
-- TCN_v2_small và A3 chuẩn/07 đã tích hợp trong chương trình M1. Kiểm thử phần mềm trên dữ liệu tổng hợp PASS. Smoke thật BLOCKED vì thiếu bốn input chuẩn. M2 NOT_RUN.
+- TCN_v2_small và A3 chuẩn/07 đã tích hợp trong chương trình M1. Kiểm thử phần mềm trên dữ liệu tổng hợp PASS. Bốn tệp chuẩn đã nhận và xác minh. Smoke thật CPU PASS 8 lần fit, reload/coverage PASS. Smoke T4 và M2 NOT_RUN.
 
 ## TUNG-20261117-001 — TCN đối chứng ME-STGCN-TA
 
 - Đề xuất gốc ngày 17/11/2026 trong commit `d65e59c`. [Bản M0](../research/backbone-benchmark.md).
 - Tùng xác nhận dùng TCN_v2_small và chạy lại A3 chuẩn/07, cùng feature v2, Nested LOSO theo người và ba seed. Kế hoạch M2 có 96 lần fit.
-- Quyền triển khai và lựa chọn thiết bị đã được cấp. Hỗ trợ còn cần là nguồn có quyền của bốn input đúng hash 07. Tùng đã xác nhận CUDA hoạt động trên Kaggle và Colab, quyền truy cập dữ liệu nhóm chưa được xác minh.
-- Cập nhật M1 đang ở máy local theo yêu cầu Tùng. Hạn sản phẩm 25/11/2026 UTC+7.
+- Quyền triển khai và lựa chọn thiết bị đã được cấp. Đã nhận GB-20261119-001 và GB-20261119-002 từ main e16ee1a. Bốn tệp chuẩn ở data/gmdcsa24 đã khớp SHA-256, validation và kiểm thử M1 đạt. Xem báo cáo tiến độ về smoke CPU và bước xác minh trên Kaggle T4.
+- Bàn giao M1 và báo cáo kiểm tra trên nhánh dinhtung theo yêu cầu Tùng. Hạn sản phẩm 25/11/2026 UTC+7.
 
 ## Mẫu câu hỏi - chưa phải câu hỏi đã gửi
 
