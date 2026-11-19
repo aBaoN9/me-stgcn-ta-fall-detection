@@ -25,6 +25,13 @@ data/*
 !models/deployment/*.onnx
 *.npz
 !results/component_ablation/attention/*.npz
+!data/gmdcsa24/
+data/gmdcsa24/*
+!data/gmdcsa24/gmdcsa24_pose_32.npz
+!data/gmdcsa24/gmdcsa24_features_32.npz
+!data/gmdcsa24/gmdcsa24_pose_manifest.csv
+!data/gmdcsa24/gmdcsa24_cross_subject_folds.csv
+!data/gmdcsa24/input_manifest.json
 Thumbs.db
 .DS_Store
 app/DASHBOARD_QA.md

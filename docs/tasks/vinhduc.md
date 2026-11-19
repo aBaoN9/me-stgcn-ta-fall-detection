@@ -1,5 +1,7 @@
 # Đức - Thay đổi có kiểm soát mô hình hiện tại
 
+**Trả lời blocker 19/11/2026:** `DUC-20261117-001` được trả lời trong `GB-20261119-002`: đủ bốn input trên main, được tự full CPU và chọn cách nộp checkpoint phù hợp. Đọc [bắt đầu train](../training-start.md), nhất là notebook pin commit cũ/tìm input chỉ dưới `/kaggle/input`. Tự cập nhật M0 addendum/lock trước outer-test nếu đổi CPU; không chờ duyệt lại.
+
 Cập nhật theo phân công của Gia Bảo ngày 30/10/2026. Nhánh `vinhduc`. [Báo cáo](../reports/vinhduc.md). Đọc [AGENTS](../../AGENTS.md), [bàn giao](../handoff.md), [protocol](../research-protocol.md) và quyết định mới trong [answers](../discussions/answers.md) trước khi sửa.
 
 **Cập nhật quyền tự chủ 16/11/2026 - GB-20261116-002:** không cần chờ Gia Bảo duyệt M0, sửa thành phần kiến trúc hoặc từng lần smoke/full. Tự ghi/khóa phương án, kiểm tra rồi thực hiện; người điều phối review lúc bàn giao. Quy định này thay cổng chờ cũ, không thay mốc A3, dataset, đánh giá hoặc yêu cầu chất lượng. **Hạn 25/11/2026 (UTC+7): model + kết quả trên GitHub**, không chỉ đề xuất.
@@ -70,4 +72,4 @@ Review `DUC-20261028-001` vẫn là checklist lỗi cần tự xử lý/test n�
 - [ ] Báo cả cải thiện, suy giảm và FN/FP; không dùng outer-test để chọn thay đổi.
 - [ ] Checker repo PASS; báo cáo, lệnh tái lập và phần chưa chạy rõ ràng. Kết quả không cải thiện vẫn hợp lệ.
 
-Đầu phiên fetch và đọc `origin/main:docs/discussions/answers.md`. Thiếu input/GPU thì báo lý do, tiếp tục việc độc lập và ghi full `NOT_RUN`; không tự mua dịch vụ, đổi dữ liệu, sửa deployment hoặc push nhánh Tùng/main.
+Đầu phiên fetch và đọc `origin/main:docs/discussions/answers.md`. Không có GPU thì được tự full CPU theo `GB-20261119-002`; nếu vẫn thiếu input/quyền/tài nguyên phù hợp thì báo lý do, tiếp tục việc độc lập và ghi full `NOT_RUN`; không tự mua dịch vụ, đổi dữ liệu, sửa deployment hoặc push nhánh Tùng/main.

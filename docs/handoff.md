@@ -1,6 +1,8 @@
 # Bàn giao dự án cho nhóm
 
-**Quy định hiện hành 16/11/2026 — `GB-20261116-002`:** Đức được tự chọn thay đổi có kiểm soát từ mốc A3, tự triển khai, kiểm tra, smoke và full train khi đủ điều kiện; không chờ Gia Bảo duyệt M0, thành phần kiến trúc hoặc review lại bản sửa trước chạy. M0 phải được ghi/khóa trước outer-test; dữ liệu, split, seed và đánh giá chung không đổi; test và smoke thật phải PASS. Đức được commit/push sản phẩm đúng phạm vi lên `vinhduc` và mở PR, không xin lại từng lần. Review cuối vẫn quyết định nghiệm thu/merge main. Tùng giữ quy trình phê duyệt hiện tại. Xem [quyết định chính thức](discussions/answers.md).
+**Hỗ trợ chạy 19/11/2026:** [bắt đầu train](training-start.md) có tool input, local/Kaggle và xử lý notebook pin code cũ. Theo `GB-20261119-002`, cả hai được tự full CPU nếu thiếu GPU, khóa addendum/config/code trước outer-test và giữ điều kiện so sánh; không chờ duyệt.
+
+**Quy định hiện hành 18/11/2026 — `GB-20261118-001` (Tùng), `GB-20261116-002` (Đức):** Cả hai tự chọn phương án trong nhiệm vụ, triển khai, kiểm tra, smoke và full train khi đủ điều kiện; không chờ Gia Bảo duyệt M0, mô hình/kiến trúc, cấu hình, thiết bị hoặc review lại bản sửa trước chạy. Tùng được bắt đầu TCN so với A3 từ M0 đã nộp, tự điều chỉnh hoặc dùng dự phòng trước outer-test có ghi lý do. M0 phải được ghi/khóa trước outer-test; dữ liệu, split, seed và đánh giá chung không đổi; test và smoke thật phải PASS. Được commit/push sản phẩm đúng phạm vi lên nhánh cá nhân, upload artifact và mở PR, không xin lại từng lần. Review cuối vẫn quyết định nghiệm thu/merge main. Xem [quyết định chính thức](discussions/answers.md).
 
 Ngày lập: 28/10/2026. Cập nhật phân công: 30/10/2026 theo Gia Bảo. Gia Bảo là người điều phối, phát triển kỹ thuật trên `giabao`; Tùng làm `dinhtung`, Đức làm `vinhduc`. `main` giữ bản chuẩn đã duyệt và quyết định chung. Đây là điểm bắt đầu cho cả thành viên và AI.
 
@@ -10,7 +12,7 @@ Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main đ
 
 | Phần | Hiện trạng |
 |---|---|
-| Dữ liệu | 160 video, 79 Fall/81 ADL, 4 người; MediaPipe 33 khớp, 32 mốc. Video/tensor không trong repo; xem [data](../data/README.md). |
+| Dữ liệu | 160 video, 79 Fall/81 ADL, 4 người; MediaPipe 33 khớp, 32 mốc. Bốn tensor/CSV chuẩn đã có trong `data/gmdcsa24/` từ 19/11/2026, đúng hash 07; video gốc không trong repo. Xem [data](../data/README.md). |
 | Demo cũ | PoseLab đã dừng ngày 30/10/2026; launcher/ASGI bị chặn, WEB-01/WEB-02 hủy. Nguồn `app/` và ONNX/config giữ để truy vết, không phải nhiệm vụ phát triển web. |
 | Model triển khai | Notebook 06: corrected angle, nested LOSO, final all-subject train. Không tự thay bằng ứng viên mới. |
 | Baseline/ablation | Notebook 07 và `training/component_ablation/`: SVM v2, A0/A1/A2/A3, cost 2,25; seed 42/142/242. [Phân tích](component-ablation.md) đã có cả ưu điểm và lỗi. |
@@ -24,7 +26,7 @@ Tập trung nghiên cứu, không làm PoseLab. Cần trả lời: **trên cùng
 - Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán, so với ME-STGCN-TA theo giao thức chung. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.
 - Đức: giữ mô hình ME-STGCN-TA làm mốc, tự đề xuất thay đổi có kiểm soát và so với bản gốc. Không bắt buộc quality-aware hoặc công thức cũ; không đổi hẳn mô hình như phần Tùng.
 - Mốc chính xác của Đức là `A3_motion_attention` / `fixed` trong notebook 07 và `training/component_ablation/`, không phải checkpoint final 06 hoặc A3_cost_225; xem [nguồn/cấu hình mốc](tasks/vinhduc.md). Chạy lại bản gốc cùng bản thay đổi, không lấy số cũ coi là run đối chứng mới.
-- Hai bạn giải thích phần giữ nguyên/thay đổi và lý do, ghi M0 trước full; Tùng chờ duyệt, Đức tự khóa và kiểm test/smoke thật rồi chạy theo `GB-20261116-002`. Không giao sẵn lời giải. Giữ bài làm và lỗi đã review nếu dùng tiếp mã; Đức không chờ review lại bản sửa trước chạy.
+- Hai bạn giải thích phần giữ nguyên/thay đổi và lý do, ghi M0 trước full; cả hai tự khóa và kiểm test/smoke thật rồi chạy theo `GB-20261118-001` (Tùng) và `GB-20261116-002` (Đức). Không giao sẵn lời giải. Giữ bài làm và lỗi đã review nếu dùng tiếp mã; cả hai không chờ review lại bản sửa trước chạy.
 - Không tốt hơn vẫn phải báo trung thực. Đóng góp đồ án cần bằng chứng, không mặc định là phát minh mới của ngành.
 
 Đọc [bảng việc](tasks/README.md), nhiệm vụ cá nhân và [giao thức](research-protocol.md).
@@ -58,10 +60,10 @@ Không chạy cả ba lệnh switch máy móc. Không mang thay đổi chưa com
 
 ## Dữ liệu, môi trường và kiểm tra
 
-- Train cần dữ liệu được cấp quyền ở [data/README](../data/README.md); hỏi nguồn input phù hợp phương án M0, không giả định máy clone đã có. Không cần chạy PoseLab để nghiên cứu.
+- Bốn input chuẩn đã được cấp tại `data/gmdcsa24/` theo `GB-20261119-001`; nhận main an toàn rồi dùng `--input-root data/gmdcsa24`, xem [data/README](../data/README.md). Không chờ xin gửi file riêng hoặc chạy lại 01. Nếu vẫn thiếu/sai hash trên máy mình, báo đường dẫn/lệnh/lỗi cụ thể; không cần chạy PoseLab để nghiên cứu.
 - Tạo môi trường Python riêng; xem [train](../training/component_ablation/README.md) và [Kaggle](notebook-guide.md). Không chạy lại 01 nếu đã có bốn input đúng hash.
 - `python scripts/check_repository.py`: kiểm toàn vẹn repo/bằng chứng cũ, không chứng minh code mới đúng.
-- `python -m training.component_ablation.validate_pipeline --input-root data/local`: cần input/dependencies; không phải full train.
+- `python -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24`: cần dependencies; không phải full train. `data/local/` vẫn dành cho dữ liệu cục bộ bị ignore, không cần copy input chuẩn sang đó.
 - Lệnh code mới do tác giả bổ sung vào README vùng nhiệm vụ; đối chiếu commit/nhánh để biết đã có gì, không đoán lệnh hoặc coi tài liệu là code đã chạy.
 
 ## Main đọc báo cáo bằng cách nào?
@@ -80,12 +82,12 @@ git diff origin/main...origin/vinhduc
 
 Chỉ dùng khi remote đã push. Không chép báo cáo về main rồi coi code đã tích hợp. Bảng việc main là snapshot do người điều phối cập nhật sau review, không đồng bộ tự động.
 
-Người điều phối trả lời theo ID tại `docs/discussions/answers.md` trên main. Thành viên fetch/đọc `origin/main:docs/discussions/answers.md` đầu mỗi phiên và trước phần chờ duyệt; chưa trả lời thì tiếp tục việc độc lập, không tự xem là chấp thuận ngoài phạm vi. Đức không chờ trả lời cho phần đã được cấp quyền theo `GB-20261116-002`. Ghi đè là commit mới cập nhật cùng file, không xóa lịch sử hoặc force-push. Chủ repo kiểm thủ công, không có monitor tự động.
+Người điều phối trả lời theo ID tại `docs/discussions/answers.md` trên main. Thành viên fetch/đọc `origin/main:docs/discussions/answers.md` đầu mỗi phiên và trước phần chờ duyệt; chưa trả lời thì tiếp tục việc độc lập, không tự xem là chấp thuận ngoài phạm vi. Cả hai không chờ trả lời cho phần đã được cấp quyền theo `GB-20261118-001` (Tùng) và `GB-20261116-002` (Đức). Ghi đè là commit mới cập nhật cùng file, không xóa lịch sử hoặc force-push. Chủ repo kiểm thủ công, không có monitor tự động.
 
 ## Checklist trước khi mời clone
 
 - Người điều phối review, commit và push bộ bàn giao lên main khi đồng ý publish.
 - Tạo/publish các nhánh giabao/dinhtung/vinhduc từ main đã có hướng dẫn, hoặc merge main vào nhánh tạo sớm khi an toàn; không ghi đè nhánh đã có bài làm.
-- Cấp nguồn bốn input/kiểm quyền; xác nhận GPU/Kaggle được phép dùng. Tùng cần duyệt cấu hình; Đức tự khóa cấu hình trong phạm vi đã cấp.
+- Hỗ trợ nguồn bốn input/kiểm quyền khi thành viên còn thiếu. Cả hai tự chọn GPU local/Kaggle có quyền trong hạn mức miễn phí/đã có, tự khóa cấu hình trong phạm vi đã cấp, không chờ duyệt thiết bị hoặc cấu hình.
 - Bật bảo vệ main/yêu cầu PR review nếu có quyền. `AGENTS.md` không thay branch protection; lượt viết tài liệu không cấu hình bảo vệ remote.
 - Bộ bàn giao mới trong working tree local thì chưa đến máy thành viên.

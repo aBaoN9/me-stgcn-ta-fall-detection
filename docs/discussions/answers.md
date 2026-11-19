@@ -4,13 +4,57 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 16/11/2026, Gia Bảo cấp quyền tự chủ cho Đức theo `GB-20261116-002`; hạn và sản phẩm của `GB-20261116-001`, phân công và việc dừng PoseLab vẫn giữ.
+- Cập nhật: 19/11/2026, rà lần cuối và bổ sung quyền full CPU/hướng dẫn độc lập theo `GB-20261119-002`, trả lời `DUC-20261117-001`. Bốn input chuẩn đã có theo `GB-20261119-001`; quyền tự chủ, hạn/sản phẩm 25/11, phân công và việc dừng PoseLab vẫn giữ.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
-- Đức không chờ duyệt M0/phạm vi thành phần kiến trúc/review lại trước full; tự ghi phương án, sửa lỗi và kiểm tra đạt theo `GB-20261116-002`. Quyền chạy không phải nghiệm thu code/kết quả.
-- Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Tùng vẫn cần duyệt trước full.
+- Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
+- Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
 
+## GB-20261119-002 - Gỡ vướng vận hành, được tự full CPU và nộp artifact
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu ngày 19/11/2026 rà lại và đưa hết phần cần thiết để Tùng/Đức làm bài, không bắt duyệt từng bước. Đây là bổ sung vận hành cho quyền tự chủ hiện hành, không nghiệm thu bài làm hay cho phép đổi giao thức nghiên cứu.
+- Trả lời **`DUC-20261117-001`** trên `vinhduc` commit `eac041170f4d85a059386c87df2f1ad332a91a38`: (1) đủ cả bốn input đúng hash đã trên main tại `data/gmdcsa24/`, không phải bộ dựng lại; (2) **được full trên CPU nếu không có GPU**, áp dụng cả Đức và Tùng, hai vế so cùng thiết bị/recipe/ngân sách và báo cáo phần cứng/thời gian; (3) được tự commit checkpoint nhỏ đích danh cùng manifest/hash trên nhánh mình hoặc chọn GitHub Release cho artifact không phù hợp Git, không phải xin lại cách lưu. Không cấp tiền dịch vụ hay tài khoản/quota.
+- CPU là thay đổi vận hành được cho phép, không đổi nhãn/split/folds/seeds/metric/selection. Tự ghi M0 addendum và khóa code/config/thiết bị trước outer-test; runner/notebook riêng phải thực thi lựa chọn đúng lock và giữ nguyên guard. Đức đang `allow_cpu_full=false` và notebook assert CUDA, CLI chưa có cờ override: được tự bổ sung trong vùng riêng và cập nhật lock, không sửa helper chung hoặc giả sử quyền mới tự sửa code. Không chờ duyệt addendum này; chữ ký đổi thì thư mục run mới, không ghi đè lock hoặc ép resume.
+- Cấp [tool kiểm/tải input](../../scripts/training_inputs.py) chỉ dùng Python chuẩn, dữ liệu pin commit `afc7370c324aabec1a6d1076b19d8247c818d96c`, kiểm đủ size/hash và không ghi đè file hiện có. [Hướng dẫn bắt đầu](../training-start.md) có local/Kaggle/offline, tách code/data, CPU, kiểm tra và bàn giao. Giữ notebook code commit đã khóa; chỉ merge main ngoài notebook không làm cell pin commit cũ và quét `/kaggle/input` tự tìm được dữ liệu mới. Thành viên tự ghi thay đổi cell vận hành.
+- Tùng được bắt đầu phần TCN/M0 đã nộp hoặc tự điều chỉnh có ghi lý do trước outer-test theo `GB-20261118-001`; Đức tiếp tục thay đổi có kiểm soát ME-STGCN-TA theo `GB-20261116-002`. Không merge code hai bạn chưa review lên main hoặc làm thay nghiên cứu để gọi là sẵn sàng.
+- Tự kiểm dữ liệu/test/smoke thật PASS rồi full; đây không phải quyền bỏ kiểm tra. Hạn model đã train + kết quả thật vẫn **25/11/2026 (UTC+7)**. Tài khoản, quota, dependency và khả năng chạy trên máy thành viên chưa được xác minh ở phiên này; không nhận là hai bạn đã đọc, smoke/full hoặc hoàn tất vì đã publish hỗ trợ.
+
+## GB-20261119-001 - Cấp bốn input chuẩn trên main cho Tùng và Đức
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 19/11/2026 (UTC+7), sau tin Tùng cần bốn file để làm bài: kiểm main và đưa file lên. Đây là yêu cầu publish input cụ thể, không phải quyền public toàn bộ dữ liệu riêng.
+- Đã kiểm: trước cập nhật, main chỉ có `data/README.md`, không có bốn input và không có Release chứa chúng. Đã tìm đủ bản export notebook 01 hiện có; hai tensor mang đuôi `.zip`, hai CSV mang tên `pose_mnf.txt`/`cross.txt`. SHA-256 cả bốn khớp tuyệt đối protocol 07.
+- Phạm vi được publish: `data/gmdcsa24/gmdcsa24_pose_32.npz`, `gmdcsa24_features_32.npz`, `gmdcsa24_pose_manifest.csv`, `gmdcsa24_cross_subject_folds.csv`, kèm `input_manifest.json` ghi nguồn/hash/dung lượng. Chỉ chép byte-for-byte sang tên chuẩn, không regenerate/recompress/sửa CSV/nhãn/split. Bốn input tổng 15.100.639 byte; giữ nguyên hash chuẩn trong `results/component_ablation/locked_protocol.json`.
+- Nguồn GMDCSA-24: Ekram Alam, bản `v2.1`, DOI `10.5281/zenodo.13354453`; metadata nguồn ghi CC BY 4.0. Đây là tensor/CSV dẫn xuất từ notebook 01 của nhóm, không đóng gói video gốc. Xem [nguồn, hash và hướng dẫn](../../data/README.md).
+- Tùng/Đức fetch và nhận main an toàn trên nhánh mình rồi dùng **`--input-root data/gmdcsa24`**; trên Kaggle gắn đủ bốn file và truyền đường dẫn tương ứng. Không cần chờ gửi riêng/cấp lại cùng bộ input hoặc chạy lại 01. Loader đọc NPZ với `allow_pickle=False`; CSV giữ path Kaggle gốc chỉ để truy vết, không đòi video trên máy mới.
+- Kiểm tra: bốn hash, cấu trúc/ID/nhãn/subject/mask/duration, 160 mẫu/79 Fall/81 ADL và bốn fold không rò rỉ PASS; `python -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24` PASS, gồm parity feature, 100 ca augmentation và shape các biến thể gốc. Đây là validation trên máy điều phối, không phải smoke/full train TCN và không xác nhận GPU/môi trường máy thành viên.
+- Chỉ mở ignore đúng bốn input và metadata này. Video, `data/local/`, tensor riêng khác, token/môi trường vẫn không được publish. Không thay dữ liệu/giao thức/deployment hoặc nguồn/kết quả cũ.
+- Quyền tự triển khai/smoke/train/nộp sản phẩm đã cấp vẫn giữ, không có bước xin duyệt mới. Hai bạn xác nhận đường dẫn/hash đã nhận trong báo cáo/câu hỏi cá nhân; nếu còn blocker thì nêu lỗi/quyền/GPU cụ thể. Publish main không chứng minh thành viên đã tải hoặc đã train. Hạn 25/11/2026 giữ nguyên.
+
+## GB-20261118-001 - Tùng tự chủ triển khai và train, không chờ duyệt
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 18/11/2026 (UTC+7): chốt để Tùng bắt đầu làm/train và tự do thực hiện, không bắt Gia Bảo duyệt từng bước.
+- Trả lời: `TUNG-20261117-001`, M0 trên `origin/dinhtung` tại `d65e59c` ngày 17/11/2026. Quyết định: **`APPROVED_TO_PROCEED / AUTONOMOUS`**; được bắt đầu M1 ngay, tự chạy full sau kiểm tra đạt. Không phải xác nhận đã có code/model/kết quả hoặc nghiệm thu M0 thành sản phẩm cuối.
+- Thay toàn bộ cổng chờ duyệt M0, chọn/đổi mô hình, cấu hình, thiết bị, smoke/full hoặc review lại trước chạy dành cho Tùng trong tài liệu/quyết định cũ và M0 đã gửi. `GB-20261116-002` của Đức giữ nguyên; từ nay cả hai tự thực hiện trong nhiệm vụ, review sau để nghiệm thu/merge.
+
+### Quyền tự quyết và hành động tiếp theo
+
+1. Bắt đầu từ **TCN_v2_small so với A3 chuẩn/07 chạy lại**, cùng tám kênh feature v2, ba seed và thiết kế 96 fits đã đề xuất. Đây là phương án xuất phát được phép, không ép phải giữ TCN/hidden32/96 fits nếu cần thiết kế hợp lý hơn trước outer-test. Tùng tự chọn mô hình/phương pháp khác, kiến trúc, cấu hình, ngân sách công bằng và dự phòng GRU trong nhiệm vụ; ghi lý do, phiên bản M0 và khóa trước outer-test, không xin duyệt lại. Giữ dataset/nhãn/split/seed và giao thức đánh giá chung; không giảm coverage rồi gọi full.
+2. Tự triển khai code/runner/notebook vùng riêng, test shape/mask/split/metric/parity đối chứng, smoke dữ liệu thật, sửa lỗi và full khi đủ điều kiện. Không cần chờ Gia Bảo xem code, chọn siêu tham số, xác nhận từng lệnh hay trả lời Markdown để bắt đầu. M0 là đăng ký phương án (`M0_DOCUMENTED`), không là đơn xin phép.
+3. Tự chọn Kaggle hoặc GPU local có quyền sử dụng, trong hạn mức miễn phí/đã có, kiểm runtime/VRAM và ghi thiết bị; cặp so chạy/đo cùng điều kiện hoặc công bố rõ khác biệt. Không xin lại chỉ để đổi thiết bị. Không tự mua GPU/dịch vụ hoặc vượt giới hạn tài khoản/công cụ.
+4. Tùng và AI của Tùng được commit/push code, test, M0, báo cáo, model và kết quả đúng vùng nhiệm vụ lên `dinhtung`, upload GitHub Release khi cần và mở PR, không xin lại từng lần. Quyền nộp artifact đã có theo `GB-20261116-001`; tự kiểm auth/quyền thực tế và báo lỗi nếu bị chặn. Không force-push, sửa/push nhánh khác/main hoặc tự merge.
+5. Fetch/đọc quyết định này, cập nhật cùng câu `TUNG-20261117-001` và báo cáo trên nhánh mình: đã nhận quyền, việc đang làm và blocker thật. Bỏ `PENDING_APPROVAL`/`WAITING_FOR_MAIN` cho phần đã được cấp quyền. Không cần chờ xác nhận lại việc đã đọc để triển khai; không xóa câu hỏi khác chưa giải quyết.
+
+### Điều kiện vẫn giữ, không phải cổng duyệt thủ công
+
+- Bốn input có quyền, đúng hash/căn chỉnh và nhãn/subject; test và smoke thật PASS trước full. Chưa có input/runtime/GPU thì ghi `BLOCKED`/`NOT_RUN`, báo nguồn/quyền cần hỗ trợ cụ thể và tiếp tục code/test độc lập. Quyết định này cấp quyền, **không xác nhận dữ liệu đã được chuyển hoặc GPU đã sẵn sàng**.
+- Không tuning bằng outer-test hoặc lỗi test đã biết; không chọn seed đẹp. Đổi phương án sau khi đã xem outer phải giữ run cũ, công bố test đã được xem và phiên bản mới, không biến nó thành blind test hoặc hồi tố phương án khóa.
+- Lưu checkpoint tạo dự đoán, raw OOF, metric tái tính, config/code/input hash, log và lệnh tái lập; nộp model + kết quả qua GitHub theo checklist hiện hành. Hạn **25/11/2026 (UTC+7)** giữ nguyên; kết quả âm hợp lệ, chưa chạy thì không bịa hoặc lấy 06/07/08 làm kết quả mới.
+- Tự do nghiên cứu trong nhiệm vụ không cho phép đổi dataset/nhãn/giao thức chung, thêm dữ liệu/weights ngoài chưa được phép, public dữ liệu riêng, sửa helper/checker/kết quả gốc, phần Đức, deployment hoặc bật PoseLab. Chỉ hỏi khi thực sự cần quyền/tài nguyên hoặc làm ngoài phạm vi; không gửi yêu cầu duyệt kỹ thuật đã được tự quyết.
+- Gia Bảo review sản phẩm để nghiệm thu/tổng hợp/quyết định merge sau bàn giao; không biến review thành điều kiện chờ trước train. Đăng quyết định trên main chưa chứng minh Tùng đã đọc; chỉ ghi nhận khi có phản hồi trên nhánh cá nhân.
+
 ## GB-20261116-002 - Đức tự chủ triển khai và chạy thí nghiệm
+
+**Hiệu lực cập nhật 18/11/2026:** quyền của Đức giữ nguyên; các câu dưới đây nói quy trình Tùng không đổi chỉ là lịch sử, đã được thay bởi `GB-20261118-001`.
 
 - Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026 (UTC+7): sửa quy định để không chờ duyệt làm kéo dài quá trình.
 - Quyết định: `APPROVED` cho quyền tự thực hiện của Đức, không phải xác nhận code/kết quả đã nghiệm thu. Thay các điều kiện chờ duyệt M0, thành phần kiến trúc và review lại trước smoke/full dành cho Đức trong `GB-20261030-001`, `GB-20261116-001` và review ngày 29/10/2026. Quy trình của Tùng không đổi.
@@ -39,7 +83,7 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## GB-20261116-001 - Nhắc Tùng và Đức thực hiện nhiệm vụ
 
-**Hiệu lực mới:** các điều kiện chờ phê duyệt riêng cho Đức trong thông báo này đã được thay bởi `GB-20261116-002`; hạn, sản phẩm và checklist nộp vẫn giữ. Tùng giữ quy trình hiện tại.
+**Hiệu lực mới:** các điều kiện chờ phê duyệt riêng cho Đức/Tùng trong thông báo này đã được thay bởi `GB-20261116-002`/`GB-20261118-001`; hạn, sản phẩm và checklist nộp vẫn giữ. Cả hai tự ghi/khóa phương án và tự chạy khi kiểm tra đạt, không chờ duyệt từng bước.
 
 - Người ra thông báo: Gia Bảo, chủ repo/người điều phối; yêu cầu trực tiếp trong chat ngày 16/11/2026, UTC+7.
 - Cập nhật hạn theo yêu cầu tiếp theo của Gia Bảo ngày 16/11/2026: **chậm nhất thứ Tư, 25/11/2026 (UTC+7)**. "Thứ Tư tuần sau" tính từ thứ Hai 16/11 là 25/11, không phải 18/11.
@@ -93,7 +137,7 @@ git show origin/main:docs/tasks/dinhtung.md
 git show origin/main:docs/tasks/vinhduc.md
 ```
 
-**Lưu ý lịch sử:** phần chờ phê duyệt/M0/review lại trước chạy dành cho Đức trong các quyết định cũ dưới đây không còn hiệu lực theo `GB-20261116-002`. Phát hiện lỗi, yêu cầu bằng chứng và giới hạn dữ liệu/an toàn vẫn giữ.
+**Lưu ý lịch sử:** các cổng chờ phê duyệt/M0/review lại trước chạy dành cho Tùng/Đức trong các quyết định cũ dưới đây không còn hiệu lực theo `GB-20261118-001`/`GB-20261116-002`. Phát hiện lỗi, yêu cầu bằng chứng và giới hạn dữ liệu/an toàn vẫn giữ.
 
 ## GB-20261030-001 - Phân công hai hướng và dừng PoseLab
 
