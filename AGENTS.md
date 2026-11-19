@@ -1,5 +1,7 @@
 # Quy tắc làm việc cho AI và thành viên
 
+**Bổ sung 19/11/2026 (`GB-20261119-002`):** cả Tùng và Đức được tự full CPU nếu không có GPU, hai vế cùng thiết bị/recipe/ngân sách; tự ghi M0 addendum và khóa config/code mới trước outer-test, không xin lại. Giữ guard/test/smoke thật và dùng output mới khi đổi chữ ký. Tool kiểm/tải input, cách Kaggle pin code cũ và checklist nộp ở [bắt đầu train](docs/training-start.md).
+
 Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp dụng toàn repo.
 
 **Quy định mới 18/11/2026:** theo `GB-20261118-001` (Tùng) và `GB-20261116-002` (Đức) trong [answers](docs/discussions/answers.md), **cả hai được tự chọn phương án trong nhiệm vụ, triển khai, smoke và full train, không chờ Gia Bảo duyệt M0/kiến trúc/từng lần chạy**. Ghi và khóa phương án trước outer-test; tự kiểm tra dữ liệu/test/smoke thật đạt trước full. Review là nghiệm thu sản phẩm sau, không phải cổng chờ trước thực hiện. Tùng được bắt đầu TCN so với A3 từ M0 đã nộp, tự điều chỉnh hoặc dùng phương án dự phòng trước outer-test có ghi lý do; không xin lại từng bước.
@@ -71,7 +73,7 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 
 ## Kiểm tra và bàn giao
 
-- Kiểm tra nhẹ trước; cả Tùng và Đức tự chạy full khi phương án đã khóa, input/hash/split đúng, test và smoke thật PASS, đủ tài nguyên có quyền sử dụng; không cần duyệt thủ công. Tự chọn Kaggle hoặc GPU local có quyền sử dụng trong hạn mức miễn phí/đã có, không cần xin chọn thiết bị; ghi thiết bị và đo cặp so cùng điều kiện. Không bỏ kiểm tra, tự cài lại CUDA/PyTorch hệ thống, tiêu tiền dịch vụ hoặc tải dataset không rõ quyền.
+- Kiểm tra nhẹ trước; cả Tùng và Đức tự chạy full khi phương án đã khóa, input/hash/split đúng, test và smoke thật PASS, đủ tài nguyên có quyền sử dụng; không cần duyệt thủ công. Tự chọn Kaggle, GPU local hoặc CPU theo `GB-20261119-002`, có quyền sử dụng trong hạn mức miễn phí/đã có, không cần xin chọn thiết bị; ghi thiết bị và đo cặp so cùng điều kiện. Không bỏ kiểm tra, tự cài lại CUDA/PyTorch hệ thống, tiêu tiền dịch vụ hoặc tải dataset không rõ quyền.
 - Chạy `python scripts/check_repository.py` trước bàn giao. Checker khóa 9 notebook cũ; notebook mới để trong training riêng, không sửa checker để bỏ lỗi.
 - Code mới cần check shape/mask/split leakage/OOF coverage/tái tính metric. Ghi lệnh, phiên bản, hash input-code-config, seed, thiết bị, PASS/FAIL/NOT_RUN.
 - Cập nhật báo cáo cá nhân mỗi phiên: đã làm, file/commit/run/PR, bằng chứng, kiểm tra, lỗi, còn thiếu, việc main cần quyết định.

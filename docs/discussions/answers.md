@@ -4,11 +4,20 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 19/11/2026, Gia Bảo yêu cầu đưa bốn input chuẩn lên main theo `GB-20261119-001`; Tùng/Đức giữ quyền tự chủ `GB-20261118-001`/`GB-20261116-002`. Hạn và sản phẩm của `GB-20261116-001`, phân công và việc dừng PoseLab vẫn giữ.
+- Cập nhật: 19/11/2026, rà lần cuối và bổ sung quyền full CPU/hướng dẫn độc lập theo `GB-20261119-002`, trả lời `DUC-20261117-001`. Bốn input chuẩn đã có theo `GB-20261119-001`; quyền tự chủ, hạn/sản phẩm 25/11, phân công và việc dừng PoseLab vẫn giữ.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261119-002 - Gỡ vướng vận hành, được tự full CPU và nộp artifact
+
+- Người quyết định: Gia Bảo, chủ repo/người điều phối; yêu cầu ngày 19/11/2026 rà lại và đưa hết phần cần thiết để Tùng/Đức làm bài, không bắt duyệt từng bước. Đây là bổ sung vận hành cho quyền tự chủ hiện hành, không nghiệm thu bài làm hay cho phép đổi giao thức nghiên cứu.
+- Trả lời **`DUC-20261117-001`** trên `vinhduc` commit `eac041170f4d85a059386c87df2f1ad332a91a38`: (1) đủ cả bốn input đúng hash đã trên main tại `data/gmdcsa24/`, không phải bộ dựng lại; (2) **được full trên CPU nếu không có GPU**, áp dụng cả Đức và Tùng, hai vế so cùng thiết bị/recipe/ngân sách và báo cáo phần cứng/thời gian; (3) được tự commit checkpoint nhỏ đích danh cùng manifest/hash trên nhánh mình hoặc chọn GitHub Release cho artifact không phù hợp Git, không phải xin lại cách lưu. Không cấp tiền dịch vụ hay tài khoản/quota.
+- CPU là thay đổi vận hành được cho phép, không đổi nhãn/split/folds/seeds/metric/selection. Tự ghi M0 addendum và khóa code/config/thiết bị trước outer-test; runner/notebook riêng phải thực thi lựa chọn đúng lock và giữ nguyên guard. Đức đang `allow_cpu_full=false` và notebook assert CUDA, CLI chưa có cờ override: được tự bổ sung trong vùng riêng và cập nhật lock, không sửa helper chung hoặc giả sử quyền mới tự sửa code. Không chờ duyệt addendum này; chữ ký đổi thì thư mục run mới, không ghi đè lock hoặc ép resume.
+- Cấp [tool kiểm/tải input](../../scripts/training_inputs.py) chỉ dùng Python chuẩn, dữ liệu pin commit `afc7370c324aabec1a6d1076b19d8247c818d96c`, kiểm đủ size/hash và không ghi đè file hiện có. [Hướng dẫn bắt đầu](../training-start.md) có local/Kaggle/offline, tách code/data, CPU, kiểm tra và bàn giao. Giữ notebook code commit đã khóa; chỉ merge main ngoài notebook không làm cell pin commit cũ và quét `/kaggle/input` tự tìm được dữ liệu mới. Thành viên tự ghi thay đổi cell vận hành.
+- Tùng được bắt đầu phần TCN/M0 đã nộp hoặc tự điều chỉnh có ghi lý do trước outer-test theo `GB-20261118-001`; Đức tiếp tục thay đổi có kiểm soát ME-STGCN-TA theo `GB-20261116-002`. Không merge code hai bạn chưa review lên main hoặc làm thay nghiên cứu để gọi là sẵn sàng.
+- Tự kiểm dữ liệu/test/smoke thật PASS rồi full; đây không phải quyền bỏ kiểm tra. Hạn model đã train + kết quả thật vẫn **25/11/2026 (UTC+7)**. Tài khoản, quota, dependency và khả năng chạy trên máy thành viên chưa được xác minh ở phiên này; không nhận là hai bạn đã đọc, smoke/full hoặc hoàn tất vì đã publish hỗ trợ.
 
 ## GB-20261119-001 - Cấp bốn input chuẩn trên main cho Tùng và Đức
 

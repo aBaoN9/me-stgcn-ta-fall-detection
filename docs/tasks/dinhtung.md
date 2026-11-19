@@ -1,5 +1,7 @@
 # Tùng - Mô hình hoặc phương pháp khác trên cùng dataset
 
+**Cập nhật hỗ trợ 19/11/2026:** đọc [bắt đầu train](../training-start.md); đủ bốn input chuẩn, có tool kiểm/tải, cách Kaggle/local và checklist nộp. Theo `GB-20261119-002`, được tự full CPU nếu không có GPU; khóa addendum/config/code trước outer-test, không chờ duyệt lại.
+
 Cập nhật ngày 18/11/2026 theo `GB-20261118-001`: **AUTONOMOUS — tự triển khai và train, không chờ Gia Bảo duyệt M0 hoặc từng bước**. Nhánh `dinhtung`. [Báo cáo](../reports/dinhtung.md). Đọc [AGENTS](../../AGENTS.md), [bàn giao](../handoff.md), [protocol](../research-protocol.md) và quyết định mới trong [answers](../discussions/answers.md) trước khi sửa.
 
 M0 TCN so với A3 tại `d65e59c` đã được cho phép triển khai theo `TUNG-20261117-001`; không phải kết quả đã nghiệm thu. Tùng tự khóa cấu hình/ngân sách trước outer-test, tự điều chỉnh hoặc chuyển GRU/phương án khác trong nhiệm vụ trước outer-test có ghi lý do, không phải xin duyệt lại. Tự chọn Kaggle/GPU local có quyền và không phát sinh chi phí. Được commit/push sản phẩm, upload artifact và mở PR đúng phạm vi, không xin lại từng lần. Hạn **25/11/2026 (UTC+7)** vẫn yêu cầu model đã train + kết quả thật trên GitHub.

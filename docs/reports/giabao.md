@@ -4,7 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
-- Cập nhật: 19/11/2026, theo yêu cầu Gia Bảo đưa bốn input chuẩn vào `data/gmdcsa24/` trên main (`GB-20261119-001`), hash đúng protocol 07 và validation PASS. Cả hai giữ quyền tự chủ; không chạy train mới trong phiên cấp dữ liệu.
+- Cập nhật: 19/11/2026, rà lần cuối và bổ sung tool kiểm/tải input, hướng dẫn local/Kaggle pin code cũ, quyền full CPU và nộp artifact theo `GB-20261119-002`. Bốn input của `GB-20261119-001` tải lại từ GitHub đúng hash; validation/checker PASS. Không chạy smoke/full nghiên cứu mới hoặc làm thay phần thành viên.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
 - Trạng thái tạo/publish nhánh phải đối chiếu Git/remote, không dùng nội dung báo cáo này làm bằng chứng push thành công.
@@ -12,6 +12,16 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 19/11/2026 - Rà lần cuối và gỡ các vướng mắc vận hành
+
+- Yêu cầu Gia Bảo: kiểm lại phần cần thiết cho Tùng/Đức và đưa lên main, không bắt duyệt từng bước. Làm code hỗ trợ trên `giabao` sau fast-forward từ main `afc7370`; không sửa/push nhánh hai bạn.
+- Fetch xác nhận `dinhtung` ở `d65e59c5396503f48c05a0d102fd2b4e829d0bd9` (M0 TCN), `vinhduc` ở `eac041170f4d85a059386c87df2f1ad332a91a38`. Đức hỏi full CPU trong `DUC-20261117-001`; notebook vẫn pin `c72f33a547d3f130d3768611c08949cf45c37b56`, chỉ tìm input trong `/kaggle/input`, config cấm CPU full và cell full assert CUDA. Chỉ có input trên main chưa tự giải quyết các chỗ này.
+- Quyết định `GB-20261119-002`: trả lời đúng ID, cả hai được tự full CPU khi không có GPU, hai vế cùng điều kiện, tự ghi addendum/khóa code-config trước outer-test; tự chọn commit checkpoint nhỏ đích danh hoặc Release, không xin lại. Không bỏ guard, thay giao thức, cấp tiền/tài khoản hoặc nhận code đã nghiệm thu. Sửa chỉ dẫn cũ trong nhiệm vụ Gia Bảo còn bắt Tùng duyệt M0; đồng bộ điểm vào và nhiệm vụ hai bạn.
+- Thêm `scripts/training_inputs.py` (Python chuẩn): mặc định verify-only, `--download` chỉ tải file thiếu từ data commit bất biến `afc7370`, xác thực size/SHA-256 trước khi lưu, từ chối ghi đè. Thêm `docs/training-start.md`: merge an toàn, dependency/runtime, Kaggle tách code/data và thay cell tìm input, CPU cần cập nhật lock trong code riêng, kiểm tra/nộp artifact. Không sửa notebook/runner của Đức, helper/model/06-07-08, protocol hoặc kết quả cũ.
+- Kiểm tra local **PASS**: 9 ca stdlib unittest trong bộ nhớ (verify thiếu không tạo thư mục, file đúng không gọi mạng, sai size/hash giữ nguyên, chỉ tải phần thiếu, download sai hash không cài file, lỗi mạng dọn staging, file phát sinh đồng thời không bị ghi đè, lỗi copy dọn file dở). Đối chiếu bảng size/hash của tool với `input_manifest.json` và map hash `inputs` của protocol 07 PASS; CLI thiếu file trả lỗi và không ghi dữ liệu PASS.
+- Chạy thật `python scripts/training_inputs.py --input-root data/gmdcsa24` và `python scripts/training_inputs.py --input-root .runtime/readiness/downloaded_inputs --download`: **PASS**, bốn file từ public GitHub đúng hash. `python -m training.component_ablation.validate_pipeline --input-root .runtime/readiness/downloaded_inputs`: **PASS**, 160 mẫu, parity `1.1920928955078125e-07`, 100 ca augmentation, shape 5 biến thể gốc. `python scripts/check_repository.py` và `git diff --check`: **PASS**. Máy kiểm: Python 3.11.9, torch 2.11.0+cpu, numpy 1.26.4, pandas 2.2.3, sklearn 1.8.0, không CUDA; không tuyên bố khớp môi trường pinned hoặc máy thành viên.
+- Phát hành phần hỗ trợ lên main theo yêu cầu; đối chiếu SHA remote sau push. Tài khoản/quota, dependency, smoke thật và full trên máy hai bạn chưa được xác minh; không suy ra hai bạn đã đọc/nhận ở máy riêng. Tùng vẫn tự triển khai runner/model; Đức vẫn tự áp dụng thay đổi vận hành ở vùng riêng. Không bật PoseLab, không train hộ hoặc merge bài chưa review.
 
 ## 19/11/2026 - Cấp đủ bốn input để thành viên triển khai/train
 

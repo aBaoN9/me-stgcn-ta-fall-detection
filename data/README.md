@@ -1,5 +1,7 @@
 # Dữ liệu đầu vào
 
+**Tool kiểm/tải độc lập:** `python scripts/training_inputs.py --input-root data/gmdcsa24` (chỉ kiểm, Python chuẩn); thêm `--download` nếu thiếu file. Nguồn pin commit dữ liệu, kiểm size/hash và không ghi đè file có sẵn. Xem [hướng dẫn local/Kaggle và notebook pin code cũ](../docs/training-start.md); không cần đổi hash hoặc chạy lại notebook 01.
+
 **Đã bổ sung bốn input chuẩn ngày 19/11/2026 theo yêu cầu của Gia Bảo (`GB-20261119-001`).** Tùng và Đức lấy trực tiếp trong [gmdcsa24/](gmdcsa24/), dùng `--input-root data/gmdcsa24`; không cần chờ gửi file riêng hoặc chạy lại notebook 01. Đây là dữ liệu đầu vào đã có, không phải model/kết quả train mới. Repo vẫn không chứa video gốc.
 
 Các tệp là output bước chuẩn bị dữ liệu đã dùng cho protocol 07:

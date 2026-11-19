@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Hỗ trợ chạy 19/11/2026:** [bắt đầu train](training-start.md) có tool input, local/Kaggle và xử lý notebook pin code cũ. Theo `GB-20261119-002`, cả hai được tự full CPU nếu thiếu GPU, khóa addendum/config/code trước outer-test và giữ điều kiện so sánh; không chờ duyệt.
+
 **Quy định hiện hành 18/11/2026 — `GB-20261118-001` (Tùng), `GB-20261116-002` (Đức):** Cả hai tự chọn phương án trong nhiệm vụ, triển khai, kiểm tra, smoke và full train khi đủ điều kiện; không chờ Gia Bảo duyệt M0, mô hình/kiến trúc, cấu hình, thiết bị hoặc review lại bản sửa trước chạy. Tùng được bắt đầu TCN so với A3 từ M0 đã nộp, tự điều chỉnh hoặc dùng dự phòng trước outer-test có ghi lý do. M0 phải được ghi/khóa trước outer-test; dữ liệu, split, seed và đánh giá chung không đổi; test và smoke thật phải PASS. Được commit/push sản phẩm đúng phạm vi lên nhánh cá nhân, upload artifact và mở PR, không xin lại từng lần. Review cuối vẫn quyết định nghiệm thu/merge main. Xem [quyết định chính thức](discussions/answers.md).
 
 Ngày lập: 28/10/2026. Cập nhật phân công: 30/10/2026 theo Gia Bảo. Gia Bảo là người điều phối, phát triển kỹ thuật trên `giabao`; Tùng làm `dinhtung`, Đức làm `vinhduc`. `main` giữ bản chuẩn đã duyệt và quyết định chung. Đây là điểm bắt đầu cho cả thành viên và AI.

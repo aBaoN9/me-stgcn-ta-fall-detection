@@ -1,5 +1,7 @@
 # 🛡️ ME-STGCN-TA — Phát hiện té ngã từ khung xương
 
+**Bắt đầu ngay (19/11/2026):** [hướng dẫn local/Kaggle, tool kiểm/tải input và checklist](docs/training-start.md). `GB-20261119-002` cho cả hai tự full CPU khi không có GPU, ghi/khóa thay đổi trước outer-test và chạy cặp cùng điều kiện; không chờ duyệt lại.
+
 Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. **PoseLab đã dừng theo quyết định của Gia Bảo ngày 30/10/2026**; repo tập trung so sánh phương pháp và kiểm chứng thay đổi có kiểm soát.
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
