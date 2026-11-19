@@ -4,14 +4,9 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 
 ## Snapshot
 
-- Trạng thái: `IN_PROGRESS`; M0: **`M0_PROPOSED — PENDING_APPROVAL`**.
-- Cập nhật: 17/11/2026 (UTC+7), **Tùng đã kiểm tra và đồng ý gửi M0 chính thức**; câu `TUNG-20261117-001` OPEN, chờ Gia Bảo phê duyệt.
-- Đã đọc `GB-20261030-001`, `GB-20261116-001`, `GB-20261116-002` trên `origin/main` tại `8ab7b29`; ghi nhận hạn **25/11/2026**, sản phẩm model đã train + kết quả GitHub. Quyền tự chủ Đức không áp dụng Tùng.
-- Commit code / run ID / PR: chưa có code M1 / `NOT_RUN` / chưa mở. Tài liệu M0 được Tùng cho phép commit/push lên origin/dinhtung; commit phát hành chứa báo cáo này, kết quả gửi phải đối chiếu remote sau push.
-- M0 duyệt bởi / ngày / config: **chưa duyệt**; đề xuất TCN nhỏ + chạy lại A3 chuẩn/07, xem [M0](../research/backbone-benchmark.md).
-- Mốc: TUNG-01 bản đề xuất đã được Tùng kiểm tra, cho phép gửi, chờ Gia Bảo duyệt; TUNG-02, TUNG-03, TUNG-04 `NOT_RUN`.
-
-Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. Chỉ người điều phối xác nhận DONE sau review. Cập nhật snapshot mới nhất; nhật ký nối thêm, không xóa lỗi cũ.
+- 19/11/2026. Tùng đã nhận `GB-20261118-001` tại `origin/main` `af9e7fb`. `APPROVED_TO_PROCEED / AUTONOMOUS`; M0 `M0_DOCUMENTED`.
+- TUNG-02: đã triển khai và kiểm thử phần mềm. Smoke thật `BLOCKED` vì thiếu input. TUNG-03/M2 và TUNG-04 `NOT_RUN`.
+- Mã M1 và cập nhật tài liệu ở local trên `dinhtung`; chưa commit/push theo yêu cầu Tùng.
 
 ## Nhật ký mỗi phiên - mẫu để điền
 
@@ -51,6 +46,21 @@ Trạng thái: `TODO`, `IN_PROGRESS`, `BLOCKED`, `READY_FOR_REVIEW`, `DONE`. Ch�
 - Kiểm tra phát hành: git diff --check PASS; python -B scripts/check_repository.py PASS; kiểm UTF-8/liên kết ba file, bốn hash trong M0, trạng thái đề xuất/ID và phạm vi đúng ba file PASS; origin/main là tổ tiên của HEAD sau đồng bộ. Không coi kiểm tài liệu là test model. Commit/push và SHA remote kiểm riêng trước khi báo gửi thành công; không tự ghi Gia Bảo đã đọc/duyệt.
 - Còn cần Gia Bảo xác nhận: TCN/A3 và ngân sách96fits, nguồn bốn input đúng hash, tài nguyên GPU, điều kiện GRU dự phòng, kênh/quyền upload artifact model. Push tài liệu nếu thành công không chứng minh quyền upload Release.
 - Điểm dừng: sau xác minh push, chờ quyết định M0; không triển khai TCN hoặc chạy smoke/full.
+
+### 2026-11-19 — M1 TCN và A3
+
+- Thêm `training/backbone_benchmark/models.py` (TCN bốn khối, 32 kênh ẩn, kernel 3, dilation 1/2/4/8), `runner.py` (hash, Nested LOSO, đánh giá, checkpoint), `test_benchmark.py` và `README.md` (Kaggle T4). Cập nhật báo cáo, trao đổi và trạng thái M0. Dùng trực tiếp A3/07, không sửa nguồn hay kết quả gốc.
+- `python -B -m training.backbone_benchmark.test_benchmark`: 7/7 PASS trên CPU. Kiểm thứ tự và kích thước tensor, mask, tích chập nhân quả, A3 tương đương, chặn thiếu/sai hash, chia theo người, chỉ số, vòng chạy tổng hợp 8 lần fit và nạp lại checkpoint. Kết quả tổng hợp chỉ dùng kiểm phần mềm, tệp đầu ra nằm trong thư mục tạm.
+- Tìm cả tên chuẩn và tên tương thích trong dự án, không thấy bốn input. SHA-256 dữ liệu thật, kiểm căn chỉnh và smoke thật NOT_RUN. CUDA Kaggle/Colab do Tùng xác nhận, phiên này chưa chạy trên nền tảng đó và chưa xác nhận quyền dữ liệu.
+- Trước M2: nhận nguồn đúng hash, kiểm input và chạy smoke thật trên thiết bị đã chọn, lưu bằng chứng và khóa cấu hình trước đánh giá ngoài. Phiên này giới hạn M1.
+
+### 2026-11-19 — Gia cố M1 trước M2
+
+- `runner.py`: ghi từng vòng vào thư mục tạm, kiểm trước khi đổi tên, thêm `--resume`. Khóa dữ liệu/mã/cấu hình/môi trường phải khớp. Vòng đã lưu chỉ được sử dụng sau khi đối chiếu split, lịch sử fit, SHA-256 và metadata checkpoint, ngưỡng và dự đoán từ model nạp lại. Vòng đã lưu bị lỗi làm chương trình dừng để bảo toàn bằng chứng.
+- Full xác minh lại cả hai vòng smoke, 6 inner + 2 refit, checkpoint, dự đoán đủ mẫu, manifest và completion. `README.md` hướng dẫn sao lưu, khôi phục và giới hạn số đo bộ nhớ sau resume.
+- `test_benchmark.py`: thêm ngắt khi đang lưu vòng thứ hai, tiếp tục chỉ chạy vòng thiếu, checkpoint hỏng, thiếu/sai seed hoặc vòng, khóa khác mã/cấu hình/thiết bị, smoke thiếu fit/dự đoán/sai metadata, thiếu evidence và evidence tổng hợp; đối chiếu A3 về epoch, lịch sử, điểm và ngưỡng. Lượt đầu có 3 lỗi do tuple chuyển thành danh sách trong JSON; đã sửa. Lượt cuối `python -B -m training.backbone_benchmark.test_benchmark`: PASS 10/10 trên CPU.
+- `python -B scripts/check_repository.py` và `git diff --check`: PASS. Mã A3 và bằng chứng cũ giữ nguyên. Đã fetch và xác nhận quyết định vẫn ở `af9e7fb`. Không commit/push.
+- Không thấy bốn tệp chuẩn trong dự án. Smoke thật `BLOCKED`; M2 `NOT_RUN`. Cần bộ dữ liệu có quyền đúng hash và chạy smoke thật trên môi trường GPU dự kiến dùng cho M2.
 
 ## Bàn giao review
 

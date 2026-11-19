@@ -2,7 +2,7 @@
 
 - Người thực hiện: Nguyễn Đinh Tùng; nhánh `dinhtung`.
 - Ngày nghiên cứu: 17/11/2026 (UTC+7).
-- Trạng thái: **`M0_PROPOSED — PENDING_APPROVAL`**.
+- Trạng thái hiện hành (19/11/2026): **`M0_DOCUMENTED`** theo `GB-20261118-001` trên origin/main `af9e7fb`. Quyết định mới thay các yêu cầu xin duyệt trong nội dung đề xuất lịch sử dưới đây. Thiết kế thực nghiệm giữ nguyên. Xem [tiến độ M1](../reports/dinhtung.md).
 - Phiên này chỉ nghiên cứu và viết tài liệu; chưa triển khai M1, chưa smoke (chạy thử nhỏ), chưa train (huấn luyện), chưa có kết quả mới.
 - Tùng đã kiểm tra và đồng ý gửi ngày 17/11/2026. Đây là **đề xuất chính thức xin Gia Bảo xem xét**, được phép commit/push lên `origin/dinhtung`; chưa được Gia Bảo phê duyệt.
 - Hạn sản phẩm theo nhóm: **25/11/2026 (UTC+7)**, model đã train + kết quả trên GitHub. M0 không thay thế sản phẩm đó.
