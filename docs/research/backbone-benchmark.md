@@ -275,3 +275,49 @@ Thông tin có thể hoàn thiện sau duyệt nhưng trước bước phụ thu
 - Đã xác minh Git, nguồn mốc, cấu hình/hash chuẩn, số liệu lịch sử, phần cứng GPU và sự thiếu input trong repo; chưa xác minh quyền tài khoản hoặc runtime train.
 - Kiểm tra bàn giao tài liệu: chạy `git diff --check` (lỗi khoảng trắng), `python -B scripts/check_repository.py` (toàn vẹn repo, không train), kiểm phạm vi ba file và liên kết mới. Kết quả chạy thực tế ghi ở báo cáo cá nhân; câu này không thay log kiểm tra.
 - **Tùng đã đồng ý gửi M0; chưa được Gia Bảo phê duyệt.** Chỉ commit/push ba tài liệu lên dinhtung theo yêu cầu; kiểm remote (nhánh từ xa) sau push rồi dừng. Không thực hiện M1/M2/M3, không push hoặc merge vào main.
+
+
+## M3 — Kết quả trên RTX 3050
+
+Bài toán phân loại Fall (ngã) và ADL (hoạt động thường ngày). TCN học mẫu chuyển động theo thời gian qua các phép tích chập giãn. Bản triển khai dùng bốn khối dư, kernel 3, độ giãn 1/2/4/8 và 32 kênh ẩn. 33 khớp × 8 đặc trưng được xếp thành 264 giá trị mỗi thời điểm. A3 dùng tích chập đồ thị để giữ cấu trúc khớp và chú ý thời gian. Hai hướng dùng cùng đặc trưng v2, tăng cường, phân chia người, loss, ngân sách và quy tắc chọn epoch/ngưỡng. TCN là bản điều chỉnh từ nguồn đã dẫn ở M0 (giấy phép MIT của mã tham khảo), không phải tái hiện nguyên trạng bài báo.
+
+GMDCSA-24 chuẩn gồm 160 clip, 79 Fall, 81 ADL của bốn người. Nested LOSO giữ lại một người đánh giá ngoài và luân phiên ba người còn lại để chọn epoch/ngưỡng, sau đó huấn luyện lại trên ba người. Giữ seed 42/142/242, tối đa 50 epoch, patience 10, batch 16, 48 lượt mỗi mô hình. A3 là biến thể chuẩn notebook 07. 24 checkpoint được nạp lại trên dữ liệu thật, dự đoán khớp trong dung sai runner. Kiểm lại khóa, hash, lịch sử, tập chia và 2.880 dự đoán. Tính lại chỉ số độc lập khớp trong sai số tuyệt đối 1e-12. Không phát hiện lỗi làm mất hiệu lực kết quả qua các kiểm tra này.
+
+| Fixed 0,5, trung bình ± độ lệch chuẩn mẫu (%) | TCN | A3 | Chênh TCN−A3 (điểm %) |
+|---|---:|---:|---:|
+| Accuracy | 91,04 ± 0,72 | 89,38 ± 2,50 | +1,67 |
+| Sensitivity | 94,09 ± 2,64 | 92,41 ± 2,53 | +1,69 |
+| Specificity | 88,07 ± 2,57 | 86,42 ± 2,47 | +1,65 |
+| F1 | 91,20 ± 0,75 | 89,57 ± 2,45 | +1,63 |
+
+| Seed | Accuracy TCN/A3 (%) | TCN TP/TN/FP/FN | A3 TP/TN/FP/FN |
+|---|---|---|---|
+| 42 | 91,88 / 86,88 | 75/72/9/4 | 71/68/13/8 |
+| 142 | 90,63 / 89,38 | 72/73/8/7 | 73/70/11/6 |
+| 242 | 90,63 / 91,88 | 76/69/12/3 | 75/72/9/4 |
+
+| Người | Accuracy TCN/A3 (%) | Sensitivity TCN/A3 (%) | Specificity TCN/A3 (%) |
+|---|---|---|---|
+| S1 | 91,67 / 91,67 | 93,75 / 97,92 | 89,58 / 85,42 |
+| S2 | 90,97 / 91,67 | 92,00 / 97,33 | 89,86 / 85,51 |
+| S3 | 100,00 / 90,70 | 100,00 / 92,06 | 100,00 / 89,39 |
+| S4 | 80,18 / 82,88 | 90,20 / 80,39 | 71,67 / 85,00 |
+
+TCN kém Accuracy ở S2 và S4, và kém độ nhạy ở seed 142. Tại S4, ít bỏ sót ngã hơn đi kèm nhiều cảnh báo nhầm. Với fixed, 31 cặp clip-seed chỉ TCN đúng, 23 chỉ A3 đúng, 20 cả hai sai và 406 cả hai đúng. TCN bỏ sót S1_FALL_13, S2_FALL_14, S4_FALL_03 ở cả ba seed. A3 bỏ sót S4_FALL_05 ở cả ba seed. Cả hai cùng báo nhầm bốn clip ở cả ba seed: S1_ADL_02, S2_ADL_12, S4_ADL_05, S4_ADL_06.
+
+| Chính sách | Accuracy TCN/A3 (%) | Sensitivity TCN/A3 (%) | Specificity TCN/A3 (%) |
+|---|---|---|---|
+| fixed | 91,04 / 89,38 | 94,09 / 92,41 | 88,07 / 86,42 |
+| balanced (chọn cân bằng trên inner) | 90,42 / 88,33 | 92,83 / 91,56 | 88,07 / 85,19 |
+| sensitivity (ưu tiên độ nhạy trên inner) | 90,21 / 87,50 | 93,67 / 94,94 | 86,83 / 80,25 |
+
+Chính sách sensitivity giúp A3 tăng độ nhạy nhưng giảm độ đặc hiệu. TCN không tăng độ nhạy khi chuyển chính sách trên vòng ngoài; chọn ngưỡng ở vòng trong không bảo đảm cải thiện trên người giữ lại. Giữ fixed làm phân tích chính theo cấu hình đã khóa.
+
+| Mô hình | Tham số học | Checkpoint (byte) | Trung vị / p95 (ms) |
+|---|---:|---:|---:|
+| TCN | 56.434 | 237.298 | 2,850 / 3,034 |
+| A3 | 422.871 | 1.742.362 | 3,331 / 4,238 |
+
+Đo riêng suy luận bằng PyTorch CUDA 12.6 trên cùng RTX 3050 Laptop, cùng clip đã tạo đặc trưng S1_ADL_01, batch 1, trọng số seed 42 và vòng S1, eval/inference_mode, 30 lượt làm ấm, 200 lượt đo, đồng bộ CUDA ở hai đầu. TCN ít tham số hơn khoảng 7,49 lần và nhanh hơn trong phép đo này. Chưa đo pipeline MediaPipe/video, CPU, hoặc thời gian thực. Lượt M2 chung dùng 314,5 giây, GPU đỉnh 78°C và VRAM 308 MiB theo lấy mẫu.
+
+Kết luận giới hạn ở thí nghiệm cụ thể: TCN tốt hơn trung bình nhưng chỉ có 160 clip từ bốn người, các vòng ngoài đã được nhóm xem trong phát triển, chưa có tập độc lập và ba seed dùng lại cùng dữ liệu. Chênh lệch trung bình chưa chứng minh ý nghĩa thống kê hay tính tổng quát ngoài thực tế và không bảo đảm an toàn cấp cứu. Xem [bộ bàn giao](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) để tra tất cả seed, người, chính sách, ma trận nhầm lẫn và cặp lỗi.

@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\tung-m2-rtx3050-20261120-165523-backup",
+  "output": ".runtime\\tung-m2-rtx3050-20261120-165523",
+  "telemetry": ".runtime\\tung-m2-rtx3050-20261120-165523-telemetry.csv",
+  "seconds": 314.5,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 407,
+  "baseline": [
+    0.063,
+    56,
+    9,
+    0,
+    12259.7
+  ],
+  "peak": [
+    78,
+    308,
+    73,
+    14752.7
+  ]
+}

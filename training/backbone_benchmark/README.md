@@ -39,3 +39,7 @@ M2 dùng `--mode full --smoke-evidence <thu-muc-smoke-that>`, cùng dữ liệu,
 - Sau resume, số đo bộ nhớ đỉnh chỉ phản ánh tiến trình kết thúc, có thể gồm kiểm nạp lại và các vòng còn thiếu. Đo tài nguyên huấn luyện bằng một lượt smoke liên tục trước khi quyết định dùng GPU đó cho M2.
 
 TCN tham khảo thiết kế [Bai và cộng sự](https://arxiv.org/abs/1803.01271) và [mã tác giả](https://github.com/locuslab/TCN/blob/2f8c2b817050206397458dfd1f5a25ce8a32fe65/TCN/tcn.py), triển khai bằng các lớp PyTorch. Đệm trái tương đương đệm rồi cắt bên phải. Khởi tạo bộ lọc trước khi áp dụng chuẩn hóa trọng số bằng API parametrizations. A3 dùng trực tiếp lớp và hàm fit từ mã 07.
+
+## Kết quả M2/M3 trên RTX 3050
+
+Xem [bộ bàn giao đã kiểm chứng](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) cho trọng số, hash và lệnh suy luận lại.

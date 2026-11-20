@@ -71,9 +71,31 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 - Bằng chứng local tại `.runtime/tung-smoke-cpu-20261119/`. Chữ ký `86876850d5898c7dd25e3bc975d0847eb71e51ba946702f3db49be22c55064d1`. Hai mô hình, seed 42, test S1, 6 inner + 2 refit, 192 dòng dự đoán. Hai checkpoint khớp SHA-256 trong manifest, reload/coverage PASS. Chạy lại với `--resume` PASS. `synthetic=false`, `scientific_result=false`. Không đưa checkpoint thử vào Git.
 - Kaggle T4 NOT_RUN. Phiên này không có kết nối tới phiên Kaggle của Tùng. Dùng hướng dẫn Kaggle trong README vùng M1 với `--input-root data/gmdcsa24` khi checkout nhánh đã đồng bộ. Lưu thư mục run ở nơi có thể khôi phục và kiểm smoke GPU trước M2. Full NOT_RUN.
 
+### 2026-11-20 — Kiểm khả năng huấn luyện trên RTX 3050
+
+- Mã `dinhtung` tại `12eaf80`, quyết định main `e16ee1a`. Laptop Ryzen 5 7535HS (6 nhân/12 luồng), RAM báo 15,32 GiB, ổ C là SSD NVMe WD SN740, RTX 3050 Laptop 4 GiB và driver 566.07.
+- Môi trường riêng `.venv`: Python 3.11.9, Torch 2.10.0+cu126, CUDA 12.6, NumPy 2.2.6, pandas 2.3.3, scikit-learn 1.7.2. Kiểm phụ thuộc và phép nhân ma trận CUDA/đổi sang NumPy PASS. Môi trường Python hệ thống vẫn giữ nguyên.
+- Hash dữ liệu PASS 4/4, validation PASS 160 mẫu, unit test PASS 10/10. Checker ban đầu đi vào tài liệu thư viện dưới tên `.venv-rtx3050`; chuyển sang `.venv` theo thư mục checker đã loại trừ và chạy lại PASS, giữ nguyên checker.
+- Smoke thật CPU/GPU là các lượt riêng. RTX 3050 chạy `--mode smoke --device cuda` cho TCN và A3 với OMP/MKL 4 luồng, đủ 8 lần fit, 2 outer, 192 dòng dự đoán, reload/coverage PASS, synthetic=false, scientific_result=false. Thời gian đo gồm khởi động và ghi kết quả khoảng 14,45 giây. Bằng chứng local: `.runtime/tung-smoke-rtx3050-20261120-160820/`, chữ ký `0a135996fe5686f40c989945ba3a1d190c3ebd45b4417699d6f29867b4935c95`. Nhật ký đo và tóm tắt nằm cạnh thư mục này.
+- Đỉnh PyTorch cấp phát 154441728 byte (147,3 MiB); 19 mẫu từ NVIDIA cho thấy VRAM dùng đỉnh 306 MiB, GPU 57%, nhiệt độ 60°C, RAM hệ thống dùng đỉnh 13169,4 MiB. Ổ C còn khoảng 42 GiB sau cài/chạy. `--resume` PASS với bản sao chỉ có vòng A3 đã lưu từ RTX 3050, giữ nguyên hash A3 và bổ sung vòng TCN. Nạp lại cả lượt hoàn tất bằng `.venv` cũng PASS.
+- 24 checkpoint của M2 ước tính 22,7 MiB theo kích thước hai checkpoint smoke, chưa tính lịch sử/dự đoán. Nên chừa ít nhất 1 GiB cho run và bản sao, sao lưu lock cùng các thư mục fold đã hoàn tất sang nơi bền vững khác. M2 NOT_RUN trong phiên này; khi chạy, dùng thư mục full mới và smoke evidence RTX 3050 cùng môi trường đã xác minh. Theo dõi tài nguyên thực tế suốt lượt dài.
+
+### 2026-11-20 — M2 đầy đủ trên RTX 3050
+
+- M2 PASS tại `.runtime/tung-m2-rtx3050-20261120-165523/`, mã `12eaf80`, main `e16ee1a`, chữ ký `24bb52cca33da8e171254850d6266bd1ece6a21f53e629f2c75c87b0744a3222`. Khóa cấu hình trước đánh giá, SHA-256 input 4/4, runner xác minh lại smoke RTX 3050. Python 3.11.9, Torch 2.10.0+cu126, NumPy 2.2.6, pandas 2.3.3, sklearn 1.7.2, OMP/MKL 4 luồng. Lệnh: `.venv/Scripts/python.exe -B -m training.backbone_benchmark.runner --input-root data/gmdcsa24 --output .runtime/tung-m2-rtx3050-20261120-165523 --mode full --device cuda --smoke-evidence .runtime/tung-smoke-rtx3050-20261120-160820`.
+- 96/96 lượt, 48 mỗi mô hình, 72 inner + 24 refit; 24 outer, reload và coverage PASS, scientific_result=true. Tái tính 2.880 dự đoán theo fold/seed khớp bảng đã lưu; kiểm hash 24 checkpoint và lịch sử giữa thư mục chính và bản sao. Thời gian tường 314,50 giây. 407 mẫu đo: nhiệt độ GPU đỉnh 78°C, VRAM 308 MiB, GPU 73%, RAM hệ thống 14752,7 MiB. PyTorch cấp phát đỉnh 154441728 byte. Không gián đoạn.
+- Chính sách chính fixed=0,5: trung bình qua ba seed, Accuracy/Sensitivity/Specificity/F1 (%) lần lượt TCN 91,04/94,09/88,07/91,20 và A3 89,38/92,41/86,42/89,57. TCN có Accuracy cao hơn trung bình 1,67 điểm phần trăm nhưng thấp hơn A3 ở seed 242. TCN bỏ sót S1_FALL_13, S2_FALL_14, S4_FALL_03 ở cả ba seed; A3 bỏ sót S4_FALL_05 ở cả ba seed. Xem `fixed_error_cases.csv` và `errors.csv`. Đánh giá có kiểm soát trên bốn người đã dùng trong phát triển, không suy ra ưu thế trên tập độc lập.
+- Bản sao theo vòng tại `.runtime/tung-m2-rtx3050-20261120-165523-backup/`. ZIP cùng tên run, 21554783 byte, SHA-256 `814415188654587a1e0936c0b34500d9d9cdac8ea48932f95c711b848415f15c`. Đã giải nén thử và đối chiếu hash đủ 60 tệp. Checker repo và git diff --check PASS. Chưa commit/push; khi bàn giao đưa kết quả, checkpoint, manifest và đường dẫn ZIP đã kiểm lên nhánh được giao theo quy định.
+
 ## Bàn giao review
 
 - Checklist nhiệm vụ: chưa hoàn tất.
 - Lệnh tái lập / thời gian / tài nguyên đã dùng: chưa có.
 - Khác paper/recipe (quy trình cấu hình), giới hạn kết luận: có thiết kế/adaptation trong M0; chưa có bằng chứng thực nghiệm mới. TCN thay cả backbone (phần mạng học biểu diễn) và tổng hợp, không cô lập tác dụng riêng một thành phần.
 - PR về main: chưa mở; sau push main có thể đọc `git show origin/dinhtung:docs/reports/dinhtung.md` hoặc PR.
+
+### 2026-11-20 — Kiểm chứng và đóng gói M3
+
+- PASS 24 checkpoint nạp lại trên CUDA và đối chiếu đủ 2.880 dự đoán. PASS SHA-256 ZIP gốc, 60 tệp khớp byte; checkpoint/lịch sử khớp bản sao. Chỉ số độc lập khớp 1e-12, kiểm thử 10/10 PASS. Không chạy lại M2.
+- Đo suy luận riêng trên RTX 3050: TCN 56.434 tham số, 2,850/3,034 ms trung vị/p95; A3 422.871, 3,331/4,238 ms.
+- [Bộ bàn giao M3](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) có đủ checkpoint, dự đoán, chỉ số, lịch sử, hash và hướng dẫn. [Phân tích khoa học](../research/backbone-benchmark.md) giữ nguyên lịch sử M0.
