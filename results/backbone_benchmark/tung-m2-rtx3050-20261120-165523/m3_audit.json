@@ -1,0 +1,48 @@
+{
+  "zip_sha256": "814415188654587a1e0936c0b34500d9d9cdac8ea48932f95c711b848415f15c",
+  "original_files": 60,
+  "checkpoint_hashes": 24,
+  "predictions": 2880,
+  "metrics_atol": 1e-12,
+  "metrics": "PASS",
+  "backup_checkpoint_and_history": "PASS",
+  "protocol_and_inputs": "PASS",
+  "measurement": [
+    {
+      "variant": "A3_motion_attention",
+      "parameters": 422871,
+      "checkpoint_bytes": 1742362,
+      "median_ms": 3.3310999860987067,
+      "p95_ms": 4.237749928142871,
+      "warmup": 30,
+      "iterations": 200,
+      "batch_size": 1,
+      "seed": 42,
+      "subject": 1,
+      "video_id": "S1_ADL_01",
+      "device": "NVIDIA GeForce RTX 3050 Laptop GPU",
+      "torch": "2.10.0+cu126",
+      "cuda": "12.6"
+    },
+    {
+      "variant": "TCN_v2_small",
+      "parameters": 56434,
+      "checkpoint_bytes": 237298,
+      "median_ms": 2.8496499871835113,
+      "p95_ms": 3.034020046470687,
+      "warmup": 30,
+      "iterations": 200,
+      "batch_size": 1,
+      "seed": 42,
+      "subject": 1,
+      "video_id": "S1_ADL_01",
+      "device": "NVIDIA GeForce RTX 3050 Laptop GPU",
+      "torch": "2.10.0+cu126",
+      "cuda": "12.6"
+    }
+  ],
+  "checkpoint_reload_real_cuda": "PASS",
+  "unit_tests": "PASS 10/10",
+  "training_reexecuted": false,
+  "training_commit": "12eaf80e3f2dcbdc9df33749fa61aad5b6f6ce0c"
+}
