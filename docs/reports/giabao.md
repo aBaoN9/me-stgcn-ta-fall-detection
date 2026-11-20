@@ -4,7 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
-- Cập nhật: 19/11/2026, rà lần cuối và bổ sung tool kiểm/tải input, hướng dẫn local/Kaggle pin code cũ, quyền full CPU và nộp artifact theo `GB-20261119-002`. Bốn input của `GB-20261119-001` tải lại từ GitHub đúng hash; validation/checker PASS. Không chạy smoke/full nghiên cứu mới hoặc làm thay phần thành viên.
+- Cập nhật: 20/11/2026, đã nghiệm thu M0–M3 TCN–A3 của Tùng và merge PR #2 tại `bbe3c64638ce2cfae31348cb64a455a97c3548bf`; đồng bộ README/quyết định/bàn giao/bảng việc theo `GB-20261120-001`. Kiểm tra trên main sau merge: 10/10 tests, 68 hash artifact, input/code lock, bảng README và repo checker PASS. Không train full mới, đổi model triển khai, sửa Word hoặc nghiệm thu thay bài Đức.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
 - Trạng thái tạo/publish nhánh phải đối chiếu Git/remote, không dùng nội dung báo cáo này làm bằng chứng push thành công.
@@ -12,6 +12,16 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 20/11/2026 - Nghiệm thu Tùng, merge PR #2 và cập nhật README
+
+- Gia Bảo yêu cầu bổ sung bài Tùng lên main và cập nhật README, sau khi được báo đủ điều kiện nghiệm thu. PR #2 giữ head `b978ff0fdd2e4a9f38d9c2cd5bcc72950d98bcf4`, base `e16ee1a`, MERGEABLE và không có CI check được cấu hình. Các PASS dưới đây là local, không gọi là CI PASS.
+- Trước tích hợp đã kiểm 68 hash, raw OOF/metric, nhãn/video/subject, bốn input chuẩn, code lock, lịch sử 96 fits và chia subject; nạp và suy luận lại 24 checkpoint trên CPU cho cùng 2.880 quyết định. Score khác tối đa khoảng `0.000508` so với run CUDA; không suy ra tái lập bit-exact, latency GPU hoặc train lại. 10/10 tests PASS, gồm đối chiếu A3 gốc, hash/coverage/reload/resume và guard full/smoke.
+- Thực hiện `gh pr merge 2 --merge --match-head-commit b978ff0fdd2e4a9f38d9c2cd5bcc72950d98bcf4`, không squash/xóa nhánh; GitHub xác nhận MERGED ngày 20/11, merge commit `bbe3c64638ce2cfae31348cb64a455a97c3548bf`. Fetch và fast-forward local main. Không sửa/push nhánh Tùng hoặc Đức.
+- `GB-20261120-001` chốt `ACCEPTED_BENCHMARK` M0–M3 Tùng, không yêu cầu tìm điểm A3 thắng để được nhận bài. README tách A3 lịch sử 07 (89,58%) và A3 chạy lại trong run mới (89,38%); thêm định nghĩa/kiến trúc TCN, bảng mean/SD và từng seed, tham số/checkpoint/latency cùng điều kiện đo, lỗi lặp, giới hạn dữ liệu, artifact và hướng dẫn kiểm/chạy mới. Không đưa số chưa đo hoặc coi 2.880 dòng dự đoán là video độc lập.
+- Đồng bộ snapshot nghiệm thu trong AGENTS, nhiệm vụ/bảng việc, bàn giao và hướng dẫn train; không sửa báo cáo/trao đổi cá nhân Tùng sau merge. Ghi đề xuất nghiên cứu tiếp trong roadmap là chưa thực hiện, có nguyên tắc chọn ngưỡng/robustness/phân tích lỗi công bằng và công bố post-hoc. Không giao thêm thí nghiệm bắt buộc hoặc thay nhiệm vụ/mốc Đức.
+- Kiểm trên main đã tích hợp: `python -B -m training.backbone_benchmark.test_benchmark` (đặt 4 luồng Torch trong harness, Torch 2.11.0+cpu) **10/10 PASS**; 68 hash artifact và toàn bộ code lock/bốn input không đổi **PASS**; tính lại mean/sample-SD từ CSV fixed rồi đối chiếu bảng README **PASS**; `python scripts/check_repository.py` và `git diff --check` **PASS**. CSV/JSON artifact giữ CRLF theo `.gitattributes`, không normalize để đổi hash. Kiểm lại liên kết sau cập nhật report trước publish.
+- Sau merge chỉ thay tài liệu điều phối trên main, publish theo yêu cầu và kiểm SHA remote. Không sửa scientific code/lock/manifest, notebooks 06/07/08, model/threshold triển khai hoặc Word; PoseLab vẫn dừng. Full train mới và tái đo GPU **NOT_RUN**; công việc Đức chưa nghiệm thu trong phiên này.
 
 ## 19/11/2026 - Rà lần cuối và gỡ các vướng mắc vận hành
 

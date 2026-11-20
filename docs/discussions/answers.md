@@ -4,11 +4,21 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
-- Cập nhật: 19/11/2026, rà lần cuối và bổ sung quyền full CPU/hướng dẫn độc lập theo `GB-20261119-002`, trả lời `DUC-20261117-001`. Bốn input chuẩn đã có theo `GB-20261119-001`; quyền tự chủ, hạn/sản phẩm 25/11, phân công và việc dừng PoseLab vẫn giữ.
+- Cập nhật: 20/11/2026, đã nghiệm thu benchmark TCN–A3 của Tùng và merge PR #2 theo `GB-20261120-001`. Quyền tự chủ/CPU và hỗ trợ input vẫn giữ; Đức tiếp tục nhiệm vụ/hạn 25/11, không suy ra đã nghiệm thu bài Đức. PoseLab vẫn dừng, model triển khai không đổi.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261120-001 - Nghiệm thu và tích hợp benchmark TCN–A3 của Tùng
+
+- Gia Bảo yêu cầu ngày 20/11/2026: bổ sung bài Tùng vào main và cập nhật README đầy đủ, sau kết luận đủ điều kiện nhận PR. Nghiệm thu phạm vi **M0–M3 benchmark TCN–A3**, không phải tuyên bố TCN tốt hơn trên mọi dữ liệu hoặc cấp phép đổi deployment.
+- Nguồn đã review: `dinhtung` tại `b978ff0fdd2e4a9f38d9c2cd5bcc72950d98bcf4`, bộ kết quả được nộp ở `582b653c56d2d871fa86e8ae827205483aa3a746`, code train `12eaf80e3f2dcbdc9df33749fa61aad5b6f6ce0c`. [PR #2](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/2) đã **MERGED** bằng merge commit `bbe3c64638ce2cfae31348cb64a455a97c3548bf` ngày 20/11/2026, giữ lịch sử commit và nhánh thành viên.
+- Phần nhận vào main: `training/backbone_benchmark/`, bộ run `results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/`, thiết kế/phân tích và báo cáo/trao đổi Tùng. Đủ **96 fits, 24 outer runs, 24 checkpoint, 2.880 dòng dự đoán** (gồm ba chính sách), đúng bốn input chuẩn. Không sửa helper chung, notebook/model/kết quả cũ hoặc ứng dụng.
+- Kiểm độc lập trước tích hợp: 68 SHA-256 đúng; code/input lock khớp; đủ lịch sử inner/refit và chia subject không giao nhau; raw OOF/metric/nhãn/video/subject khớp. Nạp 24/24 checkpoint và suy luận CPU cho cùng 2.880 quyết định; score sai lệch tối đa khoảng `0.000508` do khác môi trường. 10/10 kiểm thử benchmark PASS. Review dùng Torch 2.11.0+cpu, không gọi là đã tái lập CUDA 2.10.0+cu126 hoặc train lại. Repo checker PASS; chính sách CRLF của artifact được giữ để không đổi hash, không normalize CSV/JSON cho sạch diff.
+- Kết quả chính `fixed`/0,5: Accuracy TCN **91,04% ± 0,72**, A3 chạy lại **89,38% ± 2,50**, tăng **1,67 điểm phần trăm**; TCN ít tham số hơn, nhưng thua A3 về Accuracy ở seed 242. Chỉ bốn người, outer fold đã được xem trong phát triển, không phải xác nhận độc lập. [README](../../README.md) tách bảng mới khỏi 07/08, ghi chi phí/latency, lỗi lặp, bằng chứng và cách kiểm/chạy lại.
+- Chấp nhận bàn giao Tùng **`ACCEPTED_BENCHMARK`**. Các snapshot cá nhân `READY_FOR_REVIEW` hoặc `NOT_RUN` cũ phản ánh thời điểm ghi, không đảo quyết định nghiệm thu này. Không yêu cầu tìm chỉ số/seed để A3 thắng hoặc chạy thêm mới chấp nhận sản phẩm. So sánh cùng mức FP, kiểm robustness pose, lỗi cặp hoặc A3 gọn hơn chỉ là đề xuất nghiên cứu tiếp, phải công bố là phân tích bổ sung và thiết kế công bằng; chưa phải kết quả đã đo.
+- **Không thay model/threshold triển khai, không bật PoseLab, không sửa Word trong phiên này.** Đức vẫn có quyền tự chủ và tiếp tục phần riêng; không lấy nghiệm thu Tùng làm nghiệm thu Đức hoặc tự thay mốc Đức bằng TCN. Kết quả mới đã public trên main không đồng nghĩa hai bạn đã đọc ở máy riêng.
 
 ## GB-20261119-002 - Gỡ vướng vận hành, được tự full CPU và nộp artifact
 

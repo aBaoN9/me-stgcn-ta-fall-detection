@@ -1,5 +1,7 @@
 # Bắt đầu làm bài và train - Tùng / Đức
 
+**Nghiệm thu 20/11/2026:** benchmark TCN–A3 của Tùng đã merge vào main qua PR #2 theo `GB-20261120-001`; code, checkpoint và kết quả [đã có sẵn](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md), không cần train lại để hoàn tất bàn giao này. Hướng dẫn bên dưới vẫn dùng cho kiểm tra/chạy mới có chủ đích; việc Tùng hoàn tất không đồng nghĩa phần Đức đã được nghiệm thu.
+
 Cập nhật 19/11/2026 theo `GB-20261119-002` trong [answers](discussions/answers.md). Hai bạn tự triển khai, khóa phương án, test/smoke thật rồi full; **không chờ Gia Bảo duyệt từng bước**. Hạn model đã train + đánh giá thật: **25/11/2026 (UTC+7)**. Đây là hướng dẫn hỗ trợ chạy, không phải kết quả mới hay nghiệm thu code của thành viên.
 
 ## 1. Nhận cập nhật, không mất bài đang làm
@@ -76,7 +78,7 @@ Nếu chữ ký code/config/input/môi trường/thiết bị thay đổi: dùng
 
 ## 5. Điểm bắt đầu và bằng chứng nộp
 
-- Tùng: M0 TCN hiện có là điểm xuất phát được phép; tự triển khai model/phương pháp khác, cặp so với A3, kiểm shape/mask/split/metric và smoke thật trước full. Không có runner TCN đã nghiệm thu trên main; tài liệu hỗ trợ không làm thay phần triển khai của Tùng.
+- Tùng: M0–M3 TCN–A3 đã nghiệm thu, runner nằm trong `training/backbone_benchmark/` trên main và run đã nộp giữ nguyên. Đọc README để kiểm checkpoint/dự đoán mà không train lại. Runner hiện yêu cầu CUDA/smoke thật cùng môi trường trước full, chưa có đường full CPU; nếu nghiên cứu tiếp theo CPU thì tự cập nhật mã/lock trong vùng riêng, không bỏ guard. Không bắt làm thêm để A3 thắng mới chấp nhận bài.
 - Đức: tiếp tục phần riêng `training/contribution_study/` trên `vinhduc`; đọc README của nhánh mình. Kiểm `check_quality_pooling`, `check_review_fixes`, `check_analysis`, validation/input guard, báo cáo quality và smoke **dữ liệu thật**. Full Q0/Q1 theo M0 hiện hành phải đủ 24 outer / 96 fits; sau full chạy `audit_existing`, `evaluate_models`, `analyze_q0_q1`. Đây là lệnh của nhánh Đức, chưa tích hợp lên main, không phải check đã chạy thay Đức trong phiên này.
 - Cả hai: nộp checkpoint/model load lại được, manifest SHA-256, config/code/input/environment lock, lệnh tái lập, raw OOF/predictions, metric theo fold/seed, threshold, log/completion, audit/reload và phân tích sai số/giới hạn. Xem checklist chính thức `GB-20261116-001` trong [answers](discussions/answers.md); kết quả không cải thiện vẫn hợp lệ nếu trung thực.
 - Artifact nhỏ: được tự commit đích danh trên nhánh mình; với file bị ignore chỉ `git add -f` đúng từng đường dẫn checkpoint đã kiểm cùng manifest, **không `git add -f .`**, không mở ignore toàn bộ model/data. Artifact không phù hợp Git: tự dùng GitHub Release và ghi URL/hash/cách tải/nạp, không xin lại việc chọn cách lưu. Không cần gh CLI nếu dùng giao diện GitHub; không đưa token, tài khoản riêng, video hoặc file runtime thừa vào repo.

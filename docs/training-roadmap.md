@@ -1,4 +1,14 @@
-# Hướng train và cải tiến tiếp — chưa thực hiện
+# Hướng nghiên cứu tiếp và kết quả đã nghiệm thu
+
+**Cập nhật 20/11/2026:** TCN–A3 của Tùng đã nghiệm thu và merge PR #2 theo `GB-20261120-001`; [bộ bàn giao](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) đã có trên main, không còn là đề xuất chưa train. TCN đạt Accuracy 91,04% so với A3 chạy lại 89,38%, nhưng chưa có tập xác nhận độc lập. Các hướng bổ sung bên dưới **chưa được thực hiện**, không làm thay đổi kết quả đã công bố hoặc đặt thêm điều kiện nghiệm thu Tùng. Bài Đức vẫn xét riêng.
+
+## Sau benchmark TCN–A3: đề xuất, không phải kết quả
+
+- So Sensitivity ở cùng mức báo động giả, chọn ngưỡng bằng inner validation thay vì chọn điểm có lợi trên outer-test. Báo cáo cả hai mô hình và toàn bộ subject/seed, không giấu vế bất lợi.
+- Đặt trước mức mất pose/nhiễu và phép đo để kiểm robustness công bằng. Chưa có bằng chứng A3 thắng ở đây; không ghi đặc tính graph/attention thành lợi ích thực nghiệm chưa kiểm.
+- Phân tích cặp lỗi A3 đúng/TCN sai và ngược lại, hoặc phát triển A3 gọn hơn với ngân sách tương đương. Phân tích nảy sinh sau khi xem test phải ghi là thăm dò; sửa thiết kế cần khóa trước đánh giá mới, không tối ưu theo các outer clip đã biết.
+
+Không bắt Tùng phải tìm số liệu để A3 thắng. Nếu TCN tiếp tục tốt hơn dưới điều kiện kiểm tra công bằng, báo cáo kết quả đó. Các quyền tự chủ hiện hành vẫn giữ, không tự cấp tiền/tài nguyên hoặc đổi giao thức chung/deployment.
 
 ## Phân công hiện hành ngày 30/10/2026
 

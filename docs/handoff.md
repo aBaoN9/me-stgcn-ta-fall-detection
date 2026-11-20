@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Cập nhật nghiệm thu 20/11/2026:** benchmark TCN–A3 của Tùng đã `ACCEPTED_BENCHMARK`, PR #2 merge vào main tại `bbe3c64`. [README](../README.md) và [bộ bàn giao](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) có code, 24 checkpoint, dự đoán và hướng dẫn. Quyết định `GB-20261120-001` trong [answers](discussions/answers.md) là trạng thái điều phối mới hơn snapshot cá nhân; chưa thay model triển khai hoặc nghiệm thu bài Đức.
+
 **Hỗ trợ chạy 19/11/2026:** [bắt đầu train](training-start.md) có tool input, local/Kaggle và xử lý notebook pin code cũ. Theo `GB-20261119-002`, cả hai được tự full CPU nếu thiếu GPU, khóa addendum/config/code trước outer-test và giữ điều kiện so sánh; không chờ duyệt.
 
 **Quy định hiện hành 18/11/2026 — `GB-20261118-001` (Tùng), `GB-20261116-002` (Đức):** Cả hai tự chọn phương án trong nhiệm vụ, triển khai, kiểm tra, smoke và full train khi đủ điều kiện; không chờ Gia Bảo duyệt M0, mô hình/kiến trúc, cấu hình, thiết bị hoặc review lại bản sửa trước chạy. Tùng được bắt đầu TCN so với A3 từ M0 đã nộp, tự điều chỉnh hoặc dùng dự phòng trước outer-test có ghi lý do. M0 phải được ghi/khóa trước outer-test; dữ liệu, split, seed và đánh giá chung không đổi; test và smoke thật phải PASS. Được commit/push sản phẩm đúng phạm vi lên nhánh cá nhân, upload artifact và mở PR, không xin lại từng lần. Review cuối vẫn quyết định nghiệm thu/merge main. Xem [quyết định chính thức](discussions/answers.md).
@@ -17,6 +19,7 @@ Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main đ
 | Model triển khai | Notebook 06: corrected angle, nested LOSO, final all-subject train. Không tự thay bằng ứng viên mới. |
 | Baseline/ablation | Notebook 07 và `training/component_ablation/`: SVM v2, A0/A1/A2/A3, cost 2,25; seed 42/142/242. [Phân tích](component-ablation.md) đã có cả ưu điểm và lỗi. |
 | Timing | Notebook 08: T0/T1 đã chạy; T1 chưa cải thiện ổn định. Không giao lại như chưa làm. |
+| Benchmark Tùng | TCN–A3 đã nghiệm thu M0–M3 qua PR #2 ngày 20/11: 96 fits, 24 checkpoint, TCN Accuracy 91,04% so với A3 chạy lại 89,38%; xem [bộ bàn giao](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md). Không thay deployment. |
 | Báo cáo | `docs/bao-cao.docx` là bản Word hiện tại, người điều phối cập nhật sau review; không tạo nhiều bản Word song song. |
 
 ## Khoảng trống học thuật

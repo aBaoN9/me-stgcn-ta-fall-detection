@@ -6,11 +6,11 @@
 
 **Hạn nộp sản phẩm: thứ Tư, 25/11/2026 (UTC+7), cho cả hai bạn. Sản phẩm gồm MODEL ĐÃ TRAIN + KẾT QUẢ ĐÁNH GIÁ, đưa lên GitHub**, kèm mã/lệnh tái lập và báo cáo. Không chỉ nộp M0 hoặc tiến độ. Tùng nộp mô hình/phương pháp khác; Đức nộp cặp mốc gốc/thay đổi có kiểm soát. Checklist artifact trong `GB-20261116-001` ở answers. Thiếu input/quyền/GPU phải báo sớm và nộp phần đã làm đúng hạn; chưa có đủ model/kết quả thật là chưa hoàn tất, cả hai tự chạy full sau khi tự kiểm đủ điều kiện, không chờ duyệt theo hai quyết định tự chủ; không ai được bịa kết quả.
 
-Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm vi giao ngày 28/10. Đây là hướng công việc, không áp sẵn lời giải. Tùng và Đức có quyền `AUTONOMOUS`, phải tự ghi/khóa M0 (`M0_DOCUMENTED` khi thực hiện), không phải đã hoàn tất; tiến độ/code đã có giữ trong báo cáo cá nhân, không xóa hoặc nhận là đã nghiệm thu. Người điều phối publish bản chung trên main sau kiểm tra; file local chưa đến máy thành viên.
+Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm vi giao ngày 28/10. Đây là hướng công việc, không áp sẵn lời giải. Quyền `AUTONOMOUS` không tự đồng nghĩa hoàn tất: M0 phải ghi/khóa trước outer-test, nghiệm thu dựa bằng chứng. **Ngày 20/11, Tùng đã được nghiệm thu M0–M3 benchmark TCN–A3 theo `GB-20261120-001`, PR #2 merge main; Đức tiếp tục phần riêng, chưa có nghiệm thu tương ứng trên main.** Không xóa lịch sử báo cáo hoặc coi phần chưa chạy là DONE. Người điều phối publish bản chung sau kiểm tra; không suy ra thành viên đã đọc ở máy riêng.
 
 | Người | Nhánh | Phần chính | Trạng thái | Nhiệm vụ | Báo cáo |
 |---|---|---|---|---|---|
-| Tùng | `dinhtung` | Giữ dataset, dùng mô hình hoặc phương pháp khác; so với ME-STGCN-TA | AUTONOMOUS (quyền thực hiện, chưa DONE) | [TUNG-01 đến TUNG-04](dinhtung.md) | [Tùng](../reports/dinhtung.md) |
+| Tùng | `dinhtung` | TCN–A3, M0–M3 đã nghiệm thu và PR #2 merge main ngày 20/11 | ACCEPTED_BENCHMARK (`GB-20261120-001`) | [TUNG-01 đến TUNG-04](dinhtung.md) | [Tùng](../reports/dinhtung.md) |
 | Đức | `vinhduc` | Giữ ME-STGCN-TA làm mốc, thay đổi có kiểm soát; so với bản gốc | AUTONOMOUS (quyền thực hiện, chưa DONE) | [DUC-01 đến DUC-04](vinhduc.md) | [Đức](../reports/vinhduc.md) |
 | Gia Bảo (người điều phối) | `giabao` | Phát triển kỹ thuật, review, chuẩn bị tích hợp và cập nhật Word | Theo yêu cầu | [Vai trò Gia Bảo](giabao.md) | [Gia Bảo](../reports/giabao.md) |
 

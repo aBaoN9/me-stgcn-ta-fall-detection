@@ -1,5 +1,7 @@
 # Quy tắc làm việc cho AI và thành viên
 
+**Nghiệm thu 20/11/2026 (`GB-20261120-001`):** benchmark TCN–A3 của Tùng đã được nhận M0–M3 và merge PR #2 vào main, trạng thái `ACCEPTED_BENCHMARK`. Code/checkpoint/kết quả xem README và `results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/`; không giao lại như chưa làm. Không thay model/threshold triển khai hoặc mốc của Đức, không bật PoseLab. Các hướng bổ sung là nghiên cứu tiếp, không là điều kiện chặn nghiệm thu.
+
 **Bổ sung 19/11/2026 (`GB-20261119-002`):** cả Tùng và Đức được tự full CPU nếu không có GPU, hai vế cùng thiết bị/recipe/ngân sách; tự ghi M0 addendum và khóa config/code mới trước outer-test, không xin lại. Giữ guard/test/smoke thật và dùng output mới khi đổi chữ ký. Tool kiểm/tải input, cách Kaggle pin code cũ và checklist nộp ở [bắt đầu train](docs/training-start.md).
 
 Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp dụng toàn repo.
