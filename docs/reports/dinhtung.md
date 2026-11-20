@@ -4,9 +4,12 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 
 ## Snapshot
 
-- 19/11/2026. Tùng đã nhận `GB-20261118-001` tại `origin/main` `af9e7fb`. `APPROVED_TO_PROCEED / AUTONOMOUS`; M0 `M0_DOCUMENTED`.
-- TUNG-02: dữ liệu, validation, kiểm thử phần mềm và smoke thật CPU PASS. Smoke Kaggle T4, TUNG-03/M2 và TUNG-04 `NOT_RUN`.
-- M1 được lưu trong commit `6b863fa` trên `dinhtung`. Nhận main `e16ee1a` qua commit nhập nhánh `4a96d4d`.
+- 20/11/2026. Trạng thái tổng thể `READY_FOR_REVIEW`, đang chờ Gia Bảo nghiệm thu.
+- M0 `M0_DOCUMENTED` theo quyền tự chủ `GB-20261118-001`. [Phương án và báo cáo nghiên cứu](../research/backbone-benchmark.md).
+- M1 **PASS**. Dữ liệu chuẩn và quy trình kiểm tra đạt, 10/10 kiểm thử phần mềm đạt, smoke (chạy thử) trên dữ liệu thật bằng RTX 3050 đạt 8/8 lượt.
+- M2 **PASS**. Đủ 96/96 lượt huấn luyện, 24 vòng đánh giá ngoài, 24 checkpoint (tệp trọng số đã lưu) và 2.880 dự đoán.
+- M3 đã kiểm chứng và bàn giao bộ kết quả trên `dinhtung` tại `582b653c56d2d871fa86e8ae827205483aa3a746`. Bản tải từ GitHub khớp 68 mã SHA-256, nạp được 24/24 checkpoint và tái tính đúng chỉ số. [Bộ kết quả](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) · [Danh mục SHA-256](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/m3_files_sha256.json) · [Danh mục checkpoint](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/models/manifest.json).
+- GitHub đã mở [PR #2](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/2) từ `dinhtung` vào `main`.
 
 ## Nhật ký mỗi phiên - mẫu để điền
 
