@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\tung-gru-ctr-rtx3050-20261120-233932-full-monitor-20261120-233954-backup",
+  "output": ".runtime\\tung-gru-ctr-rtx3050-20261120-233932-full",
+  "telemetry": ".runtime\\tung-gru-ctr-rtx3050-20261120-233932-full-monitor-20261120-233954-telemetry.csv",
+  "seconds": 428.11,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 556,
+  "baseline": [
+    0.063,
+    56,
+    9,
+    0,
+    12226.6
+  ],
+  "peak": [
+    66,
+    228,
+    44,
+    14064.3
+  ]
+}

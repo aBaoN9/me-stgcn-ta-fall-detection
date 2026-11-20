@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\tung-gru-ctr-rtx3050-20261120-233932-smoke-monitor-20261120-233938-backup",
+  "output": ".runtime\\tung-gru-ctr-rtx3050-20261120-233932-smoke",
+  "telemetry": ".runtime\\tung-gru-ctr-rtx3050-20261120-233932-smoke-monitor-20261120-233938-telemetry.csv",
+  "seconds": 15.2,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 20,
+  "baseline": [
+    0.063,
+    53,
+    9,
+    0,
+    12246.8
+  ],
+  "peak": [
+    56,
+    228,
+    37,
+    13687.2
+  ]
+}

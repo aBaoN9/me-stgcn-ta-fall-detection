@@ -1,0 +1,11 @@
+# Phương án bổ sung GRU và CTR-GCN
+
+20/11/2026 · Tùng · Theo đề nghị nghiên cứu bổ sung của Gia Bảo. Benchmark TCN–A3 đã được nghiệm thu theo `GB-20261120-001` và được giữ nguyên làm mốc tham chiếu. Kết quả mới mang tính khám phá vì cả bốn người và kết quả đánh giá ngoài trước đây đã được xem.
+
+## Thiết kế khóa trước đánh giá ngoài
+
+- **GRU_v2_small** giữ đúng phương án M0. Chuẩn hóa 264 đặc trưng theo kênh/khớp rồi chuyển sang 32 bước. GRU một lớp, một chiều, 64 chiều ẩn. Trạng thái cuối qua dropout 0,3 rồi Linear 64→2.
+- **CTR_GCN_adapted** dùng đồ thị MediaPipe 33 khớp của pipeline nhóm, gồm tự nối và hai hướng xương chuẩn hóa theo hàng đích. Mỗi nhóm kết hợp đồ thị nền học được và hiệu chỉnh theo clip, theo kênh, từ hiệu truy vấn–khóa trung bình theo thời gian qua tanh. Ba khối 16/24/32 kênh, stride thời gian 1/2/2, hai nhánh tích chập thời gian kernel 3 và dilation 1/2, nối tắt và trung bình không gian–thời gian. Thiết kế nhỏ cho GPU 4 GiB thay cho mạng sâu đa nhánh của tác giả.
+- Mã mới tự triển khai từ mô tả thuật toán của Chen và cộng sự. Đã đối chiếu [bài gốc](https://arxiv.org/abs/2107.12213), [mã tại e13d758](https://github.com/Uason-Chen/CTR-GCN/blob/e13d7582e281d06711eeecb380a472b278ae1663/model/ctrgcn.py) và [giấy phép CC BY-NC 4.0](https://github.com/Uason-Chen/CTR-GCN/blob/e13d7582e281d06711eeecb380a472b278ae1663/LICENSE). Mã gốc dùng bối cảnh NTU (25 khớp), NW-UCLA và cấu hình nhiều người/phương thức. Không nhập mã, dữ liệu hay trọng số của tác giả.
+- Cả hai học từ đầu trên cùng GMDCSA-24 (160 clip, bốn người, bốn SHA-256 chuẩn), tám kênh v2 và cùng mặt nạ/augmentation của pipeline đã nghiệm thu. Giữ seed 42/142/242 và Nested LOSO (chia lồng theo người), 36 lượt inner và 12 refit mỗi mô hình. Giữ AdamW, cân bằng lớp, loss validation không trọng số để chọn epoch, median epoch cho refit và quy tắc chọn ngưỡng chỉ từ inner validation. Chỉ số chính là Accuracy với ngưỡng 0,5. Hai ngưỡng phụ giữ nguyên.
+- Tiến hành tuần tự trên RTX 3050. Mỗi thư mục chạy ghi `locked_protocol.json` với mã băm dữ liệu, mã nguồn, bản thiết kế này, cấu hình và môi trường. Cần smoke thật 8/8, nạp lại checkpoint và đủ dự đoán trước full. Hai mốc TCN/A3 lấy từ kết quả đã nghiệm thu và đối chiếu khóa môi trường khi so sánh.
