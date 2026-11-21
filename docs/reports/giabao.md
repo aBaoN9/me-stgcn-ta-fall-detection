@@ -4,6 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
+- Cập nhật 21/11/2026: đã review PR #3 tại `5965c3e` và chuẩn bị bản sửa local trên `giabao` cho lỗi monitor chưa tạo thư mục cha `.runtime`. Chỉ lấy tiện ích monitor từ PR để sửa một dòng và thêm test riêng trong `supplement/tools/`; chưa merge PR #3, commit hoặc push. Không sửa code train, khóa nguồn khoa học hay artifact.
 - Cập nhật: 20/11/2026, đã nghiệm thu M0–M3 TCN–A3 của Tùng và merge PR #2 tại `bbe3c64638ce2cfae31348cb64a455a97c3548bf`; đồng bộ README/quyết định/bàn giao/bảng việc theo `GB-20261120-001`. Kiểm tra trên main sau merge: 10/10 tests, 68 hash artifact, input/code lock, bảng README và repo checker PASS. Không train full mới, đổi model triển khai, sửa Word hoặc nghiệm thu thay bài Đức.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
@@ -12,6 +13,13 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 21/11/2026 - Review PR #3 và sửa lỗi khởi chạy monitor
+
+- Review head `5965c3e005e28928fd6137234095d64ecf41339d`: 80 hash artifact, 11 file code lock và bốn input chuẩn khớp; kiểm lịch sử 96 fits, split, epoch/ngưỡng và tái tính metric/năm bảng so sánh PASS. Nạp lại 24 checkpoint full trên CPU cho cùng 2.880 quyết định (score lệch tối đa khoảng `0.000397` so với CUDA); hai checkpoint smoke cũng khớp quyết định. 13 tests của PR và repo checker PASS. Không train lại hoặc đo lại GPU; chưa nghiệm thu/merge PR #3.
+- Tái hiện lỗi `backup.mkdir()` khi `.runtime` chưa tồn tại. Theo yêu cầu sửa của Gia Bảo, fast-forward nhánh phát triển `giabao` tới main đã nghiệm thu, lấy riêng `training/backbone_benchmark/supplement/tools/monitor_windows.py` từ PR #3 và đổi thành `backup.mkdir(parents=True)`. Không sửa/push nhánh Tùng hoặc Đức, không nhập toàn bộ PR vào main.
+- Thêm `training/backbone_benchmark/supplement/tools/test_monitor_windows.py`: giả lập GPU/process/memory, kiểm tạo runtime mới, runtime đã tồn tại và guard nhiệt 87 C. Trước sửa: hai ca fresh-checkout lỗi đúng `FileNotFoundError`, ca runtime có sẵn PASS. Sau sửa: 3/3 PASS; chạy cùng 10 tests benchmark đã nghiệm thu thành 13/13 PASS. Lệnh: `python -B -m unittest -v training.backbone_benchmark.test_benchmark training.backbone_benchmark.supplement.tools.test_monitor_windows` (harness giới hạn Torch bốn luồng).
+- Các file sửa nằm trong `supplement/tools/`, ngoài danh sách nguồn khoa học đã khóa của PR #3; không đổi checkpoint, prediction, config, model hoặc runner huấn luyện, không cần train lại. Monitor phụ thuộc runner bổ sung của PR #3 khi chạy thật; bản local này là patch chuẩn bị để tích hợp cùng PR, không phải toàn bộ nghiên cứu đã có trên giabao/main. Kiểm tra `python -B scripts/check_repository.py` PASS; chưa commit/push hoặc sửa model triển khai, PoseLab hay Word.
 
 ## 20/11/2026 - Nghiệm thu Tùng, merge PR #2 và cập nhật README
 
