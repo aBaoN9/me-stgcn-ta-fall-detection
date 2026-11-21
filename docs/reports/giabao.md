@@ -4,6 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
+- Phiên tiếp 21/11/2026: chủ repo yêu cầu bắt đầu tuning trên Kaggle, không còn chỉ lập kế hoạch. Đã triển khai `training/a3_tuning/`, đăng ký thực thi, kiểm **24/24 tests PASS** (8 mới + 16 cũ), **12 fits smoke dữ liệu thật trên CPU PASS**; chưa coi CPU smoke là bằng chứng GPU/full. Kaggle trong Codex đã cấp 2 Tesla T4, Python 3.13.16 / Torch 2.11.0+cu130; giữ runtime sẵn có, khác RTX3050 của Tùng. Trạng thái full phải đối chiếu Kaggle/log sau khởi chạy, chưa có kết quả thắng.
 - Phạm vi mới 21/11/2026 (`GB-20261121-002`): đã gỡ 31 file PoseLab trong `app/`, demo mới `DEFERRED`; cập nhật README/quy tắc/bàn giao và [kế hoạch tuning A3](../research/a3-tuning-plan.md), `PLANNED / NOT_RUN`. 16/16 regression tests, repo checker, 68+80 hash artifact và code/input lock PASS. Không sửa scientific source/results/model/notebook/Word; không train thí nghiệm mới. Phiên phát triển trên `giabao` từ main `3bae43b`, tích hợp/publish main theo yêu cầu; đối chiếu SHA remote thay vì coi ghi chú này là bằng chứng push.
 - Cập nhật 21/11/2026: Gia Bảo đã yêu cầu sửa rồi merge PR #3 và cập nhật README. Tích hợp head đã review `5965c3e` cùng bản sửa monitor/ba test riêng trên `giabao`, nghiệm thu bổ sung theo `GB-20261121-001`. 16/16 tests, 80 hash mới/68 hash cũ, code/input lock, bảng README và repo checker PASS. Giữ code train, artifact, deployment, PoseLab và Word; trạng thái publish/SHA merge tra `origin/main` và PR #3, không dùng ghi chú này thay xác minh remote.
 - Cập nhật: 20/11/2026, đã nghiệm thu M0–M3 TCN–A3 của Tùng và merge PR #2 tại `bbe3c64638ce2cfae31348cb64a455a97c3548bf`; đồng bộ README/quyết định/bàn giao/bảng việc theo `GB-20261120-001`. Kiểm tra trên main sau merge: 10/10 tests, 68 hash artifact, input/code lock, bảng README và repo checker PASS. Không train full mới, đổi model triển khai, sửa Word hoặc nghiệm thu thay bài Đức.
@@ -14,6 +15,13 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 21/11/2026 - Triển khai runner tuning và chuẩn bị Kaggle
+
+- Yêu cầu mới: mở Kaggle trong Codex, chạy nhiều hướng và xem lại sau một giờ. Dùng notebook riêng `A3 Multi Recipe Nested LOSO 20261121` trên tài khoản đã đăng nhập; UI cho biết còn 30 giờ GPU, chọn T4 x2 miễn phí. Probe thật trả 2 Tesla T4, Python 3.13.16 và Torch 2.11.0+cu130. Không tạo key/tài khoản, mua quota hoặc sửa notebook Kaggle khác.
+- Runner riêng import A3/TCN/GRU và helper nguồn, 6 recipe/model, nested selection từng outer/seed, fixed 0.5; GPU worker chia đều model. Khóa input/code/config/runtime/smoke trước full; checkpoint optimizer/scheduler và RNG đầy đủ để resume, hash kiểm artifact hoàn tất. C0 giữ epoch selection của baseline (improvement >1e-6), tie-break recipe dùng log-softmax CE, đã ghi rõ trong đăng ký.
+- Kiểm local: **24/24 tests PASS**, gồm parity C0 A3 với nguồn cũ chính xác từng tensor, resume chính xác C0/C4/C5 cho ba model, scheduler/RNG, guard corruption/lock, selection/split, refit/reload, một outer synthetic end-to-end và coverage/budget. `python -B -m training.a3_tuning.runner --mode smoke --device cpu --input-root data/gmdcsa24 --output .runtime/a3-tuning-cpu-smoke-20261121`: **SMOKE_PASS**, 12 fits dữ liệu thật/24 artifact; chỉ preflight CPU. Repo checker và whitespace check PASS. Không sửa nguồn/lock/kết quả gốc.
+- Notebook sẽ pin commit code bất biến, kiểm SHA source và đủ bốn input; chạy regression, smoke GPU thật, chỉ full nếu đạt. Dự kiến 684 fits full, smoke GPU 12 fits ngoài ngân sách; không tự giảm seed/fold theo thời hạn một giờ. Chỉ báo FULL khi đủ inventory; chưa có số tuning để công bố trong snapshot chuẩn bị này.
 
 ## 21/11/2026 - Gỡ PoseLab, hoãn demo và lập kế hoạch tuning A3
 
