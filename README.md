@@ -1,6 +1,6 @@
 # 🛡️ ME-STGCN-TA — Phát hiện té ngã từ khung xương
 
-**Phạm vi mới 21/11/2026 — `GB-20261121-002`:** đã gỡ mã PoseLab (`app/`) khỏi bản repo hiện hành; **app demo sẽ triển khai sau**, không làm UI/QA lúc này. Model, dữ liệu, kết quả, notebook và Word được giữ nguyên. Đã lập [kế hoạch tuning A3 so với TCN/GRU](docs/research/a3-tuning-plan.md): `PLANNED / NOT_RUN`, chưa có runner mới hoặc lượt train mới, chưa có kết quả chứng minh vượt đối chứng.
+**Phạm vi mới 21/11/2026 — `GB-20261121-002`:** đã gỡ mã PoseLab (`app/`) khỏi bản repo hiện hành; **app demo sẽ triển khai sau**, không làm UI/QA lúc này. Model, dữ liệu, kết quả, notebook lịch sử và Word được giữ nguyên. Theo yêu cầu tiếp của Gia Bảo, đã triển khai [runner/launcher tuning A3–TCN–GRU](training/a3_tuning/README.md), khóa sáu recipe và gửi phiên Kaggle nền; xem trạng thái thực tế bên dưới. Chưa có kết quả tuning chứng minh vượt đối chứng.
 
 **Cập nhật 21/11/2026:** đã nghiệm thu và tích hợp [PR #3 của Tùng](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/3), bổ sung **GRU và CTR-GCN adapted** với 96 fits và 24 checkpoint full mới. So sánh bốn model tại ngưỡng 0,5: **TCN 91,04%**, GRU 89,58%, A3 chạy lại 89,38%, CTR-GCN adapted 88,54% Accuracy trung bình. GRU nhanh nhất trong phép đo model-only; TCN có Sensitivity trung bình cao nhất. Đã sửa lỗi monitor khi chưa có `.runtime`, không cần train lại. Quyết định `GB-20261121-001` trong [answers](docs/discussions/answers.md); **không thay model triển khai**.
 
@@ -208,12 +208,13 @@ Chỉ chạy thí nghiệm mới khi có chủ đích, không ghi đè artifact 
 
 Không cần tìm chỉ số hoặc chọn seed có lợi cho A3 để phủ nhận kết quả TCN. Bảng lỗi/ghép cặp bốn model và chỉ số theo subject **đã có trong PR #3**. Các thí nghiệm còn có thể kiểm tiếp: độ nhạy ở cùng mức báo động giả (ngưỡng chọn bằng inner validation), độ bền khi pose thiếu/nhiễu, hoặc phiên bản A3 gọn hơn theo ngân sách công bằng. Ba hướng này là **đề xuất chưa thực hiện**, chưa phải bằng chứng A3 tốt hơn. Phân tích bổ sung sau khi đã thấy test phải ghi rõ tính thăm dò; thiết kế thí nghiệm mới cần khóa trước đánh giá và tập xác nhận độc lập nếu có điều kiện. Xem [roadmap](docs/training-roadmap.md).
 
-## Kế hoạch tuning A3 — chưa chạy
+## Tuning A3 — đã triển khai, chờ kết quả
 
 [Thiết kế chi tiết](docs/research/a3-tuning-plan.md) lấy **TCN và GRU** làm hai đối chứng chính, CTR-GCN adapted là tham chiếu phụ. Ưu tiên tuning learning rate, weight decay, dropout, lịch learning rate và label smoothing trên nguyên kiến trúc A3; không sửa nguồn hoặc ghi đè kết quả đã nghiệm thu.
 
 - Mốc cần vượt về Accuracy: TCN **91,04%**, GRU **89,58%**; A3 rerun hiện **89,38%**. Sensitivity, FN/FP, specificity, từng subject/seed và chi phí vẫn phải báo cáo, không chỉ chọn chỉ số có lợi.
-- Sáu recipe định trước; chọn riêng trong inner folds của từng outer/seed. So **tuned với tuned** cần cùng ngân sách cho A3/TCN/GRU: **648 inner fits + 36 outer refits = 684 fits**; đây là dự toán, **chưa chạy**. Không chọn cấu hình bằng outer-test.
+- Sáu recipe định trước; chọn riêng trong inner folds của từng outer/seed. So **tuned với tuned** dùng cùng ngân sách cho A3/TCN/GRU: **648 inner fits + 36 outer refits = 684 fits**. Không chọn cấu hình bằng outer-test; chỉ báo hoàn tất khi đủ 684 fits/36 outer folds/1.440 dòng OOF.
+- **Snapshot 14:51 ngày 21/11/2026 (UTC+7): FULL RUNNING**, đã thấy **101/684 fits, 4/36 outer folds** trong log [Kaggle editor riêng tư](https://www.kaggle.com/code/nguyngiabodzaivail/a3-multi-recipe-nested-loso-20261121/edit), T4 x2. Source pin `7543cac24fcb1e5ba05554d4aa7113b29ad3632d`, launcher `d62c14e41fa443ebdda47d5944f97964d04cb448`; không phụ thuộc main thay đổi sau đó. Trên Kaggle đã kiểm đúng 21 source SHA/bốn input, **24/24 tests PASS**, **12 fits smoke GPU thật PASS** (15,4 giây), rồi mới full với hai worker. Bản nền version 1 đã hủy khi còn queued/0 giây chạy, chuyển sang Run All trực tiếp, không chạy full trùng; giữ phiên editor, không Stop Session hoặc bấm Run All lần nữa. Xem [báo cáo](docs/reports/giabao.md); số partial chưa phải kết quả cuối để so thắng/thua, không hứa full xong trong một giờ.
 - GRU có latency model-only **0,366 ms** trong lần đo đã nhận; thắng Accuracy không đồng nghĩa thắng tốc độ. A3 gọn hơn là hướng kiến trúc riêng, chưa thực hiện.
 - Gia Bảo giữ track kế hoạch này; không đổi bài/mốc/hạn **25/11/2026** của Đức, không yêu cầu Tùng train lại. Dữ liệu bốn người đã xem chỉ cho kết luận thăm dò; cần subject/tập xác nhận độc lập trước tuyên bố tổng quát.
 

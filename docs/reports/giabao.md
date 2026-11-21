@@ -4,6 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
+- **14:51 ngày 21/11/2026 (UTC+7): FULL RUNNING trên Kaggle**, đã thấy 101/684 fits, 4/36 outer folds trong log full trực tiếp. 21 source SHA/bốn input, 24 tests và 12 fits smoke GPU thật đều PASS trước full. Version 1 (`372102995`) đã hủy khi còn queued/0 giây chạy; phiên Run All trong editor mới là run đang hoạt động. Không có kết quả tuning cuối và chưa tuyên bố vượt Tùng.
 - Phiên tiếp 21/11/2026: chủ repo yêu cầu bắt đầu tuning trên Kaggle, không còn chỉ lập kế hoạch. Đã triển khai `training/a3_tuning/`, đăng ký thực thi, kiểm **24/24 tests PASS** (8 mới + 16 cũ), **12 fits smoke dữ liệu thật trên CPU PASS**; chưa coi CPU smoke là bằng chứng GPU/full. Kaggle trong Codex đã cấp 2 Tesla T4, Python 3.13.16 / Torch 2.11.0+cu130; giữ runtime sẵn có, khác RTX3050 của Tùng. Trạng thái full phải đối chiếu Kaggle/log sau khởi chạy, chưa có kết quả thắng.
 - Phạm vi mới 21/11/2026 (`GB-20261121-002`): đã gỡ 31 file PoseLab trong `app/`, demo mới `DEFERRED`; cập nhật README/quy tắc/bàn giao và [kế hoạch tuning A3](../research/a3-tuning-plan.md), `PLANNED / NOT_RUN`. 16/16 regression tests, repo checker, 68+80 hash artifact và code/input lock PASS. Không sửa scientific source/results/model/notebook/Word; không train thí nghiệm mới. Phiên phát triển trên `giabao` từ main `3bae43b`, tích hợp/publish main theo yêu cầu; đối chiếu SHA remote thay vì coi ghi chú này là bằng chứng push.
 - Cập nhật 21/11/2026: Gia Bảo đã yêu cầu sửa rồi merge PR #3 và cập nhật README. Tích hợp head đã review `5965c3e` cùng bản sửa monitor/ba test riêng trên `giabao`, nghiệm thu bổ sung theo `GB-20261121-001`. 16/16 tests, 80 hash mới/68 hash cũ, code/input lock, bảng README và repo checker PASS. Giữ code train, artifact, deployment, PoseLab và Word; trạng thái publish/SHA merge tra `origin/main` và PR #3, không dùng ghi chú này thay xác minh remote.
@@ -15,6 +16,20 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 21/11/2026 - Chạy tuning thật trên Kaggle
+
+- Khoảng 14:46: phiên Save & Run All vẫn queued sau khoảng chín phút. Dừng riêng job chưa chạy; Version History xác nhận `Cancelled after 0 seconds`. Không gọi toast `Save & Run All complete` là hoàn tất thí nghiệm. Không đổi code/recipe, không tạo kết quả từ phiên bị hủy.
+- Khoảng 14:47: Run All trong [editor](https://www.kaggle.com/code/nguyngiabodzaivail/a3-multi-recipe-nested-loso-20261121/edit) cấp 2 Tesla T4 thật, Python 3.13.16 / Torch 2.11.0+cu130; giữ môi trường sẵn có. Source 21 file/bốn input chuẩn xác minh PASS. 24/24 tests PASS trong 23,432 giây (lệnh 29,14 giây). GPU smoke dữ liệu thật **SMOKE_PASS 12 fits/24 artifact**, lệnh 15,4 giây, fingerprint `ef225a27fe70d70d7d033876693d8273bc4591fc9eda89688a90250d636c2dba`.
+- **14:48: FULL RUNNING**, log từ 0 lên **3/684 completed fits**, 0/36 outer; đây là fit full, không phải các INNER_DONE của regression synthetic. Hai worker chạy riêng trên hai GPU, cùng ngân sách/recipe. Chưa có metric cuối hoặc nghiệm thu; không hứa xong trong một giờ. Giữ editor/phiên trực tiếp, không Stop Session/restart/bấm Run All lần nữa; không mô tả fallback này là background commit đang chạy. Đọc `full/progress.json`, `worker0.log`, `worker1.log` và partial outputs khi kiểm lại.
+- **14:51: log lên 101/684 fits, 4/36 outer folds**, tiếp tục RUNNING. Ảnh xác nhận lưu cục bộ (Git ignore) `.runtime/kaggle-a3-full-running-20261121.jpg`, giữ tab editor cho lần kiểm tiếp; không coi việc kết thúc lượt chat là có agent giám sát tự động sau đó.
+- Kiểm lại local sau đổi tài liệu: 24/24 tests PASS (32,421 giây), repo checker và whitespace PASS. README/report chỉ là snapshot; nguồn/design đã pin không đổi sau full start. Main vẫn `4edd8d4`; runner/launcher đã publish trên `giabao`, chưa tự tích hợp nghiên cứu mới vào main.
+
+## 21/11/2026 - Gửi phiên Kaggle nền (lịch sử hàng đợi)
+
+- [Kaggle version 1](https://www.kaggle.com/code/nguyngiabodzaivail/a3-multi-recipe-nested-loso-20261121?scriptVersionId=372102995), tên `A3 C0-C5 locked 684 fits source 7543cac`, gửi Save & Run All khoảng 14:36 UTC+7. UI Logs và Active Events xác nhận `QUEUED`, GPU T4 x2; phiên nháp chỉ probe phần cứng đã dừng, không phải full bị hủy. Không sửa quyền riêng tư, tạo API key hoặc mua tài nguyên.
+- Launcher sạch sáu cell ở commit `d62c14e41fa443ebdda47d5944f97964d04cb448`, nhập bằng URL GitHub bất biến; source pin `7543cac24fcb1e5ba05554d4aa7113b29ad3632d`, kiểm SHA 21 file. Chỉ cập nhật tài liệu trạng thái ngoài design/code lock sau gửi, không đổi code/recipe theo outer scores.
+- Output `/kaggle/working/a3-tuning-20261121/`, log preflight/smoke/full, checkpoint/progress/partial metrics. Sau đủ 684 fits mới có `full/completion.json` và archive `a3-tuning-20261121-result.tar.gz`. Chưa có log GPU smoke/full trong snapshot hàng đợi; không dùng local CPU smoke hoặc trạng thái queued thay bằng chứng chạy.
 
 ## 21/11/2026 - Triển khai runner tuning và chuẩn bị Kaggle
 
