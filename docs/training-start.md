@@ -1,5 +1,7 @@
 # Bắt đầu làm bài và train - Tùng / Đức
 
+**Nghiệm thu bổ sung 21/11/2026:** GRU/CTR-GCN adapted của Tùng đã được nhận qua PR #3 theo `GB-20261121-001`, kèm [hướng dẫn runner](../training/backbone_benchmark/supplement/README.md), checkpoint/kết quả và bản sửa monitor tạo thư mục cha. Không cần train lại để nhận bản sửa; chạy kiểm thử mới theo README. Chưa cập nhật Word/đổi deployment hoặc nghiệm thu bài Đức.
+
 **Nghiệm thu 20/11/2026:** benchmark TCN–A3 của Tùng đã merge vào main qua PR #2 theo `GB-20261120-001`; code, checkpoint và kết quả [đã có sẵn](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md), không cần train lại để hoàn tất bàn giao này. Hướng dẫn bên dưới vẫn dùng cho kiểm tra/chạy mới có chủ đích; việc Tùng hoàn tất không đồng nghĩa phần Đức đã được nghiệm thu.
 
 Cập nhật 19/11/2026 theo `GB-20261119-002` trong [answers](discussions/answers.md). Hai bạn tự triển khai, khóa phương án, test/smoke thật rồi full; **không chờ Gia Bảo duyệt từng bước**. Hạn model đã train + đánh giá thật: **25/11/2026 (UTC+7)**. Đây là hướng dẫn hỗ trợ chạy, không phải kết quả mới hay nghiệm thu code của thành viên.

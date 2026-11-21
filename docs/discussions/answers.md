@@ -4,11 +4,21 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
+- Cập nhật 21/11/2026: nghiệm thu bổ sung GRU/CTR-GCN adapted của Tùng qua PR #3, tích hợp bản sửa monitor và cập nhật README theo `GB-20261121-001`. Quyền tự chủ, hạn bài Đức, model triển khai, trạng thái tắt PoseLab và Word giữ nguyên.
 - Cập nhật: 20/11/2026, đã nghiệm thu benchmark TCN–A3 của Tùng và merge PR #2 theo `GB-20261120-001`. Quyền tự chủ/CPU và hỗ trợ input vẫn giữ; Đức tiếp tục nhiệm vụ/hạn 25/11, không suy ra đã nghiệm thu bài Đức. PoseLab vẫn dừng, model triển khai không đổi.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261121-001 - Nghiệm thu bổ sung GRU/CTR-GCN và sửa monitor
+
+- **Nguồn yêu cầu:** Gia Bảo yêu cầu sửa lỗi đã review, merge PR #3 và cập nhật README đúng tiến độ ngày 21/11/2026 (UTC+7). Nhận head `5965c3e005e28928fd6137234095d64ecf41339d`, giữ lịch sử và không sửa/push nhánh cá nhân Tùng/Đức.
+- **Quyết định:** `ACCEPTED_BENCHMARK` cho phần GRU/CTR-GCN adapted bổ sung; không thay nghiệm thu TCN–A3 theo `GB-20261120-001`. Có 96 fits mới, 24 checkpoint full và 2.880 dòng dự đoán; smoke 8 fits/hai checkpoint riêng. [Bằng chứng](../../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) và [thiết kế/giới hạn](../research/gru-ctrgcn-addendum.md).
+- **Đối chiếu:** 80 hash artifact, 11 file code lock và bốn input khớp; lịch sử/split/chọn epoch-ngưỡng và tái tính metric/năm bảng so sánh PASS. Replay CPU 24 checkpoint full cho cùng 2.880 quyết định, score lệch tối đa khoảng `0.000397` so với CUDA; smoke cũng khớp. Không coi replay là train lại hoặc đo lại latency GPU.
+- **Bản sửa điều phối:** `backup.mkdir(parents=True)` trong monitor để hỗ trợ checkout chưa có `.runtime`; thêm ba test riêng cho runtime mới/có sẵn/guard nhiệt. Không đổi nguồn train đã khóa, config, checkpoint hoặc kết quả. Không yêu cầu Tùng train lại. Sau tích hợp, 16 tests local và repository checker PASS; không có CI được cấu hình cho PR.
+- **Kết luận được phép:** fixed Accuracy trung bình TCN 91,04%, GRU 89,58%, A3 chạy lại 89,38%, CTR-GCN adapted 88,54%. GRU nhanh nhất theo phép đo model-only, CTR-GCN adapted nhỏ nhất nhưng FN nhiều nhất; A3 mạnh hơn trên S4. Đây là kết quả khám phá của 160 clip/bốn người đã xem, không chứng minh ưu thế phổ quát hoặc tính năng chưa đo. Latency đo lại cả bốn, không trộn với phép đo cũ.
+- **Phạm vi giữ nguyên:** chưa thay model/threshold triển khai, bật PoseLab hoặc cập nhật Word; bài Đức tiếp tục độc lập theo hạn 25/11. Không đặt thêm thí nghiệm thành điều kiện chặn nghiệm thu Tùng. Sau publish, hai bạn fetch/merge main an toàn; không suy ra đã đọc ở máy riêng.
 
 ## GB-20261120-001 - Nghiệm thu và tích hợp benchmark TCN–A3 của Tùng
 

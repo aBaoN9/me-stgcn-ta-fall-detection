@@ -1,5 +1,7 @@
 # Quy tắc làm việc cho AI và thành viên
 
+**Nghiệm thu bổ sung 21/11/2026 (`GB-20261121-001`):** đã nhận GRU/CTR-GCN adapted trong PR #3 của Tùng, head `5965c3e`, tích hợp cùng bản sửa monitor tự tạo thư mục cha `.runtime` và ba test riêng. Run `results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/` có 96 fits, 24 checkpoint full và 2.880 dòng dự đoán mới; mốc TCN–A3 giữ nguyên. Không yêu cầu train lại vì sửa tiện ích ngoài code lock; không đổi deployment, PoseLab, Word hoặc nghiệm thu thay bài Đức. Xem README/answers để không giao lại việc đã hoàn tất.
+
 **Nghiệm thu 20/11/2026 (`GB-20261120-001`):** benchmark TCN–A3 của Tùng đã được nhận M0–M3 và merge PR #2 vào main, trạng thái `ACCEPTED_BENCHMARK`. Code/checkpoint/kết quả xem README và `results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/`; không giao lại như chưa làm. Không thay model/threshold triển khai hoặc mốc của Đức, không bật PoseLab. Các hướng bổ sung là nghiên cứu tiếp, không là điều kiện chặn nghiệm thu.
 
 **Bổ sung 19/11/2026 (`GB-20261119-002`):** cả Tùng và Đức được tự full CPU nếu không có GPU, hai vế cùng thiết bị/recipe/ngân sách; tự ghi M0 addendum và khóa config/code mới trước outer-test, không xin lại. Giữ guard/test/smoke thật và dùng output mới khi đổi chữ ký. Tool kiểm/tải input, cách Kaggle pin code cũ và checklist nộp ở [bắt đầu train](docs/training-start.md).

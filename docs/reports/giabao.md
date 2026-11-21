@@ -4,7 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
-- Cập nhật 21/11/2026: đã review PR #3 tại `5965c3e` và chuẩn bị bản sửa local trên `giabao` cho lỗi monitor chưa tạo thư mục cha `.runtime`. Chỉ lấy tiện ích monitor từ PR để sửa một dòng và thêm test riêng trong `supplement/tools/`; chưa merge PR #3, commit hoặc push. Không sửa code train, khóa nguồn khoa học hay artifact.
+- Cập nhật 21/11/2026: Gia Bảo đã yêu cầu sửa rồi merge PR #3 và cập nhật README. Tích hợp head đã review `5965c3e` cùng bản sửa monitor/ba test riêng trên `giabao`, nghiệm thu bổ sung theo `GB-20261121-001`. 16/16 tests, 80 hash mới/68 hash cũ, code/input lock, bảng README và repo checker PASS. Giữ code train, artifact, deployment, PoseLab và Word; trạng thái publish/SHA merge tra `origin/main` và PR #3, không dùng ghi chú này thay xác minh remote.
 - Cập nhật: 20/11/2026, đã nghiệm thu M0–M3 TCN–A3 của Tùng và merge PR #2 tại `bbe3c64638ce2cfae31348cb64a455a97c3548bf`; đồng bộ README/quyết định/bàn giao/bảng việc theo `GB-20261120-001`. Kiểm tra trên main sau merge: 10/10 tests, 68 hash artifact, input/code lock, bảng README và repo checker PASS. Không train full mới, đổi model triển khai, sửa Word hoặc nghiệm thu thay bài Đức.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
 - Quyết định chính thức và các phản hồi cho Tùng/Đức vẫn ở `docs/discussions/answers.md` trên main; báo cáo này không thay kênh phê duyệt.
@@ -13,6 +13,14 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 21/11/2026 - Tích hợp PR #3, bản sửa monitor và cập nhật tiến độ
+
+- Sau review, Gia Bảo yêu cầu sửa rồi merge và cập nhật README. Bản sửa/test được commit trên `giabao` tại `84b7f12`; merge giữ head `5965c3e005e28928fd6137234095d64ecf41339d` làm cha để bảo toàn lịch sử PR. Xung đột add/add duy nhất ở monitor được giải bằng đúng một dòng `backup.mkdir(parents=True)` so với PR; không sửa/push nhánh Tùng hoặc Đức.
+- Windows gặp đường dẫn artifact dài khi checkout: dùng Git long paths cho lệnh tích hợp; các file do lần merge dở tạo đã được đối chiếu byte với PR và bảo toàn trong `.runtime/merge-recovery-pr3/` trước thử lại. Không reset/clean/đổi tên artifact hoặc sửa code lock để né lỗi. Runner bổ sung giữ nguyên cả dòng trống EOF đã có trong PR, không normalize nguồn đã khóa.
+- README cập nhật tiến độ/nghiệm thu bốn model, định nghĩa GRU/CTR-GCN adapted, mean/sample-SD, FN/FP, tham số/kích thước và lần đo lại latency. Tách run A3–TCN cũ với 96 fits mới; công bố giới hạn bốn người, phân tích S4, sai lệch CPU/CUDA và Word chưa cập nhật. Bảng ghép cặp đã có không còn ghi là chưa làm; equal-FP/robustness/A3 gọn vẫn NOT_RUN.
+- Đồng bộ `GB-20261121-001`, AGENTS, bàn giao, bảng việc/nhiệm vụ Tùng, hướng dẫn train và roadmap. Không sửa báo cáo/trao đổi cá nhân Tùng sau review, không nghiệm thu thay Đức hoặc thay mốc Đức, không bật PoseLab/đổi model-threshold triển khai/sửa Word.
+- Kiểm trên cây tích hợp: 16/16 tests local PASS (10 gốc + 3 bổ sung + 3 monitor), Torch 2.11.0+cpu và harness bốn luồng; `python -B scripts/check_repository.py` PASS. 80 hash bổ sung + 68 hash bộ trước, 11 + 7 file code lock và bốn input khớp; monitor khác PR đúng một dòng, cả hai file tools ngoài source lock; dữ liệu/model/notebook/toàn bộ results và nguồn train giữ nguyên so với head đã review. Đối chiếu mọi ô mean/SD/FN/FP/size/latency trong bảng mới README với CSV PASS; diff phần điều phối/bản sửa không có lỗi whitespace mới. Không train full hoặc đo lại GPU. Publish main bằng fast-forward sau kiểm, không force-push; xác minh SHA/PR remote riêng trước báo hoàn tất.
 
 ## 21/11/2026 - Review PR #3 và sửa lỗi khởi chạy monitor
 

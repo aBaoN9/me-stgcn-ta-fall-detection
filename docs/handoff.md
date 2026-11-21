@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Nghiệm thu bổ sung 21/11/2026:** GRU/CTR-GCN adapted trong PR #3 đã được nhận theo `GB-20261121-001`, cùng bản sửa monitor khi chưa có `.runtime`. [Bộ bổ sung](../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) có 96 fits, 24 checkpoint full mới; [README](../README.md) so sánh đủ bốn model và phân biệt hai lần đo latency. 16 tests local/repo checker PASS; không train lại, đổi deployment, bật PoseLab, sửa Word hoặc nghiệm thu thay bài Đức.
+
 **Cập nhật nghiệm thu 20/11/2026:** benchmark TCN–A3 của Tùng đã `ACCEPTED_BENCHMARK`, PR #2 merge vào main tại `bbe3c64`. [README](../README.md) và [bộ bàn giao](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) có code, 24 checkpoint, dự đoán và hướng dẫn. Quyết định `GB-20261120-001` trong [answers](discussions/answers.md) là trạng thái điều phối mới hơn snapshot cá nhân; chưa thay model triển khai hoặc nghiệm thu bài Đức.
 
 **Hỗ trợ chạy 19/11/2026:** [bắt đầu train](training-start.md) có tool input, local/Kaggle và xử lý notebook pin code cũ. Theo `GB-20261119-002`, cả hai được tự full CPU nếu thiếu GPU, khóa addendum/config/code trước outer-test và giữ điều kiện so sánh; không chờ duyệt.

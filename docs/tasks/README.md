@@ -1,5 +1,7 @@
 # Bảng giao việc nghiên cứu
 
+**Tiến độ 21/11/2026:** Tùng đã được nghiệm thu cả TCN–A3 (PR #2, 20/11) và GRU/CTR-GCN adapted bổ sung (PR #3, 21/11), theo `GB-20261120-001` và `GB-20261121-001`. Bản sửa monitor do Gia Bảo tích hợp không làm đổi kết quả hoặc yêu cầu train lại. Đức tiếp tục phần riêng; không suy ra đã nghiệm thu bài Đức.
+
 **Sẵn sàng vận hành 19/11/2026:** [hướng dẫn bắt đầu](../training-start.md), đủ input chuẩn và tool kiểm/tải; `GB-20261119-002` cho cả hai tự full CPU nếu không có GPU với addendum/lock trước outer-test, không chờ duyệt lại.
 
 **Thông báo cập nhật 18/11/2026:** Gia Bảo yêu cầu Tùng và Đức đọc `GB-20261116-001` trong [answers](../discussions/answers.md), xác nhận đã nhận và triển khai phần việc được phép ngay phiên tiếp theo. Cả hai được tự thực hiện theo `GB-20261118-001` (Tùng) và `GB-20261116-002` (Đức), không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full.
@@ -10,7 +12,7 @@ Phân công hiện hành do Gia Bảo xác nhận ngày 30/10/2026, thay phạm 
 
 | Người | Nhánh | Phần chính | Trạng thái | Nhiệm vụ | Báo cáo |
 |---|---|---|---|---|---|
-| Tùng | `dinhtung` | TCN–A3, M0–M3 đã nghiệm thu và PR #2 merge main ngày 20/11 | ACCEPTED_BENCHMARK (`GB-20261120-001`) | [TUNG-01 đến TUNG-04](dinhtung.md) | [Tùng](../reports/dinhtung.md) |
+| Tùng | `dinhtung` | Đã nghiệm thu TCN–A3 (PR #2, 20/11) và GRU/CTR-GCN adapted bổ sung (PR #3, 21/11) | ACCEPTED_BENCHMARK (`GB-20261120-001`, `GB-20261121-001`) | [TUNG-01 đến TUNG-04](dinhtung.md) | [Tùng](../reports/dinhtung.md) |
 | Đức | `vinhduc` | Giữ ME-STGCN-TA làm mốc, thay đổi có kiểm soát; so với bản gốc | AUTONOMOUS (quyền thực hiện, chưa DONE) | [DUC-01 đến DUC-04](vinhduc.md) | [Đức](../reports/vinhduc.md) |
 | Gia Bảo (người điều phối) | `giabao` | Phát triển kỹ thuật, review, chuẩn bị tích hợp và cập nhật Word | Theo yêu cầu | [Vai trò Gia Bảo](giabao.md) | [Gia Bảo](../reports/giabao.md) |
 

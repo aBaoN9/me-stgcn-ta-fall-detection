@@ -1,0 +1,15 @@
+{
+  "mode": "full",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": true,
+  "signature": "b44e7684dbaf6b99a7a7f655d9417ad0c5e3da2a47d2c9c0fb80f0d15ea1da68",
+  "outer_runs": 24,
+  "inner_fits": 72,
+  "refits": 24,
+  "expected_fits": 96,
+  "actual_fits": 96,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "peak_allocated_bytes": 89246720
+}

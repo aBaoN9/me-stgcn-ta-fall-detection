@@ -102,3 +102,11 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 - PASS 24 checkpoint nạp lại trên CUDA và đối chiếu đủ 2.880 dự đoán. PASS SHA-256 ZIP gốc, 60 tệp khớp byte; checkpoint/lịch sử khớp bản sao. Chỉ số độc lập khớp 1e-12, kiểm thử 10/10 PASS. Không chạy lại M2.
 - Đo suy luận riêng trên RTX 3050: TCN 56.434 tham số, 2,850/3,034 ms trung vị/p95; A3 422.871, 3,331/4,238 ms.
 - [Bộ bàn giao M3](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) có đủ checkpoint, dự đoán, chỉ số, lịch sử, hash và hướng dẫn. [Phân tích khoa học](../research/backbone-benchmark.md) giữ nguyên lịch sử M0.
+
+### 2026-11-21 — Bàn giao nghiên cứu bổ sung GRU và CTR-GCN
+
+- Nghiên cứu bổ sung theo đề nghị của Gia Bảo, giữ kết quả TCN–A3 đã nghiệm thu theo `GB-20261120-001` và PR #2. Đồng bộ fast-forward nhánh cá nhân tới `5939c9e` trước triển khai.
+- [Thiết kế](../research/gru-ctrgcn-addendum.md), [runner và lệnh tái lập](../../training/backbone_benchmark/supplement/README.md), [kết quả bốn mô hình](../../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md). Runner mới nằm riêng, dùng chung pipeline dữ liệu và kiểm định; giữ nguyên nguồn và kết quả đã khóa của TCN–A3.
+- Kiểm input 4/4 SHA-256, validation 160 clip, 13/13 kiểm thử đơn vị, smoke thật 8/8 và full 96/96 lượt: PASS. GRU 48 lượt, CTR-GCN 48 lượt. Đã đối chiếu bản sao, nạp 24 checkpoint, kiểm 2.880 dự đoán và tái tính chỉ số. `git diff --check` và `python -B scripts/check_repository.py`: PASS.
+- Đã khóa seed 42/142/242, Nested LOSO, ngưỡng, cấu hình và mã trước full. Full trên RTX 3050 mất 428,11 giây, nhiệt độ đỉnh 66°C, VRAM toàn GPU 228 MiB và RAM hệ thống đang dùng 14.064,3 MiB.
+- Accuracy fixed: TCN 91,04%, A3 89,38%, GRU 89,58%, CTR-GCN 88,54%. GRU suy luận nhanh nhất và CTR-GCN ít tham số nhất trong phép đo. Cả hai bỏ sót nhiều hơn TCN. Kết quả mang tính khám phá với bốn người; chưa có tập độc lập. Trạng thái bổ sung: `READY_FOR_REVIEW`.
