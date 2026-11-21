@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Phạm vi 21/11/2026 (`GB-20261121-002`):** mã PoseLab đã gỡ khỏi repo; demo mới để sau, không có việc UI/QA hiện hành. Gia Bảo đã lập [kế hoạch tuning A3 so TCN/GRU](research/a3-tuning-plan.md), `PLANNED / NOT_RUN`, chưa train. Không đổi bằng chứng đã nhận, nhiệm vụ/hạn Đức hoặc model triển khai.
+
 **Nghiệm thu bổ sung 21/11/2026:** GRU/CTR-GCN adapted trong PR #3 đã được nhận theo `GB-20261121-001`, cùng bản sửa monitor khi chưa có `.runtime`. [Bộ bổ sung](../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) có 96 fits, 24 checkpoint full mới; [README](../README.md) so sánh đủ bốn model và phân biệt hai lần đo latency. 16 tests local/repo checker PASS; không train lại, đổi deployment, bật PoseLab, sửa Word hoặc nghiệm thu thay bài Đức.
 
 **Cập nhật nghiệm thu 20/11/2026:** benchmark TCN–A3 của Tùng đã `ACCEPTED_BENCHMARK`, PR #2 merge vào main tại `bbe3c64`. [README](../README.md) và [bộ bàn giao](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) có code, 24 checkpoint, dự đoán và hướng dẫn. Quyết định `GB-20261120-001` trong [answers](discussions/answers.md) là trạng thái điều phối mới hơn snapshot cá nhân; chưa thay model triển khai hoặc nghiệm thu bài Đức.
@@ -17,7 +19,7 @@ Gia Bảo và AI đọc [vai trò riêng](tasks/giabao.md): không dùng main đ
 | Phần | Hiện trạng |
 |---|---|
 | Dữ liệu | 160 video, 79 Fall/81 ADL, 4 người; MediaPipe 33 khớp, 32 mốc. Bốn tensor/CSV chuẩn đã có trong `data/gmdcsa24/` từ 19/11/2026, đúng hash 07; video gốc không trong repo. Xem [data](../data/README.md). |
-| Demo cũ | PoseLab đã dừng ngày 30/10/2026; launcher/ASGI bị chặn, WEB-01/WEB-02 hủy. Nguồn `app/` và ONNX/config giữ để truy vết, không phải nhiệm vụ phát triển web. |
+| Demo cũ | PoseLab dừng 30/10, mã `app/` gỡ 21/11/2026; WEB-01/WEB-02 hủy. ONNX/config/model và lịch sử Git giữ nguyên; demo mới `DEFERRED`. |
 | Model triển khai | Notebook 06: corrected angle, nested LOSO, final all-subject train. Không tự thay bằng ứng viên mới. |
 | Baseline/ablation | Notebook 07 và `training/component_ablation/`: SVM v2, A0/A1/A2/A3, cost 2,25; seed 42/142/242. [Phân tích](component-ablation.md) đã có cả ưu điểm và lỗi. |
 | Timing | Notebook 08: T0/T1 đã chạy; T1 chưa cải thiện ổn định. Không giao lại như chưa làm. |

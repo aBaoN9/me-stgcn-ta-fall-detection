@@ -14,6 +14,8 @@ Các kênh gồm x/y tương đối tâm hông, visibility, vận tốc x/y củ
 
 ## Web và cửa sổ thời gian
 
+**Phạm vi lịch sử:** phần này mô tả thử nghiệm PoseLab cũ; mã app đã gỡ ngày 21/11/2026, không có backend/demo hiện hành. Demo mới để sau, không coi mô tả bên dưới là tính năng đang triển khai.
+
 Toàn clip là bài toán model đã được xây dựng. Cửa sổ gần nhất 3 giây, bước 0,5 giây và hai lần xác nhận là **thử nghiệm** thay đổi đầu vào. Backend không dùng frame tương lai cho một cửa sổ đã kết thúc, nhưng đây là xử lý file, không phải webcam đã kiểm định. Khởi đầu cần tích lũy đủ cửa sổ; mốc ngã sớm có thể nằm trong warmup.
 
 Không đủ pose → không kết luận, không tự gán ADL. Mốc ngã do người dùng nhập không phải mốc tự phát hiện. Không coi thời gian từ mốc ngã đến mốc cửa sổ báo động là toàn bộ latency xử lý trên máy. Đồ thị vận tốc/góc/hông mô tả đầu vào; attention mô tả trọng số thời gian của mạng, **không chứng minh nhân quả**.

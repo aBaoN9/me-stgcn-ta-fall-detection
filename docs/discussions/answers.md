@@ -4,12 +4,21 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
+- Phạm vi mới 21/11/2026: gỡ mã PoseLab, demo mới để sau; kế hoạch tuning A3 so TCN/GRU chỉ `PLANNED / NOT_RUN` theo `GB-20261121-002`. Quyền tự chủ/bài/hạn Đức và bằng chứng đã nhận của Tùng không đổi.
 - Cập nhật 21/11/2026: nghiệm thu bổ sung GRU/CTR-GCN adapted của Tùng qua PR #3, tích hợp bản sửa monitor và cập nhật README theo `GB-20261121-001`. Quyền tự chủ, hạn bài Đức, model triển khai, trạng thái tắt PoseLab và Word giữ nguyên.
 - Cập nhật: 20/11/2026, đã nghiệm thu benchmark TCN–A3 của Tùng và merge PR #2 theo `GB-20261120-001`. Quyền tự chủ/CPU và hỗ trợ input vẫn giữ; Đức tiếp tục nhiệm vụ/hạn 25/11, không suy ra đã nghiệm thu bài Đức. PoseLab vẫn dừng, model triển khai không đổi.
 - Tùng tự đề xuất mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA hiện tại. Cùng giao thức đánh giá, không áp sẵn CTR-GCN hoặc quality-aware.
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261121-002 - Gỡ PoseLab, hoãn demo và lập kế hoạch tuning A3
+
+- Yêu cầu Gia Bảo ngày 21/11/2026: xóa PoseLab, cập nhật repo; app demo triển khai sau; lên kế hoạch tuning A3 để cạnh tranh với hai model của Tùng.
+- **PoseLab `REMOVED`:** gỡ 31 file đã theo dõi trong `app/`, gồm backend/frontend/launcher/requirements và bản sao biểu đồ trong app. Giữ model trong `models/deployment/`, dữ liệu, kết quả/biểu đồ nghiên cứu gốc, notebook, Word và lịch sử Git. Thay chỉ dẫn cũ giữ nguồn app; không phải lệnh xóa bằng chứng hoặc lịch sử.
+- **Demo mới `DEFERRED`:** không làm UI/QA, tải model app hoặc dựng launcher khác trong phiên này. WEB-01/WEB-02 vẫn `CANCELLED`, không giao lại cho Tùng/Đức.
+- **A3 `PLANNED / NOT_RUN`:** [kế hoạch](../research/a3-tuning-plan.md) do Gia Bảo giữ; hai đối chứng chính hiểu là TCN và GRU, CTR-GCN adapted tham chiếu phụ. Sáu recipe/model, chọn bằng inner validation; ma trận công bằng dự kiến 684 fits, chưa viết runner hoặc train. Không hứa thắng, không chọn bằng outer-test đã xem, không thay deployment.
+- Không sửa nguồn/lock/kết quả đã nghiệm thu, không yêu cầu Tùng train lại; không đổi đề xuất/mốc/hạn **25/11/2026** hoặc quyền tự chủ của Đức. Kế hoạch mới không là điều kiện chặn nghiệm thu hai bạn. Xem báo cáo Gia Bảo cho kiểm tra và tra SHA remote sau publish; không suy ra hai bạn đã đọc ở máy riêng.
 
 ## GB-20261121-001 - Nghiệm thu bổ sung GRU/CTR-GCN và sửa monitor
 

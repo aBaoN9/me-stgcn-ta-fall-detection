@@ -1,12 +1,14 @@
 # 🛡️ ME-STGCN-TA — Phát hiện té ngã từ khung xương
 
+**Phạm vi mới 21/11/2026 — `GB-20261121-002`:** đã gỡ mã PoseLab (`app/`) khỏi bản repo hiện hành; **app demo sẽ triển khai sau**, không làm UI/QA lúc này. Model, dữ liệu, kết quả, notebook và Word được giữ nguyên. Đã lập [kế hoạch tuning A3 so với TCN/GRU](docs/research/a3-tuning-plan.md): `PLANNED / NOT_RUN`, chưa có runner mới hoặc lượt train mới, chưa có kết quả chứng minh vượt đối chứng.
+
 **Cập nhật 21/11/2026:** đã nghiệm thu và tích hợp [PR #3 của Tùng](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/3), bổ sung **GRU và CTR-GCN adapted** với 96 fits và 24 checkpoint full mới. So sánh bốn model tại ngưỡng 0,5: **TCN 91,04%**, GRU 89,58%, A3 chạy lại 89,38%, CTR-GCN adapted 88,54% Accuracy trung bình. GRU nhanh nhất trong phép đo model-only; TCN có Sensitivity trung bình cao nhất. Đã sửa lỗi monitor khi chưa có `.runtime`, không cần train lại. Quyết định `GB-20261121-001` trong [answers](docs/discussions/answers.md); **không thay model triển khai**.
 
 Benchmark **TCN–A3** đã được nghiệm thu qua [PR #2](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/2) ngày 20/11 theo `GB-20261120-001`, giữ nguyên code và bằng chứng. Hai model bổ sung dùng cùng dữ liệu/recipe/môi trường với run này, không chạy lại A3–TCN lần thứ hai; latency được đo lại cho cả bốn.
 
 **Bắt đầu làm bài:** [hướng dẫn local/Kaggle, tool kiểm/tải input và checklist](docs/training-start.md). Quyền tự chủ và lựa chọn CPU theo `GB-20261119-002` vẫn giữ; tự khóa thay đổi trước outer-test, không chờ duyệt từng bước. Quyền CPU không tự mở chế độ CPU full của runner còn khóa CUDA.
 
-Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. **PoseLab đã dừng theo quyết định của Gia Bảo ngày 30/10/2026**; repo tập trung so sánh phương pháp và kiểm chứng thay đổi có kiểm soát.
+Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. **PoseLab dừng ngày 30/10 và mã app đã gỡ ngày 21/11/2026** theo yêu cầu Gia Bảo; repo hiện tập trung nghiên cứu, app demo để giai đoạn sau.
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-training-EE4C2C?logo=pytorch&logoColor=white)
@@ -53,7 +55,7 @@ Tám kênh gồm tọa độ tương đối x/y, visibility, vận tốc khớp 
 
 ## Trạng thái demo cũ
 
-PoseLab **đã tắt**, không còn hướng dẫn khởi chạy hoặc nhiệm vụ phát triển web. Launcher và khởi động ASGI bị chặn. Nguồn `app/`, [model/checkpoint cũ](models/deployment/) và kết quả được giữ để truy vết nghiên cứu, không xóa dữ liệu lịch sử. Xem [quyết định dừng](docs/tasks/web-app.md).
+PoseLab **đã gỡ mã nguồn khỏi repo hiện hành ngày 21/11/2026**, gồm backend, frontend, launcher và requirements trong `app/`. Không còn app để khởi chạy trong checkout này. [Model/checkpoint cũ](models/deployment/), dữ liệu, kết quả nghiên cứu và lịch sử Git vẫn giữ; có thể truy vết mã app trong Git trước lần gỡ này. **Demo mới: `DEFERRED`**, chưa giao triển khai hoặc chốt ngày ra mắt. Xem [quyết định và phạm vi](docs/tasks/web-app.md).
 
 ## 📓 Notebooks
 
@@ -206,10 +208,18 @@ Chỉ chạy thí nghiệm mới khi có chủ đích, không ghi đè artifact 
 
 Không cần tìm chỉ số hoặc chọn seed có lợi cho A3 để phủ nhận kết quả TCN. Bảng lỗi/ghép cặp bốn model và chỉ số theo subject **đã có trong PR #3**. Các thí nghiệm còn có thể kiểm tiếp: độ nhạy ở cùng mức báo động giả (ngưỡng chọn bằng inner validation), độ bền khi pose thiếu/nhiễu, hoặc phiên bản A3 gọn hơn theo ngân sách công bằng. Ba hướng này là **đề xuất chưa thực hiện**, chưa phải bằng chứng A3 tốt hơn. Phân tích bổ sung sau khi đã thấy test phải ghi rõ tính thăm dò; thiết kế thí nghiệm mới cần khóa trước đánh giá và tập xác nhận độc lập nếu có điều kiện. Xem [roadmap](docs/training-roadmap.md).
 
+## Kế hoạch tuning A3 — chưa chạy
+
+[Thiết kế chi tiết](docs/research/a3-tuning-plan.md) lấy **TCN và GRU** làm hai đối chứng chính, CTR-GCN adapted là tham chiếu phụ. Ưu tiên tuning learning rate, weight decay, dropout, lịch learning rate và label smoothing trên nguyên kiến trúc A3; không sửa nguồn hoặc ghi đè kết quả đã nghiệm thu.
+
+- Mốc cần vượt về Accuracy: TCN **91,04%**, GRU **89,58%**; A3 rerun hiện **89,38%**. Sensitivity, FN/FP, specificity, từng subject/seed và chi phí vẫn phải báo cáo, không chỉ chọn chỉ số có lợi.
+- Sáu recipe định trước; chọn riêng trong inner folds của từng outer/seed. So **tuned với tuned** cần cùng ngân sách cho A3/TCN/GRU: **648 inner fits + 36 outer refits = 684 fits**; đây là dự toán, **chưa chạy**. Không chọn cấu hình bằng outer-test.
+- GRU có latency model-only **0,366 ms** trong lần đo đã nhận; thắng Accuracy không đồng nghĩa thắng tốc độ. A3 gọn hơn là hướng kiến trúc riêng, chưa thực hiện.
+- Gia Bảo giữ track kế hoạch này; không đổi bài/mốc/hạn **25/11/2026** của Đức, không yêu cầu Tùng train lại. Dữ liệu bốn người đã xem chỉ cho kết luận thăm dò; cần subject/tập xác nhận độc lập trước tuyên bố tổng quát.
+
 ## 🗂️ Cấu trúc repo
 
 ```text
-app/                         Nguồn demo PoseLab cũ, đã tắt
 models/deployment/           Checkpoint và cấu hình cũ được bảo toàn
 notebooks/                   Các bước chuẩn bị, baseline và kiểm chứng
 notebooks/history/           Giai đoạn đề xuất và xuất mô hình ban đầu
@@ -238,4 +248,4 @@ python scripts/check_repository.py
 
 ## Phạm vi sử dụng
 
-Ứng dụng là bản thử nghiệm nghiên cứu, chưa được kiểm chứng như thiết bị y tế hoặc hệ thống cấp cứu. Kết quả phát triển trên bốn người không bảo đảm hiệu quả cho mọi người và mọi cảnh quay. Mã nguồn, dữ liệu và thư viện có điều kiện sử dụng riêng; xem [NOTICE](NOTICE.md).
+Mô hình và các kết quả là sản phẩm nghiên cứu, chưa được kiểm chứng như thiết bị y tế hoặc hệ thống cấp cứu; app demo hiện chưa triển khai. Kết quả phát triển trên bốn người không bảo đảm hiệu quả cho mọi người và mọi cảnh quay. Mã nguồn, dữ liệu và thư viện có điều kiện sử dụng riêng; xem [NOTICE](NOTICE.md).

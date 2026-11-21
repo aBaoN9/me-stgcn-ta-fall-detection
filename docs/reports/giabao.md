@@ -4,6 +4,7 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 
 ## Snapshot
 
+- Phạm vi mới 21/11/2026 (`GB-20261121-002`): đã gỡ 31 file PoseLab trong `app/`, demo mới `DEFERRED`; cập nhật README/quy tắc/bàn giao và [kế hoạch tuning A3](../research/a3-tuning-plan.md), `PLANNED / NOT_RUN`. 16/16 regression tests, repo checker, 68+80 hash artifact và code/input lock PASS. Không sửa scientific source/results/model/notebook/Word; không train thí nghiệm mới. Phiên phát triển trên `giabao` từ main `3bae43b`, tích hợp/publish main theo yêu cầu; đối chiếu SHA remote thay vì coi ghi chú này là bằng chứng push.
 - Cập nhật 21/11/2026: Gia Bảo đã yêu cầu sửa rồi merge PR #3 và cập nhật README. Tích hợp head đã review `5965c3e` cùng bản sửa monitor/ba test riêng trên `giabao`, nghiệm thu bổ sung theo `GB-20261121-001`. 16/16 tests, 80 hash mới/68 hash cũ, code/input lock, bảng README và repo checker PASS. Giữ code train, artifact, deployment, PoseLab và Word; trạng thái publish/SHA merge tra `origin/main` và PR #3, không dùng ghi chú này thay xác minh remote.
 - Cập nhật: 20/11/2026, đã nghiệm thu M0–M3 TCN–A3 của Tùng và merge PR #2 tại `bbe3c64638ce2cfae31348cb64a455a97c3548bf`; đồng bộ README/quyết định/bàn giao/bảng việc theo `GB-20261120-001`. Kiểm tra trên main sau merge: 10/10 tests, 68 hash artifact, input/code lock, bảng README và repo checker PASS. Không train full mới, đổi model triển khai, sửa Word hoặc nghiệm thu thay bài Đức.
 - Tùng dùng mô hình/phương pháp khác trên cùng dataset; Đức thay đổi có kiểm soát ME-STGCN-TA. Không áp sẵn mô hình/công thức, cùng giao thức đánh giá. Cả hai tự ghi/khóa M0 và kiểm test/smoke thật rồi full, không chờ duyệt từng bước.
@@ -13,6 +14,17 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 ## Nhật ký tiếp theo
 
 Mỗi phiên nối thêm ngày, yêu cầu, phạm vi, file/commit/PR, lệnh kiểm tra và PASS/FAIL/NOT_RUN, giới hạn/blocker và bước tiếp. Khi review nhánh khác ghi đúng commit; khi tích hợp ghi phần được duyệt và bằng chứng, không ghi code chưa review thành DONE.
+
+## 21/11/2026 - Gỡ PoseLab, hoãn demo và lập kế hoạch tuning A3
+
+- Yêu cầu Gia Bảo: xóa PoseLab, cập nhật repo; demo sẽ triển khai sau; lên kế hoạch tuning A3 cạnh tranh với model của Tùng. Làm trên `giabao` từ main `3bae43b84624fc9957257950a7499fb14d80e47b`; không sửa/push nhánh Tùng/Đức hoặc tự chạy nghiên cứu mới.
+- Gỡ **31 file tracked** trong `app/` (backend, frontend, launcher, requirements, bản sao biểu đồ). Thay vì xóa cả dữ liệu cục bộ, chuyển thư mục vào `.runtime/poselab-archive-20261121/` đã ignore, giữ cả QA/launcher phụ và Pose Landmarker chưa tracked; archive chỉ ở máy này, không đưa lên Git. Mã đã commit vẫn có trong lịch sử Git; repo hiện hành không còn app.
+- Cập nhật README, AGENTS, NOTICE, .gitignore, data README, bàn giao/bảng việc/nhiệm vụ Gia Bảo, quyết định `GB-20261121-002`, roadmap và ghi chú lịch sử trong methodology. Giữ trang web-app như lịch sử quyết định; demo mới `DEFERRED`, không dựng lại launcher hoặc giao UI/QA. Không sửa hai tài liệu nghiên cứu bị khóa hash của Tùng.
+- Thêm `docs/research/a3-tuning-plan.md`: nguyên kiến trúc A3, sáu recipe LR/weight decay/dropout/cosine/smoothing; chọn hoàn toàn trong inner folds. TCN/GRU là hai đối chứng chính, CTR-GCN adapted tham chiếu phụ; phân biệt tuned-vs-frozen và tuned-vs-tuned. Ngân sách chính dự kiến **648 inner + 36 refit = 684 fits**, **chưa thực hiện**; không có runner/output tuning mới. Không hứa thắng Accuracy hoặc tốc độ GRU, không tối ưu theo clip outer đã xem; cần xác nhận độc lập để tổng quát hóa.
+- Quyền tự chủ/nhiệm vụ/mốc/hạn **25/11/2026** của Đức giữ nguyên, không yêu cầu Tùng train lại. Nguồn train/notebooks, dataset/tensor, model/deployment, checkpoint/kết quả/locks và Word không đổi; không nâng ứng viên triển khai.
+- Kiểm **PASS**: harness `unittest` bốn luồng Torch chạy `training.backbone_benchmark.test_benchmark`, `training.backbone_benchmark.supplement.test_supplement`, `training.backbone_benchmark.supplement.tools.test_monitor_windows`: **16/16**; `python -B -X utf8 scripts/check_repository.py`; `git diff --check` và staged check. Đây là regression/synthetic fits có sẵn, không phải smoke/full của kế hoạch A3 mới.
+- Đối chiếu SHA-256/size: **68/68** artifact TCN–A3, **80/80** supplement, **7 + 11** code locks, bốn input ở cả hai protocol đều **PASS**. Kiểm diff không đổi training/models/notebooks/results hoặc Word; quét training/scripts/notebooks không có import/path app, liên kết Markdown hợp lệ sau gỡ. Thư mục app không còn, archive được Git ignore. Không chạy lại replay GPU hoặc đo latency, không dùng regression để công bố số nghiên cứu mới.
+- Publish main theo yêu cầu sau kiểm tra, không force-push hoặc cập nhật nhánh thành viên. Tra `origin/main` và lịch sử commit cho SHA bản gỡ/tài liệu; fetch main không đồng nghĩa Tùng/Đức đã đọc ở máy riêng.
 
 ## 21/11/2026 - Tích hợp PR #3, bản sửa monitor và cập nhật tiến độ
 

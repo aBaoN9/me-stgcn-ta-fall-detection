@@ -31,7 +31,8 @@ git diff origin/main...origin/vinhduc
 - Quyết định chính thức trả lời đúng ID trong `docs/discussions/answers.md` trên main, publish khi chủ repo yêu cầu và kiểm remote sau push. File local chưa phải thông báo đã gửi.
 - Không tự push/sửa nhánh dinhtung/vinhduc hoặc làm thay phần đã giao. Nếu cần đổi phân công/phạm vi, ghi rõ quyết định chung trước khi triển khai.
 - Phân công hiện hành: Tùng giữ dataset và tự đề xuất mô hình/phương pháp khác; Đức thay đổi có kiểm soát ME-STGCN-TA. Theo `GB-20261118-001`/`GB-20261116-002`, cả hai tự ghi/khóa M0, tự test/smoke thật rồi full, không chờ duyệt M0 hoặc review lại trước chạy. `GB-20261119-002` cho cả hai tự full CPU với addendum/lock trước outer-test và điều kiện so sánh giữ nguyên. Gia Bảo review nghiệm thu/merge sau bàn giao; xem [bắt đầu train](../training-start.md). Giữ bài làm và phát hiện lỗi nếu tiếp tục dùng mã.
-- PoseLab/WEB-01/WEB-02 đã hủy; không còn ngoại lệ UI/QA web. Giữ model, nguồn và bằng chứng cũ; không bật lại app nếu chưa có yêu cầu mới của Gia Bảo.
+- Theo `GB-20261121-002`, mã PoseLab (`app/`) đã gỡ; WEB-01/WEB-02 vẫn hủy, demo mới để sau. Giữ nguồn nghiên cứu, model, bằng chứng và lịch sử Git; không tự triển khai lại app.
+- Gia Bảo giữ [kế hoạch tuning A3 so TCN/GRU](../research/a3-tuning-plan.md), `PLANNED / NOT_RUN`: lập thiết kế, chưa có runner/train mới. Đây không phải giao lại hoặc đổi nhiệm vụ/mốc/hạn 25/11 của Đức; không yêu cầu Tùng train lại.
 
 ## Phát triển và tích hợp
 

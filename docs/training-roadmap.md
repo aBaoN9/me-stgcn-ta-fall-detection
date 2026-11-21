@@ -1,5 +1,7 @@
 # Hướng nghiên cứu tiếp và kết quả đã nghiệm thu
 
+**Kế hoạch mới 21/11/2026:** [tuning A3 so TCN/GRU](research/a3-tuning-plan.md), track Gia Bảo, `PLANNED / NOT_RUN`. Ưu tiên recipe trên nguyên kiến trúc, sáu ứng viên/model, chọn hoàn toàn trong inner folds; ma trận công bằng dự kiến 684 fits cho ba model. Không phải kết quả mới, không hứa thắng; demo đã gỡ và triển khai sau. Không thay bài hoặc hạn Đức/Tùng.
+
 **Tiến độ 21/11/2026:** GRU/CTR-GCN adapted bổ sung đã train/đánh giá và nghiệm thu qua PR #3 (`GB-20261121-001`), không còn là đề xuất. [Bộ bàn giao](../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) đã có bảng lỗi/ghép cặp bốn model, cùng lần đo lại latency. TCN vẫn cao nhất về Accuracy/Sensitivity trung bình; GRU nhanh nhất theo phép đo model-only; A3 mạnh hơn trên S4. Robustness, equal-FP và A3 gọn hơn vẫn chưa chạy, không là điều kiện chặn nghiệm thu.
 
 **Cập nhật 20/11/2026:** TCN–A3 của Tùng đã nghiệm thu và merge PR #2 theo `GB-20261120-001`; [bộ bàn giao](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) đã có trên main, không còn là đề xuất chưa train. TCN đạt Accuracy 91,04% so với A3 chạy lại 89,38%, nhưng chưa có tập xác nhận độc lập. Các thí nghiệm equal-FP/robustness/A3 gọn bên dưới **chưa được thực hiện**; bảng lỗi/ghép cặp đã được bổ sung ngày 21/11, không đặt thêm điều kiện nghiệm thu Tùng. Bài Đức vẫn xét riêng.

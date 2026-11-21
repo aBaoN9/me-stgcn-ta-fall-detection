@@ -11,7 +11,6 @@ __pycache__/
 !.env.example
 *.log
 *.download
-app/assets/*.task
 data/*
 !data/README.md
 *.zip
@@ -34,6 +33,3 @@ data/gmdcsa24/*
 !data/gmdcsa24/input_manifest.json
 Thumbs.db
 .DS_Store
-app/DASHBOARD_QA.md
-app/start_dashboard.cmd
-app/start_dashboard.ps1

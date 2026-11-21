@@ -1,5 +1,7 @@
 # Bảng giao việc nghiên cứu
 
+**Phạm vi mới 21/11/2026 (`GB-20261121-002`):** gỡ mã PoseLab, demo mới `DEFERRED`. [Kế hoạch tuning A3](../research/a3-tuning-plan.md) do Gia Bảo giữ, `PLANNED / NOT_RUN`; không giao thêm việc hoặc đổi hạn Đức/Tùng.
+
 **Tiến độ 21/11/2026:** Tùng đã được nghiệm thu cả TCN–A3 (PR #2, 20/11) và GRU/CTR-GCN adapted bổ sung (PR #3, 21/11), theo `GB-20261120-001` và `GB-20261121-001`. Bản sửa monitor do Gia Bảo tích hợp không làm đổi kết quả hoặc yêu cầu train lại. Đức tiếp tục phần riêng; không suy ra đã nghiệm thu bài Đức.
 
 **Sẵn sàng vận hành 19/11/2026:** [hướng dẫn bắt đầu](../training-start.md), đủ input chuẩn và tool kiểm/tải; `GB-20261119-002` cho cả hai tự full CPU nếu không có GPU với addendum/lock trước outer-test, không chờ duyệt lại.
@@ -29,7 +31,7 @@ Hai bạn tự đề xuất cách làm và giải thích thay đổi; không b�
 
 **Mốc Đức không còn mơ hồ:** `A3_motion_attention` / `fixed` của notebook 07, tám kênh, temporal attention, Fall multiplier 1.0; nguồn/recipe và yêu cầu chạy lại cặp đối chứng trong [nhiệm vụ Đức](vinhduc.md). Không dùng checkpoint demo 06, A3_cost_225 hoặc T0/T1 thay mốc.
 
-## PoseLab đã dừng và trao đổi nhóm
+## PoseLab đã gỡ và trao đổi nhóm
 
 - [WEB-01/WEB-02](web-app.md) đã `CANCELLED` ngày 30/10/2026. Không còn nhiệm vụ UI/QA web, kể cả khi chờ GPU hoặc còn thời gian; không tự bật lại PoseLab.
 - Mọi câu hỏi/đề nghị với nhóm gửi qua [file Markdown cá nhân](../discussions/README.md), cập nhật cùng file và commit/push mỗi lần hỏi. Người điều phối trả lời trong [answers.md](../discussions/answers.md) trên main; không xem im lặng là duyệt.
@@ -40,7 +42,7 @@ Hai bạn tự đề xuất cách làm và giải thích thay đổi; không b�
 - Tùng: `training/backbone_benchmark/`, `results/backbone_benchmark/`, `docs/research/backbone-benchmark.md`, báo cáo Tùng.
 - Đức: `training/contribution_study/`, `results/contribution_study/`, `docs/research/contribution-study.md`, báo cáo Đức.
 - Đọc/import `training/component_ablation/`, không sửa nguồn/kết quả cũ. Notebook mới nếu cần nằm trong training riêng, không vào `notebooks/` đang khóa inventory.
-- Ngoại lệ cho Đức sửa frontend và Tùng QA web đã thu hồi. Giữ nguồn/model/bằng chứng cũ, không tự xóa bài làm hoặc dữ liệu.
+- Ngoại lệ cho Đức sửa frontend và Tùng QA web đã thu hồi. Mã PoseLab đã gỡ ngày 21/11; giữ nguồn nghiên cứu/model/bằng chứng cũ, không tự xóa bài làm hoặc dữ liệu. Demo mới để sau.
 - Mỗi người được ghi file `docs/discussions/` đúng tên mình. `answers.md` chỉ người điều phối sửa trên main.
 - AGENTS, README gốc, protocol chung, backend app, model/Word do người điều phối giữ. Sửa ngoài phạm vi: gửi câu hỏi Markdown có file/lý do, push và chờ duyệt.
 

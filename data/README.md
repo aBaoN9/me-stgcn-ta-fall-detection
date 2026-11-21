@@ -33,4 +33,4 @@ Lệnh validation cần môi trường có dependency huấn luyện hiện hàn
 - Đây là các tensor/CSV dẫn xuất từ notebook 01 của nhóm, không phải video gốc của tác giả. Bản export lưu từ trước có đuôi `.zip`/`.txt`; chỉ chép sang tên `.npz`/`.csv` chuẩn, **không giải nén/đóng gói lại, không thay nội dung/nhãn/split**. SHA-256 giữ nguyên.
 - Cột `path` trong CSV manifest giữ đường dẫn Kaggle gốc để truy vết; không phải đường dẫn bắt buộc phải có trên máy mới và không chứa video đi kèm. Loader dùng ID/thứ tự/nhãn để căn chỉnh tensor.
 - Chỉ năm tệp được chỉ định trong `data/gmdcsa24/` (bốn input và manifest metadata) được mở ignore để publish. `data/local/`, video, dữ liệu riêng khác vẫn bị Git bỏ qua; không force-add toàn bộ thư mục dữ liệu.
-- PoseLab vẫn dừng. Chia sẻ input không cho phép bật app, đổi dataset/giao thức hoặc xem test để chọn cấu hình; Tùng/Đức vẫn tự test/smoke thật rồi train theo quyền tự chủ đã cấp.
+- Mã PoseLab đã gỡ ngày 21/11/2026, demo mới để sau. Chia sẻ input không cho phép triển khai app, đổi dataset/giao thức hoặc xem test để chọn cấu hình; Tùng/Đức vẫn tự test/smoke thật rồi train theo quyền tự chủ đã cấp.
