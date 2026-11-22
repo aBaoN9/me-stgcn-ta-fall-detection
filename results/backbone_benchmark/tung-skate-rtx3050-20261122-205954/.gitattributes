@@ -1,0 +1,2 @@
+* -text whitespace=cr-at-eol
+monitoring/monitor_executed.py whitespace=trailing-space,space-before-tab,-blank-at-eof,cr-at-eol

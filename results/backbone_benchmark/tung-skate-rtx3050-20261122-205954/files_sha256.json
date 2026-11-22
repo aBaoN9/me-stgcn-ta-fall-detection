@@ -1,0 +1,222 @@
+{
+  ".gitattributes": {
+    "sha256": "912ff7bc5f6fb5183e332a26b38cf0b071794b8ec302bf190fafed6aee418a15",
+    "bytes": 127
+  },
+  "comparison/comparison_fixed_by_seed.csv": {
+    "sha256": "b526d5f28459a8e48dba4734db86f689680f0c2eb92cb5e5e7619b6a23968293",
+    "bytes": 2688
+  },
+  "comparison/comparison_fixed_by_subject.csv": {
+    "sha256": "b4a48cbbd5e60033760f02e6a2cef86e4de768ab918ece021abca12db2c59b7e",
+    "bytes": 8888
+  },
+  "comparison/comparison_fixed_confusion.csv": {
+    "sha256": "21bb7244ce56ea61e0e4d95367eddcf0c4d525288ee82240d244f4d1ea31b09f",
+    "bytes": 184
+  },
+  "comparison/comparison_fixed_errors.csv": {
+    "sha256": "cac9d3abd8a0410fdfa5bc6323ecb0dbfb2495046317cc1f6a82e2ba31df3e36",
+    "bytes": 19935
+  },
+  "comparison/comparison_fixed_mean_std.csv": {
+    "sha256": "39213676892578d96ad61ff17dcfb93106094ad60697a4c9f7968de7e3213f0e",
+    "bytes": 2554
+  },
+  "comparison/comparison_fixed_paired.csv": {
+    "sha256": "dd30c0f9e811cf30cfe7423e4d2791fd919d4d95fa9a99c91a05532ae6c200a7",
+    "bytes": 15717
+  },
+  "comparison/comparison_latency.csv": {
+    "sha256": "7809bf0652b43cab3245315c197171b6b293ac22b64609ba5cb626861be85d9c",
+    "bytes": 823
+  },
+  "completion.json": {
+    "sha256": "3b5a9c184af5ab383500404ace3932662ee3106b5ad0840c55d0eb45fff7d97f",
+    "bytes": 366
+  },
+  "errors.csv": {
+    "sha256": "763d93ea3ee9ac150ade3c0f2fc470f350e2c00684ada61033dca0fbcecf4022",
+    "bytes": 20375
+  },
+  "fold_metrics.csv": {
+    "sha256": "127320ffdc148015202fdb98491708c83811f46f5d99ed7dd72ec6d824cf14bd",
+    "bytes": 6009
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject1/fold.json": {
+    "sha256": "c11ec5557dca9bed0f8d7fd1bccaa5ef7c56571db6183d0cc2b2b1051e184954",
+    "bytes": 66875
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject1/model.pt": {
+    "sha256": "46477b0cc2a1178c5475cde35c4f5dfe80bccb69452c9413a1253e03370bba26",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject2/fold.json": {
+    "sha256": "283af98ab8b892124a350d50443d0ca5cdd541aa6c33834b56f13b4810c56a15",
+    "bytes": 71225
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject2/model.pt": {
+    "sha256": "aced4179258cefd0770753e57bf6d1d3143c88b6d68e36544379398f0bd54ef1",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject3/fold.json": {
+    "sha256": "5696928c90d47f09869073a8d517ea51a814306c177a0c0d99a04ee2298b10de",
+    "bytes": 66444
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject3/model.pt": {
+    "sha256": "c7fca7928f9d4002c0c2413266420679f9b1e94c6f093328e0010b318fbc5185",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject4/fold.json": {
+    "sha256": "c525e265399a7645c8f445da731949c0db442f191da1462c6e61030b71033f80",
+    "bytes": 67116
+  },
+  "folds/SkateFormer_adapted_small_seed142_subject4/model.pt": {
+    "sha256": "9f5521b8c53133baa4d3ac67e1464138059de451dae20bee71ffe30adeebcf71",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject1/fold.json": {
+    "sha256": "136b4755ffc34b7fb0f91e140ec2343d4bb6135f5fdd23e0e3528e535bfea934",
+    "bytes": 60824
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject1/model.pt": {
+    "sha256": "6b92b77b2901281914a081b24d209ab2fce37dbe603771c4e701f974c100bebd",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject2/fold.json": {
+    "sha256": "b17817dd590a2492ce1a7f6e4d7bb2982190f32331f555eb24182dccd07b41a5",
+    "bytes": 76820
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject2/model.pt": {
+    "sha256": "668b61732d02838cefb8bb0bda6826d49c79be9bbe43e6e317f85c5b7db996a3",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject3/fold.json": {
+    "sha256": "089d29b709ebfa29861efad82c55ed9008c448fa15a756f3d35c1a832ab82857",
+    "bytes": 64103
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject3/model.pt": {
+    "sha256": "4fc12640aaf92a7ce61ff2b382b4ef32407888549f8c0d992677e75b5cb5906d",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject4/fold.json": {
+    "sha256": "80e495ff8e6e059dcad54aa65f0dbe7c8a7a299e433a81a6a6cb4d10ed744de6",
+    "bytes": 61394
+  },
+  "folds/SkateFormer_adapted_small_seed242_subject4/model.pt": {
+    "sha256": "c4158d5a09fea410b717131e7fcaea1db0293bdea1e035c182d51a6e475966ab",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject1/fold.json": {
+    "sha256": "209c3802185cb9af31f11a0bafe0fdc27ac3e7ed83c289b3db9856dc160fe15a",
+    "bytes": 63338
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject1/model.pt": {
+    "sha256": "629d65ea268bc9325bdc2059e86d9f961b73e7152dee7ab290bd4ef4111780dd",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject2/fold.json": {
+    "sha256": "70335074c83b42de256fd8114de41fcaece5e4a44dac2ac6764339f573b33a7d",
+    "bytes": 69179
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject2/model.pt": {
+    "sha256": "7dc6f1004e3debc80fc633f3b80b190f3507a0fcdc8d36577c1aa971a0cc4419",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject3/fold.json": {
+    "sha256": "0f5934d872c9c0feafdda2c7bf4c0a922e538f2b19af881ee59e340d99b6a674",
+    "bytes": 63718
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject3/model.pt": {
+    "sha256": "e9ddf56e896ead67fece5239212c3ebb5b8de40f08aa6b1fe08e202475bbeb2e",
+    "bytes": 101711
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject4/fold.json": {
+    "sha256": "d35336d8ee58bd1d0b3340d3e7d9ec8965719fc580745f79b05fb33ef2a4ff47",
+    "bytes": 64120
+  },
+  "folds/SkateFormer_adapted_small_seed42_subject4/model.pt": {
+    "sha256": "9b9e5c8befaefff9627e19b0fef0d8ba7a4f32a716a819e66d9cbf160ee875ff",
+    "bytes": 101711
+  },
+  "locked_protocol.json": {
+    "sha256": "1c180a034ef39dfe904b7526ef846b116c00c1482ac8443f77963c2117c25a5e",
+    "bytes": 3406
+  },
+  "models/manifest.json": {
+    "sha256": "5c665b31fa19b1bf125b8b1ccfcd8f9313ad40af600422dd09f9fa7fabe4b31a",
+    "bytes": 27099
+  },
+  "monitoring/monitor_executed.py": {
+    "sha256": "91e42a674d0255c04ca58522dc2fd6891d8f1b58a133b36a83f2f2d3518f258b",
+    "bytes": 4077
+  },
+  "monitoring/tung-skate-rtx3050-20261122-205954-full-monitor-20261122-210007-measurement.json": {
+    "sha256": "8e096665a0a57d4031c5918b9799a82039bb1025c5b073cc5032dcb41fcabed2",
+    "bytes": 490
+  },
+  "monitoring/tung-skate-rtx3050-20261122-205954-full-monitor-20261122-210007-telemetry.csv": {
+    "sha256": "3cf82fa30fd4f81df6716f59cb9970fe92c3feeb848055907acf316d28c05167",
+    "bytes": 10595
+  },
+  "monitoring/tung-skate-rtx3050-20261122-205954-smoke-monitor-20261122-205955-measurement.json": {
+    "sha256": "82078d1f02d2730f6ccff12ca03ca5124ee7dd1f3b9ae8804b68701b5df27160",
+    "bytes": 492
+  },
+  "monitoring/tung-skate-rtx3050-20261122-205954-smoke-monitor-20261122-205955-telemetry.csv": {
+    "sha256": "bc7ae4a0d888b8e34aa8e7fb21ffa9eb7326a01e1e06f4abed1bdde7f5da05c1",
+    "bytes": 348
+  },
+  "pooled_by_seed.csv": {
+    "sha256": "b2dae0a070be1d260233cbeead9ac8d050be3ed26c04c68140aff88b78ac8330",
+    "bytes": 1824
+  },
+  "predictions.csv": {
+    "sha256": "fd8c9aa91f183753a33b11599cde7164b8984869e00d371f3d8ac19aa4b8ca11",
+    "bytes": 127827
+  },
+  "README.md": {
+    "sha256": "a192aa0337a918a61b7bb085e77766ad2bbcda10bc9270abaf66adc1d02170ae",
+    "bytes": 4051
+  },
+  "seed_mean_std.csv": {
+    "sha256": "dc0d6fc05db7fdd3dddb65a4d9bb9676e08227f4a56e077faf7d25d6ff10a891",
+    "bytes": 2030
+  },
+  "smoke/completion.json": {
+    "sha256": "d5425227d47550a2229f2ca68c1b2b33e688f6031bf5dfc47ddd9da9b564a491",
+    "bytes": 363
+  },
+  "smoke/errors.csv": {
+    "sha256": "f221e34cb54259eef74cbfede32f3b1e992ac2de2849b91d0de15fb3bd3ebaf7",
+    "bytes": 1115
+  },
+  "smoke/fold_metrics.csv": {
+    "sha256": "6672010eaef3fbeea4f521ea32348aae5aa0a0621c2e210f944807b0edd6d084",
+    "bytes": 467
+  },
+  "smoke/folds/SkateFormer_adapted_small_seed42_subject1/fold.json": {
+    "sha256": "c8bcc556a8257beefd6532c9b992d90674c638e736dd69aa0e08e838f91e591a",
+    "bytes": 44634
+  },
+  "smoke/folds/SkateFormer_adapted_small_seed42_subject1/model.pt": {
+    "sha256": "e1041e11cbc44b395b23f5cd0fd166774f97e03e26a9222704101ba8e5ba0588",
+    "bytes": 101711
+  },
+  "smoke/locked_protocol.json": {
+    "sha256": "0f597be0bf82e412fe6b9d7dd03be3cebc947a854177603b5406d5fce184cc81",
+    "bytes": 3358
+  },
+  "smoke/models/manifest.json": {
+    "sha256": "b796b0961441ab8b173033a3fcd2612d4a285240054608ab0afd5c4b5e4ad4a5",
+    "bytes": 2259
+  },
+  "smoke/pooled_by_seed.csv": {
+    "sha256": "872a5071583741c7f7499ba115c5690256aaad21372e237981e92d0fa7ac46ff",
+    "bytes": 453
+  },
+  "smoke/predictions.csv": {
+    "sha256": "718daa4e51578418b3c2ac20cac130f7190df269a45c8d7574c1b6524a40748e",
+    "bytes": 8956
+  }
+}

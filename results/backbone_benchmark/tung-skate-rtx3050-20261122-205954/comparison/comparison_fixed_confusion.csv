@@ -1,0 +1,6 @@
+variant,tn,fp,fn,tp
+A3_motion_attention,210,33,18,219
+CTR_GCN_adapted,214,29,26,211
+GRU_v2_small,214,29,21,216
+SkateFormer_adapted_small,203,40,36,201
+TCN_v2_small,214,29,14,223
