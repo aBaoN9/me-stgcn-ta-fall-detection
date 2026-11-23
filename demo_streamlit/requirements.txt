@@ -1,0 +1,8 @@
+streamlit==1.51.0
+numpy==1.26.4
+pandas>=2,<3
+torch>=2.2,<3
+mediapipe==0.10.32
+opencv-contrib-python==4.11.0.86
+protobuf==6.31.1
+imageio-ffmpeg>=0.6,<0.7

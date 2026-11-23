@@ -4,6 +4,8 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
+- Cập nhật 23/11/2026: nghiệm thu/merge SkateFormer adapted small qua PR #4; tích hợp demo FallScope theo yêu cầu mới Gia Bảo, thay trạng thái hoãn demo nhưng không khôi phục PoseLab/giao lại WEB-01/WEB-02. Tuning local vẫn tách khỏi lần publish này; deployment/bài/hạn Đức giữ nguyên. Chi tiết `GB-20261123-001` dưới đây; các snapshot có ngày cũ là lịch sử.
+
 - Phạm vi mới 21/11/2026: gỡ mã PoseLab, demo mới để sau; kế hoạch tuning A3 so TCN/GRU chỉ `PLANNED / NOT_RUN` theo `GB-20261121-002`. Quyền tự chủ/bài/hạn Đức và bằng chứng đã nhận của Tùng không đổi.
 - Cập nhật 21/11/2026: nghiệm thu bổ sung GRU/CTR-GCN adapted của Tùng qua PR #3, tích hợp bản sửa monitor và cập nhật README theo `GB-20261121-001`. Quyền tự chủ, hạn bài Đức, model triển khai, trạng thái tắt PoseLab và Word giữ nguyên.
 - Cập nhật: 20/11/2026, đã nghiệm thu benchmark TCN–A3 của Tùng và merge PR #2 theo `GB-20261120-001`. Quyền tự chủ/CPU và hỗ trợ input vẫn giữ; Đức tiếp tục nhiệm vụ/hạn 25/11, không suy ra đã nghiệm thu bài Đức. PoseLab vẫn dừng, model triển khai không đổi.
@@ -11,6 +13,14 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261123-001 - Nhận SkateFormer và tích hợp demo local
+
+- Nguồn yêu cầu: Gia Bảo yêu cầu thêm model Tùng vào web, sau đó cập nhật repo ngày 23/11/2026 (UTC+7). Review sản phẩm đã thực hiện trước khi tích hợp; không phải cấp lại quyền train từng bước.
+- **ACCEPTED_BENCHMARK:** PR #4, head `20c67f57c87d1a2cfc0489bf23da45522c4c8d2c`, đã merge lúc 12:55 ngày 23/11/2026 tại `3c6a39eaf4ee4d37e0848b94bad800aa2dcd4e3a`. Nhận mã, thiết kế, 48 fits, 12 checkpoint full và dự đoán SkateFormer adapted small nguyên trạng. Kết quả âm hợp lệ: Accuracy 84,17%, Sensitivity 84,81%, F1 84,05%; không thay A3/TCN/GRU hoặc model/threshold triển khai, không bắt train lại để có số đẹp.
+- Review độc lập khớp 55 artifact, 11 source khóa, bốn input chuẩn và 7.200 dòng dự đoán; 20 test nghiên cứu PASS. Không chạy lại train/full GPU latency và không gọi local checks là CI. Giới hạn bốn subject/kiến trúc thu gọn giữ nguyên.
+- **FallScope local:** năm model chạy được, gồm SkateFormer; hai baseline hiển thị nhưng khóa vì thiếu checkpoint. Phân tích trước, phát đồng bộ timestamp; benchmark tách khỏi Fall score video. Có báo cáo, sự kiện/tua, tiến độ/hủy và lịch sử opt-in; không hosting công khai, không giả Accuracy live. Demo qua 31 test và replay 60 checkpoint thật trên checkout main không có tuning local.
+- Quyết định mới thay phần hoãn demo trong `GB-20261121-002` chỉ cho prototype do Gia Bảo yêu cầu. PoseLab vẫn gỡ, WEB-01/WEB-02 vẫn hủy; không thay quyền tự chủ/nhiệm vụ/hạn 25/11 của Đức, không nhận thay bài Đức. Không nhập ba commit runner/Kaggle tuning của `giabao` hoặc bộ lưu PARTIAL local trong đợt publish này. Word, notebook, dataset và deployment giữ nguyên.
 
 ## GB-20261121-002 - Gỡ PoseLab, hoãn demo và lập kế hoạch tuning A3
 

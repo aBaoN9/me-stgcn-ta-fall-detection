@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Cập nhật 23/11/2026:** main đã nhận PR #4 SkateFormer adapted small tại `3c6a39e`, kết quả nghiên cứu bổ sung âm hợp lệ; xem `GB-20261123-001` trong [answers](discussions/answers.md). [FallScope local](../demo_streamlit/README.md) có năm model chạy được, gồm SkateFormer, và hai baseline chưa weights bị khóa. Yêu cầu demo mới của Gia Bảo thay trạng thái hoãn bên dưới, không khôi phục PoseLab/WEB-01/WEB-02 hoặc thay deployment. Runner/bộ lưu tuning local chưa nhập trong đợt này; không giao lại bài đã nghiệm thu, quyền tự chủ/nhiệm vụ/hạn Đức giữ nguyên.
+
 **Phạm vi 21/11/2026 (`GB-20261121-002`):** mã PoseLab đã gỡ khỏi repo; demo mới để sau, không có việc UI/QA hiện hành. Gia Bảo đã lập [kế hoạch tuning A3 so TCN/GRU](research/a3-tuning-plan.md), `PLANNED / NOT_RUN`, chưa train. Không đổi bằng chứng đã nhận, nhiệm vụ/hạn Đức hoặc model triển khai.
 
 **Nghiệm thu bổ sung 21/11/2026:** GRU/CTR-GCN adapted trong PR #3 đã được nhận theo `GB-20261121-001`, cùng bản sửa monitor khi chưa có `.runtime`. [Bộ bổ sung](../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) có 96 fits, 24 checkpoint full mới; [README](../README.md) so sánh đủ bốn model và phân biệt hai lần đo latency. 16 tests local/repo checker PASS; không train lại, đổi deployment, bật PoseLab, sửa Word hoặc nghiệm thu thay bài Đức.

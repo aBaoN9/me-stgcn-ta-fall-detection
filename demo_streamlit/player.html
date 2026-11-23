@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>__STYLE__</style></head>
+<body>
+<main class="workspace">
+  <section class="video-panel" aria-label="Video đã phân tích">
+    <header><span class="kicker">VIDEO</span><span class="pill" id="mode">CHỜ VIDEO</span></header>
+    <div class="stage" id="stage">
+      <div class="empty" id="empty"><span class="target">＋</span><h2>Chưa có video</h2><p>Chọn video và nhấn Phân tích video để bắt đầu.</p><small>MP4 · MOV · AVI · WEBM / tối đa 60 giây</small></div>
+      <video id="video" playsinline preload="metadata" aria-label="Video đầu vào, không âm thanh" hidden></video>
+      <svg id="skeleton" aria-label="Khung xương MediaPipe" preserveAspectRatio="none"></svg>
+      <div class="video-tag" id="videoTag" hidden>MEDIAPIPE / 33 LANDMARKS</div>
+    </div>
+    <div class="controls">
+      <button id="play" disabled aria-label="Phát hoặc tạm dừng">Phát</button>
+      <span id="clock">00:00 / 00:00</span>
+      <label class="overlay"><input type="checkbox" id="overlay" checked> Skeleton</label>
+      <select id="speed" aria-label="Tốc độ phát"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+      <button id="fullscreen" disabled aria-label="Toàn màn hình video">⛶</button>
+    </div>
+    <input id="seek" class="seek" type="range" min="0" max="1" step="0.01" value="0" disabled aria-label="Tua video">
+    <div class="timeline-head"><span>VÙNG SCORE ≥ 0.50</span><span id="eventCount">Chưa phân tích</span></div>
+    <div class="event-track" id="events"><i id="eventCursor"></i></div>
+    <div class="footnote" id="videoNote">Video chỉ xử lý tại máy chạy ứng dụng, không gửi dịch vụ bên ngoài.</div>
+    <section class="event-section" aria-label="Danh sách vùng cần xem lại">
+      <h3>Vùng cần xem lại <span id="listCount"></span></h3>
+      <p class="chart-note">Vùng score ≥ 0.50, chưa phải ngã đã xác nhận. Bấm một vùng để tua video.</p>
+      <div id="eventList" class="event-list"><p class="event-empty">Chưa có kết quả phân tích.</p></div>
+    </section>
+  </section>
+  <aside class="analytics" aria-label="Chỉ số đồng bộ theo video">
+    <header><span class="kicker">PHÂN TÍCH</span><span class="live-dot">ĐỒNG BỘ VIDEO</span></header>
+    <div class="model-line"><span id="modelName"></span><span class="timestamp" id="tick">t = 0.00s</span></div>
+    <div class="score-card"><div class="score-top"><span>FALL SCORE</span><span id="state" class="state">Chưa phân tích</span></div><div class="score-number" id="score">—<small>/ 1.00</small></div><div class="score-meter"><div id="scoreFill"></div><i></i></div><p id="stateNote">Chọn video để bắt đầu phân tích.</p></div>
+    <div class="mini-grid"><div><span>POSE COVERAGE</span><strong id="quality">—</strong><small>Frame có pose / cửa sổ</small></div><div><span>MODEL FORWARD</span><strong id="latency">—</strong><small>CPU · không gồm pose</small></div></div>
+    <div class="chart-card"><div class="chart-title"><h3>Diễn biến Fall score</h3><span class="legend">— Ngưỡng 0.50</span></div><svg id="scoreChart" viewBox="0 0 400 126" role="img" aria-label="Fall score theo thời gian"></svg></div>
+    <div class="chart-card"><div class="chart-title"><h3>Góc nghiêng thân</h3><span class="legend">0–180°</span></div><svg id="angleChart" viewBox="0 0 400 126" role="img" aria-label="Góc thân theo thời gian"></svg><p class="chart-note">Đo từ vai–hông; không phải attention của model.</p></div>
+    <div class="research-note">Phân tích trước → phát đồng bộ. Cửa sổ quá khứ; đây chưa phải cảnh báo online đã kiểm chứng. Score không phải Accuracy hay xác suất đã hiệu chuẩn.</div>
+  </aside>
+</main>
+<script id="payload" type="application/json">__PAYLOAD__</script><script>__SCRIPT__</script>
+</body></html>

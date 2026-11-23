@@ -1,5 +1,7 @@
 # Bảng giao việc nghiên cứu
 
+**Cập nhật 23/11/2026:** Tùng đã nghiệm thu thêm SkateFormer adapted small qua PR #4 (`GB-20261123-001`), ngoài PR #2/#3. Gia Bảo tích hợp [FallScope local](../../demo_streamlit/README.md) theo yêu cầu mới; demo không còn hoãn trong phạm vi prototype này, nhưng PoseLab/WEB-01/WEB-02 vẫn hủy, không giao lại UI/QA cho Tùng/Đức. Tuning A3 là track riêng, không nằm trong bản tích hợp này. Các snapshot có ngày cũ bên dưới là lịch sử; hạn/nhiệm vụ Đức không đổi.
+
 **Phạm vi mới 21/11/2026 (`GB-20261121-002`):** gỡ mã PoseLab, demo mới `DEFERRED`. [Kế hoạch tuning A3](../research/a3-tuning-plan.md) do Gia Bảo giữ, `PLANNED / NOT_RUN`; không giao thêm việc hoặc đổi hạn Đức/Tùng.
 
 **Tiến độ 21/11/2026:** Tùng đã được nghiệm thu cả TCN–A3 (PR #2, 20/11) và GRU/CTR-GCN adapted bổ sung (PR #3, 21/11), theo `GB-20261120-001` và `GB-20261121-001`. Bản sửa monitor do Gia Bảo tích hợp không làm đổi kết quả hoặc yêu cầu train lại. Đức tiếp tục phần riêng; không suy ra đã nghiệm thu bài Đức.

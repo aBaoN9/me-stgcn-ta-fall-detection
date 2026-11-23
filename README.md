@@ -1,6 +1,10 @@
 # 🛡️ ME-STGCN-TA — Phát hiện té ngã từ khung xương
 
-**Phạm vi mới 21/11/2026 — `GB-20261121-002`:** đã gỡ mã PoseLab (`app/`) khỏi bản repo hiện hành; **app demo sẽ triển khai sau**, không làm UI/QA lúc này. Model, dữ liệu, kết quả, notebook và Word được giữ nguyên. Đã lập [kế hoạch tuning A3 so với TCN/GRU](docs/research/a3-tuning-plan.md): `PLANNED / NOT_RUN`, chưa có runner mới hoặc lượt train mới, chưa có kết quả chứng minh vượt đối chứng.
+**Cập nhật 23/11/2026 — `GB-20261123-001`:** đã nghiệm thu và merge [PR #4 của Tùng](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/4), bổ sung **SkateFormer · Adapted small**, mã tái lập, 12 checkpoint full và kết quả. Merge tại `3c6a39e`, nguồn đã review `20c67f5`. Đây là **kết quả nghiên cứu bổ sung âm hợp lệ**, không phải model thắng A3/TCN/GRU hoặc thay model triển khai. Xem [thiết kế](docs/research/skateformer-addendum.md), [bộ bàn giao](results/backbone_benchmark/tung-skate-rtx3050-20261122-205954/README.md) và [quyết định](docs/discussions/answers.md).
+
+**Demo mới theo yêu cầu Gia Bảo:** [FallScope / Streamlit Video Lab](demo_streamlit/README.md), chạy `./demo_streamlit/run.ps1`. Video/player/skeleton bên trái; lựa chọn mô hình và chỉ số/biểu đồ đồng bộ bên phải. Có năm model chạy được: **ME-STGCN-TA · A3, TCN · Small v2, GRU · Small v2, CTR-GCN · Adapted, SkateFormer · Adapted small**. Motion-SVM và ST-GCN base xuất hiện trong danh sách nhưng khóa suy luận vì chưa có checkpoint đã kiểm chứng; không dùng weights thay thế. Phân tích trước rồi phát theo timestamp, **không phải livestream hay Accuracy thời gian thực**. Có sự kiện bấm để tua, tóm tắt/tải báo cáo, tiến độ/hủy và lịch sử opt-in; chỉ chạy localhost, chưa triển khai công khai.
+
+**Phạm vi giữ nguyên:** PoseLab (`app/`) đã gỡ; demo Streamlit này không khôi phục PoseLab, đổi deployment, notebook/Word hoặc giao lại UI/QA cho Tùng/Đức. [Tuning A3](docs/research/a3-tuning-plan.md) là track riêng trên `giabao`; runner và bộ lưu PARTIAL local **không nằm trong lần cập nhật main này**, không đưa tuning vào selector hoặc tuyên bố thắng đối chứng.
 
 **Cập nhật 21/11/2026:** đã nghiệm thu và tích hợp [PR #3 của Tùng](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/3), bổ sung **GRU và CTR-GCN adapted** với 96 fits và 24 checkpoint full mới. So sánh bốn model tại ngưỡng 0,5: **TCN 91,04%**, GRU 89,58%, A3 chạy lại 89,38%, CTR-GCN adapted 88,54% Accuracy trung bình. GRU nhanh nhất trong phép đo model-only; TCN có Sensitivity trung bình cao nhất. Đã sửa lỗi monitor khi chưa có `.runtime`, không cần train lại. Quyết định `GB-20261121-001` trong [answers](docs/discussions/answers.md); **không thay model triển khai**.
 
@@ -8,14 +12,14 @@ Benchmark **TCN–A3** đã được nghiệm thu qua [PR #2](https://github.com
 
 **Bắt đầu làm bài:** [hướng dẫn local/Kaggle, tool kiểm/tải input và checklist](docs/training-start.md). Quyền tự chủ và lựa chọn CPU theo `GB-20261119-002` vẫn giữ; tự khóa thay đổi trước outer-test, không chờ duyệt từng bước. Quyền CPU không tự mở chế độ CPU full của runner còn khóa CUDA.
 
-Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. **PoseLab dừng ngày 30/10 và mã app đã gỡ ngày 21/11/2026** theo yêu cầu Gia Bảo; repo hiện tập trung nghiên cứu, app demo để giai đoạn sau.
+Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động thường ngày (ADL)** từ video một người. MediaPipe trích xuất tư thế; ME-STGCN-TA học quan hệ không gian–thời gian từ khung xương và đặc trưng chuyển động. **PoseLab dừng ngày 30/10 và mã app đã gỡ ngày 21/11/2026** theo yêu cầu Gia Bảo; FallScope là prototype local mới để xem các model nghiên cứu, không phải ứng dụng đã kiểm chứng để cảnh báo cấp cứu.
 
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![PyTorch](https://img.shields.io/badge/PyTorch-training-EE4C2C?logo=pytorch&logoColor=white)
 ![Kaggle](https://img.shields.io/badge/Kaggle-notebooks-20BEFF?logo=kaggle&logoColor=white)
 ![ONNX](https://img.shields.io/badge/ONNX-inference-005CED?logo=onnx&logoColor=white)
 
-[Báo cáo Word](docs/bao-cao.docx) · [Phương pháp](docs/methodology.md) · [Benchmark TCN–A3](docs/research/backbone-benchmark.md) · [GRU/CTR-GCN bổ sung](docs/research/gru-ctrgcn-addendum.md) · [Notebooks](docs/notebook-guide.md) · [Phân công nghiên cứu](docs/tasks/README.md) · [Hướng nghiên cứu tiếp](docs/training-roadmap.md)
+[Báo cáo Word](docs/bao-cao.docx) · [Phương pháp](docs/methodology.md) · [Benchmark TCN–A3](docs/research/backbone-benchmark.md) · [GRU/CTR-GCN bổ sung](docs/research/gru-ctrgcn-addendum.md) · [SkateFormer bổ sung](docs/research/skateformer-addendum.md) · [Demo Streamlit](demo_streamlit/README.md) · [Notebooks](docs/notebook-guide.md) · [Phân công nghiên cứu](docs/tasks/README.md) · [Hướng nghiên cứu tiếp](docs/training-roadmap.md)
 
 ## Thành viên và AI bắt đầu ở đây
 
@@ -25,7 +29,7 @@ Dự án nghiên cứu phân loại **té ngã (Fall)** và **hoạt động th�
 
 | Thành viên | Nhánh | Nhiệm vụ và trạng thái nghiệm thu | Báo cáo |
 |---|---|---|---|
-| Tùng | `dinhtung` | [Đã nghiệm thu TCN–A3 (PR #2, 20/11) và GRU/CTR-GCN bổ sung (PR #3, 21/11)](docs/tasks/dinhtung.md) | [Tiến độ Tùng](docs/reports/dinhtung.md) |
+| Tùng | `dinhtung` | [Đã nghiệm thu TCN–A3 (PR #2), GRU/CTR-GCN (PR #3) và SkateFormer bổ sung (PR #4, 23/11)](docs/tasks/dinhtung.md) | [Tiến độ Tùng](docs/reports/dinhtung.md) |
 | Đức | `vinhduc` | [Tiếp tục thay đổi có kiểm soát ME-STGCN-TA; chưa có kết quả mới được nghiệm thu trên main](docs/tasks/vinhduc.md) | [Tiến độ Đức](docs/reports/vinhduc.md) |
 | Gia Bảo (người điều phối) | `giabao` | [Phát triển kỹ thuật, chuẩn bị tích hợp và điều phối](docs/tasks/giabao.md) | [Tiến độ Gia Bảo](docs/reports/giabao.md) |
 
@@ -55,7 +59,20 @@ Tám kênh gồm tọa độ tương đối x/y, visibility, vận tốc khớp 
 
 ## Trạng thái demo cũ
 
-PoseLab **đã gỡ mã nguồn khỏi repo hiện hành ngày 21/11/2026**, gồm backend, frontend, launcher và requirements trong `app/`. Không còn app để khởi chạy trong checkout này. [Model/checkpoint cũ](models/deployment/), dữ liệu, kết quả nghiên cứu và lịch sử Git vẫn giữ; có thể truy vết mã app trong Git trước lần gỡ này. **Demo mới: `DEFERRED`**, chưa giao triển khai hoặc chốt ngày ra mắt. Xem [quyết định và phạm vi](docs/tasks/web-app.md).
+PoseLab **đã gỡ mã nguồn khỏi repo hiện hành ngày 21/11/2026**, gồm backend, frontend, launcher và requirements trong `app/`. Không còn PoseLab để khởi chạy trong checkout này. [Model/checkpoint cũ](models/deployment/), dữ liệu, kết quả nghiên cứu và lịch sử Git vẫn giữ. Theo yêu cầu mới 22–23/11, có [FallScope](demo_streamlit/README.md) để thử local; WEB-01/WEB-02 cũ vẫn hủy, không giao lại cho Tùng/Đức. Demo không thay weights/threshold triển khai.
+
+### Chạy FallScope trên Windows
+
+Dùng Python 3.11 và môi trường riêng; không cài đè CUDA/PyTorch hệ thống. Hướng dẫn chọn CPU PyTorch và giới hạn media ở [README demo](demo_streamlit/README.md).
+
+```powershell
+python -m venv .venv-streamlit
+.venv-streamlit/Scripts/python -m pip install -r demo_streamlit/requirements.txt
+.venv-streamlit/Scripts/python -m demo_streamlit.prepare_assets
+./demo_streamlit/run.ps1
+```
+
+Mở `http://127.0.0.1:8501/`. Video một người, tối đa 60 giây/50 MB. Fall score là điểm của cửa sổ, không phải xác suất đã hiệu chuẩn hoặc Accuracy. Benchmark có nhãn được hiển thị riêng. Không lưu lịch sử tự động; mặc định chỉ lưu báo cáo khi bấm lưu, video/skeleton cần bật riêng. Lịch sử SQLite chưa mã hóa/phân quyền; không mở server ra Internet.
 
 ## 📓 Notebooks
 
@@ -145,6 +162,24 @@ Ngưỡng chính **0,5**; các tỷ lệ là trung bình ± độ lệch chuẩn
 
 Tra cứu [theo seed](results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/comparison/comparison_fixed_by_seed.csv), [theo subject](results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/comparison/comparison_fixed_by_subject.csv), [lỗi](results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/comparison/comparison_fixed_errors.csv), [dự đoán ghép cặp](results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/comparison/comparison_fixed_paired.csv), [manifest checkpoint](results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/models/manifest.json) và [hash](results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/files_sha256.json).
 
+### SkateFormer bổ sung: đã nghiệm thu ngày 23/11
+
+Nguồn [PR #4](https://github.com/aBaoN9/me-stgcn-ta-fall-detection/pull/4), commit `20c67f5`; [48 fits, 12 checkpoint full và dự đoán](results/backbone_benchmark/tung-skate-rtx3050-20261122-205954/README.md) được giữ nguyên byte/hash. Kiến trúc **adapted small**, hai block width 32 với bốn nhóm temporal/joint gần–xa, không phải tái lập nguyên bản SkateFormer trong paper.
+
+Ngưỡng cố định 0,5, trung bình ba seed trên cùng 160 clip/bốn subject; ba seed không phải 480 mẫu độc lập. Bảng tổng hợp từ dự đoán đã lưu, không trộn tuning T4 PARTIAL:
+
+| Mô hình | Accuracy | Sensitivity | F1 | GPU median forward (ms) |
+|---|---:|---:|---:|---:|
+| ME-STGCN-TA · A3 | 89,38% | 92,41% | 89,57% | 4,006 |
+| TCN · Small v2 | 91,04% | 94,09% | 91,20% | 3,494 |
+| GRU · Small v2 | 89,58% | 91,14% | 89,62% | 0,700 |
+| CTR-GCN · Adapted | 88,54% | 89,03% | 88,48% | 5,058 |
+| SkateFormer · Adapted small | 84,17% | 84,81% | 84,05% | 6,772 |
+
+Latency là lượt đo mới của Tùng cho cả năm model trên RTX 3050, batch 1, model-only; không thay số lịch sử ở bảng PR #3 và không so trực tiếp với CPU/end-to-end video. SkateFormer có **22.820 tham số**, ít hơn A3 (422.871), nhưng Accuracy/Recall thấp hơn và chậm hơn; số tham số ít không đồng nghĩa nhanh hơn. Đây là kết quả âm hợp lệ, không bắt train lại chỉ để thắng A3.
+
+Review độc lập: 55 artifact và 11 source hash/bytes khớp; 12 checkpoint full + một smoke nạp được; tái tính 7.200 dòng dự đoán và bảng so sánh khớp. 20 test nghiên cứu PASS; không chạy lại full train hoặc phép đo GPU. Demo: 31 test PASS trên checkout main không có tuning local, gồm replay 60 checkpoint thật. Giữ giới hạn bốn subject đã xem, chưa tập xác nhận độc lập; không dùng kết quả này như bằng chứng hiệu quả y tế.
+
 ### Số liệu lịch sử: kiểm chứng thành phần và thời gian (07/08)
 
 Thí nghiệm dùng **160 video, 79 Fall, 81 ADL và bốn chủ thể**. Với kiểm chứng thành phần và thời gian, số liệu dưới đây là trung bình ba seed tại ngưỡng cố định 0,5. Ba seed không tạo thành 480 video độc lập.
@@ -208,12 +243,14 @@ Chỉ chạy thí nghiệm mới khi có chủ đích, không ghi đè artifact 
 
 Không cần tìm chỉ số hoặc chọn seed có lợi cho A3 để phủ nhận kết quả TCN. Bảng lỗi/ghép cặp bốn model và chỉ số theo subject **đã có trong PR #3**. Các thí nghiệm còn có thể kiểm tiếp: độ nhạy ở cùng mức báo động giả (ngưỡng chọn bằng inner validation), độ bền khi pose thiếu/nhiễu, hoặc phiên bản A3 gọn hơn theo ngân sách công bằng. Ba hướng này là **đề xuất chưa thực hiện**, chưa phải bằng chứng A3 tốt hơn. Phân tích bổ sung sau khi đã thấy test phải ghi rõ tính thăm dò; thiết kế thí nghiệm mới cần khóa trước đánh giá và tập xác nhận độc lập nếu có điều kiện. Xem [roadmap](docs/training-roadmap.md).
 
-## Kế hoạch tuning A3 — chưa chạy
+## Kế hoạch tuning A3 — track riêng
+
+Phần dưới giữ thiết kế/ngân sách ban đầu trên main, không phải trạng thái chạy hiện tại của nhánh `giabao`. Runner/phiên Kaggle và bộ lưu PARTIAL local được giữ riêng; lần publish này chỉ tích hợp SkateFormer và demo, không nghiệm thu hoặc phát hành kết quả tuning.
 
 [Thiết kế chi tiết](docs/research/a3-tuning-plan.md) lấy **TCN và GRU** làm hai đối chứng chính, CTR-GCN adapted là tham chiếu phụ. Ưu tiên tuning learning rate, weight decay, dropout, lịch learning rate và label smoothing trên nguyên kiến trúc A3; không sửa nguồn hoặc ghi đè kết quả đã nghiệm thu.
 
 - Mốc cần vượt về Accuracy: TCN **91,04%**, GRU **89,58%**; A3 rerun hiện **89,38%**. Sensitivity, FN/FP, specificity, từng subject/seed và chi phí vẫn phải báo cáo, không chỉ chọn chỉ số có lợi.
-- Sáu recipe định trước; chọn riêng trong inner folds của từng outer/seed. So **tuned với tuned** cần cùng ngân sách cho A3/TCN/GRU: **648 inner fits + 36 outer refits = 684 fits**; đây là dự toán, **chưa chạy**. Không chọn cấu hình bằng outer-test.
+- Sáu recipe định trước; chọn riêng trong inner folds của từng outer/seed. So **tuned với tuned** cần cùng ngân sách cho A3/TCN/GRU: **648 inner fits + 36 outer refits = 684 fits**; đây là ngân sách thiết kế, không xác nhận nghiệm thu tuning trên main. Không chọn cấu hình bằng outer-test.
 - GRU có latency model-only **0,366 ms** trong lần đo đã nhận; thắng Accuracy không đồng nghĩa thắng tốc độ. A3 gọn hơn là hướng kiến trúc riêng, chưa thực hiện.
 - Gia Bảo giữ track kế hoạch này; không đổi bài/mốc/hạn **25/11/2026** của Đức, không yêu cầu Tùng train lại. Dữ liệu bốn người đã xem chỉ cho kết luận thăm dò; cần subject/tập xác nhận độc lập trước tuyên bố tổng quát.
 
@@ -224,8 +261,9 @@ models/deployment/           Checkpoint và cấu hình cũ được bảo toàn
 notebooks/                   Các bước chuẩn bị, baseline và kiểm chứng
 notebooks/history/           Giai đoạn đề xuất và xuất mô hình ban đầu
 training/component_ablation/ Mã kiểm chứng thành phần
-training/backbone_benchmark/ TCN–A3 đã nghiệm thu; supplement/ chứa GRU/CTR-GCN
-results/backbone_benchmark/  Hai bộ bàn giao full, checkpoint/lock/phân tích
+training/backbone_benchmark/ TCN–A3; supplement/ GRU/CTR-GCN; skate/ SkateFormer
+results/backbone_benchmark/  Ba bộ bàn giao full, checkpoint/lock/phân tích
+demo_streamlit/             FallScope local: video, switch model, biểu đồ/báo cáo
 results/                     Dự đoán, bảng kết quả và cấu hình thực nghiệm
 docs/                        Một báo cáo Word, đề cương và ảnh minh họa
 docs/tasks/                  Nhiệm vụ Tùng/Đức và phạm vi sửa code
@@ -237,7 +275,7 @@ data/gmdcsa24/               Bốn input chuẩn đúng hash và manifest nguồ
 ```
 
 
-[Báo cáo hiện tại](docs/bao-cao.docx) đang hoàn thiện; các mục chưa có bằng chứng được để trống. **Các phiên tích hợp 20–21/11 chỉ cập nhật code/kết quả và tài liệu Markdown; chưa đưa kết quả TCN/GRU/CTR-GCN mới vào Word.** Repo chỉ giữ một bản Word để cập nhật tại cùng đường dẫn; các phiên bản đã commit có thể xem trong lịch sử Git. [Đề cương ban đầu](docs/de-cuong.pdf) được giữ dưới dạng PDF.
+[Báo cáo hiện tại](docs/bao-cao.docx) đang hoàn thiện; các mục chưa có bằng chứng được để trống. **Các phiên tích hợp 20–23/11 cập nhật code/kết quả/demo và tài liệu Markdown; chưa đưa kết quả TCN/GRU/CTR-GCN/SkateFormer mới vào Word.** Repo chỉ giữ một bản Word để cập nhật tại cùng đường dẫn; các phiên bản đã commit có thể xem trong lịch sử Git. [Đề cương ban đầu](docs/de-cuong.pdf) được giữ dưới dạng PDF.
 
 Kiểm tra tính toàn vẹn của mô hình, notebooks, kết quả và liên kết:
 
@@ -248,4 +286,4 @@ python scripts/check_repository.py
 
 ## Phạm vi sử dụng
 
-Mô hình và các kết quả là sản phẩm nghiên cứu, chưa được kiểm chứng như thiết bị y tế hoặc hệ thống cấp cứu; app demo hiện chưa triển khai. Kết quả phát triển trên bốn người không bảo đảm hiệu quả cho mọi người và mọi cảnh quay. Mã nguồn, dữ liệu và thư viện có điều kiện sử dụng riêng; xem [NOTICE](NOTICE.md).
+Mô hình và các kết quả là sản phẩm nghiên cứu, chưa được kiểm chứng như thiết bị y tế hoặc hệ thống cấp cứu; FallScope chỉ là prototype local, chưa triển khai công khai. Kết quả phát triển trên bốn người không bảo đảm hiệu quả cho mọi người và mọi cảnh quay. Mã nguồn, dữ liệu và thư viện có điều kiện sử dụng riêng; xem [NOTICE](NOTICE.md).

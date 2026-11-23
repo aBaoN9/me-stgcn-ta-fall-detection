@@ -1,5 +1,7 @@
 # Tùng - Mô hình hoặc phương pháp khác trên cùng dataset
 
+**Nghiệm thu bổ sung 23/11/2026 — `ACCEPTED_BENCHMARK`:** PR #4 SkateFormer adapted small đã merge tại `3c6a39e`, nguồn `20c67f5`, theo `GB-20261123-001`. [Bộ kết quả](../../results/backbone_benchmark/tung-skate-rtx3050-20261122-205954/README.md) có 48 fits/12 checkpoint full; nhận kết quả âm hợp lệ (Accuracy 84,17%), không bắt train lại hoặc thay deployment. Gia Bảo tích hợp vào [FallScope local](../../demo_streamlit/README.md); đây không phải giao lại việc UI/QA cho Tùng. Giữ nguyên những nghiệm thu trước và phạm vi Đức.
+
 **Nghiệm thu bổ sung 21/11/2026 — `ACCEPTED_BENCHMARK`:** GRU/CTR-GCN adapted trong PR #3 được nhận theo `GB-20261121-001`. [Bộ bổ sung](../../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) có 96 fits và 24 checkpoint full mới; [README](../../README.md) đã có so sánh bốn model, ưu/nhược và giới hạn. Gia Bảo sửa tiện ích monitor và thêm test mà không đổi code train đã khóa hoặc artifact; không cần train lại, không thêm điều kiện nghiệm thu. Giữ nguyên mốc TCN–A3, deployment và phạm vi bài Đức.
 
 **Nghiệm thu 20/11/2026 — `ACCEPTED_BENCHMARK`:** M0–M3 TCN–A3 đã được nhận theo `GB-20261120-001`, PR #2 merge vào main (`bbe3c64`). Đủ 96 fits, 24 checkpoint và kết quả thật; [bộ bàn giao](../../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md) đã có trên main. Không cần làm thêm để A3 thắng mới chấp nhận bài. Các yêu cầu/tiêu chí bên dưới giữ làm phạm vi và lịch sử; nghiên cứu bổ sung không tự là nhiệm vụ bắt buộc mới.

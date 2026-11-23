@@ -2,6 +2,16 @@
 
 Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: chủ repo/người điều phối. [Nhiệm vụ](../tasks/giabao.md).
 
+## 23/11/2026 - Tích hợp SkateFormer và FallScope theo yêu cầu chủ repo
+
+- Đã merge PR #4 với guard đúng head `20c67f57c87d1a2cfc0489bf23da45522c4c8d2c`, tạo merge `3c6a39eaf4ee4d37e0848b94bad800aa2dcd4e3a` lúc 12:55 UTC+7. Không push/xóa nhánh Tùng/Đức hoặc sửa source/kết quả đã khóa. Nhận kết quả âm hợp lệ, không thay deployment hay yêu cầu train lại.
+- Review trước đó: 20 test nghiên cứu PASS; 55 artifact, 11 source hash, bốn input khớp; nạp 12 checkpoint full + một smoke, tái tính 7.200 dòng dự đoán/các bảng tổng hợp khớp. Sai khác score SkateFormer CPU/CUDA tối đa 8,046627e-7, quyết định lớp giống nhau. Không chạy lại full train hoặc latency GPU; đây là kiểm tra local, không phải CI.
+- Phát triển/thử demo trên `giabao`, sau review tích hợp bản scoped trên checkout riêng từ main đã merge PR #4. Giữ nguyên worktree đang có tuning; không đưa ba commit tuning/Kaggle hoặc `results/a3_tuning/` PARTIAL vào main. Commit này bổ sung toàn bộ `demo_streamlit/` vì demo trước đó chưa được publish, cùng README/quyết định/bàn giao; không nhập toàn nhánh `giabao`.
+- Demo có năm model thật, gồm SkateFormer builder riêng/12 weights/manifest/provenance `accepted_pr4_merged`; hai baseline không weights bị khóa. Video/charts đồng bộ sau phân tích, sự kiện/tua, báo cáo và lịch sử opt-in, tiến độ/hủy; không tuyên bố livestream, Accuracy mới hoặc triển khai y tế. Tuning PARTIAL không có trong selector; test dùng fixture phần archive tùy chọn, không phụ thuộc dữ liệu local chưa publish.
+- Checkout main không có tuning local: `unittest discover -s demo_streamlit/tests -v` PASS 31/31, gồm 60 replay held-out checkpoint, sai khác CPU/CUDA tối đa 0,00011039 (cả năm model). Log local `.runtime/fallscope/publish-main-tests.log`. Smoke video SkateFormer trước đó đi hết MediaPipe/features/model/H.264 trên bản sao CFR, không thay video gốc/guard; không gọi là đánh giá ngoài miền.
+- README có bảng năm model, nhận rõ SkateFormer Accuracy 84,17%/Sensitivity 84,81%/F1 84,05%, mô tả adaptation/giới hạn và hướng dẫn chạy FallScope. Quyết định `GB-20261123-001` cập nhật nghiệm thu/phạm vi demo, giữ Word/notebook/deployment/bài Đức. Trạng thái publish và commit cuối phải đối chiếu GitHub/origin/main, không suy từ log chuẩn bị.
+- Kiểm tra lại trên checkout tích hợp: 20/20 test nghiên cứu PASS, 55 artifact byte-identical và 11 source khóa PASS, JavaScript syntax/repository checker/staged diff PASS. Không sửa checker để bỏ lỗi; không thay notebook, Word, model triển khai hoặc đưa video/môi trường/lịch sử SQLite vào Git.
+
 ## Snapshot
 
 - Phạm vi mới 21/11/2026 (`GB-20261121-002`): đã gỡ 31 file PoseLab trong `app/`, demo mới `DEFERRED`; cập nhật README/quy tắc/bàn giao và [kế hoạch tuning A3](../research/a3-tuning-plan.md), `PLANNED / NOT_RUN`. 16/16 regression tests, repo checker, 68+80 hash artifact và code/input lock PASS. Không sửa scientific source/results/model/notebook/Word; không train thí nghiệm mới. Phiên phát triển trên `giabao` từ main `3bae43b`, tích hợp/publish main theo yêu cầu; đối chiếu SHA remote thay vì coi ghi chú này là bằng chứng push.
