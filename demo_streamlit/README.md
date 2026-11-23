@@ -3,12 +3,16 @@
 Local research prototype requested by Gia Bao on 22 November 2026. Video upload,
 playback and skeleton on the left; model selection, window scores and synchronized
 charts on the right. The compact blue-and-white UI has no marketing hero or
-person/run selector. Labels put the model first, then the variant: ME-STGCN-TA / A3,
-TCN / Small v2, GRU / Small v2, CTR-GCN / Adapted and SkateFormer / Adapted small. Motion-SVM / Base and
-ST-GCN / Base (3 channels) also appear, but inference is explicitly unavailable:
+person/run selector. Labels put the model first, then the variant. The selector
+order is Motion-SVM / Base, ST-GCN / Base (3 channels), ME-STGCN-TA / A3,
+TCN / Small v2, GRU / Small v2, CTR-GCN / Adapted and SkateFormer / Adapted small.
+New sessions select A3 by default. The two baselines appear first, but inference is explicitly unavailable:
 the repo has notebooks 02/03, not verified baseline checkpoint files. They are not
 aliases for A0 or A3; no substitute weights, invented metrics or automatic training.
 This is new code, not a restoration of the removed PoseLab.
+
+This README describes the current prototype. Superseded update notes and the
+previous root README are kept in the [project journal](../docs/nhat-ky/README.md).
 
 SkateFormer is imported unchanged from Tung's PR #4, pinned commit
 `20c67f57c87d1a2cfc0489bf23da45522c4c8d2c`, following local review on 23 November 2026.

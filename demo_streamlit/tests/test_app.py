@@ -76,6 +76,10 @@ class AppTests(unittest.TestCase):
         self.assertTrue(app.button[0].disabled)
         self.assertEqual([selector.key for selector in app.selectbox], ["variant", "seed", "subject"])
         self.assertEqual(app.selectbox(key="variant").options, list(MODEL_CHOICES.values()))
+        self.assertEqual(list(MODEL_CHOICES), ["Motion_SVM_base", "ST_GCN_base", "A3_motion_attention",
+                                             "TCN_v2_small", "GRU_v2_small", "CTR_GCN_adapted",
+                                             "SkateFormer_adapted_small"])
+        self.assertEqual(app.selectbox(key="variant").value, "A3_motion_attention")
         self.assertFalse(app.title)
         self.assertFalse(any("Nhìn chuyển động" in block.value or "Video bên trái" in block.value
                              for block in app.markdown))

@@ -12,6 +12,14 @@ Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: ch�
 - README có bảng năm model, nhận rõ SkateFormer Accuracy 84,17%/Sensitivity 84,81%/F1 84,05%, mô tả adaptation/giới hạn và hướng dẫn chạy FallScope. Quyết định `GB-20261123-001` cập nhật nghiệm thu/phạm vi demo, giữ Word/notebook/deployment/bài Đức. Trạng thái publish và commit cuối phải đối chiếu GitHub/origin/main, không suy từ log chuẩn bị.
 - Kiểm tra lại trên checkout tích hợp: 20/20 test nghiên cứu PASS, 55 artifact byte-identical và 11 source khóa PASS, JavaScript syntax/repository checker/staged diff PASS. Không sửa checker để bỏ lỗi; không thay notebook, Word, model triển khai hoặc đưa video/môi trường/lịch sử SQLite vào Git.
 
+## 23/11/2026 - README hiện trạng và thư mục nhật ký
+
+- Theo yêu cầu Gia Bảo, viết lại README gốc theo hiện trạng main, bỏ lối chồng cập nhật ngày tháng. Giữ một bảng năm model mean ± SD và dùng đúng lượt đo latency chung mới nhất; tách benchmark có nhãn khỏi Fall score video, ghi đủ baseline thiếu weights, tuning PARTIAL, deployment và giới hạn bốn subject.
+- Tạo `docs/nhat-ky/README.md`, nhật ký tháng 11 và bản lưu README nguồn main `ba1b24bfeb79cbbfd2c8af7c2234651b292d1e9c`. Snapshot giữ nội dung gốc, chỉ đổi gốc các liên kết tương đối; timeline dẫn commit/PR/quyết định thật. Không thay artifact nghiên cứu hoặc mang dữ liệu/video riêng vào nhật ký.
+- Đồng bộ README demo và tích hợp thay đổi selector đã yêu cầu: Motion-SVM/ST-GCN Base đứng trước, A3 vẫn mặc định, baseline chưa weights vẫn khóa. AGENTS bổ sung quy tắc duy trì hiện trạng/nhật ký, không mở lại quyền hoặc giao việc nghiên cứu.
+- Chuẩn bị trên checkout riêng từ main để không nhập ba commit tuning hoặc bộ lưu PARTIAL local, giữ thay đổi gốc trên `giabao`. README local trước khi viết lại được sao lưu ignored tại `.runtime/fallscope/readme-before-journal-20261123.md`; mã/kết quả đã nghiệm thu, notebook, Word và deployment không đổi.
+- Kiểm tra checkout tích hợp: 31/31 test demo PASS, replay 60 checkpoint; số mean/SD/latency của cả năm model trong README khớp CSV, thứ tự selector khớp, snapshot không mất nội dung ngoài phép đổi gốc liên kết và mọi commit dẫn trong nhật ký tồn tại. Repository checker và diff PASS; không sửa checker hoặc chạy train. Log test local `.runtime/fallscope/readme-journal-tests.log`.
+
 ## Snapshot
 
 - Phạm vi mới 21/11/2026 (`GB-20261121-002`): đã gỡ 31 file PoseLab trong `app/`, demo mới `DEFERRED`; cập nhật README/quy tắc/bàn giao và [kế hoạch tuning A3](../research/a3-tuning-plan.md), `PLANNED / NOT_RUN`. 16/16 regression tests, repo checker, 68+80 hash artifact và code/input lock PASS. Không sửa scientific source/results/model/notebook/Word; không train thí nghiệm mới. Phiên phát triển trên `giabao` từ main `3bae43b`, tích hợp/publish main theo yêu cầu; đối chiếu SHA remote thay vì coi ghi chú này là bằng chứng push.

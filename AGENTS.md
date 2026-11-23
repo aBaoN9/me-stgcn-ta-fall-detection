@@ -79,6 +79,12 @@ Nếu repo có `.codegraph/`, dùng `codegraph_explore` hoặc `codegraph explor
 - Chưa chạy: `NOT_RUN`; thiếu input/GPU: báo lý do/hỗ trợ cần thiết. Không tạo số liệu giả.
 - Khóa phương pháp trước held-out. Outer folds cũ đã được xem trong phát triển; phải công bố giới hạn.
 
+## README và nhật ký
+
+- `README.md` ở gốc mô tả hiện trạng mới nhất trên main: model/kết quả đã kiểm chứng, cách chạy và giới hạn. Khi thay đổi, sửa trực tiếp mục/bảng tương ứng; không thêm các khối cập nhật theo ngày chồng lên đầu README.
+- Diễn biến cũ ghi trong `docs/nhat-ky/YYYY-MM.md`, có commit/PR/run, bằng chứng kiểm tra và điều không thay đổi; mục lục ở [nhật ký](docs/nhat-ky/README.md). Khi tái cấu trúc lớn, lưu bản README theo commit nguồn, sửa liên kết tương đối cho đúng vị trí.
+- Không xóa hoặc sửa source, notebook, Word, checkpoint/lock/predictions đã công bố chỉ để dọn README. Không trộn kết quả/latency các lượt khác nhau hoặc dùng archive PARTIAL như model đã nghiệm thu; lịch sử phải được ghi rõ là lịch sử.
+
 ## Kiểm tra và bàn giao
 
 - Kiểm tra nhẹ trước; cả Tùng và Đức tự chạy full khi phương án đã khóa, input/hash/split đúng, test và smoke thật PASS, đủ tài nguyên có quyền sử dụng; không cần duyệt thủ công. Tự chọn Kaggle, GPU local hoặc CPU theo `GB-20261119-002`, có quyền sử dụng trong hạn mức miễn phí/đã có, không cần xin chọn thiết bị; ghi thiết bị và đo cặp so cùng điều kiện. Không bỏ kiểm tra, tự cài lại CUDA/PyTorch hệ thống, tiêu tiền dịch vụ hoặc tải dataset không rõ quyền.

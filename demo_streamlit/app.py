@@ -74,6 +74,7 @@ with upload_column:
     st.caption("Xử lý trên máy này · tối đa 60 giây / 50 MB")
 with model_column:
     variant = st.selectbox("Mô hình · Biến thể", tuple(MODEL_CHOICES),
+                           index=tuple(MODEL_CHOICES).index("A3_motion_attention"),
                            format_func=lambda key: MODEL_CHOICES[key], key="variant")
 
 available = variant not in BASELINE_NAMES

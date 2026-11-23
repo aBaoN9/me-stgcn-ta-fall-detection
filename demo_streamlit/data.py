@@ -19,7 +19,7 @@ MODEL_NAMES = {
     SKATE: "SkateFormer · Adapted small",
 }
 BASELINE_NAMES = {"Motion_SVM_base": "Motion-SVM · Base", "ST_GCN_base": "ST-GCN · Base (3 kênh)"}
-MODEL_CHOICES = {**MODEL_NAMES, **BASELINE_NAMES}
+MODEL_CHOICES = {**BASELINE_NAMES, **MODEL_NAMES}
 METRICS = ("accuracy", "sensitivity", "specificity", "f1")
 BASE = ROOT / "results/backbone_benchmark"
 PRIMARY = BASE / "tung-m2-rtx3050-20261120-165523"
