@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\tung-skate-rtx3050-20261122-205954-smoke-monitor-20261122-205955-backup",
+  "output": ".runtime\\tung-skate-rtx3050-20261122-205954-smoke",
+  "telemetry": ".runtime\\tung-skate-rtx3050-20261122-205954-smoke-monitor-20261122-205955-telemetry.csv",
+  "seconds": 11.56,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 12,
+  "baseline": [
+    0.735,
+    60,
+    0,
+    0,
+    13389.8
+  ],
+  "peak": [
+    65,
+    197,
+    49,
+    14795.2
+  ]
+}

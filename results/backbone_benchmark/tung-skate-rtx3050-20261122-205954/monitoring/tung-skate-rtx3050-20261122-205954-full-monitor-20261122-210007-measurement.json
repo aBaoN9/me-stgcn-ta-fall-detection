@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\tung-skate-rtx3050-20261122-205954-full-monitor-20261122-210007-backup",
+  "output": ".runtime\\tung-skate-rtx3050-20261122-205954-full",
+  "telemetry": ".runtime\\tung-skate-rtx3050-20261122-205954-full-monitor-20261122-210007-telemetry.csv",
+  "seconds": 304.5,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 397,
+  "baseline": [
+    0.782,
+    63,
+    0,
+    0,
+    13364.7
+  ],
+  "peak": [
+    73,
+    197,
+    54,
+    14871.1
+  ]
+}

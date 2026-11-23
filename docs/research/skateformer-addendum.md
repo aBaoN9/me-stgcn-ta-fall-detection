@@ -1,0 +1,11 @@
+# Addendum M0 - SkateFormer tren GMDCSA-24
+
+22/11/2026 (UTC+7). Thi nghiem bo sung cua Tung, thiet ke khoa truoc outer-test. Moc chinh la A3_motion_attention huan luyen lai trong PR #2, cung cac moc TCN, GRU va CTR-GCN adapted da nghiem thu; model final/deployment la san pham rieng, khong dung lam moc chi so.
+
+SkateFormer_adapted_small giu bon loai cua Skate-MSA: (thoi gian gan/xa) x (khop gan/xa). Dung 6 nhom giai phau cua MediaPipe 33, ba vi tri dem chi de chia luoi 6x6; hang gom cac khop gan, cot tron cac vung; co dinh theo ten/ID MediaPipe va khong hoc tu nhan. Moi cua so co 4 moc lien tiep hoac 4 moc cach deu, ket hop 6 khop. Mask loai key dem va khong pooling vi tri dem. Kenh visibility v2 cua pipeline duoc giu nguyen.
+
+Hai khoi 32 kenh, moi khoi gom graph convolution, depthwise temporal convolution va bon nhanh attention (mot head/nhanh). Chieu 8->32, embedding hoc tach theo khop/thoi gian, temporal stride 2 giua hai khoi, MLP ratio 2, global average pooling va dau ra hai lop, dropout 0.3. Day la kien truc thu gon cho RTX 3050 4 GiB, chu yeu giam so khoi, chieu rong, so head va thay relative bias/embedding cua ban goc bang vi tri tach truc hoc duoc. Khong tai hien nguyen trang ban NTU/NW-UCLA.
+
+Tham khao Jeonghyeok Do va Munchurl Kim, ECCV 2024 [paper](https://arxiv.org/abs/2403.09508), [source](https://github.com/KAIST-VICLab/SkateFormer/blob/main/model/SkateFormer.py), [LICENSE MIT](https://github.com/KAIST-VICLab/SkateFormer/blob/main/LICENSE) va [README License](https://github.com/KAIST-VICLab/SkateFormer#license). README gioi han ma va checkpoint goc cho nghien cuu/giao duc va yeu cau xin phep cho muc dich thuong mai. Thi nghiem hoc thuat nay tu viet ma theo mo ta, khong nhap ma, du lieu hoac trong so tac gia.
+
+Giu GMDCSA-24 160 clip/bon nguoi, bon SHA-256, feature v2 tam kenh x 32 frame x 33 khop, augmentation, AdamW, ngan sach 50 epoch/patience 10, class weight, seed 42/142/242, Nested LOSO. Moi vong chon epoch theo validation loss cua ba inner fold, refit median epoch, nguong fixed 0.5 la chinh va nguong phu chi tu du doan inner. Mot cau hinh, 36 inner fits + 12 refits. Du lieu va outer fold da xem o benchmark cu, ket qua mang tinh kham pha. Khong tinh chinh theo outer-test. JSON lock duoc tao truoc khi chay vong dau tien va bam ca tai lieu nay.

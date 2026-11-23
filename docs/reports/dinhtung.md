@@ -110,3 +110,10 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 - Kiểm input 4/4 SHA-256, validation 160 clip, 13/13 kiểm thử đơn vị, smoke thật 8/8 và full 96/96 lượt: PASS. GRU 48 lượt, CTR-GCN 48 lượt. Đã đối chiếu bản sao, nạp 24 checkpoint, kiểm 2.880 dự đoán và tái tính chỉ số. `git diff --check` và `python -B scripts/check_repository.py`: PASS.
 - Đã khóa seed 42/142/242, Nested LOSO, ngưỡng, cấu hình và mã trước full. Full trên RTX 3050 mất 428,11 giây, nhiệt độ đỉnh 66°C, VRAM toàn GPU 228 MiB và RAM hệ thống đang dùng 14.064,3 MiB.
 - Accuracy fixed: TCN 91,04%, A3 89,38%, GRU 89,58%, CTR-GCN 88,54%. GRU suy luận nhanh nhất và CTR-GCN ít tham số nhất trong phép đo. Cả hai bỏ sót nhiều hơn TCN. Kết quả mang tính khám phá với bốn người; chưa có tập độc lập. Trạng thái bổ sung: `READY_FOR_REVIEW`.
+
+### 2026-11-22 — SkateFormer bổ sung
+
+- Fast-forward nhánh cá nhân tới `4edd8d4`. Xác minh PR #2 và #3 đã merge và giữ nguyên mã, kết quả và mô hình triển khai đã có.
+- Thêm [M0 SkateFormer](../research/skateformer-addendum.md), [module riêng và cách chạy](../../training/backbone_benchmark/skate/README.md), [bộ checkpoint/kết quả](../../results/backbone_benchmark/tung-skate-rtx3050-20261122-205954/README.md). Khóa SHA-256, dữ liệu, seed 42/142/242, Nested LOSO và quy tắc chọn theo inner validation trước full.
+- 4/4 đầu vào, validation 160 clip, 20/20 kiểm thử, smoke thật 4/4, full 48/48: PASS. 12 checkpoint match bản sao và nạp lại được; 1.440 dự đoán đủ và metric tái tính khớp. Full 304,50 giây, 73°C, VRAM toàn GPU 197 MiB, đỉnh RAM hệ thống đang dùng 14.871,1 MiB.
+- Fixed Accuracy/Sensitivity SkateFormer 84,17%/84,81% và A3 89,38%/92,41%. Bản thu gọn có ít tham số nhất và độ trễ trung vị cao nhất trong phép đo năm mô hình. Kết quả khám phá trên bốn người đã xem. Trạng thái `READY_FOR_REVIEW`.

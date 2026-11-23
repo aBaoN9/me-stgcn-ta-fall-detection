@@ -1,0 +1,15 @@
+{
+  "mode": "smoke",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": false,
+  "signature": "3764ed05f0b22e784383fb43d7e6c19793fc195af6994d5ad75c6e1ca24d90ad",
+  "outer_runs": 1,
+  "inner_fits": 3,
+  "refits": 1,
+  "expected_fits": 4,
+  "actual_fits": 4,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "peak_allocated_bytes": 78285312
+}
