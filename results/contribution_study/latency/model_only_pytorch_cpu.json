@@ -1,0 +1,34 @@
+{
+  "backend": "PyTorch 2.10.0+cpu eager",
+  "device": "cpu",
+  "threads": 1,
+  "cpu": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "input_shape": [
+    1,
+    8,
+    32,
+    33
+  ],
+  "precision": "float32",
+  "batch": 1,
+  "warmup_per_round": 20,
+  "repeats_per_round": 100,
+  "rounds": 5,
+  "models": {
+    "Q0_A3_attention": {
+      "parameters": 422871,
+      "median_ms": 7.451849989593029,
+      "p95_ms": 9.317519963951778,
+      "measurements": 500
+    },
+    "Q1_A3_quality_prior": {
+      "parameters": 422871,
+      "median_ms": 7.902450015535578,
+      "p95_ms": 10.940170005778782,
+      "measurements": 500
+    }
+  },
+  "scope": "model-only; excludes MediaPipe, feature extraction, ONNX and app pipeline"
+}
