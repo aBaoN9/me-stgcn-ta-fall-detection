@@ -4,6 +4,8 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 
 ## Snapshot
 
+- **Hiện hành 24/11/2026:** `GB-20261124-001` giao Tùng năm model đầu, Đức năm model sau; triển khai và train với đầu vào/recipe/đánh giá chung A3. Đây là mở rộng nhiệm vụ mới, thay hạn chế Đức không đổi backbone cho track này. Xem [hướng dẫn đầy đủ](../research/modern-model-benchmark.md); các snapshot trước là lịch sử, không dùng để chặn nhiệm vụ mới.
+
 - Cập nhật 23/11/2026: nghiệm thu/merge SkateFormer adapted small qua PR #4; tích hợp demo FallScope theo yêu cầu mới Gia Bảo, thay trạng thái hoãn demo nhưng không khôi phục PoseLab/giao lại WEB-01/WEB-02. Tuning local vẫn tách khỏi lần publish này; deployment/bài/hạn Đức giữ nguyên. Chi tiết `GB-20261123-001` dưới đây; các snapshot có ngày cũ là lịch sử.
 
 - Phạm vi mới 21/11/2026: gỡ mã PoseLab, demo mới để sau; kế hoạch tuning A3 so TCN/GRU chỉ `PLANNED / NOT_RUN` theo `GB-20261121-002`. Quyền tự chủ/bài/hạn Đức và bằng chứng đã nhận của Tùng không đổi.
@@ -13,6 +15,19 @@ File do người điều phối cập nhật trên `main`. Thành viên fetch v�
 - Cả hai không chờ duyệt M0/chọn phương án/kiến trúc/review lại trước full trong nhiệm vụ; tự ghi và khóa phương án, sửa lỗi và kiểm tra đạt. Quyền chạy không phải nghiệm thu code/kết quả.
 - Chưa cấp quyền đổi dataset/giao thức chung, tiêu tiền GPU hoặc thay model/backend triển khai. Thiếu input/quyền/tài nguyên thì báo blocker thật, không chờ duyệt kỹ thuật đã được cấp quyền.
 - Quy trình chung: [kênh trao đổi](README.md).
+
+## GB-20261124-001 - Giao 10 model, cùng đầu vào và thang đánh giá A3
+
+- Nguồn: yêu cầu trực tiếp của Gia Bảo giao Tùng năm model đầu, Đức năm model sau, hướng dẫn thiết lập và train, bắt buộc cùng đầu vào và đánh giá với mô hình đề xuất. Publish tài liệu điều phối trên main theo yêu cầu; không push hộ nhánh cá nhân.
+- Quyết định: **APPROVED_TO_IMPLEMENT_AND_TRAIN / AUTONOMOUS**. Đây là giao sản phẩm gồm code + model đã train + kết quả thật, không dừng ở khảo sát. Tự đọc nguồn/license, khóa M0, test/smoke thật rồi full; không chờ duyệt từng bước. Đợt mới hiện `NOT_RUN`, không tuyên bố đã chạy thay thành viên.
+- **Tùng / dinhtung:** CascadeFormer, DHA-eGCN, Hyper-GCN, ProtoGCN, InfoGCN++. Vùng mới `training/modern_benchmark_tung/`, `results/modern_benchmark_tung/`, `docs/research/modern-benchmark-tung.md` và báo cáo/trao đổi cá nhân.
+- **Đức / vinhduc:** SkateFormer, BlockGCN, DeGCN, JT-GraphFormer, DS-GCN. Vùng mới `training/modern_benchmark_duc/`, `results/modern_benchmark_duc/`, `docs/research/modern-benchmark-duc.md` và báo cáo/trao đổi cá nhân.
+- **Chuẩn bắt buộc:** [hợp đồng benchmark](../research/modern-model-benchmark.md), bốn input đúng hash, feature v2 `(N,8,32,33)`, cùng loader/augmentation, A3_motion_attention của 07, recipe CE cố định từ đầu, nested LOSO 4 outer/3 inner, seeds 42/142/242. Bảng chính fixed 0.5, F1 lớp Fall, pooled 160 clip/seed rồi mean/SD `ddof=1`; giữ đầy đủ FN/FP và raw OOF. Không thay đầu vào/pretrained/ensemble để lấy điểm cao.
+- Mỗi người chạy A3 tham chiếu cùng môi trường với năm model. Dự kiến tối thiểu 288 fits và 72 checkpoint outer/người, tổng 576 fits/144 checkpoint, chưa tính smoke/môi trường bổ sung. Đây là ngân sách thiết kế, không là số đã chạy. Bảng chính là **CE-adapted**, không tự gọi tái lập đầy đủ paper khi đã bỏ loss/pretraining riêng.
+- **Thay thế phạm vi:** quy tắc cũ không giao sẵn model và Đức không được thay backbone không áp dụng đợt này. Giữ bài contribution và nghiệm thu Tùng trước đây nguyên trạng; không yêu cầu sửa kết quả cũ. SkateFormer mới của Đức không được thay bằng checkpoint adapted small của Tùng. Không đổi demo/deployment, notebook/Word hoặc tuning track của Gia Bảo.
+- Hạn bài cũ **25/11/2026 UTC+7** không tự đổi; chưa có hạn riêng cho toàn bộ 10 model mới. Cả hai cập nhật tiến độ/ETA/blocker tại mốc này, không giảm folds/seeds hoặc bịa số để nộp đủ.
+- Ngay phiên tiếp theo: fetch/đọc quyết định, xác nhận ID trong `docs/discussions/dinhtung.md` hoặc `vinhduc.md`, push nhánh mình, nhận main an toàn, thiết lập và bắt đầu triển khai. Chưa có xác nhận thì không ghi là đã nhận/đã train. Dùng prompt AI, lệnh setup và checklist trong hợp đồng; runner mười model cần được triển khai, không có sẵn từ lần publish hướng dẫn.
+- Quyền commit/push code/artifact đúng vùng, upload Release asset và mở PR giữ nguyên; không tự merge main, tiêu tiền, đổi hợp đồng hoặc sửa helper/kết quả cũ. Thiếu code/license/dependency/GPU thì báo blocker cụ thể và làm model độc lập tiếp theo.
 
 ## GB-20261123-001 - Nhận SkateFormer và tích hợp demo local
 

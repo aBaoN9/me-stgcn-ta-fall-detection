@@ -1,5 +1,7 @@
 # Bàn giao dự án cho nhóm
 
+**Bàn giao hiện hành 24/11/2026 (`GB-20261124-001`):** Tùng train CascadeFormer/DHA-eGCN/Hyper-GCN/ProtoGCN/InfoGCN++; Đức train SkateFormer/BlockGCN/DeGCN/JT-GraphFormer/DS-GCN. Đọc [hướng dẫn setup và hợp đồng chung](research/modern-model-benchmark.md) cùng nhiệm vụ cá nhân; đầu vào v2 `(N,8,32,33)`, recipe CE/LOSO/seed/metric giống A3. Cả hai tự kiểm tra, smoke và full khi PASS, không chờ duyệt từng bước. Đức được đổi backbone trong track mới; các mô tả phân công cũ bên dưới là lịch sử ở phần xung đột. Giữ bài/kết quả cũ; chưa có train mới hoặc xác nhận thành viên từ lần publish tài liệu này.
+
 **Cập nhật 23/11/2026:** main đã nhận PR #4 SkateFormer adapted small tại `3c6a39e`, kết quả nghiên cứu bổ sung âm hợp lệ; xem `GB-20261123-001` trong [answers](discussions/answers.md). [FallScope local](../demo_streamlit/README.md) có năm model chạy được, gồm SkateFormer, và hai baseline chưa weights bị khóa. Yêu cầu demo mới của Gia Bảo thay trạng thái hoãn bên dưới, không khôi phục PoseLab/WEB-01/WEB-02 hoặc thay deployment. Runner/bộ lưu tuning local chưa nhập trong đợt này; không giao lại bài đã nghiệm thu, quyền tự chủ/nhiệm vụ/hạn Đức giữ nguyên.
 
 **Phạm vi 21/11/2026 (`GB-20261121-002`):** mã PoseLab đã gỡ khỏi repo; demo mới để sau, không có việc UI/QA hiện hành. Gia Bảo đã lập [kế hoạch tuning A3 so TCN/GRU](research/a3-tuning-plan.md), `PLANNED / NOT_RUN`, chưa train. Không đổi bằng chứng đã nhận, nhiệm vụ/hạn Đức hoặc model triển khai.

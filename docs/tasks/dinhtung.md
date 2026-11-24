@@ -1,5 +1,16 @@
 # Tùng - Mô hình hoặc phương pháp khác trên cùng dataset
 
+## Nhiệm vụ mới 24/11/2026: năm đối thủ đầu tiên
+
+Theo **GB-20261124-001**, Tùng triển khai và **train CascadeFormer, DHA-eGCN, Hyper-GCN, ProtoGCN, InfoGCN++**, cùng A3 tham chiếu. Đọc [thiết lập, nguồn pin, hợp đồng input/recipe/metric và prompt AI](../research/modern-model-benchmark.md). Đây là nhiệm vụ cụ thể mới; phần "không chỉ định sẵn mô hình" bên dưới là phạm vi cũ, không thay danh sách này.
+
+- Nhánh `dinhtung`; vùng mới `training/modern_benchmark_tung/`, `results/modern_benchmark_tung/<run-id>/`, `docs/research/modern-benchmark-tung.md`, báo cáo/trao đổi cá nhân. Không sửa helper/runner/kết quả cũ để triển khai.
+- Giữ tensor v2 `(N,8,32,33)`, recipe CE chung, nested LOSO/seed/threshold/F1-Fall giống A3. Tự khóa M0, test/smoke thật rồi full, không đợi duyệt. Ghi adaptation/loss khác paper.
+- Trạng thái giao việc: `ASSIGNED / NOT_RUN`; không đổi nghiệm thu TCN–A3/GRU/CTR-GCN/SkateFormer cũ. Nộp model thật, raw OOF và audit qua PR, không chỉ nộp danh sách.
+- Xác nhận **GB-20261124-001** trong file trao đổi Tùng và push. Hạn bài cũ 25/11 giữ nguyên; báo tiến độ/ETA/blocker của đợt mới, chưa có hạn riêng đủ cả mười model.
+
+## Bối cảnh nhiệm vụ trước
+
 **Nghiệm thu bổ sung 23/11/2026 — `ACCEPTED_BENCHMARK`:** PR #4 SkateFormer adapted small đã merge tại `3c6a39e`, nguồn `20c67f5`, theo `GB-20261123-001`. [Bộ kết quả](../../results/backbone_benchmark/tung-skate-rtx3050-20261122-205954/README.md) có 48 fits/12 checkpoint full; nhận kết quả âm hợp lệ (Accuracy 84,17%), không bắt train lại hoặc thay deployment. Gia Bảo tích hợp vào [FallScope local](../../demo_streamlit/README.md); đây không phải giao lại việc UI/QA cho Tùng. Giữ nguyên những nghiệm thu trước và phạm vi Đức.
 
 **Nghiệm thu bổ sung 21/11/2026 — `ACCEPTED_BENCHMARK`:** GRU/CTR-GCN adapted trong PR #3 được nhận theo `GB-20261121-001`. [Bộ bổ sung](../../results/backbone_benchmark/tung-gru-ctr-rtx3050-20261120-233932/README.md) có 96 fits và 24 checkpoint full mới; [README](../../README.md) đã có so sánh bốn model, ưu/nhược và giới hạn. Gia Bảo sửa tiện ích monitor và thêm test mà không đổi code train đã khóa hoặc artifact; không cần train lại, không thêm điều kiện nghiệm thu. Giữ nguyên mốc TCN–A3, deployment và phạm vi bài Đức.

@@ -1,5 +1,7 @@
 # Giao thức nghiên cứu tiếp và yêu cầu học thuật
 
+**Track mới 24/11/2026:** [benchmark mười model](research/modern-model-benchmark.md), quyết định `GB-20261124-001`, cụ thể hóa giao thức này: cùng tensor v2 `(N,8,32,33)`, recipe CE cố định từ đầu, A3 tham chiếu cùng môi trường, LOSO/seeds/threshold/metric giữ nguyên. Track này giao sẵn năm model/người và cho phép Đức đổi backbone; các quyền tự chọn biểu diễn/recipe trong phần khung cũ bên dưới không cho phép thay hợp đồng track mới. F1 chính là **F1 lớp Fall**, không Macro-F1. Không thay đổi lock hoặc kết quả các thí nghiệm cũ.
+
 Phạm vi cập nhật ngày 18/11/2026 theo `GB-20261118-001` (Tùng) và `GB-20261116-002` (Đức): đây là khung so sánh, không giao sẵn mô hình/công thức. Cả hai tự ghi và khóa M0/cấu hình/ngân sách trước outer-test, tự kiểm tra rồi chạy full khi đạt điều kiện, không chờ duyệt. Không sửa hồi tố protocol để hợp thức hóa số đẹp. Review sản phẩm và merge main vẫn do người điều phối.
 
 ## 1. Hiểu yêu cầu của giảng viên và backbone

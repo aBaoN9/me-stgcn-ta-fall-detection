@@ -1,5 +1,7 @@
 # Gia Bảo - Phát triển kỹ thuật và điều phối
 
+**Điều phối mới 24/11/2026:** `GB-20261124-001` giao [mười model, 5+5 cho Tùng/Đức](../research/modern-model-benchmark.md), mở rộng quyền Đức sang backbone mới, giữ cùng tensor/recipe/đánh giá A3. Các mô tả phân công cũ bên dưới chỉ còn áp dụng ở phần không xung đột; không tự làm thay, train thay hoặc ghi đã nhận thay hai bạn. Tài liệu điều phối được publish main theo yêu cầu trực tiếp của Gia Bảo.
+
 Nhánh làm việc: `giabao`. Vai trò: chủ repo/người điều phối. [Báo cáo](../reports/giabao.md), [bảng việc](README.md), [bàn giao](../handoff.md).
 
 ## Hai vai trò, không nhầm hai nhánh

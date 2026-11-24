@@ -95,11 +95,13 @@ Muốn chạy thí nghiệm mới: đọc [bắt đầu local/Kaggle](docs/train
 
 | Thành viên | Nhánh | Hiện trạng trên main |
 |---|---|---|
-| [Tùng](docs/tasks/dinhtung.md) | `dinhtung` | Đã nhận benchmark TCN–A3, GRU/CTR-GCN và SkateFormer; [báo cáo](docs/reports/dinhtung.md) |
-| [Đức](docs/tasks/vinhduc.md) | `vinhduc` | Tiếp tục thay đổi có kiểm soát A3; chưa có kết quả mới được nghiệm thu trên main; [báo cáo](docs/reports/vinhduc.md) |
+| [Tùng](docs/tasks/dinhtung.md) | `dinhtung` | Đã nhận các benchmark cũ; nhiệm vụ mới: train CascadeFormer, DHA-eGCN, Hyper-GCN, ProtoGCN, InfoGCN++; [báo cáo](docs/reports/dinhtung.md) |
+| [Đức](docs/tasks/vinhduc.md) | `vinhduc` | Nhiệm vụ mới: train SkateFormer, BlockGCN, DeGCN, JT-GraphFormer, DS-GCN; giữ bài contribution riêng; [báo cáo](docs/reports/vinhduc.md) |
 | [Gia Bảo](docs/tasks/giabao.md) | `giabao` | Phát triển/tuning/demo, review và điều phối tích hợp; [báo cáo](docs/reports/giabao.md) |
 
-Tùng/Đức được tự chọn phương án, khóa cấu hình, kiểm tra/smoke/full và nộp sản phẩm đúng phạm vi, **không chờ duyệt từng bước**. Hạn bài là **25/11/2026 (UTC+7)**, sản phẩm cần model đã train, kết quả và cách tái lập. Quyền chạy không đồng nghĩa đã nghiệm thu hoặc được thay dataset/deployment; nghiệm thu Tùng không thay bài Đức.
+Theo **GB-20261124-001**, cả hai triển khai và train theo [hướng dẫn mười model](docs/research/modern-model-benchmark.md): cùng input v2 `(N,8,32,33)`, recipe CE, nested LOSO, seed 42/142/242, fixed 0,5, F1 lớp Fall và mean/sample SD với A3. Mỗi người chạy A3 tham chiếu cùng môi trường; **không chờ duyệt từng bước** sau khi tự khóa M0/test/smoke PASS. Đợt mới `ASSIGNED / NOT_RUN`, chưa có runner đủ mười model hoặc kết quả mới; các bản CE-adapted không đồng nghĩa tái lập đầy đủ paper.
+
+Đức được thay backbone trong đợt mới, không bị giới hạn chỉ sửa A3. Nghiệm thu cũ và SkateFormer adapted small được giữ riêng. Hạn bài cũ **25/11/2026 (UTC+7)** không đổi; chưa chốt hạn riêng cho toàn bộ mười model, cần báo tiến độ/ETA/blocker tại mốc đó. Quyền train không đồng nghĩa đã chạy, đã nghiệm thu hoặc được thay dataset/deployment.
 
 Tuning A3 theo [kế hoạch riêng](docs/research/a3-tuning-plan.md): đối chứng TCN/GRU, sáu recipe/model, cùng ngân sách 684 fits thiết kế, chọn bằng inner validation. Bộ lưu local PARTIAL chưa đủ weights/raw predictions/selection; chưa nghiệm thu kết quả tuning trên main và không tuyên bố vượt TCN/GRU. Các hướng pose thiếu/nhiễu, cùng mức báo động giả hoặc A3 gọn hơn trong [roadmap](docs/training-roadmap.md) vẫn là câu hỏi nghiên cứu, không phải lợi thế đã chứng minh.
 

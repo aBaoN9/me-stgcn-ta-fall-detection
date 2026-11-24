@@ -1,4 +1,16 @@
-# Đức - Thay đổi có kiểm soát mô hình hiện tại
+# Đức - Năm mô hình đối thủ và nghiên cứu A3
+
+## Nhiệm vụ mới 24/11/2026: năm đối thủ tiếp theo
+
+Theo **GB-20261124-001**, Đức triển khai và **train SkateFormer, BlockGCN, DeGCN, JT-GraphFormer, DS-GCN**, cùng A3 tham chiếu. Đọc [thiết lập, nguồn pin, hợp đồng input/recipe/metric và prompt AI](../research/modern-model-benchmark.md). **Đức được thay backbone trong track mới**; các câu cũ "chỉ sửa A3/không thay mô hình" bên dưới chỉ mô tả bài contribution cũ.
+
+- Nhánh `vinhduc`; vùng mới `training/modern_benchmark_duc/`, `results/modern_benchmark_duc/<run-id>/`, `docs/research/modern-benchmark-duc.md`, báo cáo/trao đổi cá nhân. Không sửa phần Tùng, helper/runner/kết quả cũ.
+- Giữ tensor v2 `(N,8,32,33)`, recipe CE chung, nested LOSO/seed/threshold/F1-Fall giống A3. Tự khóa M0, test/smoke thật rồi full, không đợi duyệt. Ghi adaptation/loss khác paper.
+- SkateFormer phải là implementation/adaptation mới từ nguồn được ghi; không đổi tên hay dùng checkpoint adapted small của Tùng thay sản phẩm. Bài Q0/Q1 và các artifact đã làm giữ riêng, không xóa hoặc coi là kết quả mười model.
+- Trạng thái giao việc mới `ASSIGNED / NOT_RUN`; nộp checkpoint thật, raw OOF và audit qua PR. Xác nhận **GB-20261124-001** trong file trao đổi Đức và push.
+- Hạn bài cũ 25/11 giữ nguyên; báo tiến độ/ETA/blocker đợt mới ở mốc đó, chưa có hạn riêng cho đủ cả mười model.
+
+## Bối cảnh nhiệm vụ contribution trước
 
 **Trả lời blocker 19/11/2026:** `DUC-20261117-001` được trả lời trong `GB-20261119-002`: đủ bốn input trên main, được tự full CPU và chọn cách nộp checkpoint phù hợp. Đọc [bắt đầu train](../training-start.md), nhất là notebook pin commit cũ/tìm input chỉ dưới `/kaggle/input`. Tự cập nhật M0 addendum/lock trước outer-test nếu đổi CPU; không chờ duyệt lại.
 

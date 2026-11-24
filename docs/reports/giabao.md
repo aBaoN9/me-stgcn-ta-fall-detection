@@ -2,6 +2,16 @@
 
 Người thực hiện: Gia Bảo. Nhánh phát triển: `giabao`. Vai trò: chủ repo/người điều phối. [Nhiệm vụ](../tasks/giabao.md).
 
+## 24/11/2026 - Phân công và hướng dẫn benchmark mười model
+
+- Theo yêu cầu chủ repo, soạn `GB-20261124-001`: Tùng nhận CascadeFormer/DHA-eGCN/Hyper-GCN/ProtoGCN/InfoGCN++; Đức nhận SkateFormer/BlockGCN/DeGCN/JT-GraphFormer/DS-GCN. Cả hai tự triển khai, khóa M0/test/smoke/full và nộp checkpoint/kết quả/PR; chưa quan sát xác nhận hay train của hai bạn cho track mới.
+- [Hướng dẫn](../research/modern-model-benchmark.md) khóa input v2 `(N,8,32,33)`, helper/augmentation, recipe CE chung, nested LOSO, ba seed, fixed 0.5, F1 lớp Fall và pooled mean/sample SD. Mỗi người chạy A3 cùng môi trường; 576 fits/144 checkpoint outer là ngân sách dự kiến, không kết quả.
+- Bổ sung nguồn/SHA của mười repo, lưu ý dependency/license/adaptation, setup Windows/Linux/Kaggle, hợp đồng runner phải triển khai, kiểm thử âm/dương, smoke thật, checkpoint/reload/OOF, nộp artifact và prompt cho AI. Không khẳng định cả mười source đã chạy được hoặc CE-adapted tái lập đầy đủ paper.
+- Cập nhật các điểm vào AGENTS/README/tasks/handoff/protocol/training-start/answers để cho phép Đức làm backbone trong track mới; giữ bài contribution/benchmark đã có, không lấy SkateFormer adapted small cũ thay bản mới. Hạn bài cũ 25/11 giữ nguyên; chưa chốt hạn riêng cho toàn bộ mười model.
+- Làm tài liệu trên worktree main riêng từ `668aad2`; giữ worktree giabao và mọi thay đổi chưa commit nguyên trạng. Không sửa train source, input, model, artifact, notebook, Word, demo hoặc nhánh cá nhân.
+- Kiểm tra local PASS: `python -B -X utf8 scripts/check_repository.py`, `python -B -X utf8 scripts/training_inputs.py --input-root data/gmdcsa24`, `python -B -X utf8 -m training.component_ablation.validate_pipeline --input-root data/gmdcsa24`, `git diff --check`. Validation đủ 160 mẫu, 100 ca augmentation và shape năm biến thể gốc; không phải smoke/full mười model hoặc xác nhận môi trường của thành viên.
+- Publish main theo yêu cầu sau kiểm tra; SHA/đã push phải đối chiếu Git remote, không suy từ ghi chú chuẩn bị này. Không nhắn hộ hoặc ghi xác nhận thay thành viên.
+
 ## 23/11/2026 - Tích hợp SkateFormer và FallScope theo yêu cầu chủ repo
 
 - Đã merge PR #4 với guard đúng head `20c67f57c87d1a2cfc0489bf23da45522c4c8d2c`, tạo merge `3c6a39eaf4ee4d37e0848b94bad800aa2dcd4e3a` lúc 12:55 UTC+7. Không push/xóa nhánh Tùng/Đức hoặc sửa source/kết quả đã khóa. Nhận kết quả âm hợp lệ, không thay deployment hay yêu cầu train lại.

@@ -1,5 +1,7 @@
 # Bắt đầu làm bài và train - Tùng / Đức
 
+**Đợt mười model 24/11/2026:** bắt đầu từ [hướng dẫn đầy đủ](research/modern-model-benchmark.md), `GB-20261124-001`. Có phân công 5+5, nguồn pin, setup local/Kaggle, hợp đồng tensor/recipe/metric A3 và yêu cầu runner/test/smoke/full. Các lệnh TCN/Q0-Q1 bên dưới là runner cũ, không tự train được mười model mới. Tự triển khai trong vùng mới được giao; không sửa nguồn/kết quả cũ.
+
 **Nghiệm thu bổ sung 21/11/2026:** GRU/CTR-GCN adapted của Tùng đã được nhận qua PR #3 theo `GB-20261121-001`, kèm [hướng dẫn runner](../training/backbone_benchmark/supplement/README.md), checkpoint/kết quả và bản sửa monitor tạo thư mục cha. Không cần train lại để nhận bản sửa; chạy kiểm thử mới theo README. Chưa cập nhật Word/đổi deployment hoặc nghiệm thu bài Đức.
 
 **Nghiệm thu 20/11/2026:** benchmark TCN–A3 của Tùng đã merge vào main qua PR #2 theo `GB-20261120-001`; code, checkpoint và kết quả [đã có sẵn](../results/backbone_benchmark/tung-m2-rtx3050-20261120-165523/README.md), không cần train lại để hoàn tất bàn giao này. Hướng dẫn bên dưới vẫn dùng cho kiểm tra/chạy mới có chủ đích; việc Tùng hoàn tất không đồng nghĩa phần Đức đã được nghiệm thu.

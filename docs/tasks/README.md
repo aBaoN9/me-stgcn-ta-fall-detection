@@ -1,5 +1,20 @@
 # Bảng giao việc nghiên cứu
 
+## Hiện hành: benchmark mười model, 24/11/2026
+
+Quyết định **GB-20261124-001** giao triển khai và train, không chỉ lập kế hoạch. [Hướng dẫn đầy đủ](../research/modern-model-benchmark.md) có setup local/Kaggle, nguồn/SHA, cùng input/recipe/đánh giá A3, test/smoke/full và checklist artifact.
+
+| Người | Model mới | Vùng mã / kết quả mới | Trạng thái giao việc |
+|---|---|---|---|
+| Tùng / `dinhtung` | CascadeFormer, DHA-eGCN, Hyper-GCN, ProtoGCN, InfoGCN++ | `training/modern_benchmark_tung/`, `results/modern_benchmark_tung/` | ASSIGNED / NOT_RUN |
+| Đức / `vinhduc` | SkateFormer, BlockGCN, DeGCN, JT-GraphFormer, DS-GCN | `training/modern_benchmark_duc/`, `results/modern_benchmark_duc/` | ASSIGNED / NOT_RUN |
+
+Cả hai chạy A3 tham chiếu cùng môi trường, tự khóa/test/smoke/full, được commit/push nhánh mình và mở PR, không chờ duyệt từng bước. **Đức được làm backbone khác trong track mới.** Giữ bài và nghiệm thu trước; không dùng SkateFormer adapted small cũ làm sản phẩm mới. Hạn bài cũ 25/11 không đổi; cập nhật tiến độ/blocker đợt mới ở mốc đó, chưa chốt hạn riêng đủ mười model.
+
+## Lịch sử phân công trước đợt mười model
+
+Các mục bên dưới giữ để truy vết; phần không giao sẵn model và cấm Đức thay backbone được thay bởi quyết định mới trong track này.
+
 **Cập nhật 23/11/2026:** Tùng đã nghiệm thu thêm SkateFormer adapted small qua PR #4 (`GB-20261123-001`), ngoài PR #2/#3. Gia Bảo tích hợp [FallScope local](../../demo_streamlit/README.md) theo yêu cầu mới; demo không còn hoãn trong phạm vi prototype này, nhưng PoseLab/WEB-01/WEB-02 vẫn hủy, không giao lại UI/QA cho Tùng/Đức. Tuning A3 là track riêng, không nằm trong bản tích hợp này. Các snapshot có ngày cũ bên dưới là lịch sử; hạn/nhiệm vụ Đức không đổi.
 
 **Phạm vi mới 21/11/2026 (`GB-20261121-002`):** gỡ mã PoseLab, demo mới `DEFERRED`. [Kế hoạch tuning A3](../research/a3-tuning-plan.md) do Gia Bảo giữ, `PLANNED / NOT_RUN`; không giao thêm việc hoặc đổi hạn Đức/Tùng.

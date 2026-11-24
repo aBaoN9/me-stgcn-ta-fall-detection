@@ -1,5 +1,7 @@
 # Quy tắc làm việc cho AI và thành viên
 
+**Phân công mới 24/11/2026 (`GB-20261124-001`):** Tùng triển khai/train CascadeFormer, DHA-eGCN, Hyper-GCN, ProtoGCN, InfoGCN++; Đức triển khai/train SkateFormer, BlockGCN, DeGCN, JT-GraphFormer, DS-GCN. Đọc [hợp đồng và thiết lập](docs/research/modern-model-benchmark.md) trước khi làm. Cả hai tự test/smoke/full sau khi khóa M0, không chờ duyệt từng bước. Cùng đầu vào v2 `(N,8,32,33)`, recipe CE chung, nested LOSO/seed/metric với A3; đây là adaptation, không tái lập nguyên recipe paper. Quyết định này thay giới hạn cũ "Đức chỉ sửa A3" trong track mới; giữ nguyên bài/kết quả cũ, không coi các model mới đã chạy.
+
 **Cập nhật 23/11/2026 (`GB-20261123-001`):** đã nghiệm thu/merge PR #4 SkateFormer adapted small của Tùng, head `20c67f5`, merge `3c6a39e`; nhận kết quả nghiên cứu bổ sung âm, không thay deployment hoặc yêu cầu train lại. Theo yêu cầu mới Gia Bảo, [FallScope](demo_streamlit/README.md) được tích hợp làm prototype Streamlit local với năm model; điều này thay trạng thái hoãn demo mới, không khôi phục PoseLab hoặc giao lại WEB-01/WEB-02. Tuning A3 trên `giabao` là track riêng, không nhập runner/bộ lưu PARTIAL vào lần cập nhật main này. Các thông báo có ngày cũ bên dưới là lịch sử; quyền tự chủ/nhiệm vụ/hạn Đức giữ nguyên.
 
 **Quyết định mới 21/11/2026 (`GB-20261121-002`):** Gia Bảo yêu cầu gỡ PoseLab: xóa mã `app/` khỏi repo hiện hành, demo mới để sau (`DEFERRED`). Quyết định này thay chỉ dẫn giữ nguồn app ở các thông báo cũ, không cho phép xóa model, dữ liệu, kết quả, notebook, Word hoặc lịch sử. [Kế hoạch tuning A3](docs/research/a3-tuning-plan.md) là track Gia Bảo, `PLANNED / NOT_RUN`; chưa giao chạy train. Không thay nhiệm vụ/quyền tự chủ/hạn 25/11 của Đức, không bắt Tùng train lại, không hứa vượt TCN/GRU.
@@ -16,15 +18,16 @@ Repo này tập trung nghiên cứu Fall/ADL. Đọc trước khi sửa; áp d�
 
 **Hạn nộp đã chốt:** thứ Tư, **25/11/2026 (UTC+7)**. Sản phẩm của cả hai là **model đã train và kết quả đánh giá** trên GitHub, kèm mã/lệnh tái lập và báo cáo theo `GB-20261116-001`. Cả hai không chờ phê duyệt trong phạm vi đã giao; thiếu input/GPU hoặc kiểm tra lỗi phải báo sớm, nộp phần đã làm và blocker đúng hạn. Chưa có sản phẩm thật không đánh dấu hoàn tất; không bịa số liệu hoặc thay model gốc.
 
-## Phân công hiện hành - cập nhật ngày 18/11/2026
+## Phân công hiện hành - cập nhật ngày 24/11/2026
 
-- Tùng: giữ dataset, tự đề xuất mô hình hoặc phương pháp khác để xử lý bài toán và so sánh với ME-STGCN-TA. Không bắt buộc CTR-GCN hoặc chỉ được đổi backbone.
-- Đức: lấy ME-STGCN-TA hiện tại làm mốc, tự đề xuất thay đổi có kiểm soát và so sánh với bản gốc. Không thay bằng mô hình khác như nhiệm vụ Tùng, không bắt buộc quality-aware pooling.
-- Mốc Đức đã chốt: `A3_motion_attention` / policy `fixed` của notebook 07 và `training/component_ablation/`, tám kênh, attention bật, Fall multiplier 1.0; xem [nhận diện mốc](docs/tasks/vinhduc.md). Không lấy checkpoint final 06, A3_cost_225, T0/T1 hoặc Q1 thay mốc; chạy lại cặp gốc/thay đổi để đánh giá như nhau.
-- Giao câu hỏi nghiên cứu và tiêu chí đối chiếu, không áp sẵn mô hình/công thức/siêu tham số/ma trận. Cả hai tự ghi và khóa M0 trước outer-test, không cần duyệt. Đức được sửa thành phần kiến trúc như pooling/attention nhưng phải công bố đúng, không thay hẳn mô hình như Tùng. Tùng tự chọn mô hình/phương pháp khác, cấu hình và ngân sách so sánh công bằng trong giao thức chung.
-- Hai hướng giữ cùng dataset, nhãn, split theo subject và giao thức đánh giá trong [protocol](docs/research-protocol.md). Cùng quy tắc chọn cấu hình/ngưỡng, seed, ngân sách tương đương và cách tính chỉ số; không dùng outer-test để chọn phương án.
-- PoseLab đã gỡ mã `app/` ngày 21/11/2026; WEB-01/WEB-02 vẫn hủy, demo mới để sau. Giữ model, dữ liệu, kết quả và lịch sử Git; không tự triển khai web hoặc xóa bằng chứng nghiên cứu.
-- `GB-20261118-001` bỏ các cổng chờ phê duyệt cũ của Tùng và trả lời `TUNG-20261117-001`; `GB-20261116-002` giữ quyền tự chủ của Đức, kể cả yêu cầu duyệt lại bản sửa trước khi chạy. Lỗi dữ liệu/nghiệm thu vẫn phải tự sửa và có kiểm tra PASS; quyền chạy không có nghĩa bản sửa hoặc kết quả đã được nghiệm thu. `GB-20261030-001` vẫn giữ phân công và dừng PoseLab; không ép CTR-GCN/B0-B3/quality-aware/Q0-Q1.
+- Tùng / `dinhtung`: năm model 1-5 trong [phân công](docs/research/modern-model-benchmark.md); ghi `training/modern_benchmark_tung/`, `results/modern_benchmark_tung/`, thiết kế `docs/research/modern-benchmark-tung.md` và báo cáo/trao đổi cá nhân.
+- Đức / `vinhduc`: năm model 6-10, được thay backbone trong track mới; ghi `training/modern_benchmark_duc/`, `results/modern_benchmark_duc/`, thiết kế `docs/research/modern-benchmark-duc.md` và báo cáo/trao đổi cá nhân. Bài contribution cũ giữ riêng.
+- Cả hai giữ mốc `A3_motion_attention` / `fixed` của notebook 07, chạy A3 đối chứng cùng môi trường. Không dùng checkpoint final 06, A3_cost_225, Q1 hoặc tuning chưa nghiệm thu thay mốc.
+- Hợp đồng mới khóa cùng tensor tám kênh/32 mốc/33 khớp, dữ liệu/hash/nhãn, nested LOSO, seed 42/142/242, threshold 0.5, F1 lớp Fall và mean/sample SD. Không đổi sang YOLO, pretrained, ensemble hay tự lấy Macro-F1 thay F1.
+- M0/source/license/adaptation phải ghi trước outer-test; test và smoke thật PASS rồi tự full, commit/push nhánh mình và mở PR. Không chờ duyệt từng bước, không tự thay danh sách hoặc bỏ guard.
+- Nghiệm thu cũ không bị thu hồi; SkateFormer adapted small cũ không tính là bản mới. Hạn bài cũ 25/11/2026 giữ nguyên, chưa chốt hạn riêng cho toàn bộ 10 model; báo tiến độ/blocker tại mốc đó, không bịa kết quả cho đủ.
+- Chỉ import helper chung, không sửa nguồn/kết quả cũ hoặc phần bạn kia. FallScope đã được phép theo `GB-20261123-001`, nhưng đợt giao việc này không giao web/demo/deployment; PoseLab và WEB-01/02 vẫn hủy.
+- Các quyết định cũ bên dưới và trong tài liệu lịch sử chỉ còn hiệu lực ở phần không xung đột `GB-20261124-001`; quyền thực thi không đồng nghĩa đã nghiệm thu.
 
 ## Xác định người và đọc đúng nhiệm vụ
 
