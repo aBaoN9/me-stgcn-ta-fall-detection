@@ -165,6 +165,49 @@
       ],
       "q0_reproduction_sanity": "If Q0 fixed accuracy mean lies outside historical A3 fixed mean +/- 2 sd (89.58 +/- 2*3.44 %), investigate the environment before reporting. Environment check only: historical numbers are never the control and the check can never change Q1, epsilon or the config.",
       "notebook": "RUN_NAME fixed to q0_q1_full so a resumed Kaggle session on another day continues the same run."
+    },
+    {
+      "date": "2026-11-26 (UTC+7)",
+      "written_before_outer_results": true,
+      "changes_training": false,
+      "authority": "GB-20261119-002: Duc may run full on CPU without a GPU, both arms on the same device/recipe/budget; self-written addendum, no approval gate.",
+      "summary": "Device change only. Full Q0 and Q1 both run on the same local CPU. runner.py gains --allow-cpu-full (sets config.allow_cpu_full=true) and records cpu_threads in the run lock. Model, loss, recipe, variants, epsilon, seeds, splits, policies, budget and inputs are unchanged.",
+      "config_delta": {
+        "allow_cpu_full": true
+      },
+      "code_hash": "30301ffa06723292937ffa72c21c3f20cd5b4047824032bc4f5f20f220c9e09f",
+      "code_files": {
+        "training/contribution_study/runner.py": "36800d4663b7391fcf9982c049cb6574255e6ba5e49034a81fc78abb370b3769",
+        "training/contribution_study/quality_pooling.py": "3f3e1cecf8c80c935f4634da249c9dbf141eca029639eb1197062d80e5b3b6d9",
+        "training/component_ablation/training.py": "1a9fb95e0a29a2575c7e75aa541378f0e8918094a8cfe556faca144b2dc2d05f",
+        "training/component_ablation/models.py": "a43c0ea2a85caa2aaf890dc81ac7cf5f67d2237eeba5614fd00492b89285583f",
+        "training/component_ablation/features.py": "d3dd0f1fcbf2dea61a1ee5070c82e046cca4f1d75fdbccd6badd77321d7e5680"
+      },
+      "device": {
+        "type": "cpu",
+        "name": "AMD Ryzen 7 5800H (8 cores / 16 threads)",
+        "ram_gb": 15.4,
+        "torch_threads": 8,
+        "os": "Windows 11 Pro 10.0.26200"
+      },
+      "environment": {
+        "python": "3.12.10",
+        "torch": "2.10.0+cpu",
+        "numpy": "2.2.6",
+        "pandas": "2.3.3",
+        "sklearn": "1.7.2"
+      },
+      "pre_full_checks": {
+        "training_inputs": "PASS four SHA-256 (data/gmdcsa24, data commit afc7370)",
+        "validate_pipeline": "PASS on real inputs (160 samples, parity 1.19e-07, 100 augmentation cases)",
+        "quality_report": "PASS: 36 clips with missing frames, 2 flat-prior clips (input description only)",
+        "check_quality_pooling": "PASS",
+        "check_review_fixes": "PASS 50/50",
+        "check_analysis": "PASS 12/12",
+        "real_smoke": "PASS 8 outer / 32 fits, input_guard locked, scientific_result=false, reload PASS (.runtime, not a result)"
+      },
+      "command": "python -m training.contribution_study.runner --input-root data/gmdcsa24 --mode full --allow-cpu-full --output results/contribution_study/runs/q0_q1_full_cpu",
+      "limitations_added": "CPU float32 results can differ slightly from a CUDA run of the same code; the historical 07 A3 numbers came from GPU and remain a sanity reference only."
     }
   ]
 }

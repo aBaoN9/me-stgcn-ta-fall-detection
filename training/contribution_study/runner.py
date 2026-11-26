@@ -1,7 +1,8 @@
 """DUC-03: nested LOSO runner for Q0 (A3 attention) vs Q1 (A3 + quality prior), recipe of notebook 07.
 
 fit_model/run loop mirror training/component_ablation/training.py; the only change is the model factory,
-so the shared loop is imported for helpers and not edited. Full mode needs an M0-approved config and a GPU.
+so the shared loop is imported for helpers and not edited. Full mode needs an M0-approved config and a GPU,
+or --allow-cpu-full (GB-20261119-002, M0 addendum 2026-11-26): Q0 and Q1 then both run on the same CPU.
 """
 import argparse
 import hashlib
@@ -36,9 +37,10 @@ MODEL_DIR = "models"  # GB-20261116-001: checkpoints live in <run>/models/
 RATES = ["accuracy", "balanced_accuracy", "sensitivity", "specificity", "precision", "f1", "f2", "false_alarm_rate"]
 
 
-def make_config(mode="full", epsilon=EPSILON):
+def make_config(mode="full", epsilon=EPSILON, allow_cpu_full=False):
     config = default_config(mode)
     config.update(variants=list(VARIANTS), quality_epsilon=epsilon, quality_channel=QUALITY_CHANNEL,
+                  allow_cpu_full=bool(allow_cpu_full),
                   quality_definition="mean_v clip(visibility_v2,0,1); centred avg-pool to attention steps",
                   protocol=config["protocol"] + "; only pooling differs between Q0 and Q1")
     return config
@@ -334,7 +336,7 @@ def run_experiment(data, config, output):
         raise RuntimeError("Full experiment requires a GPU; choose smoke locally, or explicitly allow CPU full")
     signature = {"config": config, "input_guard": input_guard, "inputs": {key: value["sha256"] for key, value in data["provenance"].items()}, "code_hash": code_hash(),
                  "versions": {"python": platform.python_version(), "torch": torch.__version__, "numpy": np.__version__, "sklearn": sklearn.__version__},
-                 "device": device}
+                 "device": device, "cpu_threads": torch.get_num_threads() if device == "cpu" else None}
     lock = output / "locked_protocol.json"
     if lock.exists() and json.loads(lock.read_text(encoding="utf-8")) != signature:
         raise ValueError("Run configuration/code/data/environment changed; use a NEW output directory")
@@ -353,5 +355,8 @@ if __name__ == "__main__":
     parser.add_argument("--input-root", type=Path, default=ROOT / "data/local")
     parser.add_argument("--output", type=Path, required=True, help="new directory per run")
     parser.add_argument("--mode", choices=["full", "smoke"], default="smoke")
+    parser.add_argument("--allow-cpu-full", action="store_true",
+                        help="GB-20261119-002: run full on CPU when no GPU exists; recorded in config and lock")
     args = parser.parse_args()
-    print(run_experiment(load_inputs(args.input_root), make_config(args.mode), args.output).to_string())
+    config = make_config(args.mode, allow_cpu_full=args.allow_cpu_full)
+    print(run_experiment(load_inputs(args.input_root), config, args.output).to_string())
