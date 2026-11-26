@@ -1,0 +1,149 @@
+{
+  "format_version": 1,
+  "decision": "GB-20261124-001",
+  "model_id": "block_gcn_v2_ce",
+  "architecture": {
+    "in_channels": 8,
+    "num_classes": 2,
+    "num_point": 33,
+    "num_person": 1,
+    "drop_out": 0.3,
+    "topology_channels": [
+      0,
+      1
+    ]
+  },
+  "upstream": {
+    "repo": "https://github.com/ZhouYuxuanYX/BlockGCN",
+    "commit": "7b45971a931c5b0ba60f3a7ba11a91e544de54fb",
+    "license": "Apache-2.0",
+    "files": [
+      "model/BlockGCN.py",
+      "graph/tools.py"
+    ],
+    "also": "torch_topological StructureElementLayer, aidos-lab/pytorch-topological 8aca6dbb87d0b03902df657528f53c06184a63c6, BSD-3-Clause"
+  },
+  "parameters": 1466066,
+  "config": {
+    "mode": "smoke",
+    "feature_version": "v2-mask-visibility-raw-pose-augmentation",
+    "seeds": [
+      42
+    ],
+    "variants": [
+      "block_gcn_v2_ce"
+    ],
+    "max_epochs": 2,
+    "patience": 1,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "dropout": 0.3,
+    "scheduler": null,
+    "target_sensitivity": 0.95,
+    "minimum_specificity": 0.75,
+    "threshold_grid": [
+      0.05,
+      0.075,
+      0.1,
+      0.125,
+      0.15,
+      0.175,
+      0.2,
+      0.22499999999999998,
+      0.25,
+      0.27499999999999997,
+      0.3,
+      0.32499999999999996,
+      0.35,
+      0.37499999999999994,
+      0.39999999999999997,
+      0.42499999999999993,
+      0.44999999999999996,
+      0.475,
+      0.49999999999999994,
+      0.525,
+      0.5499999999999999,
+      0.575,
+      0.6,
+      0.625,
+      0.65,
+      0.675,
+      0.7,
+      0.725,
+      0.75,
+      0.775,
+      0.7999999999999999,
+      0.825,
+      0.85,
+      0.875,
+      0.9,
+      0.9249999999999999,
+      0.95
+    ],
+    "allow_cpu_full": false,
+    "epoch_selection": "minimum unweighted inner-validation cross entropy",
+    "protocol": "4 outer subjects; 3 inner subjects; refit outer train; no final all-subject retrain"
+  },
+  "outer_subjects": [
+    1
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "primary": {
+    "policy": "fixed",
+    "threshold": 0.5,
+    "metrics": [
+      "f1 (Fall class)",
+      "accuracy"
+    ],
+    "aggregation": "pooled 160 clips per seed, mean and sample SD (ddof=1) over seeds"
+  },
+  "loader_recipe": {
+    "channels": 8,
+    "attention": true,
+    "fall_multiplier": 1.0
+  },
+  "synthetic": false,
+  "inputs": {
+    "pose": "598638f33066c4b6487dbaa1ccbfcc98a96143f8deae94354278f635324633b4",
+    "features": "4a255c925adbcfb8364eb413dd492c72d2a0cfcdd5074082f470b0aa836e2848",
+    "manifest": "5c41ac710d580a648d6768c5d7ceb2a5b95767f23069519ed5b98737e59417f2",
+    "folds": "774f0ac28b8342e9c8080af075fcda8227ac6a036124514f6c09f0a375b4fbba"
+  },
+  "code": {
+    "training/component_ablation/features.py": "d3dd0f1fcbf2dea61a1ee5070c82e046cca4f1d75fdbccd6badd77321d7e5680",
+    "training/component_ablation/models.py": "a43c0ea2a85caa2aaf890dc81ac7cf5f67d2237eeba5614fd00492b89285583f",
+    "training/component_ablation/training.py": "1a9fb95e0a29a2575c7e75aa541378f0e8918094a8cfe556faca144b2dc2d05f",
+    "training/component_ablation/validate_pipeline.py": "a60a05359eda846c1a777510011a068cbeaad185413445c86d9441f0c8d7a8a6",
+    "training/modern_benchmark_duc/__init__.py": "a3459de620f26b2c29d4a3eee8c3101d8aa015ca3dca05ef2c58eaf195b798c8",
+    "training/modern_benchmark_duc/blockgcn.py": "ea7e9729923f19ea328068204df2653dff14465b2bef73e2d6dd1a03126f45f0",
+    "training/modern_benchmark_duc/degcn.py": "6f823dbceb0e4fd88eaba3bb691636751b9fccf34d13e7b4f77b286e5d25a200",
+    "training/modern_benchmark_duc/graph.py": "0fdeabf6b310880f283603ea5f1a25c144d02486da7040a29f2a2661a80ec0fb",
+    "training/modern_benchmark_duc/jt_graphformer.py": "c7ea74e5b2f4d760d95b82e4dbccd9060f411f2e2e1aa24db449b2be9f00bebb",
+    "training/modern_benchmark_duc/models.py": "ebb62d4f9352a467623ef2ce639b5b7e6c47b621624b169fa144ea05ae2f070f",
+    "training/modern_benchmark_duc/runner.py": "3265919b3650752a2e2c83562e6fac479e753f7993fe8ee4549715d3ba05ff3f",
+    "training/modern_benchmark_duc/skateformer.py": "2961470ee823b44756670b6e3b2b13de26bf54922c017dbeae77f49236b9d555",
+    "training/modern_benchmark_duc/test_modern.py": "e1f9558e36afab2cf0c5ea6e11655dade3bd8f996b8013b10c8775baf352d1ca"
+  },
+  "environment": {
+    "python": "3.12.10",
+    "torch": "2.10.0+cpu",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "sklearn": "1.7.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "device": "cpu",
+    "threads": 4,
+    "cuda": null,
+    "gpu": null,
+    "precision": "float32, no AMP",
+    "tf32_matmul": false,
+    "cudnn": "deterministic=True, benchmark=False (set by set_seed before every fit)"
+  },
+  "smoke_signature": null
+}

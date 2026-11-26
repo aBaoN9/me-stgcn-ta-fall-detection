@@ -1,0 +1,9 @@
+epoch,train_weighted_loss,validation_unweighted_loss,variant,seed,outer_subject,fit
+1,1.1933403342962265,7.26908602719267,jt_graphformer_v2_ce,42,1,inner_2
+2,1.3888486444950103,0.6282402367404692,jt_graphformer_v2_ce,42,1,inner_2
+1,1.3088441785644083,8.24646759145728,jt_graphformer_v2_ce,42,1,inner_3
+2,0.7356224782326642,0.3128601717685094,jt_graphformer_v2_ce,42,1,inner_3
+1,1.6007039157243876,8.712484181883616,jt_graphformer_v2_ce,42,1,inner_4
+2,0.5261613765915671,6.104974291292275,jt_graphformer_v2_ce,42,1,inner_4
+1,1.2776688635349274,,jt_graphformer_v2_ce,42,1,refit
+2,0.7756731882691383,,jt_graphformer_v2_ce,42,1,refit

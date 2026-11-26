@@ -1,0 +1,20 @@
+[
+  {
+    "variant": "A3_motion_attention",
+    "architecture": {
+      "channels": 8,
+      "attention": true,
+      "dropout": 0.3
+    },
+    "feature_version": "v2-mask-visibility-raw-pose-augmentation",
+    "seed": 42,
+    "subject": 1,
+    "refit_seed": 2041,
+    "epochs": 2,
+    "file": "folds/A3_motion_attention_seed42_subject1/model.pt",
+    "sha256": "4371acea14bee4b7912bf2f19441f35987396ba567bdf761ab532a1dc1a14ada",
+    "bytes": 1742426,
+    "parameters": 422871,
+    "seconds": 39.85900000005495
+  }
+]

@@ -1,0 +1,9 @@
+epoch,train_weighted_loss,validation_unweighted_loss,variant,seed,outer_subject,fit
+1,0.5649921417236328,0.6438374728092312,A3_motion_attention,42,1,inner_2
+2,0.6585738569498062,0.780923187870257,A3_motion_attention,42,1,inner_2
+1,0.6275779510245604,0.6684205489313405,A3_motion_attention,42,1,inner_3
+2,0.5053027738543118,0.6324572983488583,A3_motion_attention,42,1,inner_3
+1,0.7067308930250314,0.5675313717092916,A3_motion_attention,42,1,inner_4
+2,0.3380145116985499,0.48541726080285513,A3_motion_attention,42,1,inner_4
+1,0.48111611045897007,,A3_motion_attention,42,1,refit
+2,0.5635031592100859,,A3_motion_attention,42,1,refit

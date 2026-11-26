@@ -1,0 +1,4 @@
+variant,policy,n_seeds,accuracy_mean,accuracy_std,balanced_accuracy_mean,balanced_accuracy_std,sensitivity_mean,sensitivity_std,specificity_mean,specificity_std,precision_mean,precision_std,f1_mean,f1_std,f2_mean,f2_std,false_alarm_rate_mean,false_alarm_rate_std,tp_mean,tp_std,tn_mean,tn_std,fp_mean,fp_std,fn_mean,fn_std
+A3_motion_attention,balanced,1,0.75,,0.75,,0.5,,1.0,,1.0,,0.6666666666666666,,0.5555555555555556,,0.0,,8.0,,16.0,,0.0,,8.0,
+A3_motion_attention,fixed,1,0.75,,0.75,,0.5,,1.0,,1.0,,0.6666666666666666,,0.5555555555555556,,0.0,,8.0,,16.0,,0.0,,8.0,
+A3_motion_attention,sensitivity,1,0.875,,0.875,,1.0,,0.75,,0.8,,0.8888888888888888,,0.9523809523809523,,0.25,,16.0,,12.0,,4.0,,0.0,

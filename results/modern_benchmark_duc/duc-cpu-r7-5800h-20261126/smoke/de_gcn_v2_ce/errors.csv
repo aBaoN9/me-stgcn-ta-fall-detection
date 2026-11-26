@@ -1,0 +1,13 @@
+sample_index,video_id,subject,label,score,prediction,threshold,variant,seed,policy
+23,S1_FALL_08,1,1,3.1012354156700894e-05,0,0.05,de_gcn_v2_ce,42,balanced
+26,S1_FALL_11,1,1,1.3596654184488965e-13,0,0.05,de_gcn_v2_ce,42,balanced
+28,S1_FALL_13,1,1,9.142333510681055e-06,0,0.05,de_gcn_v2_ce,42,balanced
+30,S1_FALL_15,1,1,0.0066101741977036,0,0.05,de_gcn_v2_ce,42,balanced
+23,S1_FALL_08,1,1,3.1012354156700894e-05,0,0.5,de_gcn_v2_ce,42,fixed
+26,S1_FALL_11,1,1,1.3596654184488965e-13,0,0.5,de_gcn_v2_ce,42,fixed
+28,S1_FALL_13,1,1,9.142333510681055e-06,0,0.5,de_gcn_v2_ce,42,fixed
+30,S1_FALL_15,1,1,0.0066101741977036,0,0.5,de_gcn_v2_ce,42,fixed
+23,S1_FALL_08,1,1,3.1012354156700894e-05,0,0.05,de_gcn_v2_ce,42,sensitivity
+26,S1_FALL_11,1,1,1.3596654184488965e-13,0,0.05,de_gcn_v2_ce,42,sensitivity
+28,S1_FALL_13,1,1,9.142333510681055e-06,0,0.05,de_gcn_v2_ce,42,sensitivity
+30,S1_FALL_15,1,1,0.0066101741977036,0,0.05,de_gcn_v2_ce,42,sensitivity

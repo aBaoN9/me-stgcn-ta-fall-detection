@@ -1,0 +1,4 @@
+variant,policy,n_seeds,accuracy_mean,accuracy_std,balanced_accuracy_mean,balanced_accuracy_std,sensitivity_mean,sensitivity_std,specificity_mean,specificity_std,precision_mean,precision_std,f1_mean,f1_std,f2_mean,f2_std,false_alarm_rate_mean,false_alarm_rate_std,tp_mean,tp_std,tn_mean,tn_std,fp_mean,fp_std,fn_mean,fn_std
+block_gcn_v2_ce,balanced,1,0.5,,0.5,,1.0,,0.0,,0.5,,0.6666666666666666,,0.8333333333333334,,1.0,,16.0,,0.0,,16.0,,0.0,
+block_gcn_v2_ce,fixed,1,0.5,,0.5,,1.0,,0.0,,0.5,,0.6666666666666666,,0.8333333333333334,,1.0,,16.0,,0.0,,16.0,,0.0,
+block_gcn_v2_ce,sensitivity,1,0.5,,0.5,,1.0,,0.0,,0.5,,0.6666666666666666,,0.8333333333333334,,1.0,,16.0,,0.0,,16.0,,0.0,

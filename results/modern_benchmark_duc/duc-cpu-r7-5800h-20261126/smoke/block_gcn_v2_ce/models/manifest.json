@@ -1,0 +1,26 @@
+[
+  {
+    "variant": "block_gcn_v2_ce",
+    "architecture": {
+      "in_channels": 8,
+      "num_classes": 2,
+      "num_point": 33,
+      "num_person": 1,
+      "drop_out": 0.3,
+      "topology_channels": [
+        0,
+        1
+      ]
+    },
+    "feature_version": "v2-mask-visibility-raw-pose-augmentation",
+    "seed": 42,
+    "subject": 1,
+    "refit_seed": 2041,
+    "epochs": 1,
+    "file": "folds/block_gcn_v2_ce_seed42_subject1/model.pt",
+    "sha256": "248abd294fd7f666d17b0b2a6495be3c5bef512ef7779a007950d11bb2744d93",
+    "bytes": 6140855,
+    "parameters": 1466066,
+    "seconds": 280.5320000000065
+  }
+]

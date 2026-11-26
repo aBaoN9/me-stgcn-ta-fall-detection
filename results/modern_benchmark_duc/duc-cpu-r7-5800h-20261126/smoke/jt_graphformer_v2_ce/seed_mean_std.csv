@@ -1,0 +1,4 @@
+variant,policy,n_seeds,accuracy_mean,accuracy_std,balanced_accuracy_mean,balanced_accuracy_std,sensitivity_mean,sensitivity_std,specificity_mean,specificity_std,precision_mean,precision_std,f1_mean,f1_std,f2_mean,f2_std,false_alarm_rate_mean,false_alarm_rate_std,tp_mean,tp_std,tn_mean,tn_std,fp_mean,fp_std,fn_mean,fn_std
+jt_graphformer_v2_ce,balanced,1,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.0625,,15.0,,15.0,,1.0,,1.0,
+jt_graphformer_v2_ce,fixed,1,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.0625,,15.0,,15.0,,1.0,,1.0,
+jt_graphformer_v2_ce,sensitivity,1,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.0625,,15.0,,15.0,,1.0,,1.0,

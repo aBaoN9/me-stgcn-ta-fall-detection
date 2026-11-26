@@ -1,0 +1,4 @@
+variant,policy,n_seeds,accuracy_mean,accuracy_std,balanced_accuracy_mean,balanced_accuracy_std,sensitivity_mean,sensitivity_std,specificity_mean,specificity_std,precision_mean,precision_std,f1_mean,f1_std,f2_mean,f2_std,false_alarm_rate_mean,false_alarm_rate_std,tp_mean,tp_std,tn_mean,tn_std,fp_mean,fp_std,fn_mean,fn_std
+skateformer_v2_ce,balanced,1,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.9375,,0.0625,,15.0,,15.0,,1.0,,1.0,
+skateformer_v2_ce,fixed,1,0.90625,,0.90625,,1.0,,0.8125,,0.8421052631578947,,0.9142857142857143,,0.963855421686747,,0.1875,,16.0,,13.0,,3.0,,0.0,
+skateformer_v2_ce,sensitivity,1,0.78125,,0.78125,,1.0,,0.5625,,0.6956521739130435,,0.8205128205128205,,0.9195402298850575,,0.4375,,16.0,,9.0,,7.0,,0.0,

@@ -1,0 +1,31 @@
+[
+  {
+    "variant": "jt_graphformer_v2_ce",
+    "architecture": {
+      "num_channels": 8,
+      "num_classes": 2,
+      "num_joints": 33,
+      "num_frames": 32,
+      "len_parts": 8,
+      "num_heads": 3,
+      "kernel_size": [
+        3,
+        5
+      ],
+      "use_pes": true,
+      "att_drop": 0.3,
+      "dropout": 0.3,
+      "dropout2d": 0.3
+    },
+    "feature_version": "v2-mask-visibility-raw-pose-augmentation",
+    "seed": 42,
+    "subject": 1,
+    "refit_seed": 2041,
+    "epochs": 2,
+    "file": "folds/jt_graphformer_v2_ce_seed42_subject1/model.pt",
+    "sha256": "2b3d4a7e211a2126dbff0c9a36fdcc6d415f23282437d0aad8450038bac83939",
+    "bytes": 35202647,
+    "parameters": 7421402,
+    "seconds": 528.859000000055
+  }
+]

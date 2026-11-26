@@ -1,0 +1,9 @@
+epoch,train_weighted_loss,validation_unweighted_loss,variant,seed,outer_subject,fit
+1,0.5144777685403824,8.394841532790794,skateformer_v2_ce,42,1,inner_2
+2,1.0592629313468933,0.8221706997686314,skateformer_v2_ce,42,1,inner_2
+1,0.7758869879386004,0.6594722770241268,skateformer_v2_ce,42,1,inner_3
+2,0.5357809322721818,0.3818579721026221,skateformer_v2_ce,42,1,inner_3
+1,0.5266127348928661,6.7133563314472156,skateformer_v2_ce,42,1,inner_4
+2,0.4040076978259034,4.003226880577993,skateformer_v2_ce,42,1,inner_4
+1,0.6486654691398144,,skateformer_v2_ce,42,1,refit
+2,0.5518349558115005,,skateformer_v2_ce,42,1,refit

@@ -1,0 +1,58 @@
+[
+  {
+    "variant": "skateformer_v2_ce",
+    "architecture": {
+      "in_channels": 8,
+      "num_classes": 2,
+      "depths": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "channels": [
+        96,
+        192,
+        192,
+        192
+      ],
+      "embed_dim": 96,
+      "num_frames": 32,
+      "kernel_size": 7,
+      "num_heads": 32,
+      "partition": [
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "attn_drop": 0.3,
+      "head_drop": 0.3,
+      "drop": 0.3,
+      "rel": true,
+      "mlp_ratio": 1.0
+    },
+    "feature_version": "v2-mask-visibility-raw-pose-augmentation",
+    "seed": 42,
+    "subject": 1,
+    "refit_seed": 2041,
+    "epochs": 2,
+    "file": "folds/skateformer_v2_ce_seed42_subject1/model.pt",
+    "sha256": "4beeef0d24b1f154e0fd9f84e2c03877d20875175eb1793e9901cfb2d093c0a2",
+    "bytes": 7916891,
+    "parameters": 1963242,
+    "seconds": 268.23499999998603
+  }
+]

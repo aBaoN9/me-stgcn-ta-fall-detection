@@ -1,0 +1,32 @@
+{
+  "mode": "smoke",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": false,
+  "model_id": "de_gcn_v2_ce",
+  "signature": "c6422626dc602853ae187d52fceb740d9313d8564bcfb49b1a5cdcf017bf394b",
+  "seeds": [
+    42
+  ],
+  "outer_subjects": [
+    1
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "outer_runs_expected": 1,
+  "outer_runs": 1,
+  "inner_fits_expected": 3,
+  "inner_fits": 3,
+  "refits_expected": 1,
+  "refits": 1,
+  "fits_expected": 4,
+  "fits": 4,
+  "prediction_rows_expected": 96,
+  "prediction_rows": 96,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "train_seconds": 612.984000000055
+}
