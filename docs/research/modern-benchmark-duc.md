@@ -95,3 +95,9 @@ Bốn người, 160 clip; outer fold đã được xem trong phát triển 06/07
 ## 9. Nộp sản phẩm
 
 `results/modern_benchmark_duc/<run-id>/`: `tests/`, `smoke/<model>/`, `full/<model>/` (lock, lịch sử 36 inner + 12 refit, raw inner OOF, `predictions.csv`, `fold_metrics.csv`, `pooled_by_seed.csv`, `seed_mean_std.csv`, `errors.csv`, `completion.json`, `models/manifest.json`), `audit/`, `latency/`. Checkpoint lớn (tổng ~0,6 GB) đưa lên GitHub Release asset với manifest SHA-256 và lệnh tải/nạp đã kiểm; file `.pt` không commit vào Git.
+
+## Addendum A1 — 26/11/2026, trước mọi kết quả full
+
+- Smoke thật: A3 và SkateFormer PASS (mỗi model 4 fit, 96 dòng, reload PASS); BlockGCN, JT-GraphFormer, DeGCN đang chạy. Full chỉ bắt đầu khi smoke cùng model/code/env có `completion.json` hợp lệ (runner kiểm).
+- Khóa mã phân tích ngoài khóa train (SHA-256 sau CRLF→LF): `tools/audit.py` `6f8f5d61bf92d3604b47ffe20d6a001c8020016305d54935b2240fab252d2d61`, `tools/latency.py` `8af6d8df54588c65642d25829f610bde4a440df79a145518eae468ef7d8a3ac0`, `tools/run_lane.sh` `d253e0e8fc60e39f12159ef14651a875f8036aefe818d8fc44b41032c9c265f2`. Audit chỉ được tự kiểm trên bản sao smoke (kiểm phần mềm, không phải kết quả). Nếu phải sửa lỗi phần mềm sau khi có kết quả, giữ bản cũ, ghi lý do và không đổi bảng/quy tắc ở mục 7.
+- Hai làn chạy, mỗi tiến trình 4 luồng: làn A `A3 → SkateFormer → BlockGCN`, làn B `JT-GraphFormer → DeGCN` (thứ tự mục 5 giữ nguyên trong từng làn). CPU còn chia với run full Q0/Q1 tới khi run đó xong; thời gian train vì vậy không dùng để so tốc độ.
