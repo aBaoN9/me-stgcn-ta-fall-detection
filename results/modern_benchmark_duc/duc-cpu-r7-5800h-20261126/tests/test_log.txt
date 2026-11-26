@@ -1,0 +1,30 @@
+test_class_weights (__main__.DataProtocol.test_class_weights) ... ok
+test_generic_loop_matches_original_a3 (__main__.DataProtocol.test_generic_loop_matches_original_a3) ... ok
+test_metric_edge_cases (__main__.DataProtocol.test_metric_edge_cases) ... ok
+test_no_split_leakage (__main__.DataProtocol.test_no_split_leakage) ... ok
+test_no_training_batch_of_one_on_real_split_sizes (__main__.DataProtocol.test_no_training_batch_of_one_on_real_split_sizes) ... ok
+test_tensor_parity_and_deterministic_augmentation (__main__.DataProtocol.test_tensor_parity_and_deterministic_augmentation) ... ok
+test_graph_is_mediapipe_33 (__main__.GraphAndPadding.test_graph_is_mediapipe_33) ... ok
+test_skateformer_layout_and_masks (__main__.GraphAndPadding.test_skateformer_layout_and_masks) ... ok
+test_skateformer_padded_slots_get_no_attention (__main__.GraphAndPadding.test_skateformer_padded_slots_get_no_attention) ... ok
+test_eval_outputs_do_not_depend_on_other_clips (__main__.ModelContract.test_eval_outputs_do_not_depend_on_other_clips) ... ok
+test_missing_pose_visibility_and_dropped_joints_stay_finite (__main__.ModelContract.test_missing_pose_visibility_and_dropped_joints_stay_finite) ... ok
+test_shape_finite_backward_batch_1_and_16 (__main__.ModelContract.test_shape_finite_backward_batch_1_and_16) ... ok
+test_unknown_and_blocked_models_fail_without_fallback (__main__.ModelContract.test_unknown_and_blocked_models_fail_without_fallback) ... ok
+test_wrong_input_shape_is_rejected (__main__.ModelContract.test_wrong_input_shape_is_rejected) ... ok
+Completed A3_motion_attention_seed42_subject1 epochs 2 seconds 4
+Completed skateformer_v2_ce_seed42_subject1 epochs 1 seconds 26
+test_fold_tampering_is_caught (__main__.RunnerEndToEnd.test_fold_tampering_is_caught) ... ok
+test_full_guards (__main__.RunnerEndToEnd.test_full_guards) ... ok
+test_missing_fold_and_empty_directory_fail (__main__.RunnerEndToEnd.test_missing_fold_and_empty_directory_fail) ... ok
+test_resume_revalidates_and_signature_guard (__main__.RunnerEndToEnd.test_resume_revalidates_and_signature_guard) ... Resume validated: A3_motion_attention_seed42_subject1
+ok
+test_smoke_completion_reload_and_coverage (__main__.RunnerEndToEnd.test_smoke_completion_reload_and_coverage) ... ok
+test_validate_summary_detects_tampering (__main__.RunnerEndToEnd.test_validate_summary_detects_tampering) ... ok
+test_wrong_input_hash_is_rejected (__main__.RunnerEndToEnd.test_wrong_input_hash_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 78.284s
+
+OK
+{"status": "PASS", "tests_run": 21, "failures": 0, "errors": 0, "skipped": 0}
