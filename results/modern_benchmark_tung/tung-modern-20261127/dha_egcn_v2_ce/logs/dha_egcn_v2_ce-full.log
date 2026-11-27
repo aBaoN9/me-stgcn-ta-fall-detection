@@ -1,0 +1,52 @@
+Verified fold: dha_egcn_v2_ce_seed42_subject1
+Traceback (most recent call last):
+  File "C:\Users\Tung\Downloads\TGMT\me-stgcn-ta-fall-detection\training\modern_benchmark_tung\monitor_windows.py", line 82, in <module>
+    copy_completed()
+  File "C:\Users\Tung\Downloads\TGMT\me-stgcn-ta-fall-detection\training\modern_benchmark_tung\monitor_windows.py", line 58, in copy_completed
+    staged.rename(final)
+  File "C:\Users\Tung\AppData\Local\Programs\Python\Python311\Lib\pathlib.py", line 1175, in rename
+    os.rename(self, target)
+PermissionError: [WinError 5] Access is denied: '.runtime\\dha_egcn_v2_ce-full-monitor-20261127-124323-backup\\folds\\.copy-dha_egcn_v2_ce_seed42_subject1' -> '.runtime\\dha_egcn_v2_ce-full-monitor-20261127-124323-backup\\folds\\dha_egcn_v2_ce_seed42_subject1'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\Tung\Downloads\TGMT\me-stgcn-ta-fall-detection\training\modern_benchmark_tung\monitor_windows.py", line 91, in <module>
+    copy_completed()
+  File "C:\Users\Tung\Downloads\TGMT\me-stgcn-ta-fall-detection\training\modern_benchmark_tung\monitor_windows.py", line 57, in copy_completed
+    shutil.copytree(fold, staged)
+  File "C:\Users\Tung\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 573, in copytree
+    return _copytree(entries=entries, src=src, dst=dst, symlinks=symlinks,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Tung\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 471, in _copytree
+    os.makedirs(dst, exist_ok=dirs_exist_ok)
+  File "<frozen os>", line 225, in makedirs
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: '.runtime\\dha_egcn_v2_ce-full-monitor-20261127-124323-backup\\folds\\.copy-dha_egcn_v2_ce_seed42_subject1'
+Resume after Windows backup rename failure: 2026-11-27T13:01:38.5741502+07:00
+Backed up: dha_egcn_v2_ce_seed42_subject1
+Verified fold: dha_egcn_v2_ce_seed42_subject2
+Backed up: dha_egcn_v2_ce_seed42_subject2
+Verified fold: dha_egcn_v2_ce_seed42_subject3
+Backed up: dha_egcn_v2_ce_seed42_subject3
+Verified fold: dha_egcn_v2_ce_seed42_subject4
+Backed up: dha_egcn_v2_ce_seed42_subject4
+Verified fold: dha_egcn_v2_ce_seed142_subject1
+Backed up: dha_egcn_v2_ce_seed142_subject1
+Verified fold: dha_egcn_v2_ce_seed142_subject2
+Backed up: dha_egcn_v2_ce_seed142_subject2
+Verified fold: dha_egcn_v2_ce_seed142_subject3
+Backed up: dha_egcn_v2_ce_seed142_subject3
+Verified fold: dha_egcn_v2_ce_seed142_subject4
+Backed up: dha_egcn_v2_ce_seed142_subject4
+Verified fold: dha_egcn_v2_ce_seed242_subject1
+Backed up: dha_egcn_v2_ce_seed242_subject1
+Verified fold: dha_egcn_v2_ce_seed242_subject2
+Backed up: dha_egcn_v2_ce_seed242_subject2
+Verified fold: dha_egcn_v2_ce_seed242_subject3
+Backed up: dha_egcn_v2_ce_seed242_subject3
+Verified fold: dha_egcn_v2_ce_seed242_subject4
+{'mode': 'full', 'complete': True, 'synthetic': False, 'scientific_result': True, 'signature': 'be1036c0edde07704ee1e01c23354507eb1983a3730dc642a38f42f729827025', 'outer_runs': 12, 'inner_fits': 36, 'refits': 12, 'expected_fits': 48, 'actual_fits': 48, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42, 142, 242], 'models': ['dha_egcn_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 83129856}
+Backed up: dha_egcn_v2_ce_seed242_subject4
+{"backup": ".runtime\\dha_egcn_v2_ce-full-monitor-20261127-130138-backup", "output": ".runtime\\tung-modern-20261127\\dha_egcn_v2_ce-full", "telemetry": ".runtime\\dha_egcn_v2_ce-full-monitor-20261127-130138-telemetry.csv", "seconds": 239.2, "exit_code": 0, "thermal_stop": null, "samples": 311, "baseline": [0.687, 65, 0, 0, 12182.0], "peak": [73, 219, 57, 14418.3]}

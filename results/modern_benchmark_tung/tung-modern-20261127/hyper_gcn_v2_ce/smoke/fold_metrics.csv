@@ -1,0 +1,4 @@
+variant,seed,policy,subject,accuracy,balanced_accuracy,sensitivity,specificity,precision,f1,f2,false_alarm_rate,tp,tn,fp,fn
+hyper_gcn_v2_ce,42,balanced,1,0.5,0.5,1.0,0.0,0.5,0.6666666666666666,0.8333333333333334,1.0,16,0,16,0
+hyper_gcn_v2_ce,42,fixed,1,0.5,0.5,1.0,0.0,0.5,0.6666666666666666,0.8333333333333334,1.0,16,0,16,0
+hyper_gcn_v2_ce,42,sensitivity,1,0.5,0.5,1.0,0.0,0.5,0.6666666666666666,0.8333333333333334,1.0,16,0,16,0

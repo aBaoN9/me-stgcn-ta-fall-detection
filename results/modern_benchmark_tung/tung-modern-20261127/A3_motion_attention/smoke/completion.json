@@ -1,0 +1,26 @@
+{
+  "mode": "smoke",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": false,
+  "signature": "cbdc86a3cd206e91c2141d10b66c4f5bd6a2fc0dd4a6fbb858a39510c75cd1dd",
+  "outer_runs": 1,
+  "inner_fits": 3,
+  "refits": 1,
+  "expected_fits": 4,
+  "actual_fits": 4,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "seeds": [
+    42
+  ],
+  "models": [
+    "A3_motion_attention"
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "peak_allocated_bytes": 165582336
+}

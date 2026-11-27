@@ -1,0 +1,14 @@
+Captured: 2026-11-27T12:43:35.1263926+07:00
+Git at run preparation: 58419b65272f4361e8d0ed0518336a24d201ce96
+Tracked project base: 6985ed7d96498793d1b6def75404bd4fad785ea5
+
+Name : C
+Used : 436233936896
+Free : 46330507264
+
+
+name, driver_version, memory.total [MiB]
+NVIDIA GeForce RTX 3050 Laptop GPU, 566.07, 4096 MiB
+Python 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+CPU: AMD Ryzen 5 7535HS with Radeon Graphics        ; logical CPUs: 12
+RAM total: 15.32 GiB

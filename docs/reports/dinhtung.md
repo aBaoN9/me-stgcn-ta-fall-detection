@@ -117,3 +117,10 @@ Người thực hiện: Tùng. Nhánh: `dinhtung`. [Nhiệm vụ](../tasks/dinht
 - Thêm [M0 SkateFormer](../research/skateformer-addendum.md), [module riêng và cách chạy](../../training/backbone_benchmark/skate/README.md), [bộ checkpoint/kết quả](../../results/backbone_benchmark/tung-skate-rtx3050-20261122-205954/README.md). Khóa SHA-256, dữ liệu, seed 42/142/242, Nested LOSO và quy tắc chọn theo inner validation trước full.
 - 4/4 đầu vào, validation 160 clip, 20/20 kiểm thử, smoke thật 4/4, full 48/48: PASS. 12 checkpoint match bản sao và nạp lại được; 1.440 dự đoán đủ và metric tái tính khớp. Full 304,50 giây, 73°C, VRAM toàn GPU 197 MiB, đỉnh RAM hệ thống đang dùng 14.871,1 MiB.
 - Fixed Accuracy/Sensitivity SkateFormer 84,17%/84,81% và A3 89,38%/92,41%. Bản thu gọn có ít tham số nhất và độ trễ trung vị cao nhất trong phép đo năm mô hình. Kết quả khám phá trên bốn người đã xem. Trạng thái `READY_FOR_REVIEW`.
+
+### 2026-11-27 — GB-20261124-001, benchmark hiện đại
+
+- Xác nhận nhận việc và push nhánh dinhtung tại 58419b6 ngày 27/11/2026 (UTC+7). Giữ nguyên các nghiệm thu cũ. [Thiết kế](../research/modern-benchmark-tung.md) · [Runner và lệnh tái lập](../../training/modern_benchmark_tung/README.md) · [Kết quả](../../results/modern_benchmark_tung/tung-modern-20261127/README.md).
+- Mỗi mô hình PASS 4/4 smoke thật và 48/48 full; tổng 24 smoke và 288 full. A3 mới cùng RTX 3050, đủ 72 checkpoint full, 8.640 dự đoán và tái tính chỉ số độc lập. 4/4 input hash, 25/25 kiểm thử, repository checker và reload đạt. DHA-eGCN tiếp tục sau lỗi đổi tên thư mục sao lưu Windows, xác minh và giữ vòng đã hoàn tất.
+- Accuracy fixed: A3 88,96%, CascadeFormer 86,67%, DHA-eGCN 83,33%, Hyper-GCN 87,29%, ProtoGCN 86,88%, InfoGCN++ 90,63%. InfoGCN++ hơn A3 1,67 điểm phần trăm trên trung bình, nhưng thấp hơn ở S2 và seed 242. Thiết kế CE-only, không dùng kết quả để đổi deployment.
+- Trạng thái READY_FOR_REVIEW. Cần Gia Bảo nghiệm thu phạm vi chuyển thể và cách diễn giải trên bốn người đã xem.

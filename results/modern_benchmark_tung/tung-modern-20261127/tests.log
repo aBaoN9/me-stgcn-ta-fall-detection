@@ -1,0 +1,30 @@
+test_all_shapes_and_gradients (training.modern_benchmark_tung.test_benchmark.ModernTests.test_all_shapes_and_gradients) ... ok
+test_canonical_loader_tensor_parity (training.modern_benchmark_tung.test_benchmark.ModernTests.test_canonical_loader_tensor_parity) ... ok
+test_graph_inventories (training.modern_benchmark_tung.test_benchmark.ModernTests.test_graph_inventories) ... ok
+Verified fold: A3_motion_attention_seed42_subject1
+test_resume_and_tamper_guards (training.modern_benchmark_tung.test_benchmark.ModernTests.test_resume_and_tamper_guards) ... ok
+test_a3_fit_and_scores_match_original (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_a3_fit_and_scores_match_original) ... ok
+test_a3_matches_original (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_a3_matches_original) ... ok
+test_feature_order_shape_and_mask (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_feature_order_shape_and_mask) ... ok
+test_full_gate_and_smoke_cross_checks (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_full_gate_and_smoke_cross_checks) ... ok
+test_hash_guard (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_hash_guard) ... ok
+test_interruption_resume_corruption_and_incompatible_lock (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_interruption_resume_corruption_and_incompatible_lock) ... ok
+test_metrics (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_metrics) ... ok
+test_nested_subjects (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_nested_subjects) ... ok
+test_synthetic_pipeline_checkpoint_reload (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_synthetic_pipeline_checkpoint_reload) ... ok
+test_temporal_stack_is_causal (training.backbone_benchmark.test_benchmark.BenchmarkTests.test_temporal_stack_is_causal) ... ok
+test_graph_orientation_and_coverage (training.backbone_benchmark.supplement.test_supplement.SupplementTests.test_graph_orientation_and_coverage) ... ok
+test_model_shapes_and_gradients (training.backbone_benchmark.supplement.test_supplement.SupplementTests.test_model_shapes_and_gradients) ... ok
+test_resume_and_evidence (training.backbone_benchmark.supplement.test_supplement.SupplementTests.test_resume_and_evidence) ... ok
+test_padding_does_not_affect_real_joints (training.backbone_benchmark.skate.test_skate.SkateTests.test_padding_does_not_affect_real_joints) ... ok
+test_partition_dimensions_and_shuffle (training.backbone_benchmark.skate.test_skate.SkateTests.test_partition_dimensions_and_shuffle) ... ok
+test_resume_validates_checkpoint_and_coverage (training.backbone_benchmark.skate.test_skate.SkateTests.test_resume_validates_checkpoint_and_coverage) ... ok
+test_shape_and_gradients (training.backbone_benchmark.skate.test_skate.SkateTests.test_shape_and_gradients) ... ok
+test_existing_runtime_still_starts (training.backbone_benchmark.supplement.tools.test_monitor_windows.MonitorStartupTests.test_existing_runtime_still_starts) ... ok
+test_fresh_checkout_creates_runtime_and_backup (training.backbone_benchmark.supplement.tools.test_monitor_windows.MonitorStartupTests.test_fresh_checkout_creates_runtime_and_backup) ... ok
+test_fresh_checkout_keeps_thermal_stop (training.backbone_benchmark.supplement.tools.test_monitor_windows.MonitorStartupTests.test_fresh_checkout_keeps_thermal_stop) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 18.677s
+
+OK

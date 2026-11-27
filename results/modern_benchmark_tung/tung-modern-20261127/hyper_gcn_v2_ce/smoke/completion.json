@@ -1,0 +1,26 @@
+{
+  "mode": "smoke",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": false,
+  "signature": "5bf2f683489a18340e6199f80ee2c60e6dd34dd923666b0b2c91548d562d4033",
+  "outer_runs": 1,
+  "inner_fits": 3,
+  "refits": 1,
+  "expected_fits": 4,
+  "actual_fits": 4,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "seeds": [
+    42
+  ],
+  "models": [
+    "hyper_gcn_v2_ce"
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "peak_allocated_bytes": 49834496
+}

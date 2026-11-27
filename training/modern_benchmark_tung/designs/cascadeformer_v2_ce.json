@@ -1,0 +1,16 @@
+{
+  "model": "cascadeformer_v2_ce",
+  "upstream_repo": "Yusen-Peng/CascadeFormer",
+  "source_sha": "847efac9bec015d2d1d8f2104d255a0258ad76d7",
+  "paper": "https://arxiv.org/abs/2509.00692",
+  "license": "No LICENSE/NOTICE at assigned tree; independent implementation",
+  "implementation": "backbone adapted small, CE-only",
+  "input": [
+    8,
+    32,
+    33
+  ],
+  "dropout": 0.3,
+  "pretrained": false,
+  "adaptation": "Frame projection; temporal T1 to T2; cross-attention fusion; width 48, 4 heads, depth 1+1; dropout in both encoders, fusion and head; no masked reconstruction pretraining"
+}

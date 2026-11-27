@@ -1,0 +1,26 @@
+{
+  "mode": "smoke",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": false,
+  "signature": "e238a9a9162593df905b794d38ce0fe79f1457e3636867a76bdf1f3d61ab0742",
+  "outer_runs": 1,
+  "inner_fits": 3,
+  "refits": 1,
+  "expected_fits": 4,
+  "actual_fits": 4,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "seeds": [
+    42
+  ],
+  "models": [
+    "cascadeformer_v2_ce"
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "peak_allocated_bytes": 25052672
+}

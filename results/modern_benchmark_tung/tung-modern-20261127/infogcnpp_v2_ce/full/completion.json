@@ -1,0 +1,28 @@
+{
+  "mode": "full",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": true,
+  "signature": "09c8d281e0d880ac310684fcb37b1a067597efa301e1e37e4ccd03a7fecea04d",
+  "outer_runs": 12,
+  "inner_fits": 36,
+  "refits": 12,
+  "expected_fits": 48,
+  "actual_fits": 48,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "seeds": [
+    42,
+    142,
+    242
+  ],
+  "models": [
+    "infogcnpp_v2_ce"
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "peak_allocated_bytes": 134943232
+}

@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\hyper_gcn_v2_ce-full-monitor-20261127-124426-backup",
+  "output": ".runtime\\tung-modern-20261127\\hyper_gcn_v2_ce-full",
+  "telemetry": ".runtime\\hyper_gcn_v2_ce-full-monitor-20261127-124426-telemetry.csv",
+  "seconds": 387.47,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 505,
+  "baseline": [
+    0.735,
+    60,
+    0,
+    0,
+    12713.4
+  ],
+  "peak": [
+    60,
+    155,
+    61,
+    15577.6
+  ]
+}

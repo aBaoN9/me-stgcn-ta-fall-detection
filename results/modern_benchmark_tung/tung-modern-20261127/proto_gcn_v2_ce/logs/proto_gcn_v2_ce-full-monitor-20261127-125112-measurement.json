@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\proto_gcn_v2_ce-full-monitor-20261127-125112-backup",
+  "output": ".runtime\\tung-modern-20261127\\proto_gcn_v2_ce-full",
+  "telemetry": ".runtime\\proto_gcn_v2_ce-full-monitor-20261127-125112-telemetry.csv",
+  "seconds": 281.19,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 367,
+  "baseline": [
+    0.718,
+    58,
+    0,
+    0,
+    12354.9
+  ],
+  "peak": [
+    65,
+    173,
+    50,
+    13888.9
+  ]
+}

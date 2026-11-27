@@ -1,0 +1,26 @@
+Verified fold: infogcnpp_v2_ce_seed42_subject1
+Backed up: infogcnpp_v2_ce_seed42_subject1
+Verified fold: infogcnpp_v2_ce_seed42_subject2
+Backed up: infogcnpp_v2_ce_seed42_subject2
+Verified fold: infogcnpp_v2_ce_seed42_subject3
+Backed up: infogcnpp_v2_ce_seed42_subject3
+Verified fold: infogcnpp_v2_ce_seed42_subject4
+Backed up: infogcnpp_v2_ce_seed42_subject4
+Verified fold: infogcnpp_v2_ce_seed142_subject1
+Backed up: infogcnpp_v2_ce_seed142_subject1
+Verified fold: infogcnpp_v2_ce_seed142_subject2
+Backed up: infogcnpp_v2_ce_seed142_subject2
+Verified fold: infogcnpp_v2_ce_seed142_subject3
+Backed up: infogcnpp_v2_ce_seed142_subject3
+Verified fold: infogcnpp_v2_ce_seed142_subject4
+Backed up: infogcnpp_v2_ce_seed142_subject4
+Verified fold: infogcnpp_v2_ce_seed242_subject1
+Backed up: infogcnpp_v2_ce_seed242_subject1
+Verified fold: infogcnpp_v2_ce_seed242_subject2
+Backed up: infogcnpp_v2_ce_seed242_subject2
+Verified fold: infogcnpp_v2_ce_seed242_subject3
+Backed up: infogcnpp_v2_ce_seed242_subject3
+Verified fold: infogcnpp_v2_ce_seed242_subject4
+Backed up: infogcnpp_v2_ce_seed242_subject4
+{'mode': 'full', 'complete': True, 'synthetic': False, 'scientific_result': True, 'signature': '09c8d281e0d880ac310684fcb37b1a067597efa301e1e37e4ccd03a7fecea04d', 'outer_runs': 12, 'inner_fits': 36, 'refits': 12, 'expected_fits': 48, 'actual_fits': 48, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42, 142, 242], 'models': ['infogcnpp_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 134943232}
+{"backup": ".runtime\\infogcnpp_v2_ce-full-monitor-20261127-125609-backup", "output": ".runtime\\tung-modern-20261127\\infogcnpp_v2_ce-full", "telemetry": ".runtime\\infogcnpp_v2_ce-full-monitor-20261127-125609-telemetry.csv", "seconds": 327.61, "exit_code": 0, "thermal_stop": null, "samples": 428, "baseline": [0.704, 58, 0, 0, 12114.0], "peak": [74, 265, 63, 13724.1]}

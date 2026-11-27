@@ -1,0 +1,16 @@
+{
+  "model": "dha_egcn_v2_ce",
+  "upstream_repo": "oskar-ika-adi-nugroho/DHA-eGCN",
+  "source_sha": "307b5086175964d7781c7e070483c5f4c0e0c7ce",
+  "paper": "https://doi.org/10.3390/s26123932",
+  "license": "Apache-2.0; independent implementation, attribution retained",
+  "implementation": "backbone adapted small, CE-only",
+  "input": [
+    8,
+    32,
+    33
+  ],
+  "dropout": 0.3,
+  "pretrained": false,
+  "adaptation": "Two width-24 blocks; two differential maps with hop bias and five joint-to-part contexts; single fixed masked graph with edge weights; temporal dilation 1/2; dropout in residual branch and head; no RICH or ensemble"
+}

@@ -1,0 +1,16 @@
+{
+  "model": "proto_gcn_v2_ce",
+  "upstream_repo": "firework8/ProtoGCN",
+  "source_sha": "ddf7f274f9f5d9e45a2fcfeb299bfb3fd7c2303d",
+  "paper": "https://arxiv.org/abs/2411.18941",
+  "license": "MIT; independent implementation, attribution retained",
+  "implementation": "backbone adapted small, CE-only",
+  "input": [
+    8,
+    32,
+    33
+  ],
+  "dropout": 0.3,
+  "pretrained": false,
+  "adaptation": "Two width-24 dynamic topology blocks; 16 learned prototypes for final edge reconstruction; linear query and memory; reconstructed topology readout fused with pooled features; dropout in residual, reconstruction and head; no class-specific contrastive loss"
+}

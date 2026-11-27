@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\A3_motion_attention-smoke-monitor-20261127-123650-backup",
+  "output": ".runtime\\tung-modern-20261127\\A3_motion_attention-smoke",
+  "telemetry": ".runtime\\A3_motion_attention-smoke-monitor-20261127-123650-telemetry.csv",
+  "seconds": 18.03,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 18,
+  "baseline": [
+    0.687,
+    56,
+    0,
+    0,
+    12883.3
+  ],
+  "peak": [
+    61,
+    295,
+    63,
+    14041.2
+  ]
+}

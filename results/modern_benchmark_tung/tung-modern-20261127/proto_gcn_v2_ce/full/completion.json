@@ -1,0 +1,28 @@
+{
+  "mode": "full",
+  "complete": true,
+  "synthetic": false,
+  "scientific_result": true,
+  "signature": "6ae68380b5e24e73d6c57274c75a6008537c89a7ee6b13c324bd03b653116280",
+  "outer_runs": 12,
+  "inner_fits": 36,
+  "refits": 12,
+  "expected_fits": 48,
+  "actual_fits": 48,
+  "reload": "PASS",
+  "coverage": "PASS",
+  "seeds": [
+    42,
+    142,
+    242
+  ],
+  "models": [
+    "proto_gcn_v2_ce"
+  ],
+  "policies": [
+    "fixed",
+    "balanced",
+    "sensitivity"
+  ],
+  "peak_allocated_bytes": 59177984
+}

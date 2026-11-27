@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\infogcnpp_v2_ce-full-monitor-20261127-125609-backup",
+  "output": ".runtime\\tung-modern-20261127\\infogcnpp_v2_ce-full",
+  "telemetry": ".runtime\\infogcnpp_v2_ce-full-monitor-20261127-125609-telemetry.csv",
+  "seconds": 327.61,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 428,
+  "baseline": [
+    0.704,
+    58,
+    0,
+    0,
+    12114.0
+  ],
+  "peak": [
+    74,
+    265,
+    63,
+    13724.1
+  ]
+}

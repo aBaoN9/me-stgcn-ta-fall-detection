@@ -1,0 +1,4 @@
+Verified fold: proto_gcn_v2_ce_seed42_subject1
+Backed up: proto_gcn_v2_ce_seed42_subject1
+{'mode': 'smoke', 'complete': True, 'synthetic': False, 'scientific_result': False, 'signature': '718c6be2402c966a31ca07e015bdda297af3fdeef188c5a664155cd005b275e8', 'outer_runs': 1, 'inner_fits': 3, 'refits': 1, 'expected_fits': 4, 'actual_fits': 4, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42], 'models': ['proto_gcn_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 59177984}
+{"backup": ".runtime\\proto_gcn_v2_ce-smoke-monitor-20261127-125054-backup", "output": ".runtime\\tung-modern-20261127\\proto_gcn_v2_ce-smoke", "telemetry": ".runtime\\proto_gcn_v2_ce-smoke-monitor-20261127-125054-telemetry.csv", "seconds": 16.48, "exit_code": 0, "thermal_stop": null, "samples": 17, "baseline": [0.719, 58, 0, 0, 12274.5], "peak": [59, 173, 29, 13774.7]}
