@@ -27,3 +27,10 @@ Nhánh gửi: `dinhtung`. Người nhận mặc định: người điều phối
 - Trả lời đã đọc (ID/commit main) / việc sau trả lời: chưa có.
 
 Mỗi lần hỏi thật, thay snapshot/mẫu bằng nội dung hiện tại, commit và push file này lên `dinhtung` theo quy trình. Không force-push.
+
+## Xác nhận GB-20261124-001
+
+- Thời điểm xác nhận: 2026-11-27 12:34:25 +07:00 (UTC+7).
+- Tùng đã nhận năm mô hình và A3 chạy lại theo hợp đồng tại docs/research/modern-model-benchmark.md, commit 6985ed7d96498793d1b6def75404bd4fad785ea5.
+- Trạng thái: IN_PROGRESS. Đã đồng bộ nhánh dinhtung; đang kiểm nguồn, giấy phép và môi trường. Full mới: 0 lượt tại thời điểm xác nhận.
+- Hạn 25/11 chỉ áp dụng nhiệm vụ cũ. Đợt mới chưa có hạn riêng.
