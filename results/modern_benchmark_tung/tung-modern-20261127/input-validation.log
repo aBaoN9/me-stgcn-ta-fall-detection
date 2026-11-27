@@ -1,0 +1,24 @@
+OK gmdcsa24_pose_32.npz 2432871 bytes 598638f33066c4b6487dbaa1ccbfcc98a96143f8deae94354278f635324633b4
+OK gmdcsa24_features_32.npz 12606841 bytes 4a255c925adbcfb8364eb413dd492c72d2a0cfcdd5074082f470b0aa836e2848
+OK gmdcsa24_pose_manifest.csv 26558 bytes 5c41ac710d580a648d6768c5d7ceb2a5b95767f23069519ed5b98737e59417f2
+OK gmdcsa24_cross_subject_folds.csv 34369 bytes 774f0ac28b8342e9c8080af075fcda8227ac6a036124514f6c09f0a375b4fbba
+PASS: four input files verified in C:\Users\Tung\Downloads\TGMT\me-stgcn-ta-fall-detection\data\gmdcsa24
+This verifies input bytes only, not the training environment or a training run.
+{
+  "passed": true,
+  "samples": 160,
+  "legacy_parity_max_error": 1.1920928955078125e-07,
+  "missing_sampled_frames": 156,
+  "affected_videos": 36,
+  "old_mean_visibility_on_missing": 0.7157273888587952,
+  "v2_mean_visibility_on_missing": 0.0,
+  "augmentation_consistency_cases": 100,
+  "model_variants_shape_checked": [
+    "A0_pose_average",
+    "A1_motion_average",
+    "A2_pose_attention",
+    "A3_motion_attention",
+    "A3_cost_225"
+  ],
+  "note": "Legacy source has already interpolated 32 poses; v2 cannot restore original raw missing spans. No sample is dropped from LOSO."
+}

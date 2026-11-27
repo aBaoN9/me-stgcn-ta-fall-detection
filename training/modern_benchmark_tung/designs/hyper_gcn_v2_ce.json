@@ -1,0 +1,16 @@
+{
+  "model": "hyper_gcn_v2_ce",
+  "upstream_repo": "6UOOON9/Hyper-GCN",
+  "source_sha": "cefe70b9c62ab825722cc8ece3fa26ecf5c334a1",
+  "paper": "https://arxiv.org/abs/2411.14796",
+  "license": "No LICENSE/NOTICE at assigned tree; independent implementation",
+  "implementation": "backbone adapted small, CE-only",
+  "input": [
+    8,
+    32,
+    33
+  ],
+  "dropout": 0.3,
+  "pretrained": false,
+  "adaptation": "Two width-24 blocks; multi-head adaptive hypergraph with four heads, soft nearest-nine incidence and six anatomical virtual vertices; temporal dilation 1/2; residual and head dropout"
+}

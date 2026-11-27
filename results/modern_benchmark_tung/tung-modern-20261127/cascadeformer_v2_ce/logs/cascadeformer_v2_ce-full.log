@@ -1,0 +1,26 @@
+Verified fold: cascadeformer_v2_ce_seed42_subject1
+Backed up: cascadeformer_v2_ce_seed42_subject1
+Verified fold: cascadeformer_v2_ce_seed42_subject2
+Backed up: cascadeformer_v2_ce_seed42_subject2
+Verified fold: cascadeformer_v2_ce_seed42_subject3
+Backed up: cascadeformer_v2_ce_seed42_subject3
+Verified fold: cascadeformer_v2_ce_seed42_subject4
+Backed up: cascadeformer_v2_ce_seed42_subject4
+Verified fold: cascadeformer_v2_ce_seed142_subject1
+Backed up: cascadeformer_v2_ce_seed142_subject1
+Verified fold: cascadeformer_v2_ce_seed142_subject2
+Backed up: cascadeformer_v2_ce_seed142_subject2
+Verified fold: cascadeformer_v2_ce_seed142_subject3
+Backed up: cascadeformer_v2_ce_seed142_subject3
+Verified fold: cascadeformer_v2_ce_seed142_subject4
+Backed up: cascadeformer_v2_ce_seed142_subject4
+Verified fold: cascadeformer_v2_ce_seed242_subject1
+Backed up: cascadeformer_v2_ce_seed242_subject1
+Verified fold: cascadeformer_v2_ce_seed242_subject2
+Backed up: cascadeformer_v2_ce_seed242_subject2
+Verified fold: cascadeformer_v2_ce_seed242_subject3
+Backed up: cascadeformer_v2_ce_seed242_subject3
+Verified fold: cascadeformer_v2_ce_seed242_subject4
+Backed up: cascadeformer_v2_ce_seed242_subject4
+{'mode': 'full', 'complete': True, 'synthetic': False, 'scientific_result': True, 'signature': 'b31a7f0183f3a83e631c52e57a1643745f1e33474588046ca59e7fd1b2b83619', 'outer_runs': 12, 'inner_fits': 36, 'refits': 12, 'expected_fits': 48, 'actual_fits': 48, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42, 142, 242], 'models': ['cascadeformer_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 25052672}
+{"backup": ".runtime\\cascadeformer_v2_ce-full-monitor-20261127-124110-backup", "output": ".runtime\\tung-modern-20261127\\cascadeformer_v2_ce-full", "telemetry": ".runtime\\cascadeformer_v2_ce-full-monitor-20261127-124110-telemetry.csv", "seconds": 113.98, "exit_code": 0, "thermal_stop": null, "samples": 146, "baseline": [0.703, 65, 0, 0, 12352.2], "peak": [65, 123, 42, 14084.2]}

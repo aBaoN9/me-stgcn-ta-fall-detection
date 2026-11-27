@@ -1,0 +1,4 @@
+Verified fold: dha_egcn_v2_ce_seed42_subject1
+{'mode': 'smoke', 'complete': True, 'synthetic': False, 'scientific_result': False, 'signature': '92c4407161e72a3ce148143999b9910fa321bdab3cb17619b66dda2f5537c713', 'outer_runs': 1, 'inner_fits': 3, 'refits': 1, 'expected_fits': 4, 'actual_fits': 4, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42], 'models': ['dha_egcn_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 83129856}
+Backed up: dha_egcn_v2_ce_seed42_subject1
+{"backup": ".runtime\\dha_egcn_v2_ce-smoke-monitor-20261127-124305-backup", "output": ".runtime\\tung-modern-20261127\\dha_egcn_v2_ce-smoke", "telemetry": ".runtime\\dha_egcn_v2_ce-smoke-monitor-20261127-124305-telemetry.csv", "seconds": 16.55, "exit_code": 0, "thermal_stop": null, "samples": 17, "baseline": [0.703, 57, 0, 0, 12943.1], "peak": [59, 219, 39, 14335.5]}

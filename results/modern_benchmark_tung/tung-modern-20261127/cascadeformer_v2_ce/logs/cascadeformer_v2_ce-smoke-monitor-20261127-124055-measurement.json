@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\cascadeformer_v2_ce-smoke-monitor-20261127-124055-backup",
+  "output": ".runtime\\tung-modern-20261127\\cascadeformer_v2_ce-smoke",
+  "telemetry": ".runtime\\cascadeformer_v2_ce-smoke-monitor-20261127-124055-telemetry.csv",
+  "seconds": 14.52,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 15,
+  "baseline": [
+    0.735,
+    69,
+    0,
+    0,
+    12302.5
+  ],
+  "peak": [
+    69,
+    123,
+    6,
+    13457.2
+  ]
+}

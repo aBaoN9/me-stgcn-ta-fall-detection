@@ -1,0 +1,26 @@
+Verified fold: proto_gcn_v2_ce_seed42_subject1
+Backed up: proto_gcn_v2_ce_seed42_subject1
+Verified fold: proto_gcn_v2_ce_seed42_subject2
+Backed up: proto_gcn_v2_ce_seed42_subject2
+Verified fold: proto_gcn_v2_ce_seed42_subject3
+Backed up: proto_gcn_v2_ce_seed42_subject3
+Verified fold: proto_gcn_v2_ce_seed42_subject4
+Backed up: proto_gcn_v2_ce_seed42_subject4
+Verified fold: proto_gcn_v2_ce_seed142_subject1
+Backed up: proto_gcn_v2_ce_seed142_subject1
+Verified fold: proto_gcn_v2_ce_seed142_subject2
+Backed up: proto_gcn_v2_ce_seed142_subject2
+Verified fold: proto_gcn_v2_ce_seed142_subject3
+Backed up: proto_gcn_v2_ce_seed142_subject3
+Verified fold: proto_gcn_v2_ce_seed142_subject4
+Backed up: proto_gcn_v2_ce_seed142_subject4
+Verified fold: proto_gcn_v2_ce_seed242_subject1
+Backed up: proto_gcn_v2_ce_seed242_subject1
+Verified fold: proto_gcn_v2_ce_seed242_subject2
+Backed up: proto_gcn_v2_ce_seed242_subject2
+Verified fold: proto_gcn_v2_ce_seed242_subject3
+Backed up: proto_gcn_v2_ce_seed242_subject3
+Verified fold: proto_gcn_v2_ce_seed242_subject4
+{'mode': 'full', 'complete': True, 'synthetic': False, 'scientific_result': True, 'signature': '6ae68380b5e24e73d6c57274c75a6008537c89a7ee6b13c324bd03b653116280', 'outer_runs': 12, 'inner_fits': 36, 'refits': 12, 'expected_fits': 48, 'actual_fits': 48, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42, 142, 242], 'models': ['proto_gcn_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 59177984}
+Backed up: proto_gcn_v2_ce_seed242_subject4
+{"backup": ".runtime\\proto_gcn_v2_ce-full-monitor-20261127-125112-backup", "output": ".runtime\\tung-modern-20261127\\proto_gcn_v2_ce-full", "telemetry": ".runtime\\proto_gcn_v2_ce-full-monitor-20261127-125112-telemetry.csv", "seconds": 281.19, "exit_code": 0, "thermal_stop": null, "samples": 367, "baseline": [0.718, 58, 0, 0, 12354.9], "peak": [65, 173, 50, 13888.9]}

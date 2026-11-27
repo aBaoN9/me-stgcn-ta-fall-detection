@@ -1,0 +1,4 @@
+Verified fold: cascadeformer_v2_ce_seed42_subject1
+{'mode': 'smoke', 'complete': True, 'synthetic': False, 'scientific_result': False, 'signature': 'e238a9a9162593df905b794d38ce0fe79f1457e3636867a76bdf1f3d61ab0742', 'outer_runs': 1, 'inner_fits': 3, 'refits': 1, 'expected_fits': 4, 'actual_fits': 4, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42], 'models': ['cascadeformer_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 25052672}
+Backed up: cascadeformer_v2_ce_seed42_subject1
+{"backup": ".runtime\\cascadeformer_v2_ce-smoke-monitor-20261127-124055-backup", "output": ".runtime\\tung-modern-20261127\\cascadeformer_v2_ce-smoke", "telemetry": ".runtime\\cascadeformer_v2_ce-smoke-monitor-20261127-124055-telemetry.csv", "seconds": 14.52, "exit_code": 0, "thermal_stop": null, "samples": 15, "baseline": [0.735, 69, 0, 0, 12302.5], "peak": [69, 123, 6, 13457.2]}

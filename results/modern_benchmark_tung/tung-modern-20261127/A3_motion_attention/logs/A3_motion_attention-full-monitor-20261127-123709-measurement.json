@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\A3_motion_attention-full-monitor-20261127-123709-backup",
+  "output": ".runtime\\tung-modern-20261127\\A3_motion_attention-full",
+  "telemetry": ".runtime\\A3_motion_attention-full-monitor-20261127-123709-telemetry.csv",
+  "seconds": 224.66,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 291,
+  "baseline": [
+    0.703,
+    58,
+    0,
+    0,
+    12732.3
+  ],
+  "peak": [
+    80,
+    297,
+    83,
+    14733.0
+  ]
+}

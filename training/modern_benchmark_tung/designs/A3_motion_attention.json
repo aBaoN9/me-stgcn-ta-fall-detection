@@ -1,0 +1,1 @@
+{"model":"A3_motion_attention","implementation":"unmodified notebook 07 SkeletonModel and fit_model","channels":8,"temporal_attention":true,"dropout":0.3,"fall_multiplier":1.0,"pretrained":false}

@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\hyper_gcn_v2_ce-smoke-monitor-20261127-124408-backup",
+  "output": ".runtime\\tung-modern-20261127\\hyper_gcn_v2_ce-smoke",
+  "telemetry": ".runtime\\hyper_gcn_v2_ce-smoke-monitor-20261127-124408-telemetry.csv",
+  "seconds": 17.38,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 18,
+  "baseline": [
+    0.172,
+    63,
+    0,
+    0,
+    12620.7
+  ],
+  "peak": [
+    63,
+    155,
+    15,
+    14706.2
+  ]
+}

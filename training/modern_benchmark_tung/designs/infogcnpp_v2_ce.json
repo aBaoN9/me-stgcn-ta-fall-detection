@@ -1,0 +1,16 @@
+{
+  "model": "infogcnpp_v2_ce",
+  "upstream_repo": "stnoah1/infogcn2",
+  "source_sha": "8c44085ac134f35dc85f683dcc775fdb43172ad1",
+  "paper": "https://arxiv.org/abs/2310.10547",
+  "license": "No LICENSE/NOTICE at assigned tree; independent implementation",
+  "implementation": "backbone adapted small, CE-only",
+  "input": [
+    8,
+    32,
+    33
+  ],
+  "dropout": 0.3,
+  "pretrained": false,
+  "adaptation": "Width 24, dynamic skeleton graph with causal four-head temporal encoder; latent Gaussian scale during training; graph-conditioned RK4 one-step latent flow; concatenate present/future; full-clip pooled classification; no reconstruction, future supervision or KL loss; no Apex/torchdiffeq required"
+}

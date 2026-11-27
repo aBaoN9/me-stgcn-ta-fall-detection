@@ -1,0 +1,7 @@
+variant,parameters,checkpoint_bytes,median_ms,p95_ms,samples,warmups,batch,shape,dtype,threads,device,gpu,peak_allocated_bytes,sample,checkpoint_seed,checkpoint_subject
+A3_motion_attention,422871,1742362,2.852099947631359,3.4327850502450015,200,30,1,"(1, 8, 32, 33)",torch.float32,4,cuda,NVIDIA GeForce RTX 3050 Laptop GPU,16254464,S1_ADL_01,42,1
+cascadeformer_v2_ce,61874,257054,1.4123499277047813,1.584459957666695,200,30,1,"(1, 8, 32, 33)",torch.float32,4,cuda,NVIDIA GeForce RTX 3050 Laptop GPU,9912832,S1_ADL_01,42,1
+dha_egcn_v2_ce,15682,85971,2.487699966877699,2.9707750247325744,200,30,1,"(1, 8, 32, 33)",torch.float32,4,cuda,NVIDIA GeForce RTX 3050 Laptop GPU,11448832,S1_ADL_01,42,1
+hyper_gcn_v2_ce,18866,100785,3.2733999541960657,3.715569997439161,200,30,1,"(1, 8, 32, 33)",torch.float32,4,cuda,NVIDIA GeForce RTX 3050 Laptop GPU,10692096,S1_ADL_01,42,1
+proto_gcn_v2_ce,10328,56772,2.1580999600701034,2.3247200064361095,200,30,1,"(1, 8, 32, 33)",torch.float32,4,cuda,NVIDIA GeForce RTX 3050 Laptop GPU,10491904,S1_ADL_01,42,1
+infogcnpp_v2_ce,12474,64788,2.823099959641695,3.3686350157950065,200,30,1,"(1, 8, 32, 33)",torch.float32,4,cuda,NVIDIA GeForce RTX 3050 Laptop GPU,11536896,S1_ADL_01,42,1

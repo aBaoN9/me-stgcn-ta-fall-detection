@@ -1,0 +1,22 @@
+{
+  "backup": ".runtime\\infogcnpp_v2_ce-smoke-monitor-20261127-125554-backup",
+  "output": ".runtime\\tung-modern-20261127\\infogcnpp_v2_ce-smoke",
+  "telemetry": ".runtime\\infogcnpp_v2_ce-smoke-monitor-20261127-125554-telemetry.csv",
+  "seconds": 14.5,
+  "exit_code": 0,
+  "thermal_stop": null,
+  "samples": 15,
+  "baseline": [
+    0.75,
+    58,
+    0,
+    0,
+    12218.2
+  ],
+  "peak": [
+    61,
+    265,
+    48,
+    13473.8
+  ]
+}

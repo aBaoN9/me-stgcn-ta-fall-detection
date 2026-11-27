@@ -1,0 +1,4 @@
+Verified fold: hyper_gcn_v2_ce_seed42_subject1
+{'mode': 'smoke', 'complete': True, 'synthetic': False, 'scientific_result': False, 'signature': '5bf2f683489a18340e6199f80ee2c60e6dd34dd923666b0b2c91548d562d4033', 'outer_runs': 1, 'inner_fits': 3, 'refits': 1, 'expected_fits': 4, 'actual_fits': 4, 'reload': 'PASS', 'coverage': 'PASS', 'seeds': [42], 'models': ['hyper_gcn_v2_ce'], 'policies': ['fixed', 'balanced', 'sensitivity'], 'peak_allocated_bytes': 49834496}
+Backed up: hyper_gcn_v2_ce_seed42_subject1
+{"backup": ".runtime\\hyper_gcn_v2_ce-smoke-monitor-20261127-124408-backup", "output": ".runtime\\tung-modern-20261127\\hyper_gcn_v2_ce-smoke", "telemetry": ".runtime\\hyper_gcn_v2_ce-smoke-monitor-20261127-124408-telemetry.csv", "seconds": 17.38, "exit_code": 0, "thermal_stop": null, "samples": 18, "baseline": [0.172, 63, 0, 0, 12620.7], "peak": [63, 155, 15, 14706.2]}
